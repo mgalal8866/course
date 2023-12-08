@@ -14,6 +14,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    savefile();
-    return 'Dashboard';
+    // savefile();
+    return view('layouts.Dashboard.app');
 });
