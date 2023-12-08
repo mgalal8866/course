@@ -80,7 +80,7 @@
             <h6 class="section-label mt-75 mb-0">Files</h6>
         </a>
     </li>
-    <li class="auto-suggestion">
+    {{-- <li class="auto-suggestion">
         <a class="d-flex align-items-center justify-content-between w-100" href="app-file-manager.html">
             <div class="d-flex">
                 <div class="me-75"><img src={{URL::asset('asset/images/icons/xls.png')}} alt="png" height="32">
@@ -91,8 +91,8 @@
                 </div>
             </div><small class="search-data-size me-50 text-muted">&apos;17kb</small>
         </a>
-    </li>
-    <li class="auto-suggestion">
+    </li> --}}
+    {{-- <li class="auto-suggestion">
         <a class="d-flex align-items-center justify-content-between w-100" href="app-file-manager.html">
             <div class="d-flex">
                 <div class="me-75"><img src={{URL::asset('asset/images/icons/jpg.png')}} alt="png" height="32">
@@ -103,8 +103,8 @@
                 </div>
             </div><small class="search-data-size me-50 text-muted">&apos;11kb</small>
         </a>
-    </li>
-    <li class="auto-suggestion">
+    </li> --}}
+    {{-- <li class="auto-suggestion">
         <a class="d-flex align-items-center justify-content-between w-100" href="app-file-manager.html">
             <div class="d-flex">
                 <div class="me-75"><img src={{URL::asset('asset/images/icons/pdf.png')}} alt="png" height="32">
@@ -115,8 +115,8 @@
                 </div>
             </div><small class="search-data-size me-50 text-muted">&apos;150kb</small>
         </a>
-    </li>
-    <li class="auto-suggestion">
+    </li> --}}
+    {{-- <li class="auto-suggestion">
         <a class="d-flex align-items-center justify-content-between w-100" href="app-file-manager.html">
             <div class="d-flex">
                 <div class="me-75"><img src={{URL::asset('asset/images/icons/doc.png')}} alt="png" height="32">
@@ -126,7 +126,7 @@
                 </div>
             </div><small class="search-data-size me-50 text-muted">&apos;256kb</small>
         </a>
-    </li>
+    </li> --}}
     <li class="d-flex align-items-center">
         <a href="#">
             <h6 class="section-label mt-75 mb-0">Members</h6>
