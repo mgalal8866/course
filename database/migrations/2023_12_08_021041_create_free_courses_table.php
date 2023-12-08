@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('course_trainers', function (Blueprint $table) {
+        Schema::create('free_courses', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->integer('course_id');
-            $table->integer('trainer_id');
+            $table->string('name');
+            $table->string('video_link');
+            $table->integer('category_id');
+            $table->boolean('active')->default(1);
             $table->timestamps();
         });
     }
@@ -24,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('course_trainers');
+        Schema::dropIfExists('free_courses');
     }
 };
