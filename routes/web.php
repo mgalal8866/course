@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Livewire\Dashboard\FreeCourse\FreeCourse;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,7 +15,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    // savefile();
-    return view('layouts.Dashboard.app');
-});
+Route::group(
+    [
+        'prefix' => LaravelLocalization::setLocale().'/dashboard/' ,
+        'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
+    ],
+    function () {
+        Route::get('/', function () {
+            return view('layouts.Dashboard.app');
+        });
+        Route::get('/free-course', FreeCourse::class)->name('freecourse');
+    }
+);

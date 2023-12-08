@@ -41,7 +41,7 @@
                  </a>
                  <ul class="menu-content">
                      <li>
-                         <a class="d-flex align-items-center" href=" ">
+                         <a class="d-flex align-items-center" href="{{route('freecourse')}}">
                              <i data-feather="circle"></i>
                              <span class="menu-item text-truncate">{{ __('tran.freecourse') }}</span>
                          </a>

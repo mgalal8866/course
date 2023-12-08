@@ -34,7 +34,17 @@
             </ul> --}}
         </div>
         <ul class="nav navbar-nav align-items-center ms-auto">
+            <li class="nav-item dropdown dropdown-language">
+                <a class="nav-link dropdown-toggle" id="dropdown-flag" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="flag-icon flag-icon-{{App::getLocale()== 'en' ?'us':'eg'}}"></i><span class="selected-language"> {{ LaravelLocalization::getCurrentLocaleNative() }}</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-flag">
+                    @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                        <a class="dropdown-item" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}" data-language="en"><i class="flag-icon flag-icon-{{$localeCode == 'en' ?'us':'eg'}}"></i>{{ $properties['native'] }} </a>
 
+                    @endforeach
+                </div>
+            </li>
             <li class="nav-item d-none d-lg-block">
                 <a class="nav-link nav-link-style">
                     <i class="ficon" data-feather="moon"></i>
