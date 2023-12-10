@@ -8,7 +8,9 @@ return [
     'categorys'       => 'الاقسام',
     'statu'           => 'الحالة',
     'action'          => 'العمليات',
-    'newcategory'    => 'اضافة قسم',
+    'newcategory'     => 'اضافة قسم',
+    'cancel'          => 'الغاء',
+    'save'            => 'حفظ',
 
 
 ];
