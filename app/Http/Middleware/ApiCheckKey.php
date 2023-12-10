@@ -12,8 +12,8 @@ class ApiCheckKey
 
     public function handle(Request $request, Closure $next): Response
     {
-        
-        if ($request->header('api-token')  == 'TESTPOSTMAN') {
+        if ($request->header('api-token')  === 'TESTPOSTMAN') {
+            // dd($request->header('api-token'));
             return $next($request);
         }
         if (env('API_KEY') != false) {
@@ -30,7 +30,12 @@ class ApiCheckKey
                 return $next($request);
             }
         } else {
-            return $next($request);
+            $data = [
+                'status' => 400,
+                'msg'    => 'Api Token Not Found'
+            ];
+            return response()->json($data);
+            // return $next($request);
         }
     }
 }
