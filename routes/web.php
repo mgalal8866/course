@@ -23,7 +23,7 @@ Route::group(
     ],
     function () {
         Route::get('/', function () {
-            return view('layouts.Dashboard.app');
+            return view('layouts.dashboard.app');
         });
         Route::get('/free-course', FreeCourse::class)->name('freecourse');
         Route::get('/category/free-course', CategoryFreeCourse::class)->name('categoryfree');
