@@ -10,5 +10,6 @@ class CategoryFCourse extends Model
 {
     use UUID,HasFactory;
 
-     
+    protected $fillable = [
+        'name','active' ];
 }
