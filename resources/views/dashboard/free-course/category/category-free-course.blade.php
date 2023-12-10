@@ -4,11 +4,11 @@
             <div class="card outline-success">
                 <div class="card-header">
                     <h4 class="card-title">{{ __('tran.category_free') }}</h4>
-                    {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editUser">{{__('tran.newcategory')}}</button> --}}
-                    <button wire:click="$dispatch('openmodel')">Show Users</button>
-                        @livewire('dashboard.free-course.category.new-category')
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editUser">{{__('tran.newcategory')}}</button>
+                    {{-- <button type="button" class="btn btn-primary" wire:click="$dispatch('openmodel')">{{__('tran.newcategory')}}</button> --}}
 
                 </div>
+                @livewire('dashboard.free-course.category.new-category')
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
