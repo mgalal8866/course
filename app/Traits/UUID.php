@@ -33,4 +33,8 @@ trait UUID
     {
         return 'string';
     }
+
+    public function ScopeActive($q,$value) {
+        return $q->where('active',$value);
+    }
 }

@@ -7,7 +7,7 @@
 <body class="vertical-layout vertical-menu-modern  navbar-floating footer-static  " data-open="click"
     data-menu="vertical-menu-modern" data-col="">
 
- 
+
     @include('layouts.dashboard.nav')
 
     @include('layouts.dashboard.menu')
@@ -33,7 +33,7 @@
     @include('layouts.dashboard.footer')
 
     @include('layouts.dashboard.script')
-
+    {{-- @livewire('livewire-ui-modal') --}}
 </body>
 
 </html>
