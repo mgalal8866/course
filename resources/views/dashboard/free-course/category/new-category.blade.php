@@ -9,7 +9,6 @@
                 <div class="modal-body pb-5 px-sm-5 pt-50">
                     <div class="text-center mb-2">
                         <h1 class="mb-1">{{__('tran.newcategory')}}</h1>
-                        {{-- <p>Updating user details will receive a privacy audit.</p> --}}
                     </div>
                     <form id="editUserForm" class="row gy-1 pt-75" onsubmit="return false">
                         <div class="col-12 col-md-12">
