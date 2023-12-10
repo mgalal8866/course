@@ -20,6 +20,10 @@ return new class extends Migration
             $table->string('phone_parent')->nullable();
             $table->string('email_parent')->nullable();
             $table->timestamp('email_verified_at')->nullable();
+            $table->string('country')->nullable();
+            $table->boolean('gender')->nullable();
+            $table->decimal('point',8,0)->default(0);
+            $table->decimal('wallet',8,2)->default(0);
             $table->string('password');
             $table->boolean('active')->default(1);
             $table->rememberToken();

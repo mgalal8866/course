@@ -47,7 +47,7 @@
                          </a>
                      </li>
                      <li>
-                         <a class="d-flex align-items-center" href="">
+                         <a class="d-flex align-items-center" href="{{route('categoryfree')}}">
                              <i data-feather="circle"></i>
                              <span class="menu-item text-truncate">{{ __('tran.category_free') }}</span>
                          </a>

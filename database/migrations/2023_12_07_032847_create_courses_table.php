@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('description');
             $table->string('schedule');
             $table->string('price');
-            $table->string('video');
             $table->string('start_date');
             $table->string('end_date');
             $table->string('image');

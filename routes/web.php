@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Dashboard\FreeCourse\CategoryFreeCourse;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Dashboard\FreeCourse\FreeCourse;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -25,5 +26,6 @@ Route::group(
             return view('layouts.Dashboard.app');
         });
         Route::get('/free-course', FreeCourse::class)->name('freecourse');
+        Route::get('/category/free-course', CategoryFreeCourse::class)->name('categoryfree');
     }
 );

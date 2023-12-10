@@ -2,12 +2,14 @@
 
 namespace App\Livewire\Dashboard\FreeCourse;
 
+use App\Models\CategoryFCourse;
 use Livewire\Component;
 
 class CategoryFreeCourse extends Component
 {
     public function render()
     {
-        return view('dashboard.free-course.category-free-course');
+        $CfCourse = CategoryFCourse::get();
+         return view('dashboard.free-course.category-free-course',compact('CfCourse'));
     }
 }

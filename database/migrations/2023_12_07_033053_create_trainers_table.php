@@ -13,7 +13,12 @@ return new class extends Migration
     {
         Schema::create('trainers', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('name');
+            $table->string('name')->nullable();
+            $table->string('email')->nullable();
+            $table->string('country')->nullable();
+            $table->string('specialist')->nullable();
+            $table->string('balance')->nullable();
+            $table->string('gender')->nullable();
             $table->timestamps();
         });
     }

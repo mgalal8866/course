@@ -15,7 +15,7 @@ return [
     | any other location as required by the application or its packages.
     |
     */
-
+    'api_latest' => 'v1',
     'name' => env('APP_NAME', 'Laravel'),
 
     /*
@@ -190,7 +190,6 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
-        'Jwt' => Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
 
