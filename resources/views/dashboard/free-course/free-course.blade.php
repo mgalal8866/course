@@ -19,10 +19,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($CfCourse  as $item)
+                            @forelse ($freecourse  as $item)
                                 <tr>
                                     <td>
                                         <span class="fw-bold">{{ $item->name ?? 'N/A' }}</span>
+                                    </td>
+                                    <td>
+                                        <span class="fw-bold">{{ $item->video_link ?? 'N/A' }}</span>
                                     </td>
                                     <td>
                                         <span
@@ -45,9 +48,9 @@
                                         </span>
                                     </td>
                                     <td>
-                                        <a   wire:click="$dispatch('edit',{id:'{{$item->id}}'})"><i  class="fas fa-edit fa-lg"  style="color: #c2881e;"></i></i></a>
+                                        {{-- <a   wire:click="$dispatch('edit',{id:'{{$item->id}}'})"><i  class="fas fa-edit fa-lg"  style="color: #c2881e;"></i></i></a>
                                         <a wire:click="delete('{{$item->id}}')"><i  class="fas fa-trash-alt fa-lg "  style="color: #ff0000;"></i></i></a>
-                                        <a  wire:click="activetoggle('{{$item->id}}')"> <i   class="fas {{$item->active ==1 ?'fas fa-eye':'fa-eye-slash'}} fa-lg "   style="{{$item->active ==1 ?'color: #1caa0f;':''}}"></i></a>
+                                        <a  wire:click="activetoggle('{{$item->id}}')"> <i   class="fas {{$item->active ==1 ?'fas fa-eye':'fa-eye-slash'}} fa-lg "   style="{{$item->active ==1 ?'color: #1caa0f;':''}}"></i></a> --}}
                                     </td>
                                 </tr>
                                 @empty
