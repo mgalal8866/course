@@ -9,19 +9,23 @@ class NewCategory extends Component
 {
 
     protected $listeners = ['edit' => 'edit'];
-    public $name,$edit=false,$id;
+    public $name,$edit=false,$id,$header;
     public function edit($id = null)
     {
-        $this->dispatch('openmodel');
         if ($id != null) {
             $CFC = CategoryFCourse::find($id);
             $this->name = $CFC->name;
             $this->id = $id;
             $this->edit = true;
+            $this->header = __('tran.editcategory');
+        }else{
+          $this->name =null;
+          $this->header = __('tran.newcategory');
         }
+        $this->dispatch('openmodel');
     }
     protected $rules = [
-        'name' => 'required|min:6',
+        'name' => 'required',
 
     ];
 
@@ -34,10 +38,10 @@ class NewCategory extends Component
         }else{
             CategoryFCourse::create(['name' => $this->name]);
         }
+        $this->edit = false;
         $this->dispatch('closemodel');
         $this->dispatch('r');
         $this->reset('name');
-
 
     }
     public function render()

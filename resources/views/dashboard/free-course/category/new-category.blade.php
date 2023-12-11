@@ -4,11 +4,12 @@
         <div class="modal-dialog  modal-dialog-centered modal-edit-user">
             <div class="modal-content">
                 <div class="modal-header bg-transparent">
+
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body pb-5 px-sm-5 pt-50">
                     <div class="text-center mb-2">
-                        <h1 class="mb-1">{{__('tran.newcategory')}}</h1>
+                        <h1 class="mb-1">{{$header}}</h1>
                     </div>
                     <form id="editUserForm" class="row gy-1 pt-75"  wire:submit.prevent="save">
                         <div class="col-12 col-md-12">

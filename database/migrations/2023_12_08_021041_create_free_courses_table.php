@@ -15,7 +15,8 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('name');
             $table->string('video_link');
-            $table->integer('category_id');
+            $table->string('image')->nullable();
+            $table->integer('category_id')->nullable();
             $table->boolean('active')->default(1);
             $table->timestamps();
         });

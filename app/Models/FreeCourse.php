@@ -2,10 +2,24 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Traits\UUID;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class FreeCourse extends Model
 {
-    use HasFactory;
+    use UUID, HasFactory;
+
+    protected $fillable = [
+        'name',
+        'active',
+        'image',
+        'video_link',
+        'category_id'
+    ];
+
+    public function category()
+    {
+        return $this->belongsTo(CategoryFCourse::class, 'category_id');
+    }
 }

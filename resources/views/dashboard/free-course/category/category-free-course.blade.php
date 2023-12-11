@@ -4,8 +4,7 @@
             <div class="card outline-success">
                 <div class="card-header">
                     <h4 class="card-title">{{ __('tran.category_free') }}</h4>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editUser">{{__('tran.newcategory')}}</button>
-                    {{-- <button type="button" class="btn btn-primary" wire:click="$dispatch('openmodel')">{{__('tran.newcategory')}}</button> --}}
+                    <a  class="btn btn-primary" wire:click="$dispatch('edit')">{{__('tran.newcategory')}}</a>
 
                 </div>
                 @livewire('dashboard.free-course.category.new-category')
