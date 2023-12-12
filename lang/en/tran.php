@@ -24,4 +24,6 @@ return [
     'trainees'        => 'Trainees',
     'courses'        => 'Courses',
     'view'            => 'View',
+    'trainer'         => 'Trainer',
+    'add'             => 'Add',
 ];

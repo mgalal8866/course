@@ -3,8 +3,8 @@
         <div class="col-12">
             <div class="card outline-success">
                 <div class="card-header">
-                    <h4 class="card-title">{{ __('tran.trainers') .  __('tran.view') }}</h4>
-                    <a  class="btn btn-primary" wire:click="$dispatch('edit')">{{__('tran.newcategory')}}</a>
+                    <h4 class="card-title">{{   __('tran.view') . ' '. __('tran.trainers')  }}</h4>
+                    <a  class="btn btn-primary" wire:click="$dispatch('edit')">{{__('tran.add') . ' ' .__('tran.trainer')}}</a>
 
                 </div>
                 @livewire('dashboard.trainers.new-trainers')
@@ -12,7 +12,13 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>{{ __('tran.category') }}</th>
+                                <th>{{ __('tran.name') }}</th>
+                                <th>{{ __('tran.specialist') }}</th>
+                                <th>{{ __('tran.phone') }}</th>
+                                <th>{{ __('tran.mail') }}</th>
+                                <th>{{ __('tran.country') }}</th>
+                                <th>{{ __('tran.gender') }}</th>
+                                <th>{{ __('tran.balance') }}</th>
                                 <th>{{ __('tran.statu') }}</th>
                                 <th>{{ __('tran.action') }}</th>
                             </tr>
@@ -22,6 +28,24 @@
                                 <tr>
                                     <td>
                                         <span class="fw-bold">{{ $item->name ?? 'N/A' }}</span>
+                                    </td>
+                                    <td>
+                                        <span class="fw-bold">{{ $item->specialist ?? 'N/A' }}</span>
+                                    </td>
+                                    <td>
+                                        <span class="fw-bold">{{ $item->phone ?? 'N/A' }}</span>
+                                    </td>
+                                    <td>
+                                        <span class="fw-bold">{{ $item->mail ?? 'N/A' }}</span>
+                                    </td>
+                                    <td>
+                                        <span class="fw-bold">{{ $item->country ?? 'N/A' }}</span>
+                                    </td>
+                                    <td>
+                                        <span class="fw-bold">{{ $item->gender ?? 'N/A' }}</span>
+                                    </td>
+                                    <td>
+                                        <span class="fw-bold">{{ $item->balance ?? 'N/A' }}</span>
                                     </td>
                                     <td>
                                         <span
@@ -51,7 +75,7 @@
                                 </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="8" class="alert alert-danger text-center"> No Data Here</td>
+                                        <td colspan="10" class="alert alert-danger text-center"> No Data Here</td>
                                     </tr>
                                 @endforelse
                             </tbody>

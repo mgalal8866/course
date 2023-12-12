@@ -3,7 +3,8 @@
 namespace App\Livewire\Dashboard\Trainers;
 
 
-use App\Models\Category;
+
+use App\Models\Trainer;
 use Livewire\Component;
 
 class NewTrainers extends Component
@@ -14,15 +15,15 @@ class NewTrainers extends Component
     public function edit($id = null)
     {
         if ($id != null) {
-            $CC = Category::find($id);
+            $CC = Trainer::find($id);
             $this->name = $CC->name;
             $this->id = $id;
             $this->edit = true;
-            $this->header = __('tran.editcategory');
+            $this->header = __('tran.add') .' '. __('tran.trainer');
         }else{
           $this->name =null;
           $this->edit = false;
-          $this->header = __('tran.newcategory');
+          $this->header =  __('tran.add') .' '.__('tran.trainer');
         }
         $this->dispatch('openmodel');
     }
@@ -35,14 +36,14 @@ class NewTrainers extends Component
     {
         $this->validate();
         if( $this->edit == true){
-            $CC = Category::find($this->id);
+            $CC = Trainer::find($this->id);
             $CC->update(['name' => $this->name]);
         }else{
-            Category::create(['name' => $this->name]);
+            Trainer::create(['name' => $this->name]);
         }
         $this->edit = false;
         $this->dispatch('closemodel');
-        $this->dispatch('category_course_refresh');
+        $this->dispatch('trainer_course_refresh');
         $this->reset('name');
 
     }
