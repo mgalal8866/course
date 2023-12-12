@@ -11,7 +11,7 @@ class NewTrainers extends Component
 {
 
     protected $listeners = ['edit' => 'edit'];
-    public $name,$edit=false,$id,$header;
+    public $phone,$mail,$balance,$country,$gender,$specialist,$name,$edit=false,$id,$header;
     public function edit($id = null)
     {
         if ($id != null) {
@@ -23,24 +23,34 @@ class NewTrainers extends Component
         }else{
           $this->name =null;
           $this->edit = false;
-          $this->header =  __('tran.add') .' '.__('tran.trainer');
+          $this->header =  __('tran.edit') .' '.__('tran.trainer');
         }
         $this->dispatch('openmodel');
     }
     protected $rules = [
-        'name' => 'required',
+        'name'       => 'required',
+        'phone'      => 'required',
+        'mail'       => 'required',
+        'balance'    => 'required',
+        'country'    => 'required',
+        'gender'     => 'required',
+        'specialist' => 'required',
+
 
     ];
 
     public function save()
     {
         $this->validate();
-        if( $this->edit == true){
-            $CC = Trainer::find($this->id);
-            $CC->update(['name' => $this->name]);
-        }else{
-            Trainer::create(['name' => $this->name]);
-        }
+        $CFC = Trainer::updateOrCreate(['id' => $this->id], [
+            'name'       => $this->name,
+            'phone'      => $this->phone,
+            'mail'       => $this->mail,
+            'balance'    => $this->balance,
+            'country'    => $this->country,
+            'gender'     => $this->gender,
+            'specialist' => $this->specialist,
+        ]);
         $this->edit = false;
         $this->dispatch('closemodel');
         $this->dispatch('trainer_course_refresh');
