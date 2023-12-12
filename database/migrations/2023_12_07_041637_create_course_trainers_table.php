@@ -15,6 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->integer('course_id');
             $table->integer('trainer_id');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

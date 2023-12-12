@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('course_id');
             $table->string('name');
             $table->string('link_video');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

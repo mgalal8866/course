@@ -20,6 +20,7 @@ class NewCategory extends Component
             $this->header = __('tran.editcategory');
         }else{
           $this->name =null;
+          $this->edit = false;
           $this->header = __('tran.newcategory');
         }
         $this->dispatch('openmodel');
@@ -32,7 +33,7 @@ class NewCategory extends Component
     public function save()
     {
         $this->validate();
-        if( $this->edit = true){
+        if( $this->edit == true){
             $CFC = CategoryFCourse::find($this->id);
             $CFC->update(['name' => $this->name]);
         }else{

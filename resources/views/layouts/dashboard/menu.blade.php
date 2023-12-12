@@ -4,7 +4,7 @@
              <li class="nav-item me-auto"><a class="navbar-brand" href="/"><span class="brand-logo">
                          <img src="{{ asset('asset/images/logo.jpg') }}" width="30" />
                      </span>
-                     <h2 class="brand-text">{{env('APP_NAME')}}</h2>
+                     <h2 class="brand-text">{{ env('APP_NAME') }}</h2>
                  </a></li>
              <li class="nav-item nav-toggle"><a class="nav-link modern-nav-toggle pe-0" data-bs-toggle="collapse"><i
                          class="d-block d-xl-none text-primary toggle-icon font-medium-4"> <svg
@@ -36,22 +36,104 @@
              </li>
              <li class=" nav-item">
                  <a class="d-flex align-items-center" href="#">
-                     <i data-feather="layout"></i>
+                     {{-- <i data-feather="layout"></i> --}}
+                     <i class="fas fa-book-open"></i>
                      <span class="menu-title text-truncate">{{ __('tran.freecourse') }}</span>
                  </a>
                  <ul class="menu-content">
                      <li>
-                         <a class="d-flex align-items-center" href="{{route('freecourse')}}">
+                         <a class="d-flex align-items-center" href="{{ route('freecourse') }}">
                              <i data-feather="circle"></i>
                              <span class="menu-item text-truncate">{{ __('tran.freecourse') }}</span>
                          </a>
                      </li>
                      <li>
-                         <a class="d-flex align-items-center" href="{{route('categoryfree')}}">
+                         <a class="d-flex align-items-center" href="{{ route('categoryfree') }}">
                              <i data-feather="circle"></i>
                              <span class="menu-item text-truncate">{{ __('tran.category_free') }}</span>
                          </a>
                      </li>
+                 </ul>
+             </li>
+             <li class=" nav-item">
+                 <a class="d-flex align-items-center" href="#">
+                     <i class="fas fa-book"></i>
+                     <span class="menu-title text-truncate">{{ __('tran.courses') }}</span>
+                 </a>
+                 <ul class="menu-content">
+                     <li>
+                         <a class="d-flex align-items-center" href="{{ route('category') }}">
+                             <i data-feather="circle"></i>
+                             <span class="menu-item text-truncate">{{ __('tran.categorys') }}</span>
+                         </a>
+                     </li>
+                     {{-- <li>
+                         <a class="d-flex align-items-center" href="{{route('categoryfree')}}">
+                             <i data-feather="circle"></i>
+                             <span class="menu-item text-truncate">{{ __('tran.category') }}</span>
+                         </a>
+                     </li> --}}
+                 </ul>
+             </li>
+
+             <li class=" nav-item">
+                 <a class="d-flex align-items-center" href="#">
+                     <i class="fas fa-copy"></i>
+                     <span class="menu-title text-truncate">{{ __('tran.exams') }}</span>
+                 </a>
+                 <ul class="menu-content">
+                     <li>
+                         <a class="d-flex align-items-center" href="{{ route('examcategory') }}">
+                             <i data-feather="circle"></i>
+                             <span class="menu-item text-truncate">{{ __('tran.categorys') }}</span>
+                         </a>
+                     </li>
+                     {{-- <li>
+                         <a class="d-flex align-items-center" href="{{route('categoryfree')}}">
+                             <i data-feather="circle"></i>
+                             <span class="menu-item text-truncate">{{ __('tran.category') }}</span>
+                         </a>
+                     </li> --}}
+                 </ul>
+             </li>
+             <li class=" nav-item">
+                 <a class="d-flex align-items-center" href="#">
+                     <i class="fas fa-user-shield"></i>
+                     <span class="menu-title text-truncate">{{ __('tran.trainers') }}</span>
+                 </a>
+                 <ul class="menu-content">
+                     <li>
+                        <a class="d-flex align-items-center" href="{{route('trainers')}}">
+                            <i data-feather="circle"></i>
+                            <span class="menu-item text-truncate">{{  __('tran.view')  . ' '. __('tran.trainers')  }}</span>
+                        </a>
+                    </li>
+                     {{-- <li>
+                        <a class="d-flex align-items-center" href="{{route('categoryfree')}}">
+                            <i data-feather="circle"></i>
+                            <span class="menu-item text-truncate">{{ __('tran.category') }}</span>
+                        </a>
+                    </li> --}}
+                 </ul>
+             </li>
+             <li class=" nav-item">
+                 <a class="d-flex align-items-center" href="#">
+                     <i class="fas fa-user-graduate"></i>
+                     <span class="menu-title text-truncate">{{ __('tran.trainees') }}</span>
+                 </a>
+                 <ul class="menu-content">
+                     {{-- <li>
+                        <a class="d-flex align-items-center" href="{{route('examcategory')}}">
+                            <i data-feather="circle"></i>
+                            <span class="menu-item text-truncate">{{ __('tran.categorys') }}</span>
+                        </a>
+                    </li> --}}
+                     {{-- <li>
+                        <a class="d-flex align-items-center" href="{{route('categoryfree')}}">
+                            <i data-feather="circle"></i>
+                            <span class="menu-item text-truncate">{{ __('tran.category') }}</span>
+                        </a>
+                    </li> --}}
                  </ul>
              </li>
          </ul>

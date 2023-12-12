@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('payment_statu');
             $table->boolean('subscribe');
             $table->string('Receipt');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

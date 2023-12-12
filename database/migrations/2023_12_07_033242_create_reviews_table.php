@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('reviews', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

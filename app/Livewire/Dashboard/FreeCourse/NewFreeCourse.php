@@ -4,62 +4,67 @@ namespace App\Livewire\Dashboard\FreeCourse;
 
 use App\Models\CategoryFCourse;
 use App\Models\FreeCourse;
+use App\Traits\ImageProcessing;
+use Livewire\WithFileUploads;
 use Livewire\Component;
 
 class NewFreeCourse extends Component
 {
-
+    use WithFileUploads, ImageProcessing;
     protected $listeners = ['edit' => 'edit'];
-    public $name,$link, $image, $category_id, $category, $edit=false,$id,$header;
+    public $name, $link, $imagold, $image, $category_id, $category, $edit = false, $id, $header;
+
+    protected function rules()
+    {
+        $rules = [
+            'name'         => 'required',
+            'category_id'  => 'nullable|required',
+            'image'        => '',
+            'link'         => 'required',
+        ];
+        if ($this->image) {
+            $rules = array_merge($rules, [
+                'image' => 'mimes:jpeg,png,jpg,gif|max:1024'
+            ]);
+        }
+        return $rules;
+    }
+
     public function edit($id = null)
     {
-        $this->dispatch('openmodel');
+        $this->reset();
         if ($id != null) {
             $FC = FreeCourse::find($id);
             $this->name        = $FC->name;
             $this->category_id = $FC->category_id;
-            $this->image       = $FC->image;
+            $this->imagold     = $FC->imageurl;
             $this->link        = $FC->video_link;
             $this->id          = $id;
             $this->edit = true;
             $this->header = __('tran.editfreecourse');
-        }else{
-            $this->name = null;
-            $this->link = null;
-            $this->image = null;
-            $this->category_id = null;
-            $this->category = null;
-            $this->edit = false;
-            $this->header = __('tran.newfreecourse');}
+        } else {
+            $this->header = __('tran.newfreecourse');
+        }
+        $this->dispatch('openmodel');
     }
-    protected $rules = [
-        'name'         => 'required',
-        'category_id'  => 'nullable|required',
-        'image'        => 'required',
-        'link'         => 'required',
 
-    ];
 
     public function save()
     {
         $this->validate();
-        if( $this->edit == true){
-            $CFC = FreeCourse::find($this->id);
-            $CFC->update(['name' => $this->name]);
-        }else{
-
-            FreeCourse::create([
-                'name'        => $this->name,
-                'category_id' => $this->category_id,
-                'image'       => $this->image,
-                'video_link'  => $this->link,
-            ]);
+        $dataX = array();
+        $CFC = FreeCourse::updateOrCreate(['id' => $this->id], [
+            'name'        => $this->name,
+            'category_id' => $this->category_id,
+            'video_link'  => $this->link,
+        ]);
+        if ($this->image) {
+            $dataX =  $this->saveImageAndThumbnail($this->image, false, $this->id, 'free_courses');
+            $CFC->image =  $dataX['image'];
+            $CFC->save();
         }
         $this->dispatch('closemodel');
         $this->dispatch('rFreeCourse');
-        $this->reset('name');
-        $this->edit = false;
-
     }
     public function render()
     {

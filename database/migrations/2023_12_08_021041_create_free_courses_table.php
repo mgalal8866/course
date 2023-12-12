@@ -16,8 +16,9 @@ return new class extends Migration
             $table->string('name');
             $table->string('video_link');
             $table->string('image')->nullable();
-            $table->integer('category_id')->nullable();
+            $table->uuid('category_id')->nullable();
             $table->boolean('active')->default(1);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

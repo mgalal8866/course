@@ -8,13 +8,13 @@
                 </div>
                 <div class="modal-body pb-5 px-sm-5 pt-50">
                     <div class="text-center mb-2">
-                        <h1 class="mb-1">{{$header}}</h1>
+                        <h1 class="mb-1">{{ $header }}</h1>
                     </div>
                     <form id="editUserForm" class="row gy-1 pt-75" wire:submit.prevent="save">
                         <div class="col-12 col-md-12">
                             <label class="form-label" for="modalEditUserFirstName">{{ __('tran.category') }}</label>
                             <select class="form-select" wire:model='category_id'>
-                                <option value="" > اختيارالقسم</option>
+                                <option value=""> اختيارالقسم</option>
                                 @foreach ($category as $c)
                                     <option value="{{ $c->id }}">{{ $c->name }}</option>
                                 @endforeach
@@ -41,9 +41,7 @@
                             @enderror
                         </div>
                         <div class="col-12 col-md-12">
-                            <label class="form-label" for="modalEditUserFirstName">{{ __('tran.image') }}</label>
-                            <input type="text" class="form-control" wire:model="image"
-                                data-msg="Please enter your first name" />
+                            <x-imageupload wire:model='image' :imagenew="$image" :imageold="$imagold" />
                             @error('image')
                                 <span class="error" style="color: red">{{ $message }}</span>
                             @enderror

@@ -42,6 +42,7 @@ return new class extends Migration
             $table->string('file_supplementary');
             $table->string('file_free');
             $table->string('file_test');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('specialist')->nullable();
             $table->string('balance')->nullable();
             $table->string('gender')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

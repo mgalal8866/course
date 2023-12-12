@@ -14,9 +14,9 @@
                     <table class="table">
                         <thead>
                             <tr>
+                                <th>{{ __('tran.image') }}</th>
                                 <th>{{ __('tran.name') }}</th>
                                 <th>{{ __('tran.category') }}</th>
-                                <th>{{ __('tran.image') }}</th>
                                 <th>{{ __('tran.videolink') }}</th>
                                 <th>{{ __('tran.statu') }}</th>
                                 <th>{{ __('tran.action') }}</th>
@@ -26,14 +26,15 @@
                             @forelse ($freecourse  as $item)
                                 <tr>
                                     <td>
+                                        <img src="{{ $item->imageurl ?? 'N/A' }}" class="me-75" height="50" width="50" alt="Noimage" />
+                                    </td>
+                                    <td>
                                         <span class="fw-bold">{{ $item->name ?? 'N/A' }}</span>
                                     </td>
                                     <td>
                                         <span class="fw-bold">{{ $item->category->name ?? 'N/A' }}</span>
                                     </td>
-                                    <td>
-                                        <span class="fw-bold">{{ $item->image ?? 'N/A' }}</span>
-                                    </td>
+
                                     <td>
                                         <span class="fw-bold">{{ $item->video_link ?? 'N/A' }}</span>
                                     </td>

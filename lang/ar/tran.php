@@ -4,6 +4,7 @@ return [
     'dashboard'       => 'الرئيسية',
     'freecourse'      => 'شروحات مجانية',
     'category_free'   => 'اقسام الشروحات المجانية',
+    'courses'         => 'الدورات',
     'category'        => 'القسم',
     'categorys'       => 'الاقسام',
     'statu'           => 'الحالة',
@@ -19,6 +20,10 @@ return [
     'image'           => 'صورة',
     'title'           => 'العنوان',
     'link'            => 'رابط',
+    'exams'           => 'ألاختبارات',
+    'trainers'        => 'المدربين',
+    'trainees'        => 'المتدربين',
+    'view'        => 'عرض',
 
 
 
