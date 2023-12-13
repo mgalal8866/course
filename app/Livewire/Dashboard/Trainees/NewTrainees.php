@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Livewire\Dashboard\Trainers;
+namespace App\Livewire\Dashboard\Trainees;
 
 use App\Models\Country;
-use App\Models\Trainer;
+use App\Models\User;
 use Livewire\Component;
 use App\Models\Specialist;
 
-class NewTrainers extends Component
+class NewTrainees extends Component
 {
 
     protected $listeners = ['edit' => 'edit'];
@@ -26,7 +26,7 @@ class NewTrainers extends Component
     {
         $this->edit = false;
         if ($id != null) {
-            $tra = Trainer::find($id);
+            $tra = User::find($id);
             $this->id = $tra->id;
             $this->name = $tra->name;
             $this->phone = $tra->phone;
@@ -37,11 +37,11 @@ class NewTrainers extends Component
             $this->specialist = $tra->specialist_id;
             $this->active = $tra->active==1?true:false;
             $this->edit = true;
-            $this->header = __('tran.edit') . ' ' . __('tran.trainer');
+            $this->header = __('tran.edit') . ' ' . __('tran.User');
         } else {
             $this->name = null;
             $this->edit = false;
-            $this->header =  __('tran.add') . ' ' . __('tran.trainer');
+            $this->header =  __('tran.add') . ' ' . __('tran.User');
         }
         $this->dispatch('openmodel');
     }
@@ -49,7 +49,7 @@ class NewTrainers extends Component
     public function save()
     {
         $this->validate();
-        $CFC = Trainer::updateOrCreate(['id' => $this->id], [
+        $CFC = User::updateOrCreate(['id' => $this->id], [
             'name'       => $this->name,
             'phone'      => $this->phone,
             'email'      => $this->mail,
@@ -60,13 +60,13 @@ class NewTrainers extends Component
             'active' => $this->active,
         ]);
         $this->dispatch('closemodel');
-        $this->dispatch('trainer_course_refresh');
+        $this->dispatch('trainees_course_refresh');
 
     }
     public function render()
     {
         $spec  = Specialist::latest()->get();
         $countrylist  = Country::latest()->get();
-        return view('dashboard.trainers.new-trainers', compact(['spec', 'countrylist']));
+        return view('dashboard.trainees.new-trainees', compact(['spec', 'countrylist']));
     }
 }

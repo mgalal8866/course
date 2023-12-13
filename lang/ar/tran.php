@@ -32,9 +32,15 @@ return [
     'balance'         => 'الرصيد',
     'specialist'      => 'التخصص',
     'gender'          => 'النوع',
-    'male'          => 'ذكر',
+    'male'            => 'ذكر',
     'female'          => 'انثي',
-    'edit'          => 'تعديل',
+    'edit'            => 'تعديل',
+    'trainee'         => 'متدرب',
+    'select'          => 'اختار',
+    'phone_parent'    => 'هاتف الوالد',
+    'mail_parent'     => 'ايميل الوالد',
+    'point'          => 'النقاط',
+    'wallet'          => 'المحفظه',
 
 
 

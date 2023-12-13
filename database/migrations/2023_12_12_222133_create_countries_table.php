@@ -11,15 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('trainers', function (Blueprint $table) {
+        Schema::create('countries', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('name')->nullable();
-            $table->string('email')->nullable();
-            $table->string('phone')->nullable();
-            $table->string('country')->nullable();
-            $table->char('specialist',36)->nullable();
-            $table->string('balance')->nullable();
-            $table->string('gender')->nullable();
+            $table->string('name');
             $table->boolean('active')->default(1);
             $table->softDeletes();
             $table->timestamps();
@@ -31,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('trainers');
+        Schema::dropIfExists('countries');
     }
 };

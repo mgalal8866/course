@@ -4,6 +4,7 @@ namespace App\Livewire\Dashboard\Trainers;
 
 use App\Models\Trainer;
 use Livewire\Component;
+use App\Models\Specialist;
 
 class Trainers extends Component
 {
@@ -27,6 +28,7 @@ class Trainers extends Component
     }
     public function render()
     {
+
         $trainer = Trainer::latest()->get();
          return view('dashboard.trainers.trainers',compact('trainer'));
     }

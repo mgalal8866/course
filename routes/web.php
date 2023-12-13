@@ -7,6 +7,7 @@ use App\Livewire\Dashboard\Exams\Category\CategoryExam;
 use App\Livewire\Dashboard\Courses\Category\CategoryCourse;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Livewire\Dashboard\FreeCourse\Category\CategoryFreeCourse;
+use App\Livewire\Dashboard\Trainees\Trainees;
 use App\Livewire\Dashboard\Trainers\Trainers;
 
 /*
@@ -36,6 +37,7 @@ Route::group(
         Route::get('/category/courses', CategoryCourse::class)->name('category');
         Route::get('/category/exam', CategoryExam::class)->name('examcategory');
         Route::get('/trainers', Trainers::class)->name('trainers');
+        Route::get('/trainees', Trainees::class)->name('trainees');
     }
 );
 

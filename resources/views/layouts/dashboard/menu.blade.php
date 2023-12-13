@@ -122,12 +122,12 @@
                      <span class="menu-title text-truncate">{{ __('tran.trainees') }}</span>
                  </a>
                  <ul class="menu-content">
-                     {{-- <li>
-                        <a class="d-flex align-items-center" href="{{route('examcategory')}}">
+                     <li>
+                        <a class="d-flex align-items-center" href="{{route('trainees')}}">
                             <i data-feather="circle"></i>
-                            <span class="menu-item text-truncate">{{ __('tran.categorys') }}</span>
+                            <span class="menu-item text-truncate">{{ __('tran.view') .' '. __('tran.trainees') }}</span>
                         </a>
-                    </li> --}}
+                    </li>
                      {{-- <li>
                         <a class="d-flex align-items-center" href="{{route('categoryfree')}}">
                             <i data-feather="circle"></i>

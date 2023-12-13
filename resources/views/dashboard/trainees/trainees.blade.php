@@ -3,41 +3,45 @@
         <div class="col-12">
             <div class="card outline-success">
                 <div class="card-header">
-                    <h4 class="card-title">{{ __('tran.view') . ' ' . __('tran.trainers') }}</h4>
-                    <a class="btn btn-primary"
-                        wire:click="$dispatch('edit')">{{ __('tran.add') . ' ' . __('tran.trainer') }}</a>
-
+                    <h4 class="card-title">{{ __('tran.view') . ' ' . __('tran.trainees') }}</h4>
+                    {{-- <a class="btn btn-primary"
+                        wire:click="$dispatch('edit')">{{ __('tran.add') . ' ' . __('tran.trainee') }}</a> --}}
                 </div>
-                @livewire('dashboard.trainers.new-trainers')
+                @livewire('dashboard.trainees.new-trainees')
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
                             <tr>
                                 <th>{{ __('tran.name') }}</th>
-                                <th>{{ __('tran.specialist') }}</th>
                                 <th>{{ __('tran.phone') }}</th>
                                 <th>{{ __('tran.mail') }}</th>
+                                <th>{{ __('tran.phone_parent') }}</th>
+                                <th>{{ __('tran.mail_parent') }}</th>
                                 <th>{{ __('tran.country') }}</th>
                                 <th>{{ __('tran.gender') }}</th>
-                                <th>{{ __('tran.balance') }}</th>
+                                <th>{{ __('tran.point') }}</th>
+                                <th>{{ __('tran.wallet') }}</th>
                                 <th>{{ __('tran.statu') }}</th>
                                 <th>{{ __('tran.action') }}</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($trainer  as $item)
+                            @forelse ($trainees  as $item)
                                 <tr>
                                     <td>
-                                        <span class="fw-bold">{{ $item->name ?? 'N/A' }}</span>
-                                    </td>
-                                    <td>
-                                        <span class="fw-bold">{{ $item->specialist->name ?? 'N/A' }}</span>
+                                        <span class="fw-bold">{{ $item->first_name ?? 'N/A' }} {{ $item->last_name  ?? 'N/A'  }}</span>
                                     </td>
                                     <td>
                                         <span class="fw-bold">{{ $item->phone ?? 'N/A' }}</span>
                                     </td>
                                     <td>
                                         <span class="fw-bold">{{ $item->email ?? 'N/A' }}</span>
+                                    </td>
+                                    <td>
+                                        <span class="fw-bold">{{ $item->phone_parent ?? 'N/A' }}</span>
+                                    </td>
+                                    <td>
+                                        <span class="fw-bold">{{ $item->email_parent?? 'N/A' }}</span>
                                     </td>
                                     <td>
                                         <span class="fw-bold">{{ $item->country->name ?? 'N/A' }}</span>
@@ -56,10 +60,12 @@
                                                 @break
                                             @endswitch
                                         </span>
-                                        {{-- <span class="fw-bold">{{ $item->gender ?? 'N/A' }}</span> --}}
                                     </td>
                                     <td>
-                                        <span class="fw-bold">{{ $item->balance ?? 'N/A' }}</span>
+                                        <span class="fw-bold">{{ $item->point ?? 'N/A' }}</span>
+                                    </td>
+                                    <td>
+                                        <span class="fw-bold">{{ $item->wallet ?? 'N/A' }}</span>
                                     </td>
                                     <td>
                                         <span
@@ -93,7 +99,7 @@
                                 </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="10" class="alert alert-danger text-center"> No Data Here</td>
+                                        <td colspan="15" class="alert alert-danger text-center"> No Data Here</td>
                                     </tr>
                                 @endforelse
                             </tbody>
