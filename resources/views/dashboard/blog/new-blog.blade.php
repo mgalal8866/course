@@ -1,4 +1,10 @@
 <div>
+    {{-- @push('csslive')
+        <link rel="stylesheet" type="text/css" href="{{ asset('asset/vendors/css/editors/quill/katex.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('asset/vendors/css/editors/quill/monokai-sublime.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('asset/vendors/css/editors/quill/quill.snow.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('asset/vendors/css/editors/quill/quill.bubble.css') }}">
+    @endpush --}}
     <div wire:ignore.self class="modal fade" id="editUser" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog  modal-lg modal-dialog-centered modal-edit-user">
             <div class="modal-content">
@@ -9,69 +15,29 @@
                     <div class="text-center mb-2">
                         <h1 class="mb-1">{{ $header }}</h1>
                     </div>
+
                     <form id="editUserForm" class="row gy-1 pt-75" wire:submit.prevent="save">
-                        <div class="col-12 col-md-6">
-                            <label class="form-label" for="modalEditUserFirstName">{{ __('tran.name') }}</label>
-                            <input type="text" class="form-control" wire:model="name"
+
+                        <div class="col-12 col-md-12">
+                            <x-imageupload wire:model='image' :imagenew="$image" :imageold="$imageold" />
+                            @error('image')
+                                <span class="error" style="color: red">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="col-12 col-md-12">
+                            <label class="form-label" for="modalEditUserFirstName">{{ __('tran.title') }}</label>
+                            <input type="text" class="form-control" wire:model="title"
                                 data-msg="Please enter your fisssssssrst name" required />
-                            @error('name')
+                            @error('title')
                                 <span class="error" style="color: red">{{ $message }}</span>
                             @enderror
                         </div>
 
-                        <div class="col-12 col-md-6">
-                            <label class="form-label" for="modalEditUserFirstName">{{ __('tran.mail') }}</label>
-                            <input type="text" class="form-control" wire:model="mail" required />
-                            @error('mail')
-                                <span class="error" style="color: red">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <label class="form-label" for="modalEditUserFirstName">{{ __('tran.phone') }}</label>
-                            <input type="text" class="form-control" wire:model="phone" required />
-                            @error('phone')
-                                <span class="error" style="color: red">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <label class="form-label" for="modalEditUserFirstName">{{ __('tran.balance') }}</label>
-                            <input type="text" class="form-control" wire:model="balance" required />
-                            @error('balance')
-                                <span class="error" style="color: red">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <label class="form-label" for="modalEditUserFirstName">{{ __('tran.specialist') }}</label>
-                            <select class="form-select" wire:model='specialist' required>
-                                <option value="">{{ __('tran.select') . ' ' . __('tran.specialist') }}</option>
-                                @foreach ($spec as $item)
-                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                @endforeach
-                            </select>
-                            @error('specialist')
-                                <span class="error" style="color: red">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <label class="form-label" for="modalEditUserFirstName">{{ __('tran.gender') }}</label>
-                            <select class="form-select" wire:model='gender' required>
-                                <option value=""> {{ __('tran.select') . ' ' . __('tran.gender') }}</option>
-                                <option value="1">{{ __('tran.male') }}</option>
-                                <option value="2">{{ __('tran.female') }}</option>
-                            </select>
-                            @error('gender')
-                                <span class="error" style="color: red">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <label class="form-label" for="modalEditUserFirstName">{{ __('tran.country') }}</label>
-                            <select class="form-select" wire:model='country' required>
-                                <option value=""> {{ __('tran.select') . ' ' . __('tran.country') }}</option>
-                                @foreach ($countrylist as $item)
-                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                @endforeach
-                            </select>
-                            @error('country')
+
+                        <div class="col-12 col-md-12" >
+                            <label class="form-label" for="modalEditUserFirstName">{{ __('tran.article') }}</label>
+                            <x-editor wire:model='article' />
+                            @error('article')
                                 <span class="error" style="color: red">{{ $message }}</span>
                             @enderror
                         </div>
@@ -106,6 +72,9 @@
 </div>
 
 @push('jslive')
+    {{-- <script src="{{ asset('asset/vendors/js/editors/quill/katex.min.js') }}"></script>
+    <script src="{{ asset('asset/vendors/js/editors/quill/highlight.min.js') }}"></script>
+    <script src="{{ asset('asset/vendors/js/editors/quill/quill.min.js') }}"></script> --}}
     <script>
         window.addEventListener('swal', event => {
             Swal.fire({

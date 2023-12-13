@@ -5,11 +5,12 @@
     'width' => '100',
 ])
 <label class="form-label" for="{{ $imagenew }}">{{ __('tran.image') }}: </label>
-<a href="#" class="me-25 m-1   ">
+<div class=" d-flex">
+{{-- <a href="#" class="me-25 m-1 "> --}}
     <img src="{{ $imagenew == null ? $imageold   : $imagenew->temporaryUrl() }}" id="account-upload-img"
-        class="uploadedAvatar rounded me-50" alt="image" height="{{ $height }}" width="{{ $width }}" />
-</a>
-<div class=" d-flex align-items-center mt-75 ms-1">
+        class="uploadedAvatar rounded me-50" alt="image" height="{{ $height }}" width="{{ $width }}"  style="display: block;border: 1px solid #b44040;"/>
+{{-- </a> --}}
+
 
     {{-- <label for="account-upload" class="btn btn-sm btn-success mb-75 me-75 ">Upload</label> --}}
     {{-- <button type="button" id="account-reset" class="btn btn-sm btn-outline-secondary mb-75">Reset</button> --}}

@@ -19,4 +19,8 @@ class Blog extends Model
         'category_id',
         'active',
     ];
+    public function getImageurlAttribute()
+    {
+        return path($this->id,'blog') . $this->image;
+    }
 }
