@@ -41,6 +41,9 @@ return [
     'mail_parent'     => 'ايميل الوالد',
     'point'          => 'النقاط',
     'wallet'          => 'المحفظه',
+    'blog'          => 'المدونة',
+    'active'          => 'نشط',
+    'unactive'          => 'غير نشط',
 
 
 

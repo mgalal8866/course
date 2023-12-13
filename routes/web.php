@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Dashboard\Blog\ViewBlog;
 use Livewire\Livewire;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Dashboard\FreeCourse\FreeCourse;
@@ -38,6 +39,7 @@ Route::group(
         Route::get('/category/exam', CategoryExam::class)->name('examcategory');
         Route::get('/trainers', Trainers::class)->name('trainers');
         Route::get('/trainees', Trainees::class)->name('trainees');
+        Route::get('/blog', ViewBlog::class)->name('blog');
     }
 );
 
