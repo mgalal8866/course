@@ -108,6 +108,12 @@
                             <span class="menu-item text-truncate">{{  __('tran.view')  . ' '. __('tran.trainers')  }}</span>
                         </a>
                     </li>
+                     <li>
+                        <a class="d-flex align-items-center" href="{{route('specialist')}}">
+                            <i data-feather="circle"></i>
+                            <span class="menu-item text-truncate">{{  __('tran.view')  . ' '. __('tran.specialist')  }}</span>
+                        </a>
+                    </li>
                      {{-- <li>
                         <a class="d-flex align-items-center" href="{{route('categoryfree')}}">
                             <i data-feather="circle"></i>
@@ -148,12 +154,22 @@
                            <span class="menu-item text-truncate">{{ __('tran.view') .' '. __('tran.blog') }}</span>
                        </a>
                    </li>
-                    {{-- <li>
-                       <a class="d-flex align-items-center" href="{{route('categoryfree')}}">
+
+                </ul>
+            </li>
+             <li class=" nav-item">
+                <a class="d-flex align-items-center" href="#">
+                   <i class="far fa-credit-card"></i>
+                    <span class="menu-title text-truncate">{{ __('tran.payment_method') }}</span>
+                </a>
+                <ul class="menu-content">
+                    <li>
+                       <a class="d-flex align-items-center" href=" ">
                            <i data-feather="circle"></i>
-                           <span class="menu-item text-truncate">{{ __('tran.category') }}</span>
+                           <span class="menu-item text-truncate">{{ __('tran.view') .' '. __('tran.payment_method') }}</span>
                        </a>
-                   </li> --}}
+                   </li>
+
                 </ul>
             </li>
          </ul>

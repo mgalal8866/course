@@ -19,6 +19,7 @@ return new class extends Migration
             $table->bigInteger('views')->nullable();
             $table->text('short')->nullable();
             $table->text('article')->nullable();
+            $table->boolean('active')->default(1);
             $table->softDeletes();
             $table->timestamps();
         });

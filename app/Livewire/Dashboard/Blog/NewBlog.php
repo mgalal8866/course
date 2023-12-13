@@ -45,7 +45,7 @@ class NewBlog extends Component
         $Blog = Blog::updateOrCreate(['id' => $this->id], [
             'title'  => $this->title,
             'article'=> $this->article,
-            'active' => $this->active,
+            'active' => $this->active??1,
         ]);
         if ($this->image) {
             $dataX =  $this->saveImageAndThumbnail($this->image, false, $Blog->id, 'blog');

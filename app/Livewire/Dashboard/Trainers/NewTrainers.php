@@ -57,7 +57,7 @@ class NewTrainers extends Component
             'country_id'    => $this->country,
             'gender'     => $this->gender,
             'specialist_id' => $this->specialist,
-            'active' => $this->active,
+            'active' => $this->active??1,
         ]);
         $this->dispatch('closemodel');
         $this->dispatch('trainer_course_refresh');

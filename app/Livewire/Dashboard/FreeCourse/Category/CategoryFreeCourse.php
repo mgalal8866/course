@@ -27,7 +27,7 @@ class CategoryFreeCourse extends Component
     }
     public function render()
     {
-        $CfCourse = CategoryFCourse::latest()->get();
+        $CfCourse = CategoryFCourse::withCount('freecourse')->latest()->get();
          return view('dashboard.free-course.category.category-free-course',compact('CfCourse'));
     }
 }

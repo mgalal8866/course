@@ -1,15 +1,17 @@
 <?php
 
-use App\Livewire\Dashboard\Blog\ViewBlog;
 use Livewire\Livewire;
+
 use Illuminate\Support\Facades\Route;
+use App\Livewire\Dashboard\Blog\ViewBlog;
+use App\Livewire\Dashboard\Trainees\Trainees;
+use App\Livewire\Dashboard\Trainers\Trainers;
 use App\Livewire\Dashboard\FreeCourse\FreeCourse;
 use App\Livewire\Dashboard\Exams\Category\CategoryExam;
+use App\Livewire\Dashboard\Trainers\Specialist\Specialist;
 use App\Livewire\Dashboard\Courses\Category\CategoryCourse;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Livewire\Dashboard\FreeCourse\Category\CategoryFreeCourse;
-use App\Livewire\Dashboard\Trainees\Trainees;
-use App\Livewire\Dashboard\Trainers\Trainers;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +41,7 @@ Route::group(
         Route::get('/category/exam', CategoryExam::class)->name('examcategory');
         Route::get('/trainers', Trainers::class)->name('trainers');
         Route::get('/trainees', Trainees::class)->name('trainees');
+        Route::get('/specialist', Specialist::class)->name('specialist');
         Route::get('/blog', ViewBlog::class)->name('blog');
     }
 );

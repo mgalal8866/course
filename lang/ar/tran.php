@@ -39,12 +39,13 @@ return [
     'select'          => 'اختار',
     'phone_parent'    => 'هاتف الوالد',
     'mail_parent'     => 'ايميل الوالد',
-    'point'          => 'النقاط',
+    'point'           => 'النقاط',
     'wallet'          => 'المحفظه',
-    'blog'          => 'المدونة',
+    'blog'            => 'المدونة',
     'active'          => 'نشط',
-    'unactive'          => 'غير نشط',
-    'views'          => 'المشاهدات',
+    'unactive'        => 'غير نشط',
+    'views'           => 'المشاهدات',
+    'payment_method'  => 'طرق الدفع',
 
 
 

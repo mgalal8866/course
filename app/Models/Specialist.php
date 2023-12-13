@@ -13,4 +13,10 @@ class Specialist extends Model
         'name',
         'active',
     ];
+
+    public function trainer()
+    {
+        return $this->hasMany(Trainer::class, 'specialist_id');
+    }
+
 }

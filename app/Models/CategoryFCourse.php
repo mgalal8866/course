@@ -12,4 +12,9 @@ class CategoryFCourse extends Model
     use UUID,HasFactory,SoftDeletes;
     protected $fillable = [
         'name','active' ];
+
+    public function freecourse()
+    {
+        return $this->hasMany(FreeCourse::class, 'category_id');
+    }
 }

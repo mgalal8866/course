@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
-            $table->string('country')->nullable();
-            $table->char('specialist',36)->nullable();
+            $table->string('country_id')->nullable();
+            $table->char('specialist_id',36)->nullable();
             $table->string('balance')->nullable();
             $table->string('gender')->nullable();
             $table->boolean('active')->default(1);
