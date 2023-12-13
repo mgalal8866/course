@@ -44,7 +44,7 @@
                      <li>
                          <a class="d-flex align-items-center" href="{{ route('freecourse') }}">
                              <i data-feather="circle"></i>
-                             <span class="menu-item text-truncate">{{ __('tran.freecourse') }}</span>
+                             <span class="menu-item text-truncate">{{__('tran.view') . ' '.  __('tran.freecourse') }}</span>
                          </a>
                      </li>
                      <li>
