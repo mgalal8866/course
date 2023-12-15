@@ -70,6 +70,7 @@ class NewCourse extends Component
     }
     public function render()
     {
-        return view('dashboard.courses.new-course');
+        $category =Category::get();
+        return view('dashboard.courses.new-course',compact('category'));
     }
 }

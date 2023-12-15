@@ -68,23 +68,70 @@
                                 <small class="text-muted">{{ $pages[1]['subheading'] }}</small>
                             </div>
                             <div class="row">
-                                <div class="mb-1 col-md-6">
-                                    <label class="form-label" for="username">name</label>
+                                <div class="mb-1 col-md-12">
+                                    <label class="form-label" for="username">{{ __('tran.title') }}</label>
                                     <input type="text" class="form-control" wire:model='name' />
                                     @error('name')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
 
                                 </div>
-                                <div class="mb-1 col-md-6">
-                                    <label class="form-label" for="email">Email</label>
-                                    <input type="email" class="form-control" aria-label="john.doe"
-                                        wire:model='email' />
-                                    @error('email')
+                                <div class="mb-1 col-md-12">
+                                    <label class="form-label" for="description">{{ __('tran.description') }}</label>
+                                    <textarea type="description" class="form-control" wire:model='description'></textarea>
+                                    @error('description')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
 
                                 </div>
+                                <div class="mb-1 col-md-6">
+                                    <label class="form-label"
+                                        for="modalEditUserFirstName">{{ __('tran.category') }}</label>
+                                        <select class="form-select" wire:model='category_id'>
+                                            <option value=""> اختيارالقسم</option>
+                                            @foreach ($category as $c)
+                                            <option value="{{ $c->id }}">{{ $c->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('category_id')
+                                        <span class="error" style="color: red">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="mb-1 col-md-6">
+                                        <label class="form-label" for="username">{{ __('tran.price') }}</label>
+                                        <input type="text" class="form-control" wire:model='price' />
+                                        @error('price')
+                                            <span class="error" style="color: red">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="mb-1 col-md-6">
+                                        <label class="form-label" for="username">{{ __('tran.startdate') }}</label>
+                                        <input type="text" class="form-control" wire:model='startdate' />
+                                        @error('startdate')
+                                            <span class="error" style="color: red">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="mb-1 col-md-6">
+                                        <label class="form-label" for="username">{{ __('tran.enddate') }}</label>
+                                        <input type="text" class="form-control" wire:model='enddate' />
+                                        @error('enddate')
+                                            <span class="error" style="color: red">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="mb-1 col-md-6">
+                                        <label class="form-label" for="username">{{ __('tran.features') }}</label>
+                                        <textarea type="text" class="form-control" wire:model='features' ></textarea    >
+                                        @error('features')
+                                            <span class="error" style="color: red">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="mb-1 col-md-6">
+                                        <label class="form-label" for="username">{{ __('tran.trainers') }}</label>
+                                        <input type="text" class="form-control" wire:model='trainer' />
+                                        @error('trainer')
+                                            <span class="error" style="color: red">{{ $message }}</span>
+                                        @enderror
+                                    </div>
                             </div>
 
                         </div>
