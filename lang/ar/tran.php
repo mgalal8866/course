@@ -57,7 +57,10 @@ return [
     'features'        => 'مميزات',
     'limit_stud'      => 'اقصى عدد للطلاب',
     'time'            => 'الوقت',
-    'duration_course'            => 'مده الدورة',
+    'duration_course' => 'مده الدورة',
+    'previous'        => 'السابق',
+    'next'            => 'التالى',
+    'submit'          => 'انشاء',
 
 
 ];

@@ -4,6 +4,7 @@ namespace App\Livewire\Dashboard\Courses;
 
 
 use App\Models\Category;
+use App\Models\Trainer;
 use Livewire\Component;
 
 class NewCourse extends Component
@@ -71,6 +72,7 @@ class NewCourse extends Component
     public function render()
     {
         $category =Category::get();
-        return view('dashboard.courses.new-course',compact('category'));
+        $triners = Trainer::get();
+        return view('dashboard.courses.new-course',compact(['category', 'triners']));
     }
 }
