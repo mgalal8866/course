@@ -14,7 +14,7 @@
                     <button type="button" class="step-trigger">
                         <span class="bs-stepper-box">1</span>
                         <span class="bs-stepper-label">
-                            <span class="bs-stepper-title">{{ $pages[1]['heading'] }}</span>
+                            <span class="bs-stepper-title">{{__('tran.datacourse') }}</span>
                             <span class="bs-stepper-subtitle">{{ $pages[1]['subheading'] }}</span>
                         </span>
                     </button>
@@ -27,7 +27,7 @@
                     <button type="button" class="step-trigger">
                         <span class="bs-stepper-box">2</span>
                         <span class="bs-stepper-label">
-                            <span class="bs-stepper-title">{{ $pages[2]['heading'] }}</span>
+                            <span class="bs-stepper-title">{{ __('tran.attached')}}</span>
                             <span class="bs-stepper-subtitle">{{ $pages[2]['subheading'] }}</span>
                         </span>
                     </button>
@@ -40,7 +40,7 @@
                     <button type="button" class="step-trigger">
                         <span class="bs-stepper-box">3</span>
                         <span class="bs-stepper-label">
-                            <span class="bs-stepper-title">{{ $pages[3]['heading'] }}</span>
+                            <span class="bs-stepper-title">{{__('tran.lessons') }}</span>
                             <span class="bs-stepper-subtitle">{{ $pages[3]['subheading'] }}</span>
                         </span>
                     </button>
@@ -53,7 +53,7 @@
                     <button type="button" class="step-trigger">
                         <span class="bs-stepper-box">4</span>
                         <span class="bs-stepper-label">
-                            <span class="bs-stepper-title">{{ $pages[4]['heading'] }}</span>
+                            <span class="bs-stepper-title">{{ __('tran.setcourse') }}</span>
                             <span class="bs-stepper-subtitle">{{ $pages[4]['subheading'] }}</span>
                         </span>
                     </button>
@@ -64,7 +64,7 @@
                     @if ($currentPage == 1)
                         <div id="account-details" class="content {{ $currentPage == 1 ? 'active' : '' }}  ">
                             <div class="content-header">
-                                <h5 class="mb-0">{{ $pages[1]['heading'] }}</h5>
+                                <h5 class="mb-0">{{__('tran.datacourse') }}</h5>
                                 <small class="text-muted">{{ $pages[1]['subheading'] }}</small>
                             </div>
                             <div class="row">
@@ -104,17 +104,24 @@
                                             <span class="error" style="color: red">{{ $message }}</span>
                                         @enderror
                                     </div>
-                                    <div class="mb-1 col-md-6">
+                                    <div class="mb-1 col-md-4">
                                         <label class="form-label" for="username">{{ __('tran.startdate') }}</label>
                                         <input type="text" class="form-control" wire:model='startdate' />
                                         @error('startdate')
                                             <span class="error" style="color: red">{{ $message }}</span>
                                         @enderror
                                     </div>
-                                    <div class="mb-1 col-md-6">
+                                    <div class="mb-1 col-md-4">
                                         <label class="form-label" for="username">{{ __('tran.enddate') }}</label>
                                         <input type="text" class="form-control" wire:model='enddate' />
                                         @error('enddate')
+                                            <span class="error" style="color: red">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                     <div class="mb-1 col-md-4">
+                                        <label class="form-label" for="username">{{ __('tran.time') }}</label>
+                                        <input type="text" class="form-control" wire:model='time' />
+                                        @error('time')
                                             <span class="error" style="color: red">{{ $message }}</span>
                                         @enderror
                                     </div>
@@ -132,6 +139,21 @@
                                             <span class="error" style="color: red">{{ $message }}</span>
                                         @enderror
                                     </div>
+
+                                    <div class="mb-1 col-md-4">
+                                        <label class="form-label" for="username">{{ __('tran.limit_stud') }}</label>
+                                        <input type="text" class="form-control" wire:model='limit_stud' />
+                                        @error('limit_stud')
+                                            <span class="error" style="color: red">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="mb-1 col-md-4">
+                                        <label class="form-label" for="username">{{ __('tran.duration_course') }}</label>
+                                        <input type="text" class="form-control" wire:model='duration_course' />
+                                        @error('duration_course')
+                                            <span class="error" style="color: red">{{ $message }}</span>
+                                        @enderror
+                                    </div>
                             </div>
 
                         </div>
@@ -139,17 +161,15 @@
                         <div id="personal-info" class="content {{ $currentPage == 2 ? 'active' : '' }}" role="tabpanel"
                             aria-labelledby="personal-info-trigger">
                             <div class="content-header">
-                                <h5 class="mb-0">{{ $pages[2]['heading'] }}</h5>
+                                <h5 class="mb-0">{{ __('tran.attached')}}</h5>
                                 <small class="text-muted">{{ $pages[2]['subheading'] }}</small>
                             </div>
-
-
                         </div>
                     @elseif ($currentPage == 3)
                         <div id="address-step" class="content {{ $currentPage == 3 ? 'active' : '' }} " role="tabpanel"
                             aria-labelledby="address-step-trigger">
                             <div class="content-header">
-                                <h5 class="mb-0">{{ $pages[3]['heading'] }}</h5>
+                                <h5 class="mb-0">{{ __('tran.lessons')}}</h5>
                                 <small class="text-muted">{{ $pages[3]['subheading'] }}</small>
                             </div>
 
@@ -158,7 +178,7 @@
                         <div id="social-links" class="content {{ $currentPage == 4 ? 'active' : '' }} " role="tabpanel"
                             aria-labelledby="social-links-trigger">
                             <div class="content-header">
-                                <h5 class="mb-0">{{ $pages[4]['heading'] }}</h5>
+                                <h5 class="mb-0">{{ __('tran.setcourse') }}</h5>
                                 <small class="text-muted">{{ $pages[4]['subheading'] }}</small>
                             </div>
 

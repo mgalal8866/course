@@ -46,7 +46,18 @@ return [
     'unactive'        => 'غير نشط',
     'views'           => 'المشاهدات',
     'payment_method'  => 'طرق الدفع',
-
+    'setcourse'       => 'اعدادات الدورة',
+    'datacourse'      => 'بيانات الدورة',
+    'attached'        => 'المرفقات والصور',
+    'lessons'         => 'الدروس',
+    'startdate'       => 'تاريخ البداية',
+    'enddate'         => 'تاريخ الانتهاء',
+    'price'           => 'السعر',
+    'description'     => 'وصف',
+    'features'        => 'مميزات',
+    'limit_stud'      => 'اقصى عدد للطلاب',
+    'time'            => 'الوقت',
+    'duration_course'            => 'مده الدورة',
 
 
 ];
