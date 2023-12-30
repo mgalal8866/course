@@ -2,11 +2,20 @@
 
 namespace App\Models;
 
+use App\Traits\UUID;
+use App\Models\CourseTrainers;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Courses extends Model
 {
-    use HasFactory,SoftDeletes;
+    use UUID,HasFactory,SoftDeletes;
+    protected $guarded = [];
+
+    public function coursetrainers()
+    {
+        return $this->hasMany(CourseTrainers::class, 'course_id');
+    }
+
 }

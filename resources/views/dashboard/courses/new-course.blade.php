@@ -1,4 +1,4 @@
-<div>
+<div wire:ignore.self>
     @push('csslive')
         <link rel="stylesheet" type="text/css" href="{{ asset('asset/vendors/css/forms/wizard/bs-stepper.min.css') }}">
         @if (LaravelLocalization::getCurrentLocaleDirection() == 'rtl')
@@ -6,6 +6,7 @@
         @else
             <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/plugins/forms/form-wizard.min.css') }}">
         @endif
+
     @endpush
     <section class="horizontal-wizard">
         <div class="bs-stepper horizontal-wizard-example">
@@ -60,7 +61,7 @@
                 </div>
             </div>
             <div class="bs-stepper-content">
-                <form wire:submit.prevent='save'>
+                <form wire:submit.prevent='save' enctype="multipart/form-data">
                     @if ($currentPage == 1)
                         <div id="account-details" class="content {{ $currentPage == 1 ? 'active' : '' }}  ">
                             <div class="content-header">
@@ -70,7 +71,7 @@
                             <div class="row">
                                 <div class="mb-1 col-md-12">
                                     <label class="form-label" for="username">{{ __('tran.title') }}</label>
-                                    <input type="text" class="form-control" wire:model='name' />
+                                    <input type="text" class="form-control" wire:model='name' required />
                                     @error('name')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
@@ -84,10 +85,10 @@
                                     @enderror
 
                                 </div>
-                                <div class="mb-1 col-md-6">
+                                <div class="mb-1 col-md-4">
                                     <label class="form-label"
                                         for="modalEditUserFirstName">{{ __('tran.category') }}</label>
-                                    <select class="form-select" wire:model='category_id'>
+                                    <select class="form-select" wire:model='category_id' required>
                                         <option value=""> اختيارالقسم</option>
                                         @foreach ($category as $c)
                                             <option value="{{ $c->id }}">{{ $c->name }}</option>
@@ -97,7 +98,20 @@
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="mb-1 col-md-6">
+                                <div class="mb-1 col-md-4">
+                                    <label class="form-label"
+                                        for="modalEditUserFirstName">{{ __('tran.country') }}</label>
+                                    <select class="form-select" wire:model='country_id' required>
+                                        <option value=""> اختيار الدولة</option>
+                                        @foreach ($country as $c)
+                                            <option value="{{ $c->id }}">{{ $c->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('category_id')
+                                        <span class="error" style="color: red">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="mb-1 col-md-4">
                                     <label class="form-label" for="username">{{ __('tran.price') }}</label>
                                     <input type="text" class="form-control" wire:model='price' />
                                     @error('price')
@@ -106,47 +120,49 @@
                                 </div>
                                 <div class="mb-1 col-md-4">
                                     <label class="form-label" for="username">{{ __('tran.startdate') }}</label>
-                                    <input type="text" class="form-control" wire:model='startdate' />
+                                    <input type="text" class="form-control" wire:model='startdate' required />
                                     @error('startdate')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="mb-1 col-md-4">
                                     <label class="form-label" for="username">{{ __('tran.enddate') }}</label>
-                                    <input type="text" class="form-control" wire:model='enddate' />
+                                    <input type="text" class="form-control" wire:model='enddate' required />
                                     @error('enddate')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="mb-1 col-md-4">
                                     <label class="form-label" for="username">{{ __('tran.time') }}</label>
-                                    <input type="text" class="form-control" wire:model='time' />
+                                    <input type="text" class="form-control" wire:model='time' required />
                                     @error('time')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="mb-1 col-md-6">
                                     <label class="form-label" for="username">{{ __('tran.features') }}</label>
-                                    <textarea type="text" class="form-control" wire:model='features'></textarea>
+                                    <textarea type="text" class="form-control" wire:model='features' required></textarea>
                                     @error('features')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="mb-1 col-md-6">
+                                {{-- {{ $triner??''}} --}}
                                     <label class="form-label" for="username">{{ __('tran.trainers') }}</label>
-                                    {{-- <x-selectc :items='$triners' :display=''= /> --}}
-                                    <select class="select2 form-select" id="select2-multiple"
-                                        wire:model='triners' multiple>
-                                        @foreach ($triners as $item)
-                                            <option value="{{ $item->id ?? '' }}">{{ $item->name ?? '' }}</option>
-                                        @endforeach
-                                    </select>
+                                    <div wire:ignore>
+                                        <select class="select2 form-select" id="select2-multiple" multiple="multiple"  required>
+                                            @foreach ($triners as $item)
+                                                <option @if(in_array(  $item->id , $triner)) selected
+                                                @endif  value="{{ $item->id ?? '' }}" >{{ $item->name ?? '' }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                     {{-- <input type="text" class="form-control" wire:model='trainer' /> --}}
-                                    @error('triners')
+                                    @error('triner')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
-
                                 <div class="mb-1 col-md-4">
                                     <label class="form-label" for="username">{{ __('tran.limit_stud') }}</label>
                                     <input type="text" class="form-control" wire:model='limit_stud' />
@@ -170,6 +186,49 @@
                             <div class="content-header">
                                 <h5 class="mb-0">{{ __('tran.attached') }}</h5>
                                 <small class="text-muted">{{ $pages[2]['subheading'] }}</small>
+                            </div>
+                            <div class="row">
+                                <div class="mb-2 col-md-12">
+                                    <x-imageupload wire:model='image_course' :height='250' :width='250'
+                                        :imagenew="$image_course" :tlabel="__('tran.imagecourse')" />
+                                    @error('image')
+                                        <span class="error" style="color: red">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div wire:ignore.self class="mb-2 col-md-3">
+                                    <x-fileupload wire:model='file_work' id='file_work'   tlabel="__('tran.file_work')" :namefile="$file_work != null ?  $file_work->getClientOriginalName()  : null" />
+                                    @error('file_work')
+                                        <span class="error" style="color: red">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                {{-- <div class="mb-2 col-md-6">
+                                    <x-fileupload wire:model='file_explanatory' id='file_explanatory'
+                                        :tlabel="__('tran.file_explanatory')" />
+                                    @error('image')
+                                        <span class="error" style="color: red">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="mb-2 col-md-6">
+                                    <x-fileupload wire:model='file_aggregates' id='file_aggregates'
+                                        :tlabel="__('tran.file_aggregates')" />
+                                    @error('image')
+                                        <span class="error" style="color: red">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="mb-2 col-md-6">
+                                    <x-fileupload wire:model='file_supplementary' id='file_supplementary'
+                                        :tlabel="__('tran.file_supplementary')" />
+                                    @error('image')
+                                        <span class="error" style="color: red">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="mb-2 col-md-6">
+                                    <x-fileupload wire:model='file_free' id='file_free' :tlabel="__('tran.file_free')" />
+                                    @error('image')
+                                        <span class="error" style="color: red">{{ $message }}</span>
+                                    @enderror
+                                </div> --}}
+
                             </div>
                         </div>
                     @elseif ($currentPage == 3)
@@ -218,20 +277,30 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('asset/vendors/css/forms/select/select2.min.css') }}">
 @endpush
 @push('jslive')
-<script src="{{ asset('asset/vendors/js/forms/select/select2.full.min.js') }}"></script>
- <script>
-        var select = $('.select2');
-        select.each(function() {
-            var $this = $(this);
-            $this.wrap('<div wire:ignore class="position-relative"></div>');
-            $this.select2({
-                // the following code is used to disable x-scrollbar when click in select input and
-                // take 100% width in responsive also
-                dropdownAutoWidth: true,
-                width: '100%',
-                dropdownParent: $this.parent()
+    <script src="{{ asset('asset/vendors/js/forms/select/select2.full.min.js') }}"></script>
+
+    <script>
+        document.addEventListener( 'livewire:initialized', () => {
+           var select = $('.select2');
+           select.each(function() {
+                    var $this = $(this);
+                    $this.wrap('<div wire:ignore class="position-relative"></div>');
+                    $this.select2().on('change', function(e) {
+                        @this.set('triner', $(this).val())
+                        // console.log($(this).val());
+                    });
+                });
+            Livewire.hook('morph.added', (element) => {
+                var select = $('.select2');
+                select.each(function() {
+                    var $this = $(this);
+                    $this.wrap('<div wire:ignore class="position-relative"></div>');
+                    $this.select2().on('change', function(e) {
+                        @this.set('triner', $(this).val())
+                        // console.log($(this).val());
+                    });
+                });
             });
-            
         });
     </script>
     <script>

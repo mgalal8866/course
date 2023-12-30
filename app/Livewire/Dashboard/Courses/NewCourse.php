@@ -3,15 +3,24 @@
 namespace App\Livewire\Dashboard\Courses;
 
 
-use App\Models\Category;
+use App\Models\Country;
+use App\Models\Courses;
 use App\Models\Trainer;
 use Livewire\Component;
+use App\Models\Category;
+use Livewire\Attributes\On;
+use Livewire\WithFileUploads;
+use App\Models\CourseTrainers;
 
 class NewCourse extends Component
 {
+    use WithFileUploads;
 
-    protected $listeners = ['edit' => 'edit'];
-    public $name,$email, $edit = false, $id, $header, $currentPage = 1;
+
+    protected $listeners = ['edit' => 'edit','refreshDropdown'];
+    public $edit = false, $id, $header, $currentPage = 2,
+        $name, $description, $country_id, $category_id, $price, $startdate, $enddate, $time, $features, $triner = [], $limit_stud, $duration_course,
+        $image_course, $file_work, $file_explanatory, $file_aggregates, $file_supplementary, $file_free, $file_test;
 
     public  $pages = [
         1 => [
@@ -31,39 +40,76 @@ class NewCourse extends Component
             'subheading' => ''
         ]
     ];
-    private  $validtionRules = [
-        1 => [
-            'name' => 'required|min:3',
-            'email' => 'required',
-        ],
-        2=> [''=>''], 3 => [''=>''], 4=> [''=>'']
 
-    ];
 
     public function updated($propertyName)
     {
-      $this->validateOnly($propertyName,$this->validtionRules[$this->currentPage]);
+        // dd($this->file_work);
+        $this->validateOnly($propertyName, $this->validtionRules[$this->currentPage]);
     }
 
     public function goToNextPage()
     {
+
         // $this->validate($this->validtionRules[$this->currentPage]);
         $this->currentPage++;
     }
     public function goToPage($pg)
     {
-        $this->currentPage ==$pg;
+
+        $this->currentPage == $pg;
     }
     public function goToPerviousPage()
     {
+
         $this->currentPage--;
     }
+    private  $validtionRules = [
+        1 => [
+            'name'            => 'required|min:3',
+            'country_id'      => 'required',
+            'category_id'     => 'required',
+            'price'           => 'required',
+            'startdate'       => 'required',
+            'enddate'         => 'required',
+            'time'            => 'required',
+            'features'        => 'required',
+            'triner'          => 'required',
+            'limit_stud'      => 'required',
+            'duration_course' => 'required',
+        ],
+         2 => ['file_work'=>'',
+          'file_explanatory'=>'',
+          'file_aggregates'=>'',
+          'file_supplementary'=>'',
+          'file_free'=>'',
+          'file_test'=>''
+          ]
+
+       , 3 => ['' => ''], 4 => ['' => '']
+
+    ];
     public function save()
     {
+        dd($this->triner);
         $rules = collect($this->validtionRules)->collect()->toArray();
-        $this->validate($rules);
-
-
+        // $this->validate($rules);
+        $dataX = array();
+        $CFC = Courses::updateOrCreate(['id' => $this->id], [
+            'name'        => $this->name,
+            'country_id'  => $this->country_id,
+            'duration'    => $this->duration_course,
+            'description' => $this->description,
+            'category_id' => $this->category_id,
+            'price'       => $this->price,
+            'start_date'  => $this->startdate,
+            'end_date'    => $this->enddate,
+            'time'        => $this->time,
+            'max_drainees'  => $this->limit_stud,
+        ]);
+        foreach ($this->triner as $i) {
+            $CFC->coursetrainers()->create(['trainer_id' => $i]);
+        }
 
 
         $this->resetValidation();
@@ -71,8 +117,9 @@ class NewCourse extends Component
     }
     public function render()
     {
-        $category =Category::get();
+        $category = Category::get();
+        $country = Country::get();
         $triners = Trainer::get();
-        return view('dashboard.courses.new-course',compact(['category', 'triners']));
+        return view('dashboard.courses.new-course', compact(['category', 'triners', 'country']));
     }
 }

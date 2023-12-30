@@ -61,6 +61,7 @@ return [
     'previous'        => 'السابق',
     'next'            => 'التالى',
     'submit'          => 'انشاء',
+    'imagecourse'     => 'صورة الدورة',
 
 
 ];

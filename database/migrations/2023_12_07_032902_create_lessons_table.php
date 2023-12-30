@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('lessons', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('course_id');
+            $table->uuid('id')->primary();
+            $table->uuid('course_id');
             $table->string('name');
             $table->string('link_video');
             $table->softDeletes();

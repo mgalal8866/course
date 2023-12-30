@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('courses', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name');
+            $table->uuid('country_id');
+            $table->uuid('category_id');
             $table->string('description');
             $table->string('schedule');
             $table->string('price');
@@ -25,7 +27,6 @@ return new class extends Migration
             $table->string('timeline'); //ألخطه الزمنية
             $table->string('time');
             $table->string('video'); // فيديو تعريفى
-            $table->integer('category_id');
             $table->string('validity'); //صلاحية الدورة
             $table->string('duration'); //مده الدورة
             $table->string('max_drainees'); //الحد الاقصي لمتدربين

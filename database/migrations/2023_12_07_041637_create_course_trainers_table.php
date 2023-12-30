@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('course_trainers', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->integer('course_id');
-            $table->integer('trainer_id');
+            $table->uuid('course_id');
+            $table->uuid('trainer_id');
             $table->softDeletes();
             $table->timestamps();
         });
