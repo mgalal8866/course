@@ -194,14 +194,14 @@
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="mb-2 col-md-3  border border-black">
+                                <div class="mb-2 col-md-3  border border-black pb-2">
                                     <x-fileupload wire:model='file_work' id='file_work' :tlabel="__('tran.file_work')"
                                         :namefile="$file_work != null ? $file_work->getClientOriginalName() : null" />
                                     @error('file_work')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="mb-2 col-md-3 border border-black">
+                                <div class="mb-2 col-md-3 border border-black pb-2">
                                     <x-fileupload wire:model='file_explanatory' id='file_explanatory'
                                         :tlabel="__('tran.file_explanatory')" :namefile="$file_explanatory != null
                                             ? $file_explanatory->getClientOriginalName()
@@ -210,7 +210,7 @@
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="mb-2 col-md-3 border border-black">
+                                <div class="mb-2 col-md-3 border border-black pb-2">
                                     <x-fileupload wire:model='file_aggregates' id='file_aggregates' :tlabel="__('tran.file_aggregates')"
                                         :namefile="$file_aggregates != null
                                             ? $file_aggregates->getClientOriginalName()
@@ -219,7 +219,7 @@
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="mb-2 col-md-3 border border-black">
+                                <div class="mb-2 col-md-3 border border-black pb-2">
                                     <x-fileupload wire:model='file_supplementary' id='file_supplementary'
                                         :tlabel="__('tran.file_supplementary')" :namefile="$file_supplementary != null
                                             ? $file_supplementary->getClientOriginalName()
@@ -228,7 +228,7 @@
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="mb-2 col-md-3 border border-black">
+                                <div class="mb-2 col-md-3 border border-black pb-2">
                                     <x-fileupload wire:model='file_free' id='file_free' :tlabel="__('tran.file_free')"
                                         :namefile="$file_free != null ? $file_free->getClientOriginalName() : null" />
                                     @error('image')
@@ -242,10 +242,55 @@
                         <div id="address-step" class="content {{ $currentPage == 3 ? 'active' : '' }} "
                             role="tabpanel" aria-labelledby="address-step-trigger">
                             <div class="content-header">
+                                <button wire:click='addlesson()' type="button"
+                                    class="btn btn-primary d-inline-flex align-items-center justify-content-center rounded-circle
+                                bg-red-600 hover:bg-red-800 text-white shadow-lg hover-shadow-xl
+                                transition duration-150 ease-in-out focus:bg-red-700 outline-none focus-outline-none"
+                                    style="height: 3rem; width: 2rem; ">
+                                    <i class="fas fa-plus-circle fa-lg"></i>
+                                </button>
                                 <h5 class="mb-0">{{ __('tran.lessons') }}</h5>
                                 <small class="text-muted">{{ $pages[3]['subheading'] }}</small>
                             </div>
+                            @foreach ($lessons as $key => $value)
+                                <div class="mb-1 row">
+                                    <div class="col border border-black ">
+                                        <x-fileupload class="mb-0" wire:model='lessons.{{ $key }}.img'
+                                            id='lessons.{{ $key }}.img' :namefile="$lessons[$key]['img'] != null
+                                                ? $lessons[$key]['img']->getClientOriginalName()
+                                                : null" />
+                                        @error('lessons.' . $key . '.img')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="col">
+                                        <input class="form-control" wire:model="lessons.{{ $key }}.name"
+                                            placeholder="name" type="text" />
+                                        @error('lessons.' . $key . '.name')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="col">
+                                        <input class="form-control" wire:model="lessons.{{ $key }}.link"
+                                            type="text" placeholder="Link" />
+                                        @error('lessons.' . $key . '.link')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="col">
+                                        @if ($key != 0)
 
+                                        <button  wire:click='removelesson({{ $key }})' type="button"
+                                        class="btn btn-danger d-inline-flex align-items-center justify-content-center rounded-circle
+                                        bg-red-600 hover:bg-red-800 text-white shadow-lg hover-shadow-xl
+                                        transition duration-150 ease-in-out focus:bg-red-700 outline-none focus-outline-none"
+                                        style="height: 3rem; width: 2rem; ">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                    @endif
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
                     @elseif ($currentPage == 4)
                         <div id="social-links" class="content {{ $currentPage == 4 ? 'active' : '' }} "
@@ -256,10 +301,12 @@
                             </div>
                             <div class="row">
                                 <div class="mb-1 col-md-3">
-                                    <x-check wire:model='langcourse' id="langcourse" left="En" right="Ar"   :tlabel="__('tran.langcourse')" />
+                                    <x-check wire:model='langcourse' id="langcourse" left="En" right="Ar"
+                                        :tlabel="__('tran.langcourse')" />
                                 </div>
                                 <div class="mb-1 col-md-3">
-                                    <x-check wire:model='inputnum' id="inputnum" left="En" right="Ar"  :tlabel="__('tran.inputnum')" />
+                                    <x-check wire:model='inputnum' id="inputnum" left="En" right="Ar"
+                                        :tlabel="__('tran.inputnum')" />
                                 </div>
                                 <div class="mb-1 col-md-3">
                                     <x-check wire:model='status' id="status" :tlabel="__('tran.statu')" />

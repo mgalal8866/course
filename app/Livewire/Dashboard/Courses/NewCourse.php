@@ -17,11 +17,26 @@ class NewCourse extends Component
     use WithFileUploads;
 
 
-    protected $listeners = ['edit' => 'edit','refreshDropdown'];
-    public $edit = false, $id, $header, $currentPage = 4,
+    protected $listeners = ['edit' => 'edit', 'refreshDropdown'];
+    public $edit = false, $id, $header, $currentPage = 3,
         $name, $description, $country_id, $category_id, $price, $startdate, $enddate, $time, $features, $triner = [], $limit_stud, $duration_course,
         $image_course, $file_work, $file_explanatory, $file_aggregates, $file_supplementary, $file_free, $file_test,
-        $langcourse,$status,$inputnum;
+        $langcourse, $status, $inputnum, $lessons;
+    public function mount()
+    {
+        $this->fill(['lessons' => collect([['name' => '', 'link' => '','img'=>'']])]);
+    }
+
+    public function addlesson()
+    {
+        $this->lessons->push(['name' => '', 'link' => '','img'=>'']);
+
+    }
+    public function removelesson($key)
+    {
+        if($this->lessons->count() !=1)
+        $this->lessons->pull($key);
+    }
 
     public  $pages = [
         1 => [
@@ -79,15 +94,14 @@ class NewCourse extends Component
             'limit_stud'      => 'required',
             'duration_course' => 'required',
         ],
-         2 => ['file_work'=>'',
-          'file_explanatory'=>'',
-          'file_aggregates'=>'',
-          'file_supplementary'=>'',
-          'file_free'=>'',
-          'file_test'=>''
-          ]
-
-       , 3 => ['' => ''], 4 => ['' => '']
+        2 => [
+            'file_work' => '',
+            'file_explanatory' => '',
+            'file_aggregates' => '',
+            'file_supplementary' => '',
+            'file_free' => '',
+            'file_test' => ''
+        ], 3 => ['' => ''], 4 => ['' => '']
 
     ];
     public function save()

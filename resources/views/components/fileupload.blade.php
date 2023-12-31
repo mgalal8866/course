@@ -3,13 +3,15 @@
     'tlabel' => null,
 
 ])
-  <label class="form-label"   >{{ $tlabel }} : </label>
+@if($tlabel)
+    <label class="form-label"   >{{ $tlabel }} : </label>
+@endif
 <div x-data="{ isUploading: false, progress: 0, name: '{{ $namefile??null }}'}"
     x-on:livewire-upload-start="isUploading = true" x-on:livewire-upload-finish="isUploading = false"
     x-on:livewire-upload-finish="isUploading = false" x-on:livewire-upload-error="isUploading = false"
     x-on:livewire-upload-progress="progress = $event.detail.progress">
 
-    <div class="overflow-hidden position-relative w-64 mt-4 mb-4">
+    <div class="overflow-hidden position-relative w-64 ">
         <label class="btn btn-success" x-show="!name">
             <i class="fas fa-upload"></i>
             <span class="ml-2">Select File</span>
