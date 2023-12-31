@@ -147,18 +147,17 @@
                                     @enderror
                                 </div>
                                 <div class="mb-1 col-md-6">
-                                {{-- {{ $triner??''}} --}}
                                     <label class="form-label" for="username">{{ __('tran.trainers') }}</label>
                                     <div wire:ignore>
-                                        <select class="select2 form-select" id="select2-multiple" multiple="multiple"  required>
+                                        <select class="select2 form-select" id="select2-multiple" multiple="multiple"
+                                            required>
                                             @foreach ($triners as $item)
-                                                <option @if(in_array(  $item->id , $triner)) selected
-                                                @endif  value="{{ $item->id ?? '' }}" >{{ $item->name ?? '' }}
+                                                <option @if (in_array($item->id, $triner)) selected @endif
+                                                    value="{{ $item->id ?? '' }}">{{ $item->name ?? '' }}
                                                 </option>
                                             @endforeach
                                         </select>
                                     </div>
-                                    {{-- <input type="text" class="form-control" wire:model='trainer' /> --}}
                                     @error('triner')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
@@ -189,45 +188,53 @@
                             </div>
                             <div class="row">
                                 <div class="mb-2 col-md-12">
-                                    <x-imageupload wire:model='image_course' :height='250' :width='250'
+                                    <x-imageupload wire:model='image_course' :height='200' :width='200'
                                         :imagenew="$image_course" :tlabel="__('tran.imagecourse')" />
                                     @error('image')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div wire:ignore.self class="mb-2 col-md-3">
-                                    <x-fileupload wire:model='file_work' id='file_work'   tlabel="__('tran.file_work')" :namefile="$file_work != null ?  $file_work->getClientOriginalName()  : null" />
+                                <div class="mb-2 col-md-3  border border-black">
+                                    <x-fileupload wire:model='file_work' id='file_work' :tlabel="__('tran.file_work')"
+                                        :namefile="$file_work != null ? $file_work->getClientOriginalName() : null" />
                                     @error('file_work')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                {{-- <div class="mb-2 col-md-6">
+                                <div class="mb-2 col-md-3 border border-black">
                                     <x-fileupload wire:model='file_explanatory' id='file_explanatory'
-                                        :tlabel="__('tran.file_explanatory')" />
+                                        :tlabel="__('tran.file_explanatory')" :namefile="$file_explanatory != null
+                                            ? $file_explanatory->getClientOriginalName()
+                                            : null" />
                                     @error('image')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="mb-2 col-md-6">
-                                    <x-fileupload wire:model='file_aggregates' id='file_aggregates'
-                                        :tlabel="__('tran.file_aggregates')" />
+                                <div class="mb-2 col-md-3 border border-black">
+                                    <x-fileupload wire:model='file_aggregates' id='file_aggregates' :tlabel="__('tran.file_aggregates')"
+                                        :namefile="$file_aggregates != null
+                                            ? $file_aggregates->getClientOriginalName()
+                                            : null" />
                                     @error('image')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="mb-2 col-md-6">
+                                <div class="mb-2 col-md-3 border border-black">
                                     <x-fileupload wire:model='file_supplementary' id='file_supplementary'
-                                        :tlabel="__('tran.file_supplementary')" />
+                                        :tlabel="__('tran.file_supplementary')" :namefile="$file_supplementary != null
+                                            ? $file_supplementary->getClientOriginalName()
+                                            : null" />
                                     @error('image')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="mb-2 col-md-6">
-                                    <x-fileupload wire:model='file_free' id='file_free' :tlabel="__('tran.file_free')" />
+                                <div class="mb-2 col-md-3 border border-black">
+                                    <x-fileupload wire:model='file_free' id='file_free' :tlabel="__('tran.file_free')"
+                                        :namefile="$file_free != null ? $file_free->getClientOriginalName() : null" />
                                     @error('image')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
-                                </div> --}}
+                                </div>
 
                             </div>
                         </div>
@@ -247,7 +254,17 @@
                                 <h5 class="mb-0">{{ __('tran.setcourse') }}</h5>
                                 <small class="text-muted">{{ $pages[4]['subheading'] }}</small>
                             </div>
-
+                            <div class="row">
+                                <div class="mb-1 col-md-3">
+                                    <x-check wire:model='langcourse' id="langcourse" left="En" right="Ar"   :tlabel="__('tran.langcourse')" />
+                                </div>
+                                <div class="mb-1 col-md-3">
+                                    <x-check wire:model='inputnum' id="inputnum" left="En" right="Ar"  :tlabel="__('tran.inputnum')" />
+                                </div>
+                                <div class="mb-1 col-md-3">
+                                    <x-check wire:model='status' id="status" :tlabel="__('tran.statu')" />
+                                </div>
+                            </div>
                         </div>
                     @endif
                     <div class="d-flex justify-content-between">
@@ -280,16 +297,16 @@
     <script src="{{ asset('asset/vendors/js/forms/select/select2.full.min.js') }}"></script>
 
     <script>
-        document.addEventListener( 'livewire:initialized', () => {
-           var select = $('.select2');
-           select.each(function() {
-                    var $this = $(this);
-                    $this.wrap('<div wire:ignore class="position-relative"></div>');
-                    $this.select2().on('change', function(e) {
-                        @this.set('triner', $(this).val())
-                        // console.log($(this).val());
-                    });
+        document.addEventListener('livewire:initialized', () => {
+            var select = $('.select2');
+            select.each(function() {
+                var $this = $(this);
+                $this.wrap('<div wire:ignore class="position-relative"></div>');
+                $this.select2().on('change', function(e) {
+                    @this.set('triner', $(this).val())
+                    // console.log($(this).val());
                 });
+            });
             Livewire.hook('morph.added', (element) => {
                 var select = $('.select2');
                 select.each(function() {

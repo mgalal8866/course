@@ -62,6 +62,12 @@ return [
     'next'            => 'التالى',
     'submit'          => 'انشاء',
     'imagecourse'     => 'صورة الدورة',
-
+    'file_aggregates' => 'حقيبة التجمعات',
+    'file_supplementary'     => 'حقيبة التجميعات التكميلية',
+    'file_explanatory'     => 'صورة الدورة',
+    'file_free'     => 'محتوى مجانى',
+    'file_work'     => 'اوراق العمل',
+    'langcourse'     => 'لغة الدورة ',
+    'inputnum'     => 'ادخال الارقام',
 
 ];

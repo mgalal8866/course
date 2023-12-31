@@ -1,9 +1,10 @@
 @props([
     'namefile' => null,
+    'tlabel' => null,
 
 ])
-<div
-    x-data="{ isUploading: false, progress: 0, name: '{{ $namefile??null }}'}"
+  <label class="form-label"   >{{ $tlabel }} : </label>
+<div x-data="{ isUploading: false, progress: 0, name: '{{ $namefile??null }}'}"
     x-on:livewire-upload-start="isUploading = true" x-on:livewire-upload-finish="isUploading = false"
     x-on:livewire-upload-finish="isUploading = false" x-on:livewire-upload-error="isUploading = false"
     x-on:livewire-upload-progress="progress = $event.detail.progress">
@@ -12,7 +13,7 @@
         <label class="btn btn-success" x-show="!name">
             <i class="fas fa-upload"></i>
             <span class="ml-2">Select File</span>
-            <input class="hidden" type="file" {{ $attributes }} x-on:change="name = $event.target.files[0].name">
+            <input class="hidden" type="file" {{ $attributes }}  x-on:change="name = $event.target.files[0].name">
         </label>
         <div class="text-gray-500" x-show="name">
             <span x-show="isUploading">Uploading... Please wait.</span>

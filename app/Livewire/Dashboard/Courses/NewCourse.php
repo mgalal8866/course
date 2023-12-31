@@ -18,9 +18,10 @@ class NewCourse extends Component
 
 
     protected $listeners = ['edit' => 'edit','refreshDropdown'];
-    public $edit = false, $id, $header, $currentPage = 2,
+    public $edit = false, $id, $header, $currentPage = 4,
         $name, $description, $country_id, $category_id, $price, $startdate, $enddate, $time, $features, $triner = [], $limit_stud, $duration_course,
-        $image_course, $file_work, $file_explanatory, $file_aggregates, $file_supplementary, $file_free, $file_test;
+        $image_course, $file_work, $file_explanatory, $file_aggregates, $file_supplementary, $file_free, $file_test,
+        $langcourse,$status,$inputnum;
 
     public  $pages = [
         1 => [
@@ -45,7 +46,7 @@ class NewCourse extends Component
     public function updated($propertyName)
     {
         // dd($this->file_work);
-        $this->validateOnly($propertyName, $this->validtionRules[$this->currentPage]);
+        // $this->validateOnly($propertyName, $this->validtionRules[$this->currentPage]);
     }
 
     public function goToNextPage()
