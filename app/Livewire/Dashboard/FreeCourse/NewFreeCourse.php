@@ -59,7 +59,7 @@ class NewFreeCourse extends Component
             'video_link'  => $this->link,
         ]);
         if ($this->image) {
-            $dataX =  $this->saveImageAndThumbnail($this->image, false, $this->id, 'free_courses');
+            $dataX =  $this->saveImageAndThumbnail($this->image, false, $CFC->id, 'free_courses');
             $CFC->image =  $dataX['image'];
             $CFC->save();
         }

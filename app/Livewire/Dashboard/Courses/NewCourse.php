@@ -11,31 +11,32 @@ use App\Models\Category;
 use Livewire\Attributes\On;
 use Livewire\WithFileUploads;
 use App\Models\CourseTrainers;
+use App\Traits\ImageProcessing;
+use Illuminate\Support\Facades\DB;
 
 class NewCourse extends Component
 {
-    use WithFileUploads;
+    use WithFileUploads, ImageProcessing;
 
 
     protected $listeners = ['edit' => 'edit', 'refreshDropdown'];
-    public $edit = false, $id, $header, $currentPage = 3,
+    public $edit = false, $id, $header, $currentPage = 1,
         $name, $description, $country_id, $category_id, $price, $startdate, $enddate, $time, $features, $triner = [], $limit_stud, $duration_course,
         $image_course, $file_work, $file_explanatory, $file_aggregates, $file_supplementary, $file_free, $file_test,
         $langcourse, $status, $inputnum, $lessons;
     public function mount()
     {
-        $this->fill(['lessons' => collect([['name' => '', 'link' => '','img'=>'']])]);
+        $this->fill(['lessons' => collect([['img' => null, 'name' => '', 'link' => '', 'status' => true]])]);
     }
 
     public function addlesson()
     {
-        $this->lessons->push(['name' => '', 'link' => '','img'=>'']);
-
+        $this->lessons->push(['img' => null, 'name' => '', 'link' => '', 'status' => true]);
     }
     public function removelesson($key)
     {
-        if($this->lessons->count() !=1)
-        $this->lessons->pull($key);
+        if ($this->lessons->count() != 1)
+            $this->lessons->pull($key);
     }
 
     public  $pages = [
@@ -67,31 +68,29 @@ class NewCourse extends Component
     public function goToNextPage()
     {
 
-        // $this->validate($this->validtionRules[$this->currentPage]);
+        $this->validate($this->validtionRules[$this->currentPage]);
         $this->currentPage++;
     }
     public function goToPage($pg)
     {
-
-        $this->currentPage == $pg;
+        // $this->currentPage == $pg;
     }
     public function goToPerviousPage()
     {
-
         $this->currentPage--;
     }
     private  $validtionRules = [
         1 => [
-            'name'            => 'required|min:3',
-            'country_id'      => 'required',
-            'category_id'     => 'required',
+            'name'            => 'required',
+            'country_id'      => 'required|exists:countries,id',
+            'category_id'     => 'required|exists:categories,id',
             'price'           => 'required',
-            'startdate'       => 'required',
-            'enddate'         => 'required',
+            'startdate'       => 'required|date_format:Y/m/d',
+            'enddate'         => 'required|date_format:Y/m/d',
             'time'            => 'required',
             'features'        => 'required',
             'triner'          => 'required',
-            'limit_stud'      => 'required',
+            'limit_stud'      => 'required|integer',
             'duration_course' => 'required',
         ],
         2 => [
@@ -101,34 +100,48 @@ class NewCourse extends Component
             'file_supplementary' => '',
             'file_free' => '',
             'file_test' => ''
-        ], 3 => ['' => ''], 4 => ['' => '']
-
+        ],
+        3 => [
+            'lessons.*.img' => 'required',
+            'lessons.*.name' => 'required',
+            'lessons.*.link' => 'required',
+        ]
     ];
     public function save()
     {
-        dd($this->triner);
-        $rules = collect($this->validtionRules)->collect()->toArray();
-        // $this->validate($rules);
-        $dataX = array();
-        $CFC = Courses::updateOrCreate(['id' => $this->id], [
-            'name'        => $this->name,
-            'country_id'  => $this->country_id,
-            'duration'    => $this->duration_course,
-            'description' => $this->description,
-            'category_id' => $this->category_id,
-            'price'       => $this->price,
-            'start_date'  => $this->startdate,
-            'end_date'    => $this->enddate,
-            'time'        => $this->time,
-            'max_drainees'  => $this->limit_stud,
-        ]);
-        foreach ($this->triner as $i) {
-            $CFC->coursetrainers()->create(['trainer_id' => $i]);
+        DB::beginTransaction();
+        try {
+            $rules = collect($this->validtionRules)->collect()->toArray();
+            // $this->validate($rules);
+            $CFC = Courses::updateOrCreate(['id' => $this->id], [
+                'name'        => $this->name,
+                'country_id'  => $this->country_id,
+                'duration'    => $this->duration_course,
+                'description' => $this->description,
+                'category_id' => $this->category_id,
+                'price'       => $this->price,
+                'start_date'  => $this->startdate,
+                'end_date'    => $this->enddate,
+                'time'        => $this->time,
+                'max_drainees'  => $this->limit_stud,
+                'conditions'  => '',
+            ]);
+            foreach ($this->triner as $i) {
+                $CFC->coursetrainers()->create(['trainer_id' => $i]);
+            }
+            foreach ($this->lessons as $i) {
+                $dataX = $this->saveImageAndThumbnail($i['img'], false, $CFC->id, 'courses','lessons/image');
+                $CFC->lessons()->create(['img' => $dataX['image'] , 'name' => $i['name'], 'link_video' => $i['link'],'paid' => $i['status']]);
+            }
+            $this->resetValidation();
+            $this->reset();
+            DB::commit();
+            // return true;
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+            DB::rollback();
+            // return false;
         }
-
-
-        $this->resetValidation();
-        $this->reset();
     }
     public function render()
     {

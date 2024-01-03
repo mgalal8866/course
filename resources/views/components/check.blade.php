@@ -1,6 +1,7 @@
 @props([
     'tlabel' => null,
 ])
+
 <div class="d-flex flex-column">
     <label class="form-check-label mb-50" for="{{ $attributes['id'] }}">{{ $tlabel }}</label>
     <div class="form-check form-switch form-check-success">

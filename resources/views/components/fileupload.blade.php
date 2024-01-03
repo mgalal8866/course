@@ -23,9 +23,9 @@
                 <div class="d-flex flex-grow-1 overflow-hidden mr-2">
                     <span x-text="name"></span>
                 </div>
-                <button type="button" class="btn btn-danger d-inline-flex align-items-center justify-content-center rounded-circle
+                <button type="button" class="btn btn-sm btn-danger d-inline-flex align-items-center justify-content-center rounded-circle
                 bg-red-600 hover:bg-red-800 text-white shadow-lg hover-shadow-xl
-                transition duration-150 ease-in-out focus:bg-red-700 outline-none focus-outline-none" style="height: 3rem; width: 2rem; " x-on:click="progress = 0; name = null; $wire.file = null; $wire.set('{{$attributes->wire('model')->value()}}', '')">
+                transition duration-150 ease-in-out focus:bg-red-700 outline-none focus-outline-none" style="height: 2rem; width: 2rem; " x-on:click="progress = 0; name = null; $wire.file = null; $wire.set('{{$attributes->wire('model')->value()}}', '')">
                     <i class="fas fa-trash-alt"></i>
 
                 </button>

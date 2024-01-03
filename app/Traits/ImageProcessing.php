@@ -9,9 +9,14 @@ use Illuminate\Support\Facades\File;
 
 trait ImageProcessing
 {
-    public function path($course_id, $folder)
+    public function path($course_id, $folder,$folder2=null)
     {
-        $path = public_path() . '/files' . '/' . $folder . '/' . $course_id . '/';
+        $path = public_path() . '/files' . '/' . $folder . '/' . $course_id . '/' ;
+if($folder2!=null){
+
+    $path =  $path . '/' .  $folder2 . '/' ;
+
+}
         if (!File::exists($path)) {
             mkdir($path, 0777, true);
         }
@@ -34,14 +39,14 @@ trait ImageProcessing
 
         return $extension;
     }
-    public function saveImage($image, $course_id, $folder)
+    public function saveImage($image, $course_id, $folder,$folder2=null)
     {
         $img = Image::make($image);
         $extension = $this->get_mime($img->mime());
 
         $str_random = Str::random(4);
         $imgpath = $str_random . time() . $extension;
-        $img->save($this->path($course_id, $folder) .  $imgpath);
+        $img->save($this->path($course_id, $folder,$folder2) .  $imgpath);
 
         return $imgpath;
     }
@@ -80,14 +85,13 @@ trait ImageProcessing
         $img->save(storage_path('app/imagesfp') . '/' . $imgpath);
         return $imgpath;
     }
-    public function saveImageAndThumbnail($Thefile, $thumb = false, $course_id = '23123', $folder = 'course')
+    public function saveImageAndThumbnail($Thefile, $thumb = false, $course_id = '23123', $folder = 'course',$folder2=null)
     {
         $dataX = array();
 
-        $dataX['image'] = $this->saveImage($Thefile, $course_id, $folder);
+        $dataX['image'] = $this->saveImage($Thefile, $course_id, $folder,$folder2);
 
         if ($thumb) {
-
             $dataX['thumbnailsm'] = $this->aspect4resize($Thefile, 256, 144, $course_id, $folder);
             $dataX['thumbnailmd'] = $this->aspect4resize($Thefile, 426, 240, $course_id, $folder);
             $dataX['thumbnailxl'] = $this->aspect4resize($Thefile, 640, 360, $course_id, $folder);

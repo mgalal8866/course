@@ -15,7 +15,9 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->uuid('course_id');
             $table->string('name');
+            $table->string('img');
             $table->string('link_video');
+            $table->string('paid');
             $table->softDeletes();
             $table->timestamps();
         });

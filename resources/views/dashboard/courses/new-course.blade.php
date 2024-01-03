@@ -61,6 +61,7 @@
                 </div>
             </div>
             <div class="bs-stepper-content">
+
                 <form wire:submit.prevent='save' enctype="multipart/form-data">
                     @if ($currentPage == 1)
                         <div id="account-details" class="content {{ $currentPage == 1 ? 'active' : '' }}  ">
@@ -70,7 +71,7 @@
                             </div>
                             <div class="row">
                                 <div class="mb-1 col-md-12">
-                                    <label class="form-label" for="username">{{ __('tran.title') }}</label>
+                                    <label class="form-label" for="username">{{  __('tran.title')  .' '. __('tran.course')  }}</label>
                                     <input type="text" class="form-control" wire:model='name' required />
                                     @error('name')
                                         <span class="error" style="color: red">{{ $message }}</span>
@@ -78,7 +79,7 @@
 
                                 </div>
                                 <div class="mb-1 col-md-12">
-                                    <label class="form-label" for="description">{{ __('tran.description') }}</label>
+                                    <label class="form-label" for="description">{{ __('tran.description')  .' '. __('tran.course') }}</label>
                                     <textarea type="description" class="form-control" wire:model='description'></textarea>
                                     @error('description')
                                         <span class="error" style="color: red">{{ $message }}</span>
@@ -107,7 +108,7 @@
                                             <option value="{{ $c->id }}">{{ $c->name }}</option>
                                         @endforeach
                                     </select>
-                                    @error('category_id')
+                                    @error('country_id')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -118,29 +119,39 @@
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="mb-1 col-md-4">
+                                <div class="mb-1 col-md-3">
                                     <label class="form-label" for="username">{{ __('tran.startdate') }}</label>
-                                    <input type="text" class="form-control" wire:model='startdate' required />
+                                    <x-daterange wire:model='startdate' id="startdate" required/>
+                                    {{-- <input type="text" class="form-control" wire:model='startdate' required /> --}}
                                     @error('startdate')
-                                        <span class="error" style="color: red">{{ $message }}</span>
+                                    <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="mb-1 col-md-4">
+                                <div class="mb-1 col-md-3">
                                     <label class="form-label" for="username">{{ __('tran.enddate') }}</label>
-                                    <input type="text" class="form-control" wire:model='enddate' required />
+                                    <x-daterange wire:model='enddate' id="enddate"   required/>
+                                    {{-- <input type="text" class="form-control" wire:model='enddate' required /> --}}
                                     @error('enddate')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="mb-1 col-md-4">
+                                <div class="mb-1 col-md-3">
                                     <label class="form-label" for="username">{{ __('tran.time') }}</label>
+                                    {{-- <input type="text" id="fp-time" class="form-control flatpickr-time text-start" placeholder="HH:MM" /> --}}
                                     <input type="text" class="form-control" wire:model='time' required />
                                     @error('time')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
+                                <div class="mb-1 col-md-3">
+                                    <label class="form-label" for="username">{{ __('tran.duration_course') }}</label>
+                                    <input type="text" class="form-control" wire:model='duration_course' />
+                                    @error('duration_course')
+                                        <span class="error" style="color: red">{{ $message }}</span>
+                                    @enderror
+                                </div>
                                 <div class="mb-1 col-md-6">
-                                    <label class="form-label" for="username">{{ __('tran.features') }}</label>
+                                    <label class="form-label" for="username">{{ __('tran.features') .' '. __('tran.course')  }}</label>
                                     <textarea type="text" class="form-control" wire:model='features' required></textarea>
                                     @error('features')
                                         <span class="error" style="color: red">{{ $message }}</span>
@@ -169,13 +180,7 @@
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="mb-1 col-md-4">
-                                    <label class="form-label" for="username">{{ __('tran.duration_course') }}</label>
-                                    <input type="text" class="form-control" wire:model='duration_course' />
-                                    @error('duration_course')
-                                        <span class="error" style="color: red">{{ $message }}</span>
-                                    @enderror
-                                </div>
+
                             </div>
 
                         </div>
@@ -272,19 +277,35 @@
                                     </div>
                                     <div class="col">
                                         <input class="form-control" wire:model="lessons.{{ $key }}.link"
-                                            type="text" placeholder="Link" />
+                                            type="text" placeholder="{{ $key }}" />
                                         @error('lessons.' . $key . '.link')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
-                                    <div class="col">
+                                    <div class="col-1">
+                                        <div class="form-check form-switch form-check-success ">
+                                            <input type="checkbox" class="form-check-input"
+                                                wire:model="lessons.{{ $key }}.status" id="{{ $key }}s" />
+                                            <label class="form-check-label" for='{{ $key }}s'>
+                                                <span class="switch-icon-left">
+                                                    <i class="fas fa-dollar-sign"></i>
+                                                </span>
+                                                <span class="switch-icon-right">
+                                                    <i class="fas fa-times"></i>
+                                                </span>
+
+                                            </label>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-1">
                                         @if ($key != 0)
 
                                         <button  wire:click='removelesson({{ $key }})' type="button"
-                                        class="btn btn-danger d-inline-flex align-items-center justify-content-center rounded-circle
+                                        class="btn btn-sm btn-danger d-inline-flex align-items-center justify-content-center rounded-circle
                                         bg-red-600 hover:bg-red-800 text-white shadow-lg hover-shadow-xl
                                         transition duration-150 ease-in-out focus:bg-red-700 outline-none focus-outline-none"
-                                        style="height: 3rem; width: 2rem; ">
+                                        style="height: 2rem; width: 2rem; ">
                                         <i class="fas fa-trash-alt"></i>
                                     </button>
                                     @endif
@@ -314,7 +335,8 @@
                             </div>
                         </div>
                     @endif
-                    <div class="d-flex justify-content-between">
+
+                    <div  class="d-flex justify-content-between">
                         <button class="btn {{ $currentPage > 1 ? 'btn-primary' : 'btn-outline-secondary' }} btn-prev"
                             {{ $currentPage == 1 ? 'disabled' : '' }} wire:click.prevent="goToPerviousPage">
                             <i
@@ -368,6 +390,17 @@
         });
     </script>
     <script>
+        (function (window, document, $) {
+  'use strict';
+
+ var timePickr = $('.flatpickr-time');
+if (timePickr.length) {
+    timePickr.flatpickr({
+      enableTime: true,
+      noCalendar: true
+    });
+}
+});
         window.addEventListener('swal', event => {
             Swal.fire({
                 title: event.detail.message,
