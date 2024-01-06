@@ -6,6 +6,7 @@
 <script src="{{ asset('asset/js/core/app.js') }}"></script>
 <script src="{{ asset('app-assets/js/pickers/flatpickr/flatpickr.min.js') }}"></script>
 
+
 @stack('alpine-plugins')
 
 <script>

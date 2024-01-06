@@ -11,9 +11,10 @@ use App\Livewire\Dashboard\Exams\Category\CategoryExam;
 use App\Livewire\Dashboard\Trainers\Specialist\Specialist;
 use App\Livewire\Dashboard\Courses\Category\CategoryCourse;
 use App\Livewire\Dashboard\Courses\NewCourse;
+use App\Livewire\Dashboard\Exams\Newtest;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Livewire\Dashboard\FreeCourse\Category\CategoryFreeCourse;
-
+use Intervention\Image\Facades\Image;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,7 +28,7 @@ use App\Livewire\Dashboard\FreeCourse\Category\CategoryFreeCourse;
 
 Route::group(
     [
-        'prefix' => LaravelLocalization::setLocale().'/dashboard/' ,
+        'prefix' => LaravelLocalization::setLocale() . '/dashboard/',
         'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
     ],
     function () {
@@ -35,16 +36,39 @@ Route::group(
             return Route::post('/livewire/update', $handle);
         });
 
-        Route::get('/', function () { return view('layouts.dashboard.app'); });
+        Route::get('/test', function () {
+
+            //   $p1 = asset('files/1.jpg');
+            $p1 = public_path('\files\1.jpg');
+            $p2 = public_path('\files\watermark.png');
+
+            $watermark = Image::make($p2);
+            $watermark->rotate(45);
+
+            $image = Image::make($p1);
+            // $image->blur(18);
+            $image->greyscale();
+
+            // $imageWidth = $image->width();
+            // $imageHeight = $image->height();
+            // $positionX = ($imageWidth - $watermark->width()) / 2;
+            // $positionY = ($imageHeight - $watermark->height()) / 2;
+            // // $image->insert($p2, 'center',  number_format($positionX),  number_format($positionY));
+            $image->insert($watermark, 'center');
+            return $image->response('jpg');
+        });
+        Route::get('/', function () {
+            return view('layouts.dashboard.app');
+        });
         Route::get('/free-course', FreeCourse::class)->name('freecourse');
         Route::get('/course', NewCourse::class)->name('course');
         Route::get('/category/free-course', CategoryFreeCourse::class)->name('categoryfree');
         Route::get('/category/courses', CategoryCourse::class)->name('category');
         Route::get('/category/exam', CategoryExam::class)->name('examcategory');
+        Route::get('/new/test', Newtest::class)->name('newtest');
         Route::get('/trainers', Trainers::class)->name('trainers');
         Route::get('/trainees', Trainees::class)->name('trainees');
         Route::get('/specialist', Specialist::class)->name('specialist');
         Route::get('/blog', ViewBlog::class)->name('blog');
     }
 );
-

@@ -13,30 +13,34 @@ return new class extends Migration
     {
         Schema::create('courses', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('name');
-            $table->uuid('country_id');
-            $table->uuid('category_id');
-            $table->string('description');
-            $table->string('schedule');
-            $table->string('price');
-            $table->string('start_date');
-            $table->string('end_date');
-            $table->string('image');
-            $table->string('conditions');// شروط واحكام
-            $table->string('telegram');
-            $table->string('timeline'); //ألخطه الزمنية
-            $table->string('time');
-            $table->string('video'); // فيديو تعريفى
-            $table->string('validity'); //صلاحية الدورة
-            $table->string('duration'); //مده الدورة
-            $table->string('max_drainees'); //الحد الاقصي لمتدربين
-            $table->string('link_free');
-            $table->string('how_start');
-            $table->string('target');
-            $table->string('next_cource');
-            $table->string('lang');
-            $table->string('statu');
+            $table->string('name')->nullable();
+            $table->uuid('country_id')->nullable();
+            $table->uuid('category_id')->nullable();
+            $table->string('description')->nullable();
+            $table->string('short_description')->nullable();
+            $table->string('price')->nullable();
+            $table->string('pricewith')->nullable();
+            $table->string('start_date')->nullable();
+            $table->string('end_date')->nullable();
+            $table->string('image')->nullable();
+            $table->string('conditions')->nullable();// شروط واحكام
+            $table->string('telegram')->nullable();
+            $table->string('telegramgrup')->nullable();
+            $table->string('timeline')->nullable(); //ألخطه الزمنية
+            $table->string('time')->nullable();
+            $table->string('video')->nullable(); // فيديو تعريفى
+            $table->string('validity')->nullable(); //صلاحية الدورة
+            $table->string('duration')->nullable(); //مده الدورة
+            $table->string('max_drainees')->nullable(); //الحد الاقصي لمتدربين
+            $table->string('how_start')->nullable();
+            $table->string('target')->nullable();
+            $table->string('next_cource')->nullable();
+            $table->boolean('inputnum')->default(0);
+            $table->boolean('lang')->default(0);
+            $table->boolean('statu')->default(1);
             $table->string('price_print');
+            $table->string('file_schedule');
+            $table->string('link_free');
             $table->string('file_work');
             $table->string('file_explanatory');
             $table->string('file_aggregates');

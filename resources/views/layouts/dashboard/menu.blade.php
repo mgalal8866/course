@@ -67,12 +67,12 @@
                              <span class="menu-item text-truncate">{{ __('tran.categorys') }}</span>
                          </a>
                      </li>
-                     {{-- <li>
-                         <a class="d-flex align-items-center" href="{{route('categoryfree')}}">
+                     <li>
+                         <a class="d-flex align-items-center" href="{{route('course')}}">
                              <i data-feather="circle"></i>
-                             <span class="menu-item text-truncate">{{ __('tran.category') }}</span>
+                             <span class="menu-item text-truncate">{{ __('tran.newcourse') }}</span>
                          </a>
-                     </li> --}}
+                     </li>
                  </ul>
              </li>
 

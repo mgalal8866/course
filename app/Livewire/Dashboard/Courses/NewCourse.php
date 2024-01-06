@@ -19,9 +19,10 @@ class NewCourse extends Component
     use WithFileUploads, ImageProcessing;
 
 
-    protected $listeners = ['edit' => 'edit', 'refreshDropdown'];
-    public $edit = false, $id, $header, $currentPage = 1,
-        $name, $description, $country_id, $category_id, $price, $startdate, $enddate, $time, $features, $triner = [], $limit_stud, $duration_course,
+    protected $listeners = ['edit' => 'edit', 'refreshDropdown','currentPage'=>'currentPage'];
+    public $edit = false, $id, $header, $currentPage = 1,$pages =4,$conditions,$target,$howtostart,
+        $telegram,$telegramgrup,$nextcourse,
+        $name, $description,$validity, $country_id, $category_id, $price,$pricewith, $startdate, $enddate, $time, $features, $triner = [], $limit_stud, $duration_course,
         $image_course, $file_work, $file_explanatory, $file_aggregates, $file_supplementary, $file_free, $file_test,
         $langcourse, $status, $inputnum, $lessons;
     public function mount()
@@ -39,26 +40,6 @@ class NewCourse extends Component
             $this->lessons->pull($key);
     }
 
-    public  $pages = [
-        1 => [
-            'heading' => 'data of course',
-            'subheading' => ''
-        ],
-        2 => [
-            'heading' => '',
-            'subheading' => ''
-        ],
-        3 => [
-            'heading' => '',
-            'subheading' => ''
-        ],
-        4 => [
-            'heading' => '',
-            'subheading' => ''
-        ]
-    ];
-
-
     public function updated($propertyName)
     {
         // dd($this->file_work);
@@ -68,7 +49,7 @@ class NewCourse extends Component
     public function goToNextPage()
     {
 
-        $this->validate($this->validtionRules[$this->currentPage]);
+        // $this->validate($this->validtionRules[$this->currentPage]);
         $this->currentPage++;
     }
     public function goToPage($pg)
@@ -114,18 +95,66 @@ class NewCourse extends Component
             $rules = collect($this->validtionRules)->collect()->toArray();
             // $this->validate($rules);
             $CFC = Courses::updateOrCreate(['id' => $this->id], [
-                'name'        => $this->name,
-                'country_id'  => $this->country_id,
-                'duration'    => $this->duration_course,
-                'description' => $this->description,
-                'category_id' => $this->category_id,
-                'price'       => $this->price,
-                'start_date'  => $this->startdate,
-                'end_date'    => $this->enddate,
-                'time'        => $this->time,
-                'max_drainees'  => $this->limit_stud,
-                'conditions'  => '',
+                'name'         => $this->name,
+                'country_id'   => $this->country_id,
+                'duration'     => $this->duration_course??null,
+                'validity'     => $this->validity??null,
+                'short_description'  => $this->short_description,
+                'description'  => $this->description??null,
+                'category_id'  => $this->category_id??null,
+                'price'        => $this->price??null,
+                'pricewith'    => $this->pricewith??null,
+                'start_date'   => $this->startdate??null,
+                'end_date'     => $this->enddate??null,
+                'time'         => $this->time??null,
+                'max_drainees' => $this->limit_stud??null,
+                'conditions'   => $this->conditions??null,
+                'how_start'    => $this->howtostart??null,
+                'target'       => $this->target??null,
+                'telegramgrup' => $this->telegramgrup??null,
+                'telegram'     => $this->telegram??null,
+                'next_cource'  => $this->nextcourse??null,
+                'lang'         => $this->langcourse??null,
+                'statu'        => $this->status,
+                'inputnum'  => $this->inputnum,
+
             ]);
+            if($this->image_course){
+                $dataX = $this->saveImageAndThumbnail($this->image_course, false, $CFC->id, 'courses','images');
+                $CFC->image =  $dataX['image'];
+                $CFC->save();
+            }
+
+            // if($this->file_work){
+            //     $dataX = $this->saveImageAndThumbnail($this->file_work, false, $CFC->id, 'courses','files');
+            //     $CFC->file_work =  $dataX['image'];
+            //     $CFC->save();
+            // }
+            // if($this->file_explanatory){
+            //     $dataX = $this->saveImageAndThumbnail($this->file_explanatory, false, $CFC->id, 'courses','files');
+            //     $CFC->file_explanatory =  $dataX['image'];
+            //     $CFC->save();
+            // }
+            // if($this->file_aggregates){
+            //     $dataX = $this->saveImageAndThumbnail($this->file_aggregates, false, $CFC->id, 'courses','files');
+            //     $CFC->file_aggregates =  $dataX['image'];
+            //     $CFC->save();
+            // }
+            // if($this->file_supplementary){
+            //     $dataX = $this->saveImageAndThumbnail($this->file_supplementary, false, $CFC->id, 'courses','files');
+            //     $CFC->file_supplementary =  $dataX['image'];
+            //     $CFC->save();
+            // }
+            // if($this->file_free){
+            //     $dataX = $this->saveImageAndThumbnail($this->file_free, false, $CFC->id, 'courses','files');
+            //     $CFC->file_free =  $dataX['image'];
+            //     $CFC->save();
+            // }
+            // if($this->file_test){
+            //     $dataX = $this->saveImageAndThumbnail($this->file_test, false, $CFC->id, 'courses','files');
+            //     $CFC->file_test =  $dataX['image'];
+            //     $CFC->save();
+            // }
             foreach ($this->triner as $i) {
                 $CFC->coursetrainers()->create(['trainer_id' => $i]);
             }
@@ -133,9 +162,9 @@ class NewCourse extends Component
                 $dataX = $this->saveImageAndThumbnail($i['img'], false, $CFC->id, 'courses','lessons/image');
                 $CFC->lessons()->create(['img' => $dataX['image'] , 'name' => $i['name'], 'link_video' => $i['link'],'paid' => $i['status']]);
             }
-            $this->resetValidation();
-            $this->reset();
             DB::commit();
+            // $this->resetValidation();
+            // $this->reset();
             // return true;
         } catch (\Exception $e) {
             dd($e->getMessage());

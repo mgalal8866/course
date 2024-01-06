@@ -35,8 +35,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/cust.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/pickers/flatpickr/flatpickr.min.css') }}">
-
-
+   
     @stack('csslive')
     <style>
         .navigation .navigation-header,

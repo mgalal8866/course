@@ -9,14 +9,13 @@ use Illuminate\Support\Facades\File;
 
 trait ImageProcessing
 {
-    public function path($course_id, $folder,$folder2=null)
+    public function path($course_id, $folder, $folder2 = null)
     {
-        $path = public_path() . '/files' . '/' . $folder . '/' . $course_id . '/' ;
-if($folder2!=null){
+        $path = public_path() . '/files' . '/' . $folder . '/' . $course_id . '/';
+        if ($folder2 != null) {
 
-    $path =  $path . '/' .  $folder2 . '/' ;
-
-}
+            $path =  $path . '/' .  $folder2 . '/';
+        }
         if (!File::exists($path)) {
             mkdir($path, 0777, true);
         }
@@ -39,14 +38,14 @@ if($folder2!=null){
 
         return $extension;
     }
-    public function saveImage($image, $course_id, $folder,$folder2=null)
+    public function saveImage($image, $course_id, $folder, $folder2 = null)
     {
         $img = Image::make($image);
         $extension = $this->get_mime($img->mime());
 
         $str_random = Str::random(4);
         $imgpath = $str_random . time() . $extension;
-        $img->save($this->path($course_id, $folder,$folder2) .  $imgpath);
+        $img->save($this->path($course_id, $folder, $folder2) .  $imgpath);
 
         return $imgpath;
     }
@@ -85,11 +84,11 @@ if($folder2!=null){
         $img->save(storage_path('app/imagesfp') . '/' . $imgpath);
         return $imgpath;
     }
-    public function saveImageAndThumbnail($Thefile, $thumb = false, $course_id = '23123', $folder = 'course',$folder2=null)
+    public function saveImageAndThumbnail($Thefile, $thumb = false, $course_id = '23123', $folder = 'course', $folder2 = null)
     {
         $dataX = array();
 
-        $dataX['image'] = $this->saveImage($Thefile, $course_id, $folder,$folder2);
+        $dataX['image'] = $this->saveImage($Thefile, $course_id, $folder, $folder2);
 
         if ($thumb) {
             $dataX['thumbnailsm'] = $this->aspect4resize($Thefile, 256, 144, $course_id, $folder);
@@ -108,5 +107,27 @@ if($folder2!=null){
                 }
             }
         }
+    }
+
+
+    public function applyWatermark($imgewatermark, $imageorginal)
+    {
+        // $p1 = public_path('\files\1.jpg');
+        // $p2 = public_path('\files\watermark.png');
+
+        $watermark = Image::make($imgewatermark);
+        $watermark->rotate(45);
+
+        $image = Image::make($imageorginal);
+        $image->greyscale();
+        // $image->blur(18);
+
+        // $imageWidth = $image->width();
+        // $imageHeight = $image->height();
+        // $positionX = ($imageWidth - $watermark->width()) / 2;
+        // $positionY = ($imageHeight - $watermark->height()) / 2;
+        // // $image->insert($imgewatermark, 'center',  number_format($positionX),  number_format($positionY));
+        $image->insert($watermark, 'center');
+        return $image->response('jpg');
     }
 }
