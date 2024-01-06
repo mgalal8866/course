@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('exams', function (Blueprint $table) {
-            $table->id();
+        Schema::create('quiz_questions', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->uuid('quiz_id');
+            $table->string('question');
+            $table->string('degree');
             $table->timestamps();
         });
     }
@@ -22,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('exams');
+        Schema::dropIfExists('quiz_questions');
     }
 };

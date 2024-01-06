@@ -80,5 +80,9 @@ return [
     'telegramgrup'   => 'جروب التليجرام ',
     'validity'       => 'صلاحية الدورة',
     'newcourse'      => ' انشاء دورة',
+    'newtest'        => ' انشاء دورة',
+    'testcategory'   => 'قسم الاختبار ',
+    'testtime'       => 'وقت الاختبار',
+    'testname'       => 'أسم الاختبار',
 
 ];
