@@ -20,6 +20,11 @@ class Newquiz extends Component
     {
         $this->quetions ->push(['quetion' => '', 'degree' => '','answers'=>collect([['answer' => 'aaa']])]);
     }
+    public function removequetions($key)
+    {
+        if ($this->quetions->count() != 1)
+            $this->quetions->pull($key);
+    }
     public function addanswerquetions($key)
     {
         $this->quetions[$key]['answers']->push(['answer' => '1111']);
@@ -28,11 +33,7 @@ class Newquiz extends Component
     {
         $this->quetions[$key]['answers']->pull($key1);
     }
-    public function removequetions($key)
-    {
-        if ($this->quetions->count() != 1)
-            $this->quetions->pull($key);
-    }
+
     public function render()
     {
         $category = CategoryExams::get();
