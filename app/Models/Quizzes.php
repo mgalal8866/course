@@ -9,4 +9,10 @@ use Illuminate\Database\Eloquent\Model;
 class Quizzes extends Model
 {
     use UUID,HasFactory;
+    protected $guarded = [];
+    public function category()
+    {
+        return $this->belongsTo(CategoryExams::class, 'category_id');
+    }
+
 }

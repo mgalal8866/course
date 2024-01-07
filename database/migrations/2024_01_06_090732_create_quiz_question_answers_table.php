@@ -16,6 +16,7 @@ return new class extends Migration
             $table->uuid('question_id');
             $table->string('answer');
             $table->boolean('correct')->default(0);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

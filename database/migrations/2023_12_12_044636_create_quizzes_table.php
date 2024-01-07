@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('time');
             $table->string('degree_success');
             $table->string('total_scores');
+            $table->boolean('active')->default(1);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

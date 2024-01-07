@@ -12,4 +12,9 @@ class CategoryExams extends Model
     use UUID,HasFactory,SoftDeletes;
     protected $fillable = [
         'name','active' ];
+
+        public function quizz()
+        {
+            return $this->hasMany(Quizzes::class, 'category_id');
+        }
 }

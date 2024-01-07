@@ -82,7 +82,12 @@ return [
     'newcourse'      => ' انشاء دورة',
     'newtest'        => ' انشاء دورة',
     'testcategory'   => 'قسم الاختبار ',
+    'quizz'          => 'الاختبارات',
     'testtime'       => 'وقت الاختبار',
     'testname'       => 'أسم الاختبار',
+    'degree_success' => 'درجه النجاح',
+    'total_scores'   => 'درجات الاختبار',
+    'newquiz'        => 'اضافة اختبار',
+    'viewquiz'       => 'عرض الاختبارات',
 
 ];

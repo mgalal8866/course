@@ -12,6 +12,7 @@ use App\Livewire\Dashboard\Trainers\Specialist\Specialist;
 use App\Livewire\Dashboard\Courses\Category\CategoryCourse;
 use App\Livewire\Dashboard\Courses\NewCourse;
 use App\Livewire\Dashboard\Exams\Newquiz;
+use App\Livewire\Dashboard\Exams\ViewQuizz;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Livewire\Dashboard\FreeCourse\Category\CategoryFreeCourse;
 use Intervention\Image\Facades\Image;
@@ -66,6 +67,7 @@ Route::group(
         Route::get('/category/courses', CategoryCourse::class)->name('category');
         Route::get('/category/exam', CategoryExam::class)->name('examcategory');
         Route::get('/new/quiz', Newquiz::class)->name('newquiz');
+        Route::get('/view/quiz', ViewQuizz::class)->name('viewquiz');
         Route::get('/trainers', Trainers::class)->name('trainers');
         Route::get('/trainees', Trainees::class)->name('trainees');
         Route::get('/specialist', Specialist::class)->name('specialist');

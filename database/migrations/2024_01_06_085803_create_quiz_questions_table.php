@@ -16,6 +16,7 @@ return new class extends Migration
             $table->uuid('quiz_id');
             $table->string('question');
             $table->string('degree');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
