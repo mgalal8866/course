@@ -54,8 +54,9 @@ class Newquiz extends Component
     }
     public function save()
     {
-        $rules = collect($this->rules)->collect()->toArray();
-        dd($this->validate($rules));
+        // $rules = collect($this->rules)->collect()->toArray();
+        // dd($this->validate($rules));
+        $this->validate($this->rules);
         DB::beginTransaction();
         try {
             $quiz = Quizzes::create([
