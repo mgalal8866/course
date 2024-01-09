@@ -41,7 +41,7 @@ Route::group(
         });
 
         Route::get('/test', function (Request $request) {
-            return   Browser::browserName() .' - '.Browser::platformName() .' - '.$request->ip() .' - ' . Location::get($request->ip());
+            return   Browser::browserName() .' - '.Browser::platformName() .' - '.$request->ip() .' - ' .   json_decode( json_encode(Location::get($request->ip())), true);
 
 
             //   $p1 = asset('files/1.jpg');
