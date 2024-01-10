@@ -4,6 +4,8 @@ use Livewire\Livewire;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 use App\Livewire\Dashboard\Blog\ViewBlog;
 use App\Livewire\Dashboard\Exams\Newquiz;
 use Stevebauman\Location\Facades\Location;
@@ -41,6 +43,12 @@ Route::group(
         });
 
         Route::get('/test', function (Request $request) {
+            // Session::put('token', 'asdasdasd');
+            // Storage::disk('local')->put($myfile, $postdata);
+            return $macAddr = exec('getmac');
+
+            return Session::get('token');
+
             // return   Browser::browserName() .' - '.Browser::platformName() .' - '.$request->ip() .' - ' .   json_decode( json_encode(Location::get($request->ip())), true);
             return    json_decode( json_encode(Location::get($request->ip())), true);
 
