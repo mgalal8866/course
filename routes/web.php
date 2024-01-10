@@ -45,7 +45,12 @@ Route::group(
         Route::get('/test', function (Request $request) {
             // Session::put('token', 'asdasdasd');
             // Storage::disk('local')->put($myfile, $postdata);
-            return $macAddr = exec('getmac');
+            ob_start();
+    system('getmac');
+    $Content = ob_get_contents();
+    ob_clean();
+    return substr($Content, strpos($Content,'\\')-20, 17);
+            // return $macAddr = exec('getmac');
 
             return Session::get('token');
 
