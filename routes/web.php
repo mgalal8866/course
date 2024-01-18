@@ -2,10 +2,11 @@
 
 use Livewire\Livewire;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Storage;
 use App\Livewire\Dashboard\Blog\ViewBlog;
 use App\Livewire\Dashboard\Exams\Newquiz;
 use Stevebauman\Location\Facades\Location;
@@ -19,6 +20,8 @@ use App\Livewire\Dashboard\Trainers\Specialist\Specialist;
 use App\Livewire\Dashboard\Courses\Category\CategoryCourse;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Livewire\Dashboard\FreeCourse\Category\CategoryFreeCourse;
+use App\Models\Setting;
+
 // use Browser;
 
 /*
@@ -43,16 +46,14 @@ Route::group(
         });
 
         Route::get('/test', function (Request $request) {
-            // Session::put('token', 'asdasdasd');
-            // Storage::disk('local')->put($myfile, $postdata);
-            ob_start();
-    system('getmac');
-    $Content = ob_get_contents();
-    ob_clean();
-    return substr($Content, strpos($Content,'\\')-20, 17);
-            // return $macAddr = exec('getmac');
 
-            return Session::get('token');
+
+
+             
+
+            // Session::put('token', 'asdasdasd');
+            // Cache::Forever('token', 'asdasdasd');
+            // return app('getSettings');
 
             // return   Browser::browserName() .' - '.Browser::platformName() .' - '.$request->ip() .' - ' .   json_decode( json_encode(Location::get($request->ip())), true);
             return    json_decode( json_encode(Location::get($request->ip())), true);

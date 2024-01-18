@@ -11,12 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('course_enrolleds', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('name');
-            $table->string('image');
-            $table->boolean('active')->default(1);
-            $table->softDeletes();
+            $table->uuid('user_id');
+            $table->uuid('course_id');
+            $table->string('price');
+            $table->string('payment_id');
+            $table->string('transaction_id');
+            $table->string('statu');
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('course_enrolleds');
     }
 };

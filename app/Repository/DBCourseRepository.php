@@ -15,4 +15,13 @@ class DBCourseRepository implements CourseRepositoryinterface
     {
         $this->model = $model;
     }
+
+    public function getcourse($category_id)
+    {
+       return $this->model->where('category_id',$category_id)->get();
+    }
+
+
+
+
 }

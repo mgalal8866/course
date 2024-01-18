@@ -13,7 +13,16 @@ class Category extends Model
     protected $fillable =
     [
         'name',
-        'active'
+        'active',
+        'image'
     ];
+    public function getImageurlAttribute()
+    {
+        return path($this->id,'category') . $this->image;
+    }
 
+    public function courses()
+    {
+        return $this->hasMany(Courses::class, 'category_id');
+    }
 }

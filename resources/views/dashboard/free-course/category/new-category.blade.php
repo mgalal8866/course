@@ -18,6 +18,7 @@
                           @error('name') <span class="error" style="color: red" >{{ $message }}</span> @enderror
                         </div>
 
+
                         <div class="col-12 text-center mt-2 pt-50">
                             <button type="submit" class="btn btn-primary me-1" >{{__('tran.save')}}</button>
                             <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal"

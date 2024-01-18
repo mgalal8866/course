@@ -12,15 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('settings', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('name')->nullable();
-            $table->string('instagram')->nullable();
-            $table->string('facebook')->nullable();
-            $table->string('whatsapp')->nullable();
-            $table->string('twitter')->nullable();
-            $table->string('email')->nullable();
-            $table->string('phone')->nullable();
-            $table->string('address')->nullable();
+            $table->increments('id');
+            $table->string('key')->unique()->nullable();
+            $table->string('value')->nullable();
+            $table->boolean('active')->default(1);
             $table->timestamps();
         });
     }
