@@ -116,9 +116,9 @@ Route::group(
                 'max_tokens' => 3900,
             ]);
             $rr =  $response->json();
-            $ar =    array_slice(preg_split('/\r\n|\r|\n/', $rr['choices'][0]['message']['content']), -5, 5);
+          //  $ar =    array_slice(preg_split('/\r\n|\r|\n/', $rr['choices'][0]['message']['content']), -5, 5);
             // dd ($rr['choices'][0]['message']['content']
-            dd($ar);
+            dd($rr);
 
 
 
