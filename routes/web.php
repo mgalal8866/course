@@ -1,6 +1,8 @@
 <?php
 
+use GuzzleHttp\Client;
 use Livewire\Livewire;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
@@ -20,7 +22,6 @@ use App\Livewire\Dashboard\Trainers\Specialist\Specialist;
 use App\Livewire\Dashboard\Courses\Category\CategoryCourse;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Livewire\Dashboard\FreeCourse\Category\CategoryFreeCourse;
-use App\Models\Setting;
 
 // use Browser;
 
@@ -45,18 +46,37 @@ Route::group(
             return Route::post('/livewire/update', $handle);
         });
 
-        Route::get('/test', function (Request $request) {
+        Route::get('/test/{text?}', function (Request $request) {
+
+            $url = 'https://api.openai.com/v1/chat/completions';
+
+            $response = Http::withHeaders([
+                'Content-Type' => "application/json",
+                'Authorization' => "Bearer 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",
+            ])->post($url, [
+
+                'model' => "gpt-3.5-turbo",
+                'messages' => [
+                    ['role' => 'system', 'content' => 'You are a helpful assistant.'],
+                    // ['role' => 'user', 'content' => 'this is blog post title:'.PHP_EOL.'help pepole'.PHP_EOL. 'Improve it for SEO and provide 6 alterntive titles to lang arabic'],
+                    ['role' => 'user', 'content' => 'Translate the following English text to arabic: "'.$request->text.'"'],
+                ],
+                'temperature' => 0,
+                'max_tokens' => 3900,
+            ]);
+            $rr =  $response->json();
+            $ar=    array_slice(preg_split('/\r\n|\r|\n/',$rr['choices'][0]['message']['content']),-5,5);
+            // dd ($rr['choices'][0]['message']['content']
+            dd ($ar);
 
 
-
-             
 
             // Session::put('token', 'asdasdasd');
             // Cache::Forever('token', 'asdasdasd');
             // return app('getSettings');
 
             // return   Browser::browserName() .' - '.Browser::platformName() .' - '.$request->ip() .' - ' .   json_decode( json_encode(Location::get($request->ip())), true);
-            return    json_decode( json_encode(Location::get($request->ip())), true);
+            // return    json_decode( json_encode(Location::get($request->ip())), true);
 
 
             //   $p1 = asset('files/1.jpg');
