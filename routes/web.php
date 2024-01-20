@@ -46,6 +46,57 @@ Route::group(
             return Route::post('/livewire/update', $handle);
         });
 
+        Route::get('/test2', function (Request $request) {
+            $phone = '201024346011';
+            $curl = curl_init();
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => 'https://graph.facebook.com/v15.0/231471670042677/messages',
+                // CURLOPT_URL => 'https://graph.facebook.com/v15.0/192748520596240/message_templates',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+
+                CURLOPT_POSTFIELDS => '{
+                "messaging_product": "whatsapp",
+                "recipient_type": "individual",
+                "to": ' . $phone . ',
+                "type": "template",
+                "template": {
+                    "name": "ottttp",
+                    "language": {
+                        "code": "ar"
+                    },
+                    "components": [
+                        {
+                          "type": "body",
+                          "parameters": [
+                            {
+                              "type": "text",
+                              "text": ' . $phone . '
+                            }
+                          ]
+                        }
+                    ],
+                    },
+                }
+                  '
+                ,
+                CURLOPT_HTTPHEADER => array(
+                    'Authorization: Bearer EAAZAPwzlXEZAoBO84FZALRI4TNj6rJItJrgGv7GWnKm7vHPR1t89R5wKfnC7fVppRhgfRBUXWdg0yZBdJs2IaR3bGtdj8BUwGuC7ZA6ShzYuH8E462BExNopd3e3NR4E9CtCjJ2nf4ysYgqgbRqvheGPEOiHymFCF1il8mUEuBahaSMwDtM55oESbCz9K5vShsIeXmIHrJ3W98RReDR0ZD',
+                    'Content-Type: application/json'
+                ),
+            ));
+
+            $response = curl_exec($curl);
+
+            curl_close($curl);
+
+            echo $response;
+        });
         Route::get('/test/{text?}', function (Request $request) {
 
             $url = 'https://api.openai.com/v1/chat/completions';
@@ -59,15 +110,15 @@ Route::group(
                 'messages' => [
                     ['role' => 'system', 'content' => 'You are a helpful assistant.'],
                     // ['role' => 'user', 'content' => 'this is blog post title:'.PHP_EOL.'help pepole'.PHP_EOL. 'Improve it for SEO and provide 6 alterntive titles to lang arabic'],
-                    ['role' => 'user', 'content' => 'Translate the following English text to arabic: "'.$request->text.'"'],
+                    ['role' => 'user', 'content' => 'Translate the following English text to arabic: "' . $request->text . '"'],
                 ],
                 'temperature' => 0,
                 'max_tokens' => 3900,
             ]);
             $rr =  $response->json();
-            $ar=    array_slice(preg_split('/\r\n|\r|\n/',$rr['choices'][0]['message']['content']),-5,5);
+            $ar =    array_slice(preg_split('/\r\n|\r|\n/', $rr['choices'][0]['message']['content']), -5, 5);
             // dd ($rr['choices'][0]['message']['content']
-            dd ($ar);
+            dd($ar);
 
 
 
