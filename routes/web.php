@@ -103,7 +103,7 @@ Route::group(
 
             $response = Http::withHeaders([
                 'Content-Type' => "application/json",
-                'Authorization' => "Bearer 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",
+                'Authorization' => "Bearer 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",
             ])->post($url, [
 
                 'model' => "gpt-3.5-turbo",
