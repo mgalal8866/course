@@ -40,8 +40,7 @@ class HomeController extends Controller
     }
     public function section4()
     {
-        $data['setting']  = $this->getsetting('section3_setting', ['section3_statu', 'section3_title','section3_body']);
-        $data['category'] = CategoryCourseResource::collection(Category::withCount('courses')->get());;
+        $data  = $this->getsetting('section3_setting', ['section3_statu', 'section3_title','section3_body']);
         return Resp( new HomeSection4Resource($data), 'success');
     }
 
