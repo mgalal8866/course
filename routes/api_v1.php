@@ -11,7 +11,12 @@ use App\Http\Controllers\Api\V1\SetttingController;
 Route::post('/login',[UsersController::class,'login'])->name('login');
 Route::post('/sendotp',[UsersController::class,'sendotp']);
 Route::post('/signup',[UsersController::class,'signup']);
-Route::get('/homepage',[HomeController::class,'homepage'])->name('homepage');
+
+Route::get('/home/section1',[HomeController::class,'section1'])->name('section1');
+Route::get('/home/section2',[HomeController::class,'section2'])->name('section2');
+Route::get('/home/section3',[HomeController::class,'section3'])->name('section3');
+Route::get('/home/section4',[HomeController::class,'section4'])->name('section4');
+
 Route::get('/verificationcode/{code?}',[UsersController::class,'verificationcode'])->name('signup');
 Route::get('/category_course',[CategoryCourseController::class,'getcategorycourse'])->name('getcategorycourse');
 // Route::get('/getcourses',[CourseController::class,'getcategorycourse'])->name('getcategorycourse');
