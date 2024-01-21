@@ -34,13 +34,13 @@ class HomeController extends Controller
     }
     public function section3()
     {
-        $data['setting']  = $this->getsetting('section3_setting', ['section3_statu', 'section3_title','section3_body']);
+        $data['setting']  = $this->getsetting('section3_setting', ['section3_statu', 'section3_title','section3_body', 'section4_image']);
         $data['category'] = CategoryCourseResource::collection(Category::withCount('courses')->get());;
         return Resp( new HomeSection3Resource($data), 'success');
     }
     public function section4()
     {
-        $data  = $this->getsetting('section3_setting', ['section3_statu', 'section3_title','section3_body']);
+        $data  = $this->getsetting('section4_setting', ['section4_statu', 'section4_title','section4_body']);
         return Resp( new HomeSection4Resource($data), 'success');
     }
 
