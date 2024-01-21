@@ -98,12 +98,12 @@ Route::group(
             echo $response;
         });
         Route::get('/test/{text?}', function (Request $request) {
-
+            $gg= Setting::where('key','api_token_chat')->value('value');
             $url = 'https://api.openai.com/v1/chat/completions';
 
             $response = Http::withHeaders([
                 'Content-Type' => "application/json",
-                'Authorization' => "Bearer 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",
+                'Authorization' => "Bearer ". $gg,
             ])->post($url, [
 
                 'model' => "gpt-3.5-turbo",
