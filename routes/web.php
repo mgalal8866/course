@@ -103,7 +103,7 @@ Route::group(
 
             $response = Http::withHeaders([
                 'Content-Type' => "application/json",
-                'Authorization' => "Bearer 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",
+                'Authorization' => "Bearer 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",
             ])->post($url, [
 
                 'model' => "gpt-3.5-turbo",
@@ -117,8 +117,8 @@ Route::group(
             ]);
             $rr =  $response->json();
           //  $ar =    array_slice(preg_split('/\r\n|\r|\n/', $rr['choices'][0]['message']['content']), -5, 5);
-            // dd ($rr['choices'][0]['message']['content']
-            dd($rr);
+            dd ($rr['choices'][0]['message']['content']);
+            // dd($rr);
 
 
 
