@@ -18,7 +18,7 @@ class Category extends Model
     ];
     public function getImageurlAttribute()
     {
-        return path($this->id,'category') . $this->image;
+        return path('','category') . $this->image;
     }
 
     public function courses()

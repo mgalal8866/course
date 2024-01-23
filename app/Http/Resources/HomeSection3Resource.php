@@ -16,7 +16,7 @@ class HomeSection3Resource extends JsonResource
     {
         return [
 
-                'statu'     => $this['setting']['section3_statu']??'',
+                'status'     => $this['setting']['section3_status']??'',
                 'title'     => $this['setting']['section3_title']??'',
                 'category'  => $this['category'],
 

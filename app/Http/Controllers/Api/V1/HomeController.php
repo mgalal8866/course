@@ -23,24 +23,24 @@ class HomeController extends Controller
     public function section1()
     {
         $data=[];
-        $data['setting']  =$this->getsetting('section1_setting', ['section1_statu','section1_title', 'section1_sub_title', 'section1_body' ]);
+        $data['setting']  =$this->getsetting('section1_setting', ['section1_status','section1_title', 'section1_sub_title', 'section1_body' ]);
         $data['slider']   = Slider::get();
         return Resp( new HomeSection1Resource($data), 'success');
     }
     public function section2()
     {
-        $data = $this->getsetting('section2_setting', ['section2_statu','section2_title', 'section2_image', 'section2_body']);
+        $data = $this->getsetting('section2_setting', ['section2_status','section2_title', 'section2_image', 'section2_body']);
         return Resp( new HomeSection2Resource($data), 'success');
     }
     public function section3()
     {
-        $data['setting']  = $this->getsetting('section3_setting', ['section3_statu', 'section3_title','section3_body', 'section4_image']);
+        $data['setting']  = $this->getsetting('section3_setting', ['section3_status', 'section3_title','section3_body', 'section4_image']);
         $data['category'] = CategoryCourseResource::collection(Category::withCount('courses')->get());;
         return Resp( new HomeSection3Resource($data), 'success');
     }
     public function section4()
     {
-        $data  = $this->getsetting('section4_setting', ['section4_statu', 'section4_title','section4_body']);
+        $data  = $this->getsetting('section4_setting', ['section4_status', 'section4_title','section4_body','section4_image']);
         return Resp( new HomeSection4Resource($data), 'success');
     }
 
@@ -48,6 +48,7 @@ class HomeController extends Controller
 
     public function getsetting($cache, array $value)
     {
+        Cache::forget($cache);
         $settings = Cache::rememberForever($cache, function () use ($value) {
 
             return Setting::whereIn('key', $value)->get();

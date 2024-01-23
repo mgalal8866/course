@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class HomeSection2Resource extends JsonResource
+class SliderResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,10 +16,9 @@ class HomeSection2Resource extends JsonResource
     {
         return [
 
-                'status'     => $this['section2_status']??'',
-                'title'     => $this['section2_title']??'',
-                'body'      => $this['section2_body']??'',
-                'image'     => path('','home') . $this['section2_image']??'',
+                'id'     => $this->id??'',
+                'image'  => $this->imageurl??'',
+
 
 
         ];

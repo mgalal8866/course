@@ -16,11 +16,11 @@ class HomeSection1Resource extends JsonResource
     {
         return [
 
-                'statu'     => $this['setting']['section1_statu']??'',
+                'status'     => $this['setting']['section1_status']??'',
                 'title'     => $this['setting']['section1_title']??'',
                 'sub_title' => $this['setting']['section1_sub_title']??'',
                 'body'      => $this['setting']['section1_body']??'',
-                'slider'    => $this['slider']??'',
+                'slider'    =>  SliderResource::collection($this['slider'])??'',
 
 
         ];

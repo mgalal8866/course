@@ -16,10 +16,10 @@ class HomeSection4Resource extends JsonResource
     {
         return [
 
-                'statu'     => $this['section4_statu']??'',
+                'status'     => $this['section4_status']??'',
                 'title'     => $this['section4_title']??'',
                 'body'     => $this['section4_body']??'',
-                'image'     => $this['section4_image']??'',
+                'image'     => path('','home') . $this['section4_image']??'',
 
 
         ];

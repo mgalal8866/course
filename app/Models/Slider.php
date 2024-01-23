@@ -11,4 +11,9 @@ class Slider extends Model
 {
     use UUID,HasFactory,SoftDeletes;
     protected $guarded = [];
+
+    public function getImageurlAttribute()
+    {
+        return path('','slider') . $this->img;
+    }
 }
