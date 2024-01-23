@@ -4,6 +4,9 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Database\Seeders\BlogSeeder;
+use Database\Seeders\SliderSeeder;
+use Database\Seeders\SettingSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,9 +15,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call(settingSeeder::class);
         $this->call(BlogSeeder::class);
         $this->call(SliderSeeder::class);
+        $this->call(SettingSeeder::class);
 
         // \App\Models\User::factory(10)->create();
 
