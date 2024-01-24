@@ -17,6 +17,7 @@ Route::get('/home/section2',[HomeController::class,'section2'])->name('section2'
 Route::get('/home/section3',[HomeController::class,'section3'])->name('section3');
 Route::get('/home/section4',[HomeController::class,'section4'])->name('section4');
 Route::get('/home/header',[HomeController::class,'homeheader'])->name('homeheader');
+Route::get('/home/footer',[HomeController::class,'homefooter'])->name('homefooter');
 
 Route::get('/verificationcode/{code?}',[UsersController::class,'verificationcode'])->name('signup');
 Route::get('/category_course',[CategoryCourseController::class,'getcategorycourse'])->name('getcategorycourse');

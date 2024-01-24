@@ -16,12 +16,20 @@ use App\Http\Resources\HomeSection2Resource;
 use App\Http\Resources\HomeSection3Resource;
 use App\Http\Resources\HomeSection4Resource;
 use App\Http\Resources\CategoryCourseResource;
+use App\Http\Resources\HomeFooterResource;
 use App\Http\Resources\HomeHeaderResource;
 use App\Models\CategoryFCourse;
 
 class HomeController extends Controller
 {
 
+    public function homefooter()
+    {
+        $data = $this->getsetting('footer_setting', ['phone', 'address', 'mail',
+         'facebook','instegram','telegram','linkedin','youtube','description','copyright']);
+
+        return Resp(new HomeFooterResource($data), 'success');
+    }
     public function homeheader()
     {
         $data = [];
@@ -39,6 +47,7 @@ class HomeController extends Controller
     }
     public function section2()
     {
+        $data = [];
         $data = $this->getsetting('section2_setting', ['section2_status', 'section2_title', 'section2_image', 'section2_body']);
         return Resp(new HomeSection2Resource($data), 'success');
     }
@@ -60,7 +69,6 @@ class HomeController extends Controller
     {
         Cache::forget($cache);
         $settings = Cache::rememberForever($cache, function () use ($value) {
-
             return Setting::whereIn('key', $value)->get();
         });
 
