@@ -74,7 +74,7 @@ class SettingSeeder extends Seeder
             [
 
                 'key' => 'section2_status',
-                'value' => '01024346011',
+                'value' => '1',
             ],
             [
                 'key' => 'section2_title',

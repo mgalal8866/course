@@ -7,18 +7,16 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class CategoryCourseResource extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @return array<string, mixed>
-     */
+
     public function toArray(Request $request): array
     {
+
         return [
             'id'     => $this->id,
             'name'   => $this->name,
             'courses'=> $this->courses_count ,
-            'image'  => $this->imageurl
+            'image'  => $this->imageurl,
+            'url'    => '/getcourse/'.$this->id,
         ];
     }
 }

@@ -28,9 +28,12 @@
                                     <td>
                                         <span class="fw-bold">{{ $item->title ?? 'N/A' }}</span>
                                     </td>
-                                    <td>
-                                        <span class="fw-bold">{{ Str::of($item->short)->limit(20); }}</span>
-                                    </td>
+
+                                        <td>
+                                            <span class="fw-bold">  {{ Str::of(strip_tags( $item->article))->limit(20) ?? 'N/A' }}</span>
+                                        </td>
+
+
                                     <td>
                                         @if ($item->image !=null)
 
@@ -40,6 +43,7 @@
 
                                         @endif
                                     </td>
+
 
                                     <td>
                                         <span class="fw-bold"> <i class="fas fas fa-eye fa-sm "> </i> {{ $item->views ?? 'N/A' }}</span>

@@ -8,6 +8,7 @@ use Livewire\Component;
 use App\Models\Specialist;
 use Livewire\WithFileUploads;
 use App\Traits\ImageProcessing;
+use DOMDocument;
 
 class NewBlog extends Component
 {
@@ -42,9 +43,11 @@ class NewBlog extends Component
     public function save()
     {
         $this->validate();
+
+
         $Blog = Blog::updateOrCreate(['id' => $this->id], [
             'title'  => $this->title,
-            'article'=> $this->article,
+            'article'=> '',
             'active' => $this->active??1,
         ]);
         if ($this->image) {
@@ -52,6 +55,21 @@ class NewBlog extends Component
             $Blog->image =  $dataX['image'];
             $Blog->save();
         }
+
+        $dom = new DOMDocument();
+        $dom->loadHTML( $this->article,9);
+        $images = $dom->getElementsByTagName('img');
+        foreach($images as $key=>$img){
+            // dd($img->getAttribute('src'));
+            $data = base64_decode(explode(',',explode(';',$img->getAttribute('src'))[1])[1]);
+            $image_name = "/files/" .time().$key.'.png';
+            file_put_contents(public_path().$image_name,$data);
+            $img->removeAttribute('src');
+            $img->setAttribute('src', $image_name);
+        }
+        $Blog->article =    $dom->saveHTML();
+        $Blog->save();
+
         $this->dispatch('closemodel');
         $this->dispatch('blog_course_refresh');
 
