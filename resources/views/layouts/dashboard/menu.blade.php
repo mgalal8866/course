@@ -178,6 +178,22 @@
 
                 </ul>
             </li>
+             <li class=" nav-item">
+                <a class="d-flex align-items-center" href="#">
+                    <i class="fas fa-cog"></i>
+                    <span class="menu-title text-truncate">{{ __('tran.setting') }}</span>
+                </a>
+                <ul class="menu-content">
+                    <li>
+                       <a class="d-flex align-items-center" href="{{route('setting')}}">
+                           {{-- <i data-feather="circle"></i> --}}
+                           <i class="fas fa-tools"></i>
+                           <span class="menu-item text-truncate">{{ __('tran.homesetting') }}</span>
+                       </a>
+                   </li>
+
+                </ul>
+            </li>
          </ul>
      </div>
  </div>

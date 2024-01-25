@@ -89,5 +89,7 @@ return [
     'total_scores'   => 'درجات الاختبار',
     'newquiz'        => 'اضافة اختبار',
     'viewquiz'       => 'عرض الاختبارات',
+    'setting'       => 'اعدادت',
+    'homesetting'    => 'الرئيسية',
 
 ];

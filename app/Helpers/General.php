@@ -2,7 +2,23 @@
 
 use App\Models\Setting;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Cache;
+ function getsetting($cache, array $value)
+{
+    // Cache::forget($cache);
+    $settings = Cache::rememberForever($cache, function () use ($value) {
+        return Setting::whereIn('key', $value)->get();
+    });
 
+    $set =  $settings->pluck('value', 'key')->toarray();
+    $data = array_map(function ($value) {
+        if ($value === null) {
+            return '';
+        }
+        return $value === null ? '' : $value;
+    }, $set);
+    return $data;
+}
 function Resp($data = null, $msg = null, $status = 200, $statusval = true)
 {
     if ($status == 422) {
