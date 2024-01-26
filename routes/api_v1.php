@@ -16,6 +16,8 @@ Route::get('/home/section1',[HomeController::class,'section1'])->name('section1'
 Route::get('/home/section2',[HomeController::class,'section2'])->name('section2');
 Route::get('/home/section3',[HomeController::class,'section3'])->name('section3');
 Route::get('/home/section4',[HomeController::class,'section4'])->name('section4');
+Route::get('/home/section5',[HomeController::class,'section5'])->name('section5');
+Route::get('/home/section6',[HomeController::class,'section6'])->name('section6');
 Route::get('/home/header',[HomeController::class,'homeheader'])->name('homeheader');
 Route::get('/home/footer',[HomeController::class,'homefooter'])->name('homefooter');
 

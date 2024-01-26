@@ -3,22 +3,27 @@
 namespace App\Http\Controllers\Api\V1;
 
 
+use App\Models\Blog;
 use App\Models\Slider;
+use App\Models\AboutUs;
 use App\Models\Setting;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Models\CategoryFCourse;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Resources\HomePageResource;
+use App\Http\Resources\HomeFooterResource;
+use App\Http\Resources\HomeHeaderResource;
 use App\Http\Resources\HomeSection1Resource;
 use App\Http\Resources\HomeSection2Resource;
 use App\Http\Resources\HomeSection3Resource;
 use App\Http\Resources\HomeSection4Resource;
+use App\Http\Resources\HomeSection5Resource;
+use App\Http\Resources\HomeSection6Resource;
 use App\Http\Resources\CategoryCourseResource;
-use App\Http\Resources\HomeFooterResource;
-use App\Http\Resources\HomeHeaderResource;
-use App\Models\CategoryFCourse;
 
 class HomeController extends Controller
 {
@@ -61,6 +66,24 @@ class HomeController extends Controller
     {
         $data  = getsetting('section4_setting', ['section4_status', 'section4_title', 'section4_body', 'section4_image']);
         return Resp(new HomeSection4Resource($data), 'success');
+    }
+    public function section5()
+    {
+
+        $data = [];
+        $data['setting']  = getsetting('section5_setting', ['section5_status', 'section5_title', 'section5_sub_title']);
+        $data['aboutus'] = AboutUs::with('user')->orderBy(DB::raw('RAND()'))->take(3)->get();
+
+        return Resp(new HomeSection5Resource($data), 'success');
+    }
+    public function section6()
+    {
+
+        $data = [];
+        $data['setting']  = getsetting('section6_setting', ['section6_status', 'section6_title', 'section6_sub_title']);
+        $data['blog'] = Blog::orderBy(DB::raw('RAND()'))->take(3)->get();
+
+        return Resp(new HomeSection6Resource($data), 'success');
     }
 
 
