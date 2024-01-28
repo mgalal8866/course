@@ -91,5 +91,13 @@ return [
     'viewquiz'       => 'عرض الاختبارات',
     'setting'       => 'اعدادت',
     'homesetting'    => 'الرئيسية',
+    'section1'          => 'قسم 1',
+    'section2'          => 'قسم 2',
+    'section3'          => 'قسم 3',
+    'section4'          => 'قسم 4',
+    'section5'          => 'قسم 5',
+    'section6'          => 'قسم 6',
+    'footer_setting'          => 'الاسفل',
+
 
 ];

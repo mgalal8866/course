@@ -36,6 +36,13 @@ return [
     'female'          => 'انثي',
     'edit'            => 'تعديل',
     'select'          => 'اختار',
+    'section1'          => 'قسم 1',
+    'section2'          => 'قسم 2',
+    'section3'          => 'قسم 3',
+    'section4'          => 'قسم 4',
+    'section5'          => 'قسم 5',
+    'section6'          => 'قسم 6',
+    'footer'          => 'قوتر',
 
 
 
