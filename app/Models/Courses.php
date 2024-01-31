@@ -28,5 +28,10 @@ class Courses extends Model
 
         return $this->belongsToMany(stages::class,'course_stages','course_id', 'stage_id');
     }
+    public function lessons()
+    {
+
+        return $this->belongsTo(Lessons::class);
+    }
 
 }

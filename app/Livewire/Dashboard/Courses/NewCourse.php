@@ -21,21 +21,21 @@ class NewCourse extends Component
     use WithFileUploads, ImageProcessing;
 
 
-    protected $listeners = ['edit' => 'edit', 'refreshDropdown','currentPage'=>'currentPage'];
-    public $edit = false, $id, $header, $currentPage = 1,$pages =4,$conditions,$target,$howtostart,
-        $telegram,$telegramgrup,$nextcourse,
-        $name, $description,$validity, $country_id, $category_id, $price,$pricewith, $startdate, $enddate, $time, $features, $triner = [], $limit_stud, $duration_course,
+    protected $listeners = ['edit' => 'edit', 'refreshDropdown', 'currentPage' => 'currentPage'];
+    public $edit = false, $id, $header, $currentPage = 1, $pages = 4, $conditions, $target, $howtostart,
+        $telegram, $telegramgrup, $nextcourse,
+        $name, $description, $validity, $country_id, $category_id, $price, $pricewith, $startdate, $enddate, $time, $features, $triner = [], $limit_stud, $duration_course,
         $image_course, $file_work, $file_explanatory, $file_aggregates, $file_supplementary, $file_free, $file_test,
-        $langcourse, $status, $inputnum, $lessons,$stages;
+        $langcourse, $status, $inputnum, $lessons, $stages;
     public function mount()
     {
         $this->stages = Stages::get();
-        $this->fill(['lessons' => collect([['stage_id' => null,'img' => null, 'name' => '', 'link' => '', 'status' => true]])]);
+        $this->fill(['lessons' => collect([['stage_id' => null, 'img' => null, 'name' => '', 'link' => '', 'status' => true]])]);
     }
 
     public function addlesson()
     {
-        $this->lessons->push(['stage_id' => null,'img' => null, 'name' => '', 'link' => '', 'status' => true]);
+        $this->lessons->push(['stage_id' => null, 'img' => null, 'name' => '', 'link' => '', 'status' => true]);
     }
     public function removelesson($key)
     {
@@ -100,30 +100,30 @@ class NewCourse extends Component
             $CFC = Courses::updateOrCreate(['id' => $this->id], [
                 'name'         => $this->name,
                 'country_id'   => $this->country_id,
-                'duration'     => $this->duration_course??null,
-                'validity'     => $this->validity??null,
-                'short_description'  => $this->short_description,
-                'description'  => $this->description??null,
-                'category_id'  => $this->category_id??null,
-                'price'        => $this->price??null,
-                'pricewith'    => $this->pricewith??null,
-                'start_date'   => $this->startdate??null,
-                'end_date'     => $this->enddate??null,
-                'time'         => $this->time??null,
-                'max_drainees' => $this->limit_stud??null,
-                'conditions'   => $this->conditions??null,
-                'how_start'    => $this->howtostart??null,
-                'target'       => $this->target??null,
-                'telegramgrup' => $this->telegramgrup??null,
-                'telegram'     => $this->telegram??null,
-                'next_cource'  => $this->nextcourse??null,
-                'lang'         => $this->langcourse??null,
+                'duration'     => $this->duration_course ?? null,
+                'validity'     => $this->validity ?? null,
+                'short_description'  => $this->short_description ?? '',
+                'description'  => $this->description ?? 'null',
+                'category_id'  => $this->category_id ?? null,
+                'price'        => $this->price ?? null,
+                'pricewith'    => $this->pricewith ?? null,
+                'start_date'   => $this->startdate ?? null,
+                'end_date'     => $this->enddate ?? null,
+                'time'         => $this->time ?? null,
+                'max_drainees' => $this->limit_stud ?? null,
+                'conditions'   => $this->conditions ?? null,
+                'how_start'    => $this->howtostart ?? null,
+                'target'       => $this->target ?? null,
+                'telegramgrup' => $this->telegramgrup ?? null,
+                'telegram'     => $this->telegram ?? null,
+                'next_cource'  => $this->nextcourse ?? null,
+                'lang'         => $this->langcourse ?? null,
                 'statu'        => $this->status,
                 'inputnum'  => $this->inputnum,
 
             ]);
-            if($this->image_course){
-                $dataX = $this->saveImageAndThumbnail($this->image_course, false, $CFC->id, 'courses','images');
+            if ($this->image_course) {
+                $dataX = $this->saveImageAndThumbnail($this->image_course, false, $CFC->id, 'courses', 'images');
                 $CFC->image =  $dataX['image'];
                 $CFC->save();
             }
@@ -162,8 +162,9 @@ class NewCourse extends Component
                 $CFC->coursetrainers()->create(['trainer_id' => $i]);
             }
             foreach ($this->lessons as $i) {
-                $dataX = $this->saveImageAndThumbnail($i['img'], false, $CFC->id, 'courses','lessons/image');
-                $CFC->lessons()->create(['img' => $dataX['image'] , 'name' => $i['name'], 'link_video' => $i['link'],'paid' => $i['status']]);
+                $dataX = $this->saveImageAndThumbnail($i['img'], false, $CFC->id, 'courses', 'lessons/image');
+                $lesson = $CFC->lessons()->create(['img' => $dataX['image'], 'name' => $i['name'], 'link_video' => $i['link'], 'paid' => $i['status']]);
+                $CFC->stages()->attach($i['stage_id'], ['course_id' => $CFC->id, 'lesson_id' => $lesson->id]);
             }
             DB::commit();
             // $this->resetValidation();
