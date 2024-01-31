@@ -10,20 +10,23 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Courses extends Model
 {
-    use UUID,HasFactory,SoftDeletes;
+    use UUID, HasFactory, SoftDeletes;
     protected $guarded = [];
 
     public function coursetrainers()
     {
         return $this->hasMany(CourseTrainers::class, 'course_id');
     }
-    public function lessons()
-    {
-        return $this->hasMany(Lessons::class, 'course_id');
-    }
+
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id');
+    }
+
+    public function stages()
+    {
+
+        return $this->belongsToMany(stages::class,'course_stages','course_id', 'stage_id');
     }
 
 }

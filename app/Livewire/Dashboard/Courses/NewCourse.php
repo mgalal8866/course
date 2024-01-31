@@ -8,9 +8,11 @@ use App\Models\Courses;
 use App\Models\Trainer;
 use Livewire\Component;
 use App\Models\Category;
+use App\Models\CourseStages;
 use Livewire\Attributes\On;
 use Livewire\WithFileUploads;
 use App\Models\CourseTrainers;
+use App\Models\Stages;
 use App\Traits\ImageProcessing;
 use Illuminate\Support\Facades\DB;
 
@@ -24,15 +26,16 @@ class NewCourse extends Component
         $telegram,$telegramgrup,$nextcourse,
         $name, $description,$validity, $country_id, $category_id, $price,$pricewith, $startdate, $enddate, $time, $features, $triner = [], $limit_stud, $duration_course,
         $image_course, $file_work, $file_explanatory, $file_aggregates, $file_supplementary, $file_free, $file_test,
-        $langcourse, $status, $inputnum, $lessons;
+        $langcourse, $status, $inputnum, $lessons,$stages;
     public function mount()
     {
-        $this->fill(['lessons' => collect([['img' => null, 'name' => '', 'link' => '', 'status' => true]])]);
+        $this->stages = Stages::get();
+        $this->fill(['lessons' => collect([['stage_id' => null,'img' => null, 'name' => '', 'link' => '', 'status' => true]])]);
     }
 
     public function addlesson()
     {
-        $this->lessons->push(['img' => null, 'name' => '', 'link' => '', 'status' => true]);
+        $this->lessons->push(['stage_id' => null,'img' => null, 'name' => '', 'link' => '', 'status' => true]);
     }
     public function removelesson($key)
     {

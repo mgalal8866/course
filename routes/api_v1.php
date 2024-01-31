@@ -24,7 +24,8 @@ Route::get('/home/footer',[HomeController::class,'homefooter'])->name('homefoote
 Route::get('/verificationcode/{code?}',[UsersController::class,'verificationcode'])->name('signup');
 Route::get('/category_course',[CategoryCourseController::class,'getcategorycourse'])->name('getcategorycourse');
 // Route::get('/getcourses',[CourseController::class,'getcategorycourse'])->name('getcategorycourse');
-Route::get('/getcourse/{category_id}',[CourseController::class,'getcourse'])->name('getcourse');
+Route::get('/courses/{category_id}',[CourseController::class,'getcoursesbycategroy'])->name('getcoursesbycategroy');
+Route::get('/course/{id}',[CourseController::class,'getcoursebyid'])->name('getcoursebyid');
 Route::get('/slider',[HomeController::class,'getslider'])->name('getslider');
 Route::get('/setting',[HomeController::class,'getsetting'])->name('getsetting');
 Route::get('/category/free/course',[CategoryFreeCourse::class,'getcategoryfreecourse'])->name('CFcourse');

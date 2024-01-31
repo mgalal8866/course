@@ -316,6 +316,17 @@
                             </div>
                             @foreach ($lessons as $key => $value)
                                 <div class="mb-1 row">
+                                    <div class="col">
+                                        <select class="form-select" wire:model='lessons.{{ $key }}.stage_id' required>
+                                            <option value=""> اختار المرحلة</option>
+                                            @foreach ($stages as $c)
+                                                <option value="{{ $c->id }}">{{ $c->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('lessons.' . $key . '.stage_id')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
                                     <div class="col border border-black ">
                                         <x-fileupload class="mb-0" wire:model='lessons.{{ $key }}.img'
                                             id='lessons.{{ $key }}.img' :namefile="$lessons[$key]['img'] != null
@@ -325,6 +336,7 @@
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
+
                                     <div class="col">
                                         <input class="form-control" wire:model="lessons.{{ $key }}.name"
                                             placeholder="name" type="text" />
