@@ -3,8 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\Setting;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class SettingSeeder extends Seeder
 {
@@ -43,8 +44,8 @@ class SettingSeeder extends Seeder
                 'value' => 'linkedin.com',
             ],
             [
-                'key'   =>  'youtube' ,
-                'value' =>'youtube.com',
+                'key'   =>  'youtube',
+                'value' => 'youtube.com',
             ],
             [
                 'key' => 'description',
@@ -69,7 +70,7 @@ class SettingSeeder extends Seeder
             ],
             [
                 'key' => 'section1_body',
-                'value' =>'يهدف مركز اليسر للتدريب إلى تسهيل العملية التعليمية للطالب وتقديمها بطريقة عصرية تضمن سرعة الوصول للمحتوى التعليمي وشرحه بطريقة بسيطة وسهلة على يد مدربين اكفاء.',
+                'value' => 'يهدف مركز اليسر للتدريب إلى تسهيل العملية التعليمية للطالب وتقديمها بطريقة عصرية تضمن سرعة الوصول للمحتوى التعليمي وشرحه بطريقة بسيطة وسهلة على يد مدربين اكفاء.',
             ],
             [
 
@@ -109,12 +110,12 @@ class SettingSeeder extends Seeder
             ],
             [
                 'key' => 'section4_body',
-                'value' =>'يهدف مركز اليسر للتدريب إلى تسهيل العملية التعليمية للطالب وتقديمها بطريقة عصرية تضمن سرعة الوصول للمحتوى التعليمي وشرحه بطريقة بسيطة وسهلة على يد مدربين اكفاء. لا تفكر كثيراً ولا تبحث أكثر فمهما كان ما تبحث عنه في كيان نضعه بين يديك ونقربه إليك حيث تصبح العملية التعليمية أسهل مما تظن وأجمل مما تعتقد؛ معلماً كان من تبحث عنه أو شرحاً أو جزءاً من معلومة فلن تحتاج إلا لثوانٍ معدودة لتجد في مركز كيان للتدريب ما تبحث عنه.. لا غنى لك عن مركز اليسر للتدريب لأن العلم معنا أسهل.',
+                'value' => 'يهدف مركز اليسر للتدريب إلى تسهيل العملية التعليمية للطالب وتقديمها بطريقة عصرية تضمن سرعة الوصول للمحتوى التعليمي وشرحه بطريقة بسيطة وسهلة على يد مدربين اكفاء. لا تفكر كثيراً ولا تبحث أكثر فمهما كان ما تبحث عنه في كيان نضعه بين يديك ونقربه إليك حيث تصبح العملية التعليمية أسهل مما تظن وأجمل مما تعتقد؛ معلماً كان من تبحث عنه أو شرحاً أو جزءاً من معلومة فلن تحتاج إلا لثوانٍ معدودة لتجد في مركز كيان للتدريب ما تبحث عنه.. لا غنى لك عن مركز اليسر للتدريب لأن العلم معنا أسهل.',
 
             ],
             [
                 'key' => 'section4_image',
-                'value' =>'instructors_cover.png',
+                'value' => 'instructors_cover.png',
 
             ],
             [
@@ -149,19 +150,35 @@ class SettingSeeder extends Seeder
             [
 
                 'key' => 'section7_status',
-                'value' =>'1',
+                'value' => '1',
             ],
             [
                 'key' => 'section7_title',
-                'value' => 'انضم إلينا في رحلة التعلم مع اليسر',
+                'value' => 'قسم الأسئلة الشائعة',
             ],
             [
                 'key' => 'section7_sub_title',
+                'value' => 'اكتشف المزيد حول منصة "اليسر" من خلال الأسئلة الشائعة التالية'
+            ],
+            [
+
+                'key' => 'section8_status',
+                'value' => '1',
+            ],
+            [
+                'key' => 'section8_title',
+                'value' => 'انضم إلينا في رحلة التعلم مع اليسر',
+            ],
+            [
+                'key' => 'section8_sub_title',
                 'value' => 'اكتشف المزيد حول منصة "اليسر" من خلال الأسئلة الشائعة التالية',
 
-            ],
+            ]
 
-         ];
-       Setting::insert($data);
+        ];
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::table('settings')->truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+        Setting::insert($data);
     }
 }

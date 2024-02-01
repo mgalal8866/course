@@ -30,7 +30,12 @@ class CourseController extends Controller
     public function getcoursebyid($id)
     {
         $data = $this->course->getcoursebyid($id);
-// dd(  $data);
-        return Resp(new CourseByIdResource($data), 'success');
+           if( $data !=null){
+
+               return Resp(new CourseByIdResource($data), 'success');
+            }else{
+                return Resp(null,'Not Found Course',404,false);
+
+            };
     }
 }

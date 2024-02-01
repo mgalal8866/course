@@ -97,7 +97,21 @@ return [
     'section4'          => 'قسم 4',
     'section5'          => 'قسم 5',
     'section6'          => 'قسم 6',
+    'section7'          => 'قسم 7',
+    'section8'          => 'قسم 8',
     'footer_setting'          => 'الاسفل',
+    'slider'          => 'سلايدر',
+    'status'          => 'الحالة',
+    'newslider'          => 'اضافه سلايدر',
+    'editslider'          => 'تعديل سلايدر',
+    'sub_title'          => 'عنوان فرعي',
+    'body'          => 'محتوى',
 
+    'instegram'          => 'انستجرام',
+    'copyright'          => 'حقوق',
+    'linkedin'          => 'لينك ان',
+    'youtube'          => 'يوتيوب',
+    'facebook'          => 'فيسبوك',
+    'address'          => 'عنوان',
 
 ];

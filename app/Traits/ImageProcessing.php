@@ -49,18 +49,17 @@ trait ImageProcessing
 
         return $imgpath;
     }
-    public function aspect4resize($image, $width, $height, $course_id, $folder)
+    public function aspect4resize($image, $width, $height, $course_id, $folder ,$folder2=null)
     {
         $img = Image::make($image);
         $extension = $this->get_mime($img->mime());
         $str_random = Str::random(4);
 
-        $img->resize($width, $height, function ($constraint) {
-            $constraint->aspectRatio();
-        });
+        $img->resize($width, $height);
+
 
         $imgpath = $str_random . time() . $extension;
-        $img->save($this->path($course_id, $folder) .  $imgpath);
+        $img->save($this->path($course_id, $folder, $folder2)  .  $imgpath);
         // $img->save(storage_path('app/imagesfp') . '/' . $imgpath);
 
         return $imgpath;
@@ -84,16 +83,20 @@ trait ImageProcessing
         $img->save(storage_path('app/imagesfp') . '/' . $imgpath);
         return $imgpath;
     }
-    public function saveImageAndThumbnail($Thefile, $thumb = false, $course_id = '23123', $folder = 'course', $folder2 = null)
+    public function saveImageAndThumbnail($Thefile, $thumb = false, $course_id = '23123', $folder = 'course', $folder2 = null, $height = null, $width = null)
     {
         $dataX = array();
+        if ($height != null && $width != null) {
 
-        $dataX['image'] = $this->saveImage($Thefile, $course_id, $folder, $folder2);
+            $dataX['image'] = $this->aspect4resize($Thefile,  $width , $height, $course_id, $folder, $folder2);
+        } else {
+            $dataX['image'] = $this->saveImage($Thefile, $course_id, $folder, $folder2);
+        }
 
         if ($thumb) {
-            $dataX['thumbnailsm'] = $this->aspect4resize($Thefile, 256, 144, $course_id, $folder);
-            $dataX['thumbnailmd'] = $this->aspect4resize($Thefile, 426, 240, $course_id, $folder);
-            $dataX['thumbnailxl'] = $this->aspect4resize($Thefile, 640, 360, $course_id, $folder);
+            $dataX['thumbnailsm'] = $this->aspect4resize($Thefile, 256, 144, $course_id, $folder, $folder2);
+            $dataX['thumbnailmd'] = $this->aspect4resize($Thefile, 426, 240, $course_id, $folder, $folder2);
+            $dataX['thumbnailxl'] = $this->aspect4resize($Thefile, 640, 360, $course_id, $folder, $folder2);
         }
 
         return $dataX;

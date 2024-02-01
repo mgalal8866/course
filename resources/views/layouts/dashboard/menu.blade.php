@@ -191,6 +191,12 @@
                            <span class="menu-item text-truncate">{{ __('tran.homesetting') }}</span>
                        </a>
                    </li>
+                    <li>
+                       <a class="d-flex align-items-center" href="{{route('slider')}}">
+                        <i class="fas fa-sliders-h"></i>
+                           <span class="menu-item text-truncate">{{ __('tran.slider') }}</span>
+                       </a>
+                   </li>
 
                 </ul>
             </li>

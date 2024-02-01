@@ -23,9 +23,10 @@ class DBCourseRepository implements CourseRepositoryinterface
     public function getcoursebyid($id)
     {
     //    return $this->model->with('stages.lessons')->find($id);
-       return $this->model->with(['stages' => function ($query) {
+       $course = $this->model->with(['stages' => function ($query) {
         $query->distinct();
     }, 'stages.lessons'])->find($id);
+    return  $course ;
     }
 
 

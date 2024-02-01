@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 
+use App\Models\Fqa;
 use App\Models\Blog;
 use App\Models\Slider;
 use App\Models\AboutUs;
@@ -23,6 +24,8 @@ use App\Http\Resources\HomeSection3Resource;
 use App\Http\Resources\HomeSection4Resource;
 use App\Http\Resources\HomeSection5Resource;
 use App\Http\Resources\HomeSection6Resource;
+use App\Http\Resources\HomeSection7Resource;
+use App\Http\Resources\HomeSection8Resource;
 use App\Http\Resources\CategoryCourseResource;
 
 class HomeController extends Controller
@@ -84,6 +87,23 @@ class HomeController extends Controller
         $data['blog'] = Blog::orderBy(DB::raw('RAND()'))->take(3)->get();
 
         return Resp(new HomeSection6Resource($data), 'success');
+    }
+    public function section7()
+    {
+
+        $data = [];
+        $data['setting']  = getsetting('section7_setting', ['section7_status', 'section7_title', 'section7_sub_title']);
+        $data['fqa'] = Fqa::where('pin',1)->get();
+
+        return Resp(new HomeSection7Resource($data), 'success');
+    }
+    public function section8()
+    {
+
+        $data = [];
+        $data['setting']  = getsetting('section8_setting', ['section8_status', 'section8_title', 'section8_sub_title']);
+
+        return Resp(new HomeSection8Resource($data), 'success');
     }
 
 

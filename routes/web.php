@@ -23,6 +23,7 @@ use App\Livewire\Dashboard\Courses\Category\CategoryCourse;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Livewire\Dashboard\FreeCourse\Category\CategoryFreeCourse;
 use App\Livewire\Dashboard\Setting\Setting as SettingSetting;
+use App\Livewire\Dashboard\Setting\Slider;
 
 // use Browser;
 
@@ -165,5 +166,6 @@ Route::group(
         Route::get('/specialist', Specialist::class)->name('specialist');
         Route::get('/blog', ViewBlog::class)->name('blog');
         Route::get('/setting', SettingSetting::class)->name('setting');
+        Route::get('/slider', Slider::class)->name('slider');
     }
 );

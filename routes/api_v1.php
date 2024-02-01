@@ -18,6 +18,8 @@ Route::get('/home/section3',[HomeController::class,'section3'])->name('section3'
 Route::get('/home/section4',[HomeController::class,'section4'])->name('section4');
 Route::get('/home/section5',[HomeController::class,'section5'])->name('section5');
 Route::get('/home/section6',[HomeController::class,'section6'])->name('section6');
+Route::get('/home/section7',[HomeController::class,'section7'])->name('section7');
+Route::get('/home/section8',[HomeController::class,'section8'])->name('section8');
 Route::get('/home/header',[HomeController::class,'homeheader'])->name('homeheader');
 Route::get('/home/footer',[HomeController::class,'homefooter'])->name('homefooter');
 
