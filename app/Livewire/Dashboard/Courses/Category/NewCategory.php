@@ -47,14 +47,14 @@ class NewCategory extends Component
             $CC = Category::find($this->id);
             $CC->name = $this->name;
             if($this->image !=null){
-                $dataX = $this->saveImageAndThumbnail($this->image, false,  null,null,'category');
+                $dataX = $this->saveImageAndThumbnail($this->image, false,  null,null,'category',264,280);
                 $CC->image =  $dataX['image'];
             }
             $CC->save();
         }else{
             $CC = Category::create(['name' => $this->name]);
             if($this->image !=null){
-                $dataX = $this->saveImageAndThumbnail($this->image, false, null,null,'category');
+                $dataX = $this->saveImageAndThumbnail($this->image, false, null,null,'category',264,280);
                 $CC->image =  $dataX['image'];
             }
             $CC->save();
