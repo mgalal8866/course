@@ -1,10 +1,10 @@
 <div>
     @push('csslive')
-        {{--    <link rel="stylesheet" type="text/css" href="{{ asset('asset/vendors/css/editors/quill/katex.min.css') }}">
+           {{-- <link rel="stylesheet" type="text/css" href="{{ asset('asset/vendors/css/editors/quill/katex.min.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('asset/vendors/css/editors/quill/monokai-sublime.min.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('asset/vendors/css/editors/quill/quill.snow.css') }}">
-        <link rel="stylesheet" type="text/css" href="{{ asset('asset/vendors/css/editors/quill/quill.bubble.css') }}">
---}}
+        <link rel="stylesheet" type="text/css" href="{{ asset('asset/vendors/css/editors/quill/quill.bubble.css') }}"> --}}
+
     @endpush
     <div wire:ignore.self class="modal fade" id="editUser" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog  modal-lg modal-dialog-centered modal-edit-user">
@@ -33,10 +33,11 @@
                                 <span class="error" style="color: red">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="col-12 col-md-12">
+                        <div class="col-12 col-md-12"  >
                             <label class="form-label" for="modalEditUserFirstName">{{ __('tran.article') }}</label>
-                            <x-summernote  wire:model='article'  name="article" id="article"/>
+                            {{-- <x-summernote  wire:model='article'  name="article" id="article"/> --}}
                             {{-- <x-editor  wire:model='article'  name="article" id="article"/> --}}
+                           <textarea wire:model='article'  name="article" id="article" cols="30" rows="10"></textarea>
                             @error('article')
                                 <span class="error" style="color: red">{{ $message }}</span>
                             @enderror

@@ -56,18 +56,19 @@ class NewBlog extends Component
             $Blog->save();
         }
 
-        $dom = new DOMDocument();
-        $dom->loadHTML( $this->article,9);
-        $images = $dom->getElementsByTagName('img');
-        foreach($images as $key=>$img){
+        // $dom = new DOMDocument();
+        // $dom->loadHTML( $this->article,9);
+        // $images = $dom->getElementsByTagName('img');
+        // foreach($images as $key=>$img){
             // dd($img->getAttribute('src'));
-            $data = base64_decode(explode(',',explode(';',$img->getAttribute('src'))[1])[1]);
-            $image_name = "/files/" .time().$key.'.png';
-            file_put_contents(public_path().$image_name,$data);
-            $img->removeAttribute('src');
-            $img->setAttribute('src', $image_name);
-        }
-        $Blog->article =    $dom->saveHTML();
+            // $data = base64_decode(explode(',',explode(';',$img->getAttribute('src'))[1])[1]);
+            // $image_name = "/files/" .time().$key.'.png';
+            // file_put_contents(public_path().$image_name,$data);
+            // $img->removeAttribute('src');
+            // $img->setAttribute('src', $image_name);
+        // }
+        // $Blog->article =    $dom->saveHTML();
+        $Blog->article =    $this->article;
         $Blog->save();
 
         $this->dispatch('closemodel');

@@ -1,5 +1,5 @@
-<div id="{{ $attributes['name'] }}">
-    <div class="editor" {{ $attributes->wire('model') }} >
+<div id="{{ $attributes['name'] }}" wire:ignore>
+    <div class="editor" {{ $attributes->wire('model') }}  wire:ignore>
     </div>
 </div>
 @pushOnce('csslive')
