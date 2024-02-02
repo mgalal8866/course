@@ -27,14 +27,43 @@ use App\Http\Resources\HomeSection6Resource;
 use App\Http\Resources\HomeSection7Resource;
 use App\Http\Resources\HomeSection8Resource;
 use App\Http\Resources\CategoryCourseResource;
+use App\Http\Resources\HomeResource;
 
 class HomeController extends Controller
 {
 
+    public function homep()
+    {
+         
+        $data['footer'] = getsetting('footer_setting', [
+            'phone', 'address', 'mail',
+            'facebook', 'instegram', 'telegram', 'linkedin', 'youtube', 'description', 'copyright'
+        ]);
+        $data['categoryfree']   = CategoryFCourse::get();
+        $data['section1']  = getsetting('section1_setting', ['section1_status', 'section1_title', 'section1_sub_title', 'section1_body']);
+
+        $data['section2']  = getsetting('section2_setting', ['section2_status', 'section2_title', 'section2_image', 'section2_body']);
+        $data['section3']  = getsetting('section3_setting', ['section3_status', 'section3_title', 'section3_body', 'section4_image']);
+        $data['section4']  = getsetting('section4_setting', ['section4_status', 'section4_title', 'section4_body', 'section4_image']);
+        $data['section5']  = getsetting('section5_setting', ['section5_status', 'section5_title', 'section5_sub_title']);
+        $data['section6']  = getsetting('section6_setting', ['section6_status', 'section6_title', 'section6_sub_title']);
+        $data['section7']  = getsetting('section7_setting', ['section7_status', 'section7_title', 'section7_sub_title']);
+        $data['section8']  = getsetting('section8_setting', ['section8_status', 'section8_title', 'section8_sub_title']);
+
+        $data['fqa'] = Fqa::where('pin', 1)->get();
+        $data['blog'] = Blog::orderBy(DB::raw('RAND()'))->take(3)->get();
+        $data['aboutus'] = AboutUs::with('user')->orderBy(DB::raw('RAND()'))->take(3)->get();
+        $data['category'] = CategoryCourseResource::collection(Category::withCount('courses')->get());;
+        $data['slider']   = Slider::get();
+
+        return Resp(new HomeResource($data), 'success');
+    }
     public function homefooter()
     {
-        $data = getsetting('footer_setting', ['phone', 'address', 'mail',
-         'facebook','instegram','telegram','linkedin','youtube','description','copyright']);
+        $data = getsetting('footer_setting', [
+            'phone', 'address', 'mail',
+            'facebook', 'instegram', 'telegram', 'linkedin', 'youtube', 'description', 'copyright'
+        ]);
 
         return Resp(new HomeFooterResource($data), 'success');
     }
@@ -67,7 +96,7 @@ class HomeController extends Controller
     }
     public function section4()
     {
-        $data  = getsetting('section4_setting', ['section4_status', 'section4_title', 'section4_body', 'section4_image']);
+        $data['setting']    = getsetting('section4_setting', ['section4_status', 'section4_title', 'section4_body', 'section4_image']);
         return Resp(new HomeSection4Resource($data), 'success');
     }
     public function section5()
@@ -93,7 +122,7 @@ class HomeController extends Controller
 
         $data = [];
         $data['setting']  = getsetting('section7_setting', ['section7_status', 'section7_title', 'section7_sub_title']);
-        $data['fqa'] = Fqa::where('pin',1)->get();
+        $data['fqa'] = Fqa::where('pin', 1)->get();
 
         return Resp(new HomeSection7Resource($data), 'success');
     }

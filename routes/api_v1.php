@@ -12,6 +12,7 @@ Route::post('/login',[UsersController::class,'login'])->name('login');
 Route::post('/sendotp',[UsersController::class,'sendotp']);
 Route::post('/signup',[UsersController::class,'signup']);
 
+Route::get('/home',[HomeController::class,'homep'])->name('homep');
 Route::get('/home/section1',[HomeController::class,'section1'])->name('section1');
 Route::get('/home/section2',[HomeController::class,'section2'])->name('section2');
 Route::get('/home/section3',[HomeController::class,'section3'])->name('section3');
