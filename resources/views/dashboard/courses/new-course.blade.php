@@ -202,34 +202,41 @@
                                         for="username">{{ __('tran.features') . ' ' . __('tran.course') }}</label>
                                     <textarea type="text" class="form-control" wire:model='features' required></textarea>
                                     @error('features')
-                                        <span class="error" style="color: red">{{ $message }}</span>
+                                    <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="mb-1 col-md-12">
                                     <label class="form-label" for="description">{{ __('tran.description') }}</label>
-                                    <x-editorforcource wire:model='description' name="description"
-                                        id="description" />
+                                    <textarea type="text" class="form-control" wire:model='description' required></textarea>
+                                    {{-- <x-editorforcource wire:model='description' name="description"
+                                        id="description" /> --}}
                                     @error('description')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="mb-1 col-md-12">
                                     <label class="form-label" for="conditions">{{ __('tran.conditions') }}</label>
-                                    <x-editorforcource wire:model='conditions' name="conditions" id="conditions" />
+                                    <textarea type="text" class="form-control" wire:model='conditions' required></textarea>
+
+                                    {{-- <x-editorforcource wire:model='conditions' name="conditions" id="conditions" /> --}}
                                     @error('conditions')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="mb-1 col-md-12">
                                     <label class="form-label" for="">{{ __('tran.target') }}</label>
-                                    <x-editorforcource wire:model='target' name="target" id="target" />
+                                    <textarea type="text" class="form-control" wire:model='target' required></textarea>
+
+                                    {{-- <x-editorforcource wire:model='target' name="target" id="target" /> --}}
                                     @error('target')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="mb-1 col-md-12">
                                     <label class="form-label" for="">{{ __('tran.howtostart') }}</label>
-                                    <x-editorforcource wire:model='howtostart' name="howtostart" id="howtostart" />
+                                    <textarea type="text" class="form-control" wire:model='howtostart' required></textarea>
+
+                                    {{-- <x-editorforcource wire:model='howtostart' name="howtostart" id="howtostart" /> --}}
                                     @error('howtostart')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
@@ -336,13 +343,7 @@
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
-                                       <div class="mb-2 col-md-3 border border-black pb-2">
-                                    <x-fileupload wire:model='file_free' id='file_free' :tlabel="__('tran.file_free')"
-                                        :namefile="$file_free != null ? $file_free->getClientOriginalName() : null" />
-                                    @error('image')
-                                        <span class="error" style="color: red">{{ $message }}</span>
-                                    @enderror
-                                </div>
+                                  
                                     {{-- <div class="col border border-black ">
                                         <x-fileupload class="mb-0" wire:model='lessons.{{ $key }}.img'
                                             id='lessons.{{ $key }}.img' :namefile="$lessons[$key]['img'] != null
