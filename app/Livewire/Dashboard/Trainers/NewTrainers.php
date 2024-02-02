@@ -39,6 +39,8 @@ class NewTrainers extends Component
             $this->edit = true;
             $this->header = __('tran.edit') . ' ' . __('tran.trainer');
         } else {
+            $this->reset();
+            $this->id = null;
             $this->name = null;
             $this->edit = false;
             $this->header =  __('tran.add') . ' ' . __('tran.trainer');
@@ -61,7 +63,7 @@ class NewTrainers extends Component
         ]);
         $this->dispatch('closemodel');
         $this->dispatch('trainer_course_refresh');
-
+        $this->reset();
     }
     public function render()
     {

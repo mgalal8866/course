@@ -20,7 +20,19 @@ class Stages extends Model
         return $this->belongsToMany(Courses::class,'course_stages') ;
     }
 
+    public function childrens()
+    {
+        return $this->hasMany(self::class, 'parent_id');
+    }
 
+    public function _parent()
+    {
+        return $this->belongsTo(self::class, 'parent_id');
+    }
+    public function scopeParent($query)
+    {
+        return $query->whereNull('parent_id');
+    }
     public function lessons()
     {
         return $this->belongsToMany(Lessons::class, 'course_stages',  'stage_id','lesson_id');

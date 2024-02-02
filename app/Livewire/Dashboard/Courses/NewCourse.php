@@ -29,7 +29,7 @@ class NewCourse extends Component
         $langcourse, $status, $inputnum, $lessons, $stages;
     public function mount()
     {
-        $this->stages = Stages::get();
+        $this->stages = Stages::orderBy('parent_id', 'DESC')->get();
         $this->fill(['lessons' => collect([['stage_id' => null, 'img' => null, 'name' => '', 'link' => '', 'status' => true]])]);
     }
 
@@ -120,7 +120,7 @@ class NewCourse extends Component
                 'lang'         => $this->langcourse ?? null,
                 'statu'        => $this->status,
                 'inputnum'  => $this->inputnum,
-
+                'file_work'  =>$this->file_work?? null
             ]);
             if ($this->image_course) {
                 $dataX = $this->saveImageAndThumbnail($this->image_course, false, $CFC->id, 'courses', 'images');
@@ -162,8 +162,9 @@ class NewCourse extends Component
                 $CFC->coursetrainers()->create(['trainer_id' => $i]);
             }
             foreach ($this->lessons as $i) {
-                $dataX = $this->saveImageAndThumbnail($i['img'], false, $CFC->id, 'courses', 'lessons/image');
-                $lesson = $CFC->lessons()->create(['img' => $dataX['image'], 'name' => $i['name'], 'link_video' => $i['link'], 'paid' => $i['status']]);
+                // $dataX = $this->saveImageAndThumbnail($i['img'], false, $CFC->id, 'courses', 'lessons/image');
+                // 'img' => $dataX['image'],
+                $lesson = $CFC->lessons()->create([ 'name' => $i['name'], 'link_video' => $i['link'], 'paid' => $i['status']]);
                 $CFC->stages()->attach($i['stage_id'], ['course_id' => $CFC->id, 'lesson_id' => $lesson->id]);
             }
             DB::commit();

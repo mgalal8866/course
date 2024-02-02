@@ -68,14 +68,35 @@
                          </a>
                      </li>
                      <li>
-                         <a class="d-flex align-items-center" href="{{route('course')}}">
+                         <a class="d-flex align-items-center" href="{{route('newcourse')}}">
                              <i data-feather="circle"></i>
                              <span class="menu-item text-truncate">{{ __('tran.newcourse') }}</span>
+                         </a>
+                     </li>
+                     <li>
+                         <a class="d-flex align-items-center" href="{{route('course')}}">
+                             <i data-feather="circle"></i>
+                             <span class="menu-item text-truncate">{{ __('tran.viewcourse') }}</span>
                          </a>
                      </li>
                  </ul>
              </li>
 
+             <li class=" nav-item">
+                 <a class="d-flex align-items-center" href="#">
+                    <i class="fas fa-layer-group"></i>
+                     <span class="menu-title text-truncate">{{ __('tran.stages') }}</span>
+                 </a>
+                 <ul class="menu-content">
+                     <li>
+                         <a class="d-flex align-items-center" href="{{ route('stage') }}">
+                             <i data-feather="circle"></i>
+                             <span class="menu-item text-truncate">{{ __('tran.viewstages') }}</span>
+                         </a>
+                     </li>
+
+                 </ul>
+             </li>
              <li class=" nav-item">
                  <a class="d-flex align-items-center" href="#">
                      <i class="fas fa-copy"></i>

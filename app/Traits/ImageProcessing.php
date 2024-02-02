@@ -113,6 +113,19 @@ trait ImageProcessing
     }
 
 
+    public function uploadfile($imgewatermark, $imageorginal)
+    {
+            $fileModel = new File;
+            $fileName = time().'_'.$req->file->getClientOriginalName();
+            $filePath = $req->file('file')->storeAs('uploads', $fileName, 'public');
+            $fileModel->name = time().'_'.$req->file->getClientOriginalName();
+            $fileModel->file_path = '/storage/' . $filePath;
+            $fileModel->save();
+            // return back()
+            // ->with('success','File has been uploaded.')
+            // ->with('file', $fileName);
+
+    }
     public function applyWatermark($imgewatermark, $imageorginal)
     {
         // $p1 = public_path('\files\1.jpg');

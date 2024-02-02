@@ -284,17 +284,26 @@
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="mb-2 col-md-3 border border-black pb-2">
+
+                                {{-- <div class="mb-2 col-md-3 border border-black pb-2">
                                     <x-fileupload wire:model='file_free' id='file_free' :tlabel="__('tran.file_free')"
                                         :namefile="$file_free != null ? $file_free->getClientOriginalName() : null" />
                                     @error('image')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
-                                </div>
+                                </div> --}}
                                 <div class="mb-2 col-md-3 border border-black pb-2">
                                     <x-fileupload wire:model='file_test' id='file_test' :tlabel="__('tran.file_test')"
                                         :namefile="$file_test != null ? $file_test->getClientOriginalName() : null" />
                                     @error('image')
+                                        <span class="error" style="color: red">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="mb-1 col-md-12">
+                                    <label class="form-label"
+                                        for="username">{{  __('tran.file_free') }} :</label>
+                                    <input type="text" class="form-control" wire:model='file_free' required />
+                                    @error('name')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -319,15 +328,22 @@
                                     <div class="col">
                                         <select class="form-select" wire:model='lessons.{{ $key }}.stage_id' required>
                                             <option value=""> اختار المرحلة</option>
-                                            @foreach ($stages as $c)
-                                                <option value="{{ $c->id }}">{{ $c->name }}</option>
+                                            @foreach ($stages as $item)
+                                                <option value="{{ $item->id }}">{{  $item->name . ($item->parent_id == null ? ' مرحلة رئيسية' : ' مرحلة فرعية من  ( ' . $item->_parent->name .' )')}}</option>
                                             @endforeach
                                         </select>
                                         @error('lessons.' . $key . '.stage_id')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
-                                    <div class="col border border-black ">
+                                       <div class="mb-2 col-md-3 border border-black pb-2">
+                                    <x-fileupload wire:model='file_free' id='file_free' :tlabel="__('tran.file_free')"
+                                        :namefile="$file_free != null ? $file_free->getClientOriginalName() : null" />
+                                    @error('image')
+                                        <span class="error" style="color: red">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                    {{-- <div class="col border border-black ">
                                         <x-fileupload class="mb-0" wire:model='lessons.{{ $key }}.img'
                                             id='lessons.{{ $key }}.img' :namefile="$lessons[$key]['img'] != null
                                                 ? $lessons[$key]['img']->getClientOriginalName()
@@ -335,7 +351,7 @@
                                         @error('lessons.' . $key . '.img')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
-                                    </div>
+                                    </div> --}}
 
                                     <div class="col">
                                         <input class="form-control" wire:model="lessons.{{ $key }}.name"

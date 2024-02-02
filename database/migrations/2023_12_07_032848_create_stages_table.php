@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('stages', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name');
+            $table->uuid('parent_id')->nullable();
+            $table->boolean('active')->default(1);
             $table->timestamps();
         });
     }
