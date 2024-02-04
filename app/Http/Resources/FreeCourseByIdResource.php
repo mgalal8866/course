@@ -24,9 +24,11 @@ class FreeCourseByIdResource extends JsonResource
                 [
                     'username' => 'TEST',
                     'comment' => 'Hello',
+                    'rating' =>'5'
                 ],  [
                     'username' => 'TEST1',
                     'comment' => 'Hello1',
+                    'rating' =>'3.5'
                 ]
             ]
         ];
