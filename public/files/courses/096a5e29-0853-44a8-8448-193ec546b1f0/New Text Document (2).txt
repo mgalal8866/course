@@ -1,0 +1,23 @@
+{
+  "data": {
+    "paytype": "كاش",
+    "totaldiscount": 0,
+    "discount_product": 0,
+    "subtotal": 2128,
+    "deliverycost": 0,
+    "coupon_id": 0,
+    "discount_g": 0,
+    "grandtotal": "2138.0",
+    "note": null
+  },
+  "invo": [
+    {
+      "product_id": 9,
+      "buyprice": "460.00",
+      "sellprice": 475,
+      "quantity": "1.00",
+      "subtotal": 475,
+      "discount": 0,
+      "grandtotal": 475,
+      "profit": 15
+    },

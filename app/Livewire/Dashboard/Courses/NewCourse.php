@@ -120,7 +120,7 @@ class NewCourse extends Component
                 'lang'         => $this->langcourse ?? null,
                 'statu'        => $this->status,
                 'inputnum'  => $this->inputnum,
-                'file_work'  =>$this->file_work?? null
+                'file_work'  => $this->file_work ?? null
             ]);
             if ($this->image_course) {
                 $dataX = $this->saveImageAndThumbnail($this->image_course, false, $CFC->id, 'courses', 'images');
@@ -128,11 +128,35 @@ class NewCourse extends Component
                 $CFC->save();
             }
 
-            // if($this->file_work){
-            //     $dataX = $this->saveImageAndThumbnail($this->file_work, false, $CFC->id, 'courses','files');
-            //     $CFC->file_work =  $dataX['image'];
-            //     $CFC->save();
-            // }
+            if ($this->file_work) {
+                $file = $this->file_work;
+                $filename = time() . '.' . $file->extension();
+                // $timestamp = 1706938020;
+                // $datetime = date("Y-m-d H:i:s", $timestamp);
+
+                // echo $datetime;
+                // dd($datetime    );
+                $filename =  $file->getClientOriginalName();;
+                $filePath = "files/courses/"  . $CFC->id . "/doc";
+                // $filePath = $this->path($CFC->id, 'courses');
+
+                // if (!file_exists($filePath)) {
+                //     mkdir($filePath, 0777, true);
+                // }
+
+                $this->file_work->storeAs($filePath, $filename, 'files');
+                dd($CFC->id, $file->getSize(), $file->getMimeType(), $file->getClientOriginalExtension());
+                $CFC->file_work = $file->getClientOriginalName();
+                $CFC->save();
+                // }
+                // $file->move($filePath, $filename);
+                // $CFC->file_work = $file->getClientOriginalName();
+                // $CFC->save();
+                // $filename =  $file->getClientOriginalName();;
+                // $file->storeAs($filePath, $filename);
+                // $CFC->file_work = $file->getClientOriginalName();
+                // $CFC->save();
+            }
             // if($this->file_explanatory){
             //     $dataX = $this->saveImageAndThumbnail($this->file_explanatory, false, $CFC->id, 'courses','files');
             //     $CFC->file_explanatory =  $dataX['image'];
@@ -164,7 +188,7 @@ class NewCourse extends Component
             foreach ($this->lessons as $i) {
                 // $dataX = $this->saveImageAndThumbnail($i['img'], false, $CFC->id, 'courses', 'lessons/image');
                 // 'img' => $dataX['image'],
-                $lesson = $CFC->lessons()->create([ 'name' => $i['name'], 'link_video' => $i['link'], 'paid' => $i['status']]);
+                $lesson = $CFC->lessons()->create(['name' => $i['name'], 'link_video' => $i['link'], 'paid' => $i['status']]);
                 $CFC->stages()->attach($i['stage_id'], ['course_id' => $CFC->id, 'lesson_id' => $lesson->id]);
             }
             DB::commit();

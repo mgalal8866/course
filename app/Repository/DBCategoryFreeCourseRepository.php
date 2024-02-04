@@ -18,4 +18,5 @@ class DBCategoryFreeCourseRepository implements CategoryFreeCourseRepositoryinte
     public function get_category_free_course(){
         return $this->model->active(1)->get();
     }
+
 }

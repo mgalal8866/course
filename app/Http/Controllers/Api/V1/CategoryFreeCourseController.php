@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\CategoryFreeCourseResource;
 use App\Repositoryinterface\CategoryFreeCourseRepositoryinterface;
 
-class CategoryFreeCourse extends Controller
+class CategoryFreeCourseController extends Controller
 {
     private $CategoryFreeCourse;
     public function __construct(CategoryFreeCourseRepositoryinterface $CategoryFreeCourse)
@@ -19,4 +19,5 @@ class CategoryFreeCourse extends Controller
         $data = CategoryFreeCourseResource::collection($this->CategoryFreeCourse->get_category_free_course());
         return Resp( $data );
     }
+
 }

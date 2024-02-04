@@ -15,8 +15,11 @@ class FreeCourseResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name
+            'id'            => $this->id,
+            'image'         => $this->image,
+            'name'          => $this->name,
+            'description'   => $this->description,
+            'created_at'    => $this->created_at,
         ];
     }
 }

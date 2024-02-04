@@ -1,12 +1,13 @@
 <?php
 
-use App\Http\Controllers\Api\V1\CategoryCourseController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\HomeController;
 use App\Http\Controllers\Api\V1\UsersController;
 use App\Http\Controllers\Api\V1\CourseController;
-use App\Http\Controllers\Api\V1\CategoryFreeCourse;
 use App\Http\Controllers\Api\V1\SetttingController;
+use App\Http\Controllers\Api\V1\FreeCourseController;
+use App\Http\Controllers\Api\V1\CategoryCourseController;
+use App\Http\Controllers\Api\V1\CategoryFreeCourseController;
 
 Route::post('/login',[UsersController::class,'login'])->name('login');
 Route::post('/sendotp',[UsersController::class,'sendotp']);
@@ -31,7 +32,8 @@ Route::get('/courses/{category_id}',[CourseController::class,'getcoursesbycategr
 Route::get('/course/{id}',[CourseController::class,'getcoursebyid'])->name('getcoursebyid');
 Route::get('/slider',[HomeController::class,'getslider'])->name('getslider');
 Route::get('/setting',[HomeController::class,'getsetting'])->name('getsetting');
-Route::get('/category/free/course',[CategoryFreeCourse::class,'getcategoryfreecourse'])->name('CFcourse');
+Route::get('/category/free/course',[CategoryFreeCourseController::class,'getcategoryfreecourse']);
+Route::get('/free/course/{id?}',[FreeCourseController::class,'get_free_course_by_category']);
 Route::middleware(['jwt.verify'])->group(function () {
 
 

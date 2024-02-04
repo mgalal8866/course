@@ -17,7 +17,7 @@ class CategoryFreeCourseResource extends JsonResource
         return [
             'id'   => $this->id,
             'name' => $this->name,
-            'url'  => '/category/free/' . $this->id
+            // 'url'  => '/category/free/' . $this->id
         ];
     }
 }
