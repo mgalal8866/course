@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Api\V1;
 
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\FreeCourseResource;
+use App\Http\Resources\FreeCourseByIdResource;
+use App\Http\Resources\FreeCoursesByCategoryResource;
 use App\Repositoryinterface\FreeCourseRepositoryinterface;
 
 class FreeCourseController extends Controller
@@ -17,12 +18,12 @@ class FreeCourseController extends Controller
 
     function get_free_course_by_category($id)
     {
-        $data = FreeCourseResource::collection($this->FreeCourse->get_free_course_by_category($id));
+        $data = FreeCoursesByCategoryResource::collection($this->FreeCourse->get_free_course_by_category($id));
         return Resp( $data );
     }
     function get_free_course_by_id($id)
     {
-        $data = new FreeCourseResource($this->FreeCourse->get_free_course_by_id($id));
+        $data = new FreeCourseByIdResource($this->FreeCourse->get_free_course_by_id($id));
         return Resp( $data );
     }
 }
