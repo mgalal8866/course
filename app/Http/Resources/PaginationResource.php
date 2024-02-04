@@ -8,16 +8,18 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class PaginationResource extends JsonResource
 {
     protected $resourceClass;
+    protected $namedata;
 
-    public function __construct($resource, string $resourceClass)
+    public function __construct($resource, string $resourceClass,string $namedata)
     {
         parent::__construct($resource);
         $this->resourceClass = $resourceClass;
+        $this->namedata =  $namedata;
     }
     public function toArray(Request $request,): array
     {
         return [
-            'data' => $this->resourceClass::collection($this),
+            $this->namedata => $this->resourceClass::collection($this),
             'pagination' => [
                 'total'        => $this->total(),
                 'count'        => $this->count(),

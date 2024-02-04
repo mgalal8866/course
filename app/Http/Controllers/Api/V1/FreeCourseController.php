@@ -19,7 +19,7 @@ class FreeCourseController extends Controller
 
     function get_free_course_by_category($id)
     {
-        $data = new PaginationResource($this->FreeCourse->get_free_course_by_category($id),FreeCoursesByCategoryResource::class);
+        $data = new PaginationResource($this->FreeCourse->get_free_course_by_category($id),FreeCoursesByCategoryResource::class,'categories');
 
         // $data = FreeCoursesByCategoryResource::collection($this->FreeCourse->get_free_course_by_category($id));
         return Resp( $data );
