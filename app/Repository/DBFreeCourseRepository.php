@@ -17,7 +17,7 @@ class DBFreeCourseRepository implements FreeCourseRepositoryinterface
 
     public function get_free_course_by_category($id){
 
-        return $this->model->whereCategoryId($id)->get();
+        return $this->model->whereCategoryId($id)->paginate(1);
     }
     public function get_free_course_by_id($id){
 
