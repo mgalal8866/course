@@ -15,6 +15,7 @@ class FreeCourse extends Model
         'name',
         'active',
         'image',
+        'description',
         'video_link',
         'category_id'
     ];
