@@ -33,5 +33,9 @@ class Courses extends Model
 
         return $this->belongsTo(Lessons::class);
     }
+    public function getImageurlAttribute()
+    {
+        return path($this->id,'courses') . $this->image;
+    }
 
 }
