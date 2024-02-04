@@ -20,4 +20,9 @@ class FreeCourseController extends Controller
         $data = FreeCourseResource::collection($this->FreeCourse->get_free_course_by_category($id));
         return Resp( $data );
     }
+    function get_free_course_by_id($id)
+    {
+        $data = new FreeCourseResource($this->FreeCourse->get_free_course_by_id($id));
+        return Resp( $data );
+    }
 }
