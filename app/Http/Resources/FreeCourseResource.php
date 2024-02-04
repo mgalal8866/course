@@ -19,7 +19,7 @@ class FreeCourseResource extends JsonResource
             'image'         => $this->imageurl,
             'name'          => $this->name,
             'description'   => $this->description,
-            'created_at'    => $this->created_at->format('d/M/Y'),
+            'created_at'    => $this->created_at->format('d/m/Y'),
         ];
     }
 }
