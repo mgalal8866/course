@@ -16,7 +16,7 @@ class CategoryCourseResource extends JsonResource
             'name'   => $this->name,
             'courses'=> $this->courses_count ,
             'image'  => $this->imageurl,
-            'url'    => '/getcourse/'.$this->id,
+            // 'url'    => '/getcourse/'.$this->id,
         ];
     }
 }
