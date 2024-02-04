@@ -18,7 +18,7 @@ class FreeCourseResource extends JsonResource
             'id'            => $this->id,
             'image'         => $this->imageurl,
             'name'          => $this->name,
-            'description'   => $this->description,
+            'description'   => $this->description??'',
             'created_at'    => $this->created_at->format('d/m/Y'),
         ];
     }
