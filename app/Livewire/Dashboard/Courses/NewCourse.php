@@ -102,8 +102,8 @@ class NewCourse extends Component
                 'country_id'   => $this->country_id,
                 'duration'     => $this->duration_course ?? null,
                 'validity'     => $this->validity ?? null,
-                'short_description'  => $this->short_description ?? '',
-                'description'  => $this->description ?? 'null',
+                'short_description'  => $this->short_description ?? null,
+                'description'  => $this->description ?? null,
                 'category_id'  => $this->category_id ?? null,
                 'price'        => $this->price ?? null,
                 'pricewith'    => $this->pricewith ?? null,
@@ -119,8 +119,8 @@ class NewCourse extends Component
                 'next_cource'  => $this->nextcourse ?? null,
                 'lang'         => $this->langcourse ?? null,
                 'statu'        => $this->status,
-                'inputnum'  => $this->inputnum,
-                'file_work'  => $this->file_work ?? null
+                'inputnum'     => $this->inputnum,
+                'file_free'    => $this->file_free ?? null
             ]);
             if ($this->image_course) {
                 $dataX = $this->saveImageAndThumbnail($this->image_course, false, $CFC->id, 'courses', 'images');
@@ -129,59 +129,31 @@ class NewCourse extends Component
             }
 
             if ($this->file_work) {
-                $file = $this->file_work;
-                $filename = time() . '.' . $file->extension();
-                // $timestamp = 1706938020;
-                // $datetime = date("Y-m-d H:i:s", $timestamp);
-
-                // echo $datetime;
-                // dd($datetime    );
-                $filename =  $file->getClientOriginalName();;
-                $filePath = "files/courses/"  . $CFC->id . "/doc";
-                // $filePath = $this->path($CFC->id, 'courses');
-
-                // if (!file_exists($filePath)) {
-                //     mkdir($filePath, 0777, true);
-                // }
-
-                $this->file_work->storeAs($filePath, $filename, 'files');
-                dd($CFC->id, $file->getSize(), $file->getMimeType(), $file->getClientOriginalExtension());
-                $CFC->file_work = $file->getClientOriginalName();
+                $file =  uploadfile($this->file_work,"files/courses/"  . $CFC->id . "/doc");
+                $CFC->file_work = $file ;
                 $CFC->save();
-                // }
-                // $file->move($filePath, $filename);
-                // $CFC->file_work = $file->getClientOriginalName();
-                // $CFC->save();
-                // $filename =  $file->getClientOriginalName();;
-                // $file->storeAs($filePath, $filename);
-                // $CFC->file_work = $file->getClientOriginalName();
-                // $CFC->save();
             }
-            // if($this->file_explanatory){
-            //     $dataX = $this->saveImageAndThumbnail($this->file_explanatory, false, $CFC->id, 'courses','files');
-            //     $CFC->file_explanatory =  $dataX['image'];
-            //     $CFC->save();
-            // }
-            // if($this->file_aggregates){
-            //     $dataX = $this->saveImageAndThumbnail($this->file_aggregates, false, $CFC->id, 'courses','files');
-            //     $CFC->file_aggregates =  $dataX['image'];
-            //     $CFC->save();
-            // }
-            // if($this->file_supplementary){
-            //     $dataX = $this->saveImageAndThumbnail($this->file_supplementary, false, $CFC->id, 'courses','files');
-            //     $CFC->file_supplementary =  $dataX['image'];
-            //     $CFC->save();
-            // }
-            // if($this->file_free){
-            //     $dataX = $this->saveImageAndThumbnail($this->file_free, false, $CFC->id, 'courses','files');
-            //     $CFC->file_free =  $dataX['image'];
-            //     $CFC->save();
-            // }
-            // if($this->file_test){
-            //     $dataX = $this->saveImageAndThumbnail($this->file_test, false, $CFC->id, 'courses','files');
-            //     $CFC->file_test =  $dataX['image'];
-            //     $CFC->save();
-            // }
+            if($this->file_explanatory){
+                $file =  uploadfile($this->file_explanatory,"files/courses/"  . $CFC->id . "/doc");
+                $CFC->file_explanatory =  $file;
+                $CFC->save();
+            }
+            if($this->file_aggregates){
+                $file =  uploadfile($this->file_aggregates,"files/courses/"  . $CFC->id . "/doc");
+                $CFC->file_aggregates =  $file;
+                $CFC->save();
+            }
+            if($this->file_supplementary){
+                $file =  uploadfile($this->file_supplementary,"files/courses/"  . $CFC->id . "/doc");
+                $CFC->file_supplementary =  $file;
+                $CFC->save();
+            }
+
+            if($this->file_test){
+                $file =  uploadfile($this->file_test,"files/courses/"  . $CFC->id . "/doc");
+                $CFC->file_test =  $file;
+                $CFC->save();
+            }
             foreach ($this->triner as $i) {
                 $CFC->coursetrainers()->create(['trainer_id' => $i]);
             }

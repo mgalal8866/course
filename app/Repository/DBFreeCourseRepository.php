@@ -21,7 +21,7 @@ class DBFreeCourseRepository implements FreeCourseRepositoryinterface
     }
 
     public function get_free_course_by_category($id){
-        $perPage = $this->request->input('per_page', 10);
+        $perPage = $this->request->input('per_page', 20);
         return $this->model->whereCategoryId($id)->paginate($perPage);
     }
     public function get_free_course_by_id($id){
