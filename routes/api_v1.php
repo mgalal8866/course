@@ -33,7 +33,7 @@ Route::get('/course/{id}',[CourseController::class,'getcoursebyid'])->name('getc
 Route::get('/slider',[HomeController::class,'getslider'])->name('getslider');
 Route::get('/setting',[HomeController::class,'getsetting'])->name('getsetting');
 Route::get('/category/free/course',[CategoryFreeCourseController::class,'getcategoryfreecourse']);
-Route::get('/free/course/{id?}',[FreeCourseController::class,'get_free_course_by_category']);
+Route::get('/free/course/bycategory/{id?}',[FreeCourseController::class,'get_free_course_by_category']);
 Route::middleware(['jwt.verify'])->group(function () {
 
 
