@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\CourseResource;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Resources\CourseByIdResource;
+use App\Http\Resources\PaginationResource;
 use App\Repositoryinterface\CourseRepositoryinterface;
 
 class CourseController extends Controller
@@ -23,9 +24,10 @@ class CourseController extends Controller
 
     public function getcoursesbycategroy($category_id)
     {
-        $data = $this->course->getcoursesbycategroy($category_id);
+        // $data = $this->course->getcoursesbycategroy($category_id);
+        $data = new PaginationResource($this->course->getcoursesbycategroy($category_id),CourseResource::class,'categories');
 
-        return Resp(CourseResource::collection($data), 'success');
+        return Resp($data, 'success');
     }
     public function getcoursebyid($id)
     {
