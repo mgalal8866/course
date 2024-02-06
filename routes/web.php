@@ -27,6 +27,7 @@ use App\Livewire\Dashboard\Courses\ViewCourses;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Livewire\Dashboard\Setting\Setting as SettingSetting;
 use App\Livewire\Dashboard\FreeCourse\Category\CategoryFreeCourse;
+use App\Livewire\Dashboard\Test;
 
 // use Browser;
 
@@ -102,6 +103,8 @@ Route::group(
 
             echo $response;
         });
+        Route::get('/test1', Test::class);
+        // Route::get('/test1', NewCourse::class)->name('newcourse');
         Route::get('/test/{text?}', function (Request $request) {
             $gg= Setting::where('key','api_token_chat')->value('value');
             $url = 'https://api.openai.com/v1/chat/completions';

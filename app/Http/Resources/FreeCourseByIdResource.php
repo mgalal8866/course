@@ -17,6 +17,7 @@ class FreeCourseByIdResource extends JsonResource
         return [
             'id'            => $this->id,
             'image'         => $this->imageurl,
+            'video_link'          => $this->video_link,
             'name'          => $this->name,
             'description'   => $this->description ?? '',
             'created_at'    => $this->created_at->format('d/m/Y'),
