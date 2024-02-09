@@ -8,6 +8,9 @@ use App\Http\Controllers\Api\V1\SetttingController;
 use App\Http\Controllers\Api\V1\FreeCourseController;
 use App\Http\Controllers\Api\V1\CategoryCourseController;
 use App\Http\Controllers\Api\V1\CategoryFreeCourseController;
+use App\Http\Controllers\Api\V1\CategoryGradesController;
+use App\Http\Controllers\Api\V1\CommentsController;
+use App\Http\Controllers\Api\V1\UsersGradesController;
 
 Route::post('/login',[UsersController::class,'login'])->name('login');
 Route::post('/sendotp',[UsersController::class,'sendotp']);
@@ -35,6 +38,10 @@ Route::get('/setting',[HomeController::class,'getsetting'])->name('getsetting');
 Route::get('/category/free/course',[CategoryFreeCourseController::class,'getcategoryfreecourse']);
 Route::get('/free/course/bycategory/{id?}',[FreeCourseController::class,'get_free_course_by_category']);
 Route::get('/free/course/{id?}',[FreeCourseController::class,'get_free_course_by_id']);
+Route::post('/add/comment/course',[CommentsController::class,'add_comment_course']);
+Route::post('/add/comment/freecourse',[CommentsController::class,'add_comment_freecourse']);
+Route::get('/category/grades',[CategoryGradesController::class,'get_category']);
+Route::get('/category/grades/{id?}',[UsersGradesController::class,'get_grades_by_category']);
 Route::middleware(['jwt.verify'])->group(function () {
 
 

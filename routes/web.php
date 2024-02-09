@@ -28,6 +28,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Livewire\Dashboard\Setting\Setting as SettingSetting;
 use App\Livewire\Dashboard\FreeCourse\Category\CategoryFreeCourse;
 use App\Livewire\Dashboard\Test;
+use App\Models\FreeCourse as ModelsFreeCourse;
 
 // use Browser;
 
@@ -42,6 +43,12 @@ use App\Livewire\Dashboard\Test;
 |
 */
 
+Route::get('/test3', function (Request $request) {
+    $cc =   ModelsFreeCourse::find('9cbdf42c-c31e-11ee-a6cc-d4bed932eed0');
+    // $cc =   Courses::find('3f9e1843-ca6d-4d70-901b-615de3bf4498');
+    return  $cc->comments->where('active',1);
+    $cc->comments()->create(['body'=>'1213123']);
+});
 Route::group(
     [
         'prefix' => LaravelLocalization::setLocale() . '/dashboard/',

@@ -45,6 +45,7 @@ class CourseByIdResource extends JsonResource
                 'file_free'          => $this->file_free ?? ''
             ],
             'course_stages'    => StageResource::collection($this->stages),
+            'comments'      => CommentsResource::collection($this->comments->where('active',1)),
             'course_subscripe' => 'false',
         ];
     }

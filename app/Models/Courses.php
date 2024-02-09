@@ -38,4 +38,8 @@ class Courses extends Model
         return path($this->id,'courses') . $this->image;
     }
 
+    public function comments()
+    {
+        return $this->morphMany(Comments::class, 'commentable');
+    }
 }

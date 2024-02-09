@@ -21,17 +21,9 @@ class FreeCourseByIdResource extends JsonResource
             'name'          => $this->name,
             'description'   => $this->description ?? '',
             'created_at'    => $this->created_at->format('d/m/Y'),
-            'comments'      => [
-                [
-                    'username' => 'TEST',
-                    'comment' => 'Hello',
-                    'rating' =>'5'
-                ],  [
-                    'username' => 'TEST1',
-                    'comment' => 'Hello1',
-                    'rating' =>'3.5'
-                ]
-            ]
+            'comments'      => CommentsResource::collection($this->comments->where('active',1))
+
+
         ];
     }
 }

@@ -28,4 +28,8 @@ class FreeCourse extends Model
     {
         return path($this->id,'free_courses') . $this->image;
     }
+    public function comments()
+    {
+        return $this->morphMany(Comments::class, 'commentable');
+    }
 }
