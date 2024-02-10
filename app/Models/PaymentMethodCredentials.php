@@ -5,13 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PaymentMethods extends Model
+class PaymentMethodCredentials extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    public function PaymentMethodCredentials()
+    public function payment()
     {
-        return $this->hasMany(PaymentMethodCredentials::class);
+        return $this->morphMany(PaymentTransaction::class, 'paymentable');
     }
-
 }

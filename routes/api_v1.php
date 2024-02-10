@@ -4,13 +4,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\HomeController;
 use App\Http\Controllers\Api\V1\UsersController;
 use App\Http\Controllers\Api\V1\CourseController;
+use App\Http\Controllers\Api\V1\CommentsController;
 use App\Http\Controllers\Api\V1\SetttingController;
 use App\Http\Controllers\Api\V1\FreeCourseController;
-use App\Http\Controllers\Api\V1\CategoryCourseController;
-use App\Http\Controllers\Api\V1\CategoryFreeCourseController;
-use App\Http\Controllers\Api\V1\CategoryGradesController;
-use App\Http\Controllers\Api\V1\CommentsController;
 use App\Http\Controllers\Api\V1\UsersGradesController;
+use App\Http\Controllers\Api\V1\CategoryCourseController;
+use App\Http\Controllers\Api\V1\CategoryGradesController;
+use App\Http\Controllers\Api\V1\PaymentsOnlineController;
+use App\Http\Controllers\Api\V1\CategoryFreeCourseController;
 
 Route::post('/login',[UsersController::class,'login'])->name('login');
 Route::post('/sendotp',[UsersController::class,'sendotp']);
@@ -42,6 +43,7 @@ Route::post('/add/comment/course',[CommentsController::class,'add_comment_course
 Route::post('/add/comment/freecourse',[CommentsController::class,'add_comment_freecourse']);
 Route::get('/category/grades',[CategoryGradesController::class,'get_category']);
 Route::get('/category/grades/{id?}',[UsersGradesController::class,'get_grades_by_category']);
+Route::get('payment/method',[PaymentsOnlineController::class,'get_payment']);
 Route::middleware(['jwt.verify'])->group(function () {
 
 
