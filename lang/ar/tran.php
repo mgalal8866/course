@@ -118,7 +118,11 @@ return [
     'newstage'        => 'اضافة مراحلة',
     'editstage'        => 'تعديل مراحلة',
     'stagesub'        => ' مراحلة فرعية',
-    'stagesubdefault'        => ' اختيار مراحلة فرعية',
-    'viewcourse'        => 'عرض الدورات',
+    'stagesubdefault'       => ' اختيار مراحلة فرعية',
+    'viewcourse'       => 'عرض الدورات',
+    'studentgrades'        => 'درجات الطلاب',
+    'newstudentgrades'        => 'اضافة درجه طالب',
+    'viewgrades'        => 'عرض درجات الطلاب',
+    'categorygrades'        => 'اقسام درجات الطلاب',
 
 ];

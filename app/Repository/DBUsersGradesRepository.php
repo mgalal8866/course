@@ -16,6 +16,6 @@ class DBUsersGradesRepository  implements UsersGradesRepositoryinterface
         $this->model = $model;
     }
     public function get_grades_by_category($id){
-
+        return $this->model->whereCategoryId($id)->whereActive(1)->get();
     }
  }

@@ -27,6 +27,8 @@ use App\Livewire\Dashboard\Courses\ViewCourses;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Livewire\Dashboard\Setting\Setting as SettingSetting;
 use App\Livewire\Dashboard\FreeCourse\Category\CategoryFreeCourse;
+use App\Livewire\Dashboard\Grades\Category\CategoryGrades;
+use App\Livewire\Dashboard\Grades\ViewGrades;
 use App\Livewire\Dashboard\Test;
 use App\Models\FreeCourse as ModelsFreeCourse;
 
@@ -182,5 +184,7 @@ Route::group(
         Route::get('/setting', SettingSetting::class)->name('setting');
         Route::get('/slider', Slider::class)->name('slider');
         Route::get('/stage', Stages::class)->name('stage');
+        Route::get('/grades', ViewGrades::class)->name('viewgrades');
+        Route::get('/grades/category', CategoryGrades::class)->name('categorygrades');
     }
 );

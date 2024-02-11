@@ -125,6 +125,27 @@
              </li>
              <li class=" nav-item">
                  <a class="d-flex align-items-center" href="#">
+                     <i class="fas fa-copy"></i>
+                     <span class="menu-title text-truncate">{{ __('tran.studentgrades') }}</span>
+                 </a>
+                 <ul class="menu-content">
+                     <li>
+                         <a class="d-flex align-items-center" href="{{ route('viewgrades') }}">
+                             <i data-feather="circle"></i>
+                             <span class="menu-item text-truncate">{{ __('tran.viewgrades') }}</span>
+                         </a>
+                     </li>
+                     <li>
+                         <a class="d-flex align-items-center" href="{{route('categorygrades')}}">
+                             <i data-feather="circle"></i>
+                             <span class="menu-item text-truncate">{{ __('tran.categorygrades') }}</span>
+                         </a>
+                     </li>
+                    
+                 </ul>
+             </li>
+             <li class=" nav-item">
+                 <a class="d-flex align-items-center" href="#">
                      <i class="fas fa-user-shield"></i>
                      <span class="menu-title text-truncate">{{ __('tran.trainers') }}</span>
                  </a>

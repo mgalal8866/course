@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('users_grades', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('image');
-            $table->string('link');
+            $table->string('image')->nullable();
+            $table->string('link')->nullable();
+            $table->uuid('category_id')->nullable();
             $table->timestamps();
         });
     }

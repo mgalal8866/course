@@ -17,8 +17,8 @@ class DBCategoryGradesRepository implements CategoryGradesRepositoryinterface
     }
     public function get_category()
     {
-        $data =  $this->model->get();
-        return Resp($data, 'Success', 200, true);
+
+        return $this->model->whereActive(1)->get();
 
     }
 }
