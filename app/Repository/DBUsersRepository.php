@@ -39,14 +39,15 @@ class DBUsersRepository implements UsersRepositoryinterface
     public function signup($request){
         $user=  User::create([
             'first_name'   => $request->first_name,
+            'middle_name'  => $request->middle_name,
             'last_name'    => $request->last_name,
+            'password'     => Hash::make($request->password),
             'phone'        => $request->phone,
             'email'        => $request->email,
-            'phone_parent' => $request->phone_parent,
-            'email_parent' => $request->email_parent,
+            'gender'       => $request->gender,
+            // 'phone_parent' => $request->phone_parent,
+            // 'email_parent' => $request->email_parent,
             'country_id'   => $request->country_id,
-            'password'     => Hash::make($request->password),
-            'gender'       => $request->gender
         ]);
         return Resp('$data', 'Success', 200, true);
 

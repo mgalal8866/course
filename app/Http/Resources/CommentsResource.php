@@ -15,10 +15,10 @@ class CommentsResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'username' => $this->user->first_name??'N/A',
-            'comment'  => $this->body,
+            'username' => $this->user->first_name??'',
+            'comment'  => $this->body??'',
             'rating'   => $this->rating??'1',
-            'created_at'    => $this->created_at->format('d/m/Y - h:i a'),
+            'created_at'    => $this->created_at?->format('d/m/Y - h:i a'),
         ];
     }
 }

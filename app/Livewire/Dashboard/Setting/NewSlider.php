@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Dashboard\Setting;
 
+use App\Models\Courses;
 use App\Models\Slider;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -13,7 +14,7 @@ class NewSlider extends Component
     use WithFileUploads, ImageProcessing;
 
     protected $listeners = ['edit' => 'edit'];
-    public $name,$image,$imageold,$edit=false,$id,$header;
+    public $name,$image,$imageold,$edit=false,$id,$header,$course_id;
     public function edit($id = null)
     {
         if ($id != null) {
@@ -21,10 +22,12 @@ class NewSlider extends Component
             $CC = Slider::find($id);
             $this->id = $id;
             $this->imageold = $CC->img !=null? $CC->imageurl:null;
+            $this->course_id = $CC->course_id;
             $this->edit = true;
             $this->header = __('tran.editslider');
         }else{
           $this->imageold =null;
+          $this->course_id =null;
           $this->image =null;
           $this->edit = false;
           $this->header = __('tran.newslider');
@@ -39,22 +42,23 @@ class NewSlider extends Component
     public function save()
     {
 
-        $this->validate();
         if( $this->edit == true){
             $CC = Slider::find($this->id);
             if($this->image !=null){
                 $dataX = $this->saveImageAndThumbnail($this->image, false, null,null,'slider',472,800);
                 $CC->img =  $dataX['image'];
             }
-            $CC->save();
+            $CC->course_id=$this->course_id ;
         }else{
+            $this->validate();
             $CC = Slider::create([]);
             if($this->image !=null){
                 $dataX = $this->saveImageAndThumbnail($this->image, false, null,null,'slider',472,800);
                 $CC->img =  $dataX['image'];
             }
-            $CC->save();
+            $CC->course_id=$this->course_id ;
         }
+        $CC->save();
         $this->edit = false;
         $this->dispatch('closemodel');
         $this->dispatch('slider_refresh');
@@ -63,6 +67,8 @@ class NewSlider extends Component
     }
     public function render()
     {
-        return view('dashboard.setting.new-slider');
+        $courses= Courses::get();
+
+        return view('dashboard.setting.new-slider',compact('courses'));
     }
 }

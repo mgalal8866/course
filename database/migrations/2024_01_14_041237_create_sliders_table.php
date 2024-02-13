@@ -15,6 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('name')->nullable();
             $table->string('img')->nullable();
+            $table->uuid('course_id')->nullable();
             $table->boolean('active')->default(1);
             $table->softDeletes();
             $table->timestamps();
