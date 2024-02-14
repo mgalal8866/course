@@ -28,14 +28,10 @@ class CourseByIdResourcenotsupscrip extends JsonResource
             'features'          => '<p style="text-align:center"><span style="color:#e74c3c"><span style="font-size:14px"><strong>نبذه مختصرة بتنسيق</strong></span></span></p>' ?? '', // مييزات الدورة
             'conditions'        => $this->conditions ?? '',
             'free_tutorial'     => $this->file_free ?? '',
-            'free_file'         => $this->file_free ?? '',
-            'description'       => $this->description ?? '',
+            'free_file'         => 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'?? '',
             'start_date'        => $this->start_date ?? '',
             'end_date'          => $this->end_date ?? '',
             'max_drainees'      => $this->max_drainees ?? '',
-            'created_at'        => $this->created_at->format('d/m/Y'),
-            'subscripe' => 'false',
-
         ];
     }
 }
