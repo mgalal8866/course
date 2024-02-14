@@ -22,11 +22,11 @@ class FreeCourseController extends Controller
         $data = new PaginationResource($this->FreeCourse->get_free_course_by_category($id),FreeCoursesByCategoryResource::class,'categories');
 
         // $data = FreeCoursesByCategoryResource::collection($this->FreeCourse->get_free_course_by_category($id));
-        return Resp( $data );
+        return Resp( $data ,'success');
     }
     function get_free_course_by_id($id)
     {
         $data = new FreeCourseByIdResource($this->FreeCourse->get_free_course_by_id($id));
-        return Resp( $data );
+        return Resp( $data ,'success' );
     }
 }
