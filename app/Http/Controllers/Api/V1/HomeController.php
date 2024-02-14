@@ -34,7 +34,7 @@ class HomeController extends Controller
 
     public function homep()
     {
-         
+
         $data['footer'] = getsetting('footer_setting', [
             'phone', 'address', 'mail',
             'facebook', 'instegram', 'telegram', 'linkedin', 'youtube', 'description', 'copyright'
@@ -54,7 +54,7 @@ class HomeController extends Controller
         $data['blog'] = Blog::orderBy(DB::raw('RAND()'))->take(3)->get();
         $data['aboutus'] = AboutUs::with('user')->orderBy(DB::raw('RAND()'))->take(3)->get();
         $data['category'] = CategoryCourseResource::collection(Category::withCount('courses')->get());;
-        $data['slider']   = Slider::get();
+        $data['slider']   = Slider::where('active',1)->get();
 
         return Resp(new HomeResource($data), 'success');
     }
@@ -79,7 +79,7 @@ class HomeController extends Controller
     {
         $data = [];
         $data['setting']  = getsetting('section1_setting', ['section1_status', 'section1_title', 'section1_sub_title', 'section1_body']);
-        $data['slider']   = Slider::get();
+        $data['slider']   = Slider::where('active',1)->get();
         return Resp(new HomeSection1Resource($data), 'success');
     }
     public function section2()
@@ -140,6 +140,6 @@ class HomeController extends Controller
 
     public function getslider()
     {
-        return Resp(Slider::get(), 'success');
+        return Resp(Slider::where('active',1)->get(), 'success');
     }
 }

@@ -15,40 +15,40 @@ class HomeResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'header' => [
-                [
-                    'page' => 'home',
-                    'url' => '/homeheader',
-                    'hasdropdwon' => false,
-                ], [
-                    'page' => __('tran.courses'),
-                    'url' => '',
-                    'hasdropdwon' => true,
-                    'dropdown' => CategoryCourseResource::collection($this['category'])
-                ], [
-                    'page' => __('tran.freecourse'),
-                    'url' => '',
-                    'hasdropdwon' => true,
-                    'dropdown' => CategoryFreeCourseResource::collection($this['categoryfree'])
-                ], [
-                    'page' => 'اختبارات تحديد المستوي',
-                    'url' => '',
-                    'hasdropdwon' => true,
-                    'dropdown' => []
-                ], [
-                    'page' => 'المسابقات',
-                    'url' => '/contests',
-                    'hasdropdwon' => false,
-                    'dropdown' => []
+            // 'header' => [
+            //     [
+            //         'page' => 'home',
+            //         'url' => '/homeheader',
+            //         'hasdropdwon' => false,
+            //     ], [
+            //         'page' => __('tran.courses'),
+            //         'url' => '',
+            //         'hasdropdwon' => true,
+            //         'dropdown' => CategoryCourseResource::collection($this['category'])
+            //     ], [
+            //         'page' => __('tran.freecourse'),
+            //         'url' => '',
+            //         'hasdropdwon' => true,
+            //         'dropdown' => CategoryFreeCourseResource::collection($this['categoryfree'])
+            //     ], [
+            //         'page' => 'اختبارات تحديد المستوي',
+            //         'url' => '',
+            //         'hasdropdwon' => true,
+            //         'dropdown' => []
+            //     ], [
+            //         'page' => 'المسابقات',
+            //         'url' => '/contests',
+            //         'hasdropdwon' => false,
+            //         'dropdown' => []
 
-                ], [
-                    'page' => 'انضم لفريق المسوقين',
-                    'url' => '/affiliate',
-                    'hasdropdwon' => false,
-                    'dropdown' => []
+            //     ], [
+            //         'page' => 'انضم لفريق المسوقين',
+            //         'url' => '/affiliate',
+            //         'hasdropdwon' => false,
+            //         'dropdown' => []
 
-                ]
-            ],
+            //     ]
+            // ],
             'section1' => [
                 'status'     => $this['section1']['section1_status'] ?? '',
                 'title'     => $this['section1']['section1_title'] ?? '',
