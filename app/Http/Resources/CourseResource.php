@@ -16,9 +16,10 @@ class CourseResource extends JsonResource
     {
         return [
             'id'        => $this->id,
-            'name'      => $this->name,
-            'image'      => $this->imageurl,
+            'name'      => $this->name??'',
+            'image'      => $this->imageurl??'',
             'subscripe'  =>'false',
+            'short_description' => $this->short_description??'',
             'created_at' => $this->created_at->format('d/m/Y')
         ];
     }
