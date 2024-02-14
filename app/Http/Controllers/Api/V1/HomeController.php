@@ -39,7 +39,11 @@ class HomeController extends Controller
             'phone', 'address', 'mail',
             'facebook', 'instegram', 'telegram', 'linkedin', 'youtube', 'description', 'copyright'
         ]);
-        $data['categoryfree']   = CategoryFCourse::get();
+
+        $categoryfree = Cache::rememberForever('categoryfree', function () {
+            return        CategoryFCourse::get();
+        });
+        $data['categoryfree']   = $categoryfree;
         $data['section1']  = getsetting('section1_setting', ['section1_status', 'section1_title', 'section1_sub_title', 'section1_body']);
 
         $data['section2']  = getsetting('section2_setting', ['section2_status', 'section2_title', 'section2_image', 'section2_body']);
@@ -49,7 +53,7 @@ class HomeController extends Controller
         $data['section6']  = getsetting('section6_setting', ['section6_status', 'section6_title', 'section6_sub_title']);
         $data['section7']  = getsetting('section7_setting', ['section7_status', 'section7_title', 'section7_sub_title']);
         $data['section8']  = getsetting('section8_setting', ['section8_status', 'section8_title', 'section8_sub_title']);
-      
+
         $fqa = Cache::rememberForever('fqa', function () {
             return         $data['fqa'] = Fqa::where('pin', 1)->get();
         });
