@@ -21,14 +21,15 @@ class CourseByIdResource extends JsonResource
             'course_currency'   => 'ر.س', //عملة الدفع
             'course_price'      => $this->price ?? '',//السعر
             'course_price_include'      => 'شامل كتاب الدورة',
-            'file_schedule'     => $this->schedule ?? '', //كتاب الدورة
-            'short_description' => $this->short_description ?? '',
+            'file_schedule'     => $this->schedule ?? 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', //كتاب الدورة
+            'duration'          => $this->duration ?? '', //مده الدورة
+            'validity'          => $this->validity ?? '', //صلاحية الدورة
+            'short_description' => $this->short_description ?? '', //نبذه مختصرة
+            'features'          => '<p style="text-align:center"><span style="color:#e74c3c"><span style="font-size:14px"><strong>نبذه مختصرة بتنسيق</strong></span></span></p>' ?? '', // مييزات الدورة
             'description'       => $this->description ?? '',
             'start_date'        => $this->start_date ?? '',
             'end_date'          => $this->end_date ?? '',
             'time'              => $this->time ?? '',
-            'duration'          => $this->duration_course ?? '',
-            'validity'          => $this->validity ?? '',
             'conditions'        => $this->conditions ?? '',
             'free_tatorul'      => $this->file_free ?? '',
             'how_start'         => $this->how_start ?? '',

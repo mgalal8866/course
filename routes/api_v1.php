@@ -34,7 +34,8 @@ Route::get('/category_course',[CategoryCourseController::class,'getcategorycours
 Route::get('/home_category_course',[CategoryCourseController::class,'gethomecategorycourse'])->name('gethomecategorycourse');
 // Route::get('/getcourses',[CourseController::class,'getcategorycourse'])->name('getcategorycourse');
 Route::get('/courses/{category_id}',[CourseController::class,'getcoursesbycategroy'])->name('getcoursesbycategroy');
-Route::get('/course/{id}',[CourseController::class,'getcoursebyid'])->name('getcoursebyid');
+Route::get('/course/not_subscribed/{id}',[CourseController::class,'getcoursebyidnot_subscribed'])->name('getcoursebyid');
+Route::get('/course/subscripe/{id}',[CourseController::class,'getcoursebyidsubscripe'])->name('getcoursebyid');
 Route::get('/slider',[HomeController::class,'getslider'])->name('getslider');
 Route::get('/setting',[HomeController::class,'getsetting'])->name('getsetting');
 Route::get('/category/free/course',[CategoryFreeCourseController::class,'getcategoryfreecourse']);

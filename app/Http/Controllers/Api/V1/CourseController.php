@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\CourseResource;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Resources\CourseByIdResource;
+use App\Http\Resources\CourseByIdResourcenotsupscrip;
 use App\Http\Resources\PaginationResource;
 use App\Repositoryinterface\CourseRepositoryinterface;
 
@@ -29,12 +30,23 @@ class CourseController extends Controller
 
         return Resp($data, 'success');
     }
-    public function getcoursebyid($id)
+    public function getcoursebyidsubscripe($id)
     {
         $data = $this->course->getcoursebyid($id);
            if( $data !=null){
 
                return Resp(new CourseByIdResource($data), 'success');
+            }else{
+                return Resp(null,'Not Found Course',404,false);
+
+            };
+    }
+    public function getcoursebyidnot_subscripe($id)
+    {
+        $data = $this->course->getcoursebyid($id);
+           if( $data !=null){
+
+               return Resp(new CourseByIdResourcenotsupscrip($data), 'success');
             }else{
                 return Resp(null,'Not Found Course',404,false);
 
