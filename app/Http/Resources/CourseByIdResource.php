@@ -16,11 +16,12 @@ class CourseByIdResource extends JsonResource
     {
         return [
             'course_id'         => $this->id,
-            'course_name'       => $this->name,
-            'course_image'      => $this->imageurl ?? '',
+            'course_name'       => $this->name, //اسم الدورة
+            'course_image'      => $this->imageurl ?? '', //الصورة
             'course_currency'   => 'ر.س', //عملة الدفع
             'course_price'      => $this->price ?? '',//السعر
-            'course_price_include'      => 'شامل كتاب الدورة',//كاتب
+            'course_price_include'      => 'شامل كتاب الدورة',
+            'file_schedule'     => $this->schedule ?? '', //كتاب الدورة
             'short_description' => $this->short_description ?? '',
             'description'       => $this->description ?? '',
             'start_date'        => $this->start_date ?? '',
