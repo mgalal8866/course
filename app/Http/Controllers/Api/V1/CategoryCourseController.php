@@ -17,12 +17,12 @@ class CategoryCourseController extends Controller
     }
     function getcategorycourse()
     {
-        $data = CategoryCourseResource::collection($this->CategoryCourse->getCategoryCourse());
+        $data = HomeCategoryCourseResource::collection($this->CategoryCourse->getCategoryCourse());
         return Resp( $data,'success' );
     }
     function gethomecategorycourse()
     {
-        $data = HomeCategoryCourseResource::collection($this->CategoryCourse->getCategoryCourse());
+        $data = CategoryCourseResource::collection($this->CategoryCourse->getCategoryCourse());
         return Resp( $data,'success' );
     }
 }
