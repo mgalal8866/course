@@ -20,7 +20,7 @@ class FreeCourseByIdResource extends JsonResource
             'video_link'    => $this->video_link,
             'name'          => $this->name,
             'description'   => $this->description ?? '',
-            'created_at'    => $this->created_at->format('d/m/Y'),
+            // 'created_at'    => $this->created_at->format('d/m/Y'),
             'comments'      => CommentsResource::collection($this->comments->where('active',1))
 
 
