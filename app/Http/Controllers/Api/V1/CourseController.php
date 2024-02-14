@@ -41,7 +41,7 @@ class CourseController extends Controller
 
             };
     }
-    public function getcoursebyidnot_subscripe($id)
+    public function getcoursebyidnot_subscribed($id)
     {
         $data = $this->course->getcoursebyid($id);
            if( $data !=null){
