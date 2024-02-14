@@ -18,9 +18,13 @@ class CourseResource extends JsonResource
             'id'        => $this->id,
             'name'      => $this->name??'',
             'image'      => $this->imageurl??'',
-            'subscripe'  =>'false',
             'short_description' => $this->short_description??'',
+            'stetus' => '1'??'',
+            'subscripe'  =>'false',
             'created_at' => $this->created_at->format('d/m/Y')
+            //1=الدوره شغاله
+            //2=نفذت المقاعده
+            //3=انتهت الدورة
         ];
     }
 }
