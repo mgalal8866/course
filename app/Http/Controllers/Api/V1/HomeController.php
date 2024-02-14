@@ -49,12 +49,24 @@ class HomeController extends Controller
         $data['section6']  = getsetting('section6_setting', ['section6_status', 'section6_title', 'section6_sub_title']);
         $data['section7']  = getsetting('section7_setting', ['section7_status', 'section7_title', 'section7_sub_title']);
         $data['section8']  = getsetting('section8_setting', ['section8_status', 'section8_title', 'section8_sub_title']);
-
-        $data['fqa'] = Fqa::where('pin', 1)->get();
-        $data['blog'] = Blog::orderBy(DB::raw('RAND()'))->take(3)->get();
-        $data['aboutus'] = AboutUs::with('user')->orderBy(DB::raw('RAND()'))->take(3)->get();
+      
+        $fqa = Cache::rememberForever('fqa', function () {
+            return         $data['fqa'] = Fqa::where('pin', 1)->get();
+        });
+        $aboutus = Cache::rememberForever('aboutus', function () {
+            return         AboutUs::with('user')->orderBy(DB::raw('RAND()'))->take(3)->get();
+        });
+        $blog = Cache::rememberForever('blog', function () {
+            return         $data['blog'] = Blog::orderBy(DB::raw('RAND()'))->take(3)->get();
+        });
+        $slider = Cache::rememberForever('slider', function () {
+            return    Slider::where('active',1)->get();
+        });
+        $data['fqa'] = $fqa;
+        $data['blog'] = $blog;
+        $data['aboutus'] = $aboutus;
         $data['category'] = CategoryCourseResource::collection(Category::withCount('courses')->get());;
-        $data['slider']   = Slider::where('active',1)->get();
+        $data['slider']   = $slider;
 
         return Resp(new HomeResource($data), 'success');
     }
