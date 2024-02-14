@@ -12,8 +12,9 @@ class UsergradesResource extends JsonResource
     {
 
         return [
-            'id'     => $this->id,
-            'image'=> $this->imageurl ,
+            'id'      => $this->id,
+            'image'   => $this->imageurl ,
+            'link'    => $this->link ,
             'category'=> $this->category->name ,
         ];
     }

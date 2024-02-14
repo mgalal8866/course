@@ -13,7 +13,7 @@ class CategorygradeResource extends JsonResource
 
         return [
             'id'     => $this->id,
-            'image'=> $this->name 
+            'name'  => $this->name
         ];
     }
 }
