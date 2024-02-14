@@ -31,6 +31,7 @@ Route::get('/home/footer',[HomeController::class,'homefooter'])->name('homefoote
 
 Route::get('/verificationcode/{code?}',[UsersController::class,'verificationcode'])->name('signup');
 Route::get('/category_course',[CategoryCourseController::class,'getcategorycourse'])->name('getcategorycourse');
+Route::get('/home_category_course',[CategoryCourseController::class,'gethomecategorycourse'])->name('gethomecategorycourse');
 // Route::get('/getcourses',[CourseController::class,'getcategorycourse'])->name('getcategorycourse');
 Route::get('/courses/{category_id}',[CourseController::class,'getcoursesbycategroy'])->name('getcoursesbycategroy');
 Route::get('/course/{id}',[CourseController::class,'getcoursebyid'])->name('getcoursebyid');
