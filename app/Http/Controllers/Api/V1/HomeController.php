@@ -35,6 +35,11 @@ class HomeController extends Controller
     public function homep()
     {
 
+        Cache::forget('categoryfree');
+        Cache::forget('fqa');
+        Cache::forget('aboutus');
+        Cache::forget('blog');
+
         $data['footer'] = getsetting('footer_setting', [
             'phone', 'address', 'mail',
             'facebook', 'instegram', 'telegram', 'linkedin', 'youtube', 'description', 'copyright'
@@ -44,7 +49,7 @@ class HomeController extends Controller
             return        CategoryFCourse::get();
         });
         $data['categoryfree']   = $categoryfree;
-        $data['section1']  = getsetting('section1_setting', ['section1_status', 'section1_title', 'section1_sub_title', 'section1_body']);
+        // $data['section1']  = getsetting('section1_setting', ['section1_status', 'section1_title', 'section1_sub_title', 'section1_body']);
 
         $data['section2']  = getsetting('section2_setting', ['section2_status', 'section2_title', 'section2_image', 'section2_body']);
         $data['section3']  = getsetting('section3_setting', ['section3_status', 'section3_title', 'section3_body', 'section4_image']);
@@ -63,14 +68,14 @@ class HomeController extends Controller
         $blog = Cache::rememberForever('blog', function () {
             return         $data['blog'] = Blog::orderBy(DB::raw('RAND()'))->take(3)->get();
         });
-        $slider = Cache::rememberForever('slider', function () {
-            return    Slider::where('active',1)->get();
-        });
+        // $slider = Cache::rememberForever('slider', function () {
+        //     return    Slider::where('active',1)->get();
+        // });
         $data['fqa'] = $fqa;
         $data['blog'] = $blog;
         $data['aboutus'] = $aboutus;
         $data['category'] = CategoryCourseResource::collection(Category::withCount('courses')->get());;
-        $data['slider']   = $slider;
+        // $data['slider']   = $slider;
 
         return Resp(new HomeResource($data), 'success');
     }
