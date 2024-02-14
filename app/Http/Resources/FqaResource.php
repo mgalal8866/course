@@ -19,7 +19,7 @@ class FqaResource extends JsonResource
             // 'id'       => $this->id??'',
             'question' => $this->questions??'',
             'answer'   => $this->answers??'',
-            'priority' => $this->priority??'',
+            // 'priority' => $this->priority??'',
 
         ];
     }

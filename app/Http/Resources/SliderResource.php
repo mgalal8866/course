@@ -18,7 +18,7 @@ class SliderResource extends JsonResource
 
                 'id'     => $this->id??'',
                 'image'  => $this->imageurl??'',
-                'redirect_to'  => $this->course_id??'',
+                'redirect_to'  => $this->redirect_to??'',
                 'is_course'    => $this->is_course??'',
 
 
