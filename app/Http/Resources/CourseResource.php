@@ -19,7 +19,7 @@ class CourseResource extends JsonResource
             'name'      => $this->name??'',
             'image'      => $this->imageurl??'',
             'short_description' => $this->short_description??'',
-            'stetus' => '1'??'',
+            'status' => '1'??'',
             'subscripe'  =>'false',
             'created_at' => $this->created_at->format('d/m/Y')
             //1=الدوره شغاله
