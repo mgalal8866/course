@@ -15,7 +15,7 @@ class UsergradesResource extends JsonResource
             'id'      => $this->id,
             'image'   => $this->imageurl ,
             'link'    => $this->link ,
-            'category'=> $this->category->name ,
+            // 'category'=> $this->category->name ,
         ];
     }
 }
