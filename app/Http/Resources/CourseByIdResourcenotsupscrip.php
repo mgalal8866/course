@@ -32,6 +32,8 @@ class CourseByIdResourcenotsupscrip extends JsonResource
             'start_date'        => $this->start_date ?? '',
             'end_date'          => $this->end_date ?? '',
             'max_drainees'      => $this->max_drainees ?? '',
+            'comments'      => CommentsResource::collection($this->comments->where('active',1)),
+            
         ];
     }
 }
