@@ -13,7 +13,9 @@ use Illuminate\Http\Request;
 use App\Models\CategoryFCourse;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\HomeResource;
 use Illuminate\Support\Facades\Cache;
+use App\Http\Resources\SliderResource;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Resources\HomePageResource;
 use App\Http\Resources\HomeFooterResource;
@@ -27,7 +29,6 @@ use App\Http\Resources\HomeSection6Resource;
 use App\Http\Resources\HomeSection7Resource;
 use App\Http\Resources\HomeSection8Resource;
 use App\Http\Resources\CategoryCourseResource;
-use App\Http\Resources\HomeResource;
 
 class HomeController extends Controller
 {
@@ -98,10 +99,10 @@ class HomeController extends Controller
     }
     public function section1()
     {
-        $data = [];
-        $data['setting']  = getsetting('section1_setting', ['section1_status', 'section1_title', 'section1_sub_title', 'section1_body']);
-        $data['slider']   = Slider::where('active',1)->get();
-        return Resp(new HomeSection1Resource($data), 'success');
+        // $data = [];
+        // $data['setting']  = getsetting('section1_setting', ['section1_status', 'section1_title', 'section1_sub_title', 'section1_body']);
+        $data   = Slider::where('active',1)->get();
+        return Resp( SliderResource::collection($data), 'success');
     }
     public function section2()
     {
