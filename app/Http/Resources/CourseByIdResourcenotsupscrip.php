@@ -26,14 +26,14 @@ class CourseByIdResourcenotsupscrip extends JsonResource
             'validity'          => $this->validity ?? '', //صلاحية الدورة
             'short_description' => $this->short_description ?? '', //نبذه مختصرة
             'features'          => '<p style="text-align:center"><span style="color:#e74c3c"><span style="font-size:14px"><strong>نبذه مختصرة بتنسيق</strong></span></span></p>' ?? '', // مييزات الدورة
-            'conditions'        => $this->conditions ?? '',
+            'conditions'        => $this->conditions ?? '', //شروط واحكام
             'free_tutorial'     => $this->file_free ?? '',
             'free_file'         => 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'?? '',
-            'start_date'        => $this->start_date ?? '',
-            'end_date'          => $this->end_date ?? '',
-            'max_drainees'      => $this->max_drainees ?? '',
+            'start_date'        => $this->start_date ?? '', //تاريخ بدايه الدورة
+            'end_date'          => $this->end_date ?? '', //تايخ انتهاء الدورة
+            'max_drainees'      => $this->max_drainees ?? '', //عدد المقاعد
             'comments'      => CommentsResource::collection($this->comments->where('active',1)),
-            
+
         ];
     }
 }

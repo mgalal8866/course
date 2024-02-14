@@ -50,7 +50,7 @@ class HomeController extends Controller
             return        CategoryFCourse::get();
         });
         $data['categoryfree']   = $categoryfree;
-        // $data['section1']  = getsetting('section1_setting', ['section1_status', 'section1_title', 'section1_sub_title', 'section1_body']);
+        $data['section1']  = getsetting('section1_setting', [ 'section1_title', 'section1_sub_title', 'section1_body']);
 
         $data['section2']  = getsetting('section2_setting', ['section2_status', 'section2_title', 'section2_image', 'section2_body']);
         $data['section3']  = getsetting('section3_setting', ['section3_status', 'section3_title', 'section3_body', 'section4_image']);

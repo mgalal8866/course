@@ -49,13 +49,13 @@ class HomeResource extends JsonResource
 
             //     ]
             // // ],
-            // 'section1' => [
-            //     'status'     => $this['section1']['section1_status'] ?? '',
-            //     'title'     => $this['section1']['section1_title'] ?? '',
-            //     'sub_title' => $this['section1']['section1_sub_title'] ?? '',
-            //     'body'      => $this['section1']['section1_body'] ?? '',
-            //     'slider'    =>  SliderResource::collection($this['slider']) ?? '',
-            // ],
+            'section1' => [
+                // 'status'     => $this['section1']['section1_status'] ?? '',
+                'title'     => $this['section1']['section1_title'] ?? '',
+                'sub_title' => $this['section1']['section1_sub_title'] ?? '',
+                'body'      => $this['section1']['section1_body'] ?? '',
+                // 'slider'    =>  SliderResource::collection($this['slider']) ?? '',
+            ],
             'section2' => [
                 'status'     => $this['section2']['section2_status'] ?? '',
                 'title'     => $this['section2']['section2_title'] ?? '',
