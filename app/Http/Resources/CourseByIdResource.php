@@ -18,8 +18,9 @@ class CourseByIdResource extends JsonResource
             'course_id'         => $this->id,
             'course_name'       => $this->name,
             'course_image'      => $this->imageurl ?? '',
-            'course_price'      => $this->price ?? '',
-            'course_category'   => $this->category->name ?? '',
+            'course_currency'   => 'ر.س', //عملة الدفع
+            'course_price'      => $this->price ?? '',//السعر
+            'course_price_include'      => 'شامل كتاب الدورة',//كاتب
             'short_description' => $this->short_description ?? '',
             'description'       => $this->description ?? '',
             'start_date'        => $this->start_date ?? '',

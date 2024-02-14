@@ -18,8 +18,10 @@ class CourseByIdResourcenotsupscrip extends JsonResource
             'course_id'         => $this->id,
             'course_name'       => $this->name,
             'course_image'      => $this->imageurl ?? '',
+            'course_currency'   => 'ر.س',
             'course_price'      => $this->price ?? '',//كاتب
-            'course_category'   => $this->category->name ?? '',
+            'course_price_include'      => 'شامل كتاب الدورة',//كاتب
+
             'short_description' => $this->short_description ?? '',
             'schedule'          => $this->schedule ?? '',
             'description'       => $this->description ?? '',
