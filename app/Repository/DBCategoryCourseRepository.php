@@ -18,6 +18,6 @@ class DBCategoryCourseRepository implements CategoryCourseRepositoryinterface
     public function getCategoryCourse()
     {
 
-       return $this->model->withCount('courses')->get();
+       return $this->model->whereHas('courses')->withCount('courses')->get();
     }
 }
