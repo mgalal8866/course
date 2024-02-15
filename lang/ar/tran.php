@@ -131,6 +131,9 @@ return [
     'categorybooks'   => 'اقسام الكتب',
     'book_name'       => 'اسم الكتاب',
     'qty_max'         => 'اقصي كميه للبيع ',
-    // 'price'        => 'اقسام الكتب',
+    'studyschedule'     => 'جدول المذاكرة',
+    'viewstudyschedule' => 'عرض جدول المذاكرة',
+    'subject' => 'المادة',
+    'start_date' => 'تاريخ البداية'
 
 ];

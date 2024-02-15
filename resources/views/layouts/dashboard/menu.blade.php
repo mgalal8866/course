@@ -146,20 +146,14 @@
              </li>
              <li class=" nav-item">
                  <a class="d-flex align-items-center" href="#">
-                    <i class="fas fa-book"></i>
-                     <span class="menu-title text-truncate">{{ __('tran.books') }}</span>
+                    <i class="fas fa-calendar-alt"></i>
+                     <span class="menu-title text-truncate">{{ __('tran.studyschedule') }}</span>
                  </a>
                  <ul class="menu-content">
                      <li>
-                         <a class="d-flex align-items-center" href="{{ route('viewbooks') }}">
+                         <a class="d-flex align-items-center" href="{{ route('studyschedule') }}">
                              <i data-feather="circle"></i>
-                             <span class="menu-item text-truncate">{{ __('tran.viewbooks') }}</span>
-                         </a>
-                     </li>
-                     <li>
-                         <a class="d-flex align-items-center" href="{{route('categorybooks')}}">
-                             <i data-feather="circle"></i>
-                             <span class="menu-item text-truncate">{{ __('tran.categorybooks') }}</span>
+                             <span class="menu-item text-truncate">{{ __('tran.viewstudyschedule') }}</span>
                          </a>
                      </li>
 

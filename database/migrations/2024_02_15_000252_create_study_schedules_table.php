@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('start_page')->nullable();
             $table->string('end_page')->nullable();
             $table->string('start_date')->nullable();
+            $table->boolean('active')->default(1);
             $table->timestamps();
         });
     }

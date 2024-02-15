@@ -31,6 +31,7 @@ use App\Livewire\Dashboard\Setting\Setting as SettingSetting;
 use App\Livewire\Dashboard\FreeCourse\Category\CategoryFreeCourse;
 use App\Livewire\Dashboard\Grades\Category\CategoryGrades;
 use App\Livewire\Dashboard\Grades\ViewGrades;
+use App\Livewire\Dashboard\StudySchedule\ViewStudySchedule;
 use App\Livewire\Dashboard\Test;
 use App\Models\FreeCourse as ModelsFreeCourse;
 
@@ -190,5 +191,6 @@ Route::group(
         Route::get('/grades/category', CategoryGrades::class)->name('categorygrades');
         Route::get('/books/category', CategoryBooks::class)->name('categorybooks');
         Route::get('/books', ViewBooks::class)->name('viewbooks');
+        Route::get('/studyschedule', ViewStudySchedule::class)->name('studyschedule');
     }
 );
