@@ -18,6 +18,11 @@
                           @error('book_name') <span class="error" style="color: red" >{{ $message }}</span> @enderror
                         </div>
                         <div class="col-12 col-md-12">
+                            <label class="form-label" for="modalEditUserFirstName">{{__('tran.features')}}</label>
+                            <textarea type="text"  class="form-control"  wire:model="features"></textarea>
+                          @error('features') <span class="error" style="color: red" >{{ $message }}</span> @enderror
+                        </div>
+                        <div class="col-12 col-md-12">
                             <label class="form-label"
                                 for="modalEditUserFirstName">{{ __('tran.category') }}</label>
                             <select class="form-select" wire:model='category_id' required>

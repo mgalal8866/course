@@ -16,6 +16,7 @@ return new class extends Migration
             $table->uuid('category_id')->nullable();
             $table->string('book_name')->nullable();
             $table->string('price')->nullable();
+            $table->text('features')->nullable();
             $table->string('image')->nullable();
             $table->integer('qty_max')->nullable();
             $table->boolean('active')->default(1);

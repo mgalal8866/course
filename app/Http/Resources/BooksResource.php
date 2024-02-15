@@ -13,10 +13,11 @@ class BooksResource extends JsonResource
 
         return [
             'id'     => $this->id,
-            'name'   => $this->book_name,
-            'image'   => $this->imageurl,
-            'price'   => $this->price,
-            'qty_max'   => $this->qty_max
+            'name'   => $this->book_name??'',
+            'image'   => $this->imageurl??'',
+            'features'   => $this->features??'',
+            'price'   => $this->price??'',
+            'qty_max'   => $this->qty_max??'',
         ];
     }
 }

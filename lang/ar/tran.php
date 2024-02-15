@@ -127,7 +127,7 @@ return [
     'books'        => 'متجر الكتب',
     'viewbooks'        => 'عرض الكتب',
     'newbook'        => 'اضافة كتاب',
-    'editbooks'        => 'تعديل الكتاب',
+    'editbook'        => 'تعديل الكتاب',
     'categorybooks'        => 'اقسام الكتب',
     'book_name'        => 'اسم الكتاب',
     'qty_max'        => 'اقصي كميه للبيع ',
