@@ -27,6 +27,6 @@ class DBStudyScheduleRepository implements StudyScheduleRepositoryinterface
             'start_date',
         ]));
 
-       return $study_schedule ? 'Success':'Error';
+       return $study_schedule ? true:false;
     }
 }

@@ -17,6 +17,11 @@ class StudyScheduleController extends Controller
 
     function create_study_schedule(Request $request)
     {
-        return  $this->StudySchedule->create_study_schedule($request);
+        $data = $this->StudySchedule->create_study_schedule($request);
+        if ($data) {
+            return Resp($data, 'success');
+        } else {
+            return Resp('error', 401);
+        }
     }
 }
