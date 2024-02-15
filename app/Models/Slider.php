@@ -14,6 +14,6 @@ class Slider extends Model
 
     public function getImageurlAttribute()
     {
-        return path('','slider') . $this->img;
+        return $this->img?path('','slider') . $this->img: path('','').'no-imag.png';
     }
 }

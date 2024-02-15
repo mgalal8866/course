@@ -124,5 +124,13 @@ return [
     'newstudentgrades'        => 'اضافة درجه طالب',
     'viewgrades'        => 'عرض درجات الطلاب',
     'categorygrades'        => 'اقسام درجات الطلاب',
+    'books'        => 'متجر الكتب',
+    'viewbooks'        => 'عرض الكتب',
+    'newbook'        => 'اضافة كتاب',
+    'editbooks'        => 'تعديل الكتاب',
+    'categorybooks'        => 'اقسام الكتب',
+    'book_name'        => 'اسم الكتاب',
+    'qty_max'        => 'اقصي كميه للبيع ',
+    // 'price'        => 'اقسام الكتب',
 
 ];

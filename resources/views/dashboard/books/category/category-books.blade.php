@@ -7,23 +7,19 @@
                     <a  class="btn btn-primary" wire:click="$dispatch('edit')">{{__('tran.newcategory')}}</a>
 
                 </div>
-                @livewire('dashboard.courses.category.new-category')
+                @livewire('dashboard.books.category.new-category')
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>{{ __('tran.image') }}</th>
                                 <th>{{ __('tran.category') }}</th>
                                 <th>{{ __('tran.statu') }}</th>
                                 <th>{{ __('tran.action') }}</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($CCourse  as $item)
+                            @forelse ($Category  as $item)
                                 <tr>
-                                    <td>
-                                        <img src="{{ $item->imageurl ?? 'N/A' }}" class="me-75" height="50" width="50" alt="Noimage" />
-                                    </td>
                                     <td>
                                         <span class="fw-bold">{{ $item->name ?? 'N/A' }}</span>
                                     </td>
@@ -49,7 +45,7 @@
                                     </td>
                                     <td>
                                         <a   wire:click="$dispatch('edit',{id:'{{$item->id}}'})"><i  class="fas fa-edit fa-lg"  style="color: #c2881e;"></i></i></a>
-                                        <a wire:click="delete('{{$item->id}}')"><i  class="fas fa-trash-alt fa-lg "  style="color: #ff0000;"></i></i></a>
+                                        {{-- <a wire:click="delete('{{$item->id}}')"><i  class="fas fa-trash-alt fa-lg "  style="color: #ff0000;"></i></i></a> --}}
                                         <a  wire:click="activetoggle('{{$item->id}}')"> <i   class="fas {{$item->active ==1 ?'fas fa-eye':'fa-eye-slash'}} fa-lg "   style="{{$item->active ==1 ?'color: #1caa0f;':''}}"></i></a>
                                     </td>
                                 </tr>

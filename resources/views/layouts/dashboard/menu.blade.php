@@ -57,7 +57,7 @@
              </li>
              <li class=" nav-item">
                  <a class="d-flex align-items-center" href="#">
-                     <i class="fas fa-book"></i>
+                    <i class="fas fa-school"></i>
                      <span class="menu-title text-truncate">{{ __('tran.courses') }}</span>
                  </a>
                  <ul class="menu-content">
@@ -141,7 +141,28 @@
                              <span class="menu-item text-truncate">{{ __('tran.categorygrades') }}</span>
                          </a>
                      </li>
-                    
+
+                 </ul>
+             </li>
+             <li class=" nav-item">
+                 <a class="d-flex align-items-center" href="#">
+                    <i class="fas fa-book"></i>
+                     <span class="menu-title text-truncate">{{ __('tran.books') }}</span>
+                 </a>
+                 <ul class="menu-content">
+                     <li>
+                         <a class="d-flex align-items-center" href="{{ route('viewbooks') }}">
+                             <i data-feather="circle"></i>
+                             <span class="menu-item text-truncate">{{ __('tran.viewbooks') }}</span>
+                         </a>
+                     </li>
+                     <li>
+                         <a class="d-flex align-items-center" href="{{route('categorybooks')}}">
+                             <i data-feather="circle"></i>
+                             <span class="menu-item text-truncate">{{ __('tran.categorybooks') }}</span>
+                         </a>
+                     </li>
+
                  </ul>
              </li>
              <li class=" nav-item">

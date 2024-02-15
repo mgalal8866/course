@@ -12,6 +12,8 @@ use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Session;
 use App\Livewire\Dashboard\Stage\Stages;
 use App\Livewire\Dashboard\Blog\ViewBlog;
+use App\Livewire\Dashboard\Books\Category\CategoryBooks;
+use App\Livewire\Dashboard\Books\ViewBooks;
 use App\Livewire\Dashboard\Exams\Newquiz;
 use App\Livewire\Dashboard\Setting\Slider;
 use Stevebauman\Location\Facades\Location;
@@ -186,5 +188,7 @@ Route::group(
         Route::get('/stage', Stages::class)->name('stage');
         Route::get('/grades', ViewGrades::class)->name('viewgrades');
         Route::get('/grades/category', CategoryGrades::class)->name('categorygrades');
+        Route::get('/books/category', CategoryBooks::class)->name('categorybooks');
+        Route::get('/books', ViewBooks::class)->name('viewbooks');
     }
 );

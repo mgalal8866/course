@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\CategoryBookController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\HomeController;
 use App\Http\Controllers\Api\V1\UsersController;
@@ -8,10 +9,14 @@ use App\Http\Controllers\Api\V1\CommentsController;
 use App\Http\Controllers\Api\V1\SetttingController;
 use App\Http\Controllers\Api\V1\FreeCourseController;
 use App\Http\Controllers\Api\V1\UsersGradesController;
+use App\Http\Controllers\Api\V1\StudyScheduleController;
 use App\Http\Controllers\Api\V1\CategoryCourseController;
 use App\Http\Controllers\Api\V1\CategoryGradesController;
 use App\Http\Controllers\Api\V1\PaymentsOnlineController;
 use App\Http\Controllers\Api\V1\CategoryFreeCourseController;
+use App\Http\Controllers\Api\V1\StoreBookController;
+use App\Models\CategoryBook;
+use App\Models\StoreBook;
 
 Route::post('/login',[UsersController::class,'login'])->name('login');
 Route::post('/sendotp',[UsersController::class,'sendotp']);
@@ -33,6 +38,7 @@ Route::get('/verificationcode/{code?}',[UsersController::class,'verificationcode
 Route::get('/category_course',[CategoryCourseController::class,'getcategorycourse'])->name('getcategorycourse');
 Route::get('/home_category_course',[CategoryCourseController::class,'gethomecategorycourse'])->name('gethomecategorycourse');
 // Route::get('/getcourses',[CourseController::class,'getcategorycourse'])->name('getcategorycourse');
+Route::post('/new/study_schedule',[StudyScheduleController::class,'create_study_schedule'])->name('create_study_schedule');
 Route::get('/courses/{category_id}',[CourseController::class,'getcoursesbycategroy'])->name('getcoursesbycategroy');
 Route::get('/course/not_subscribed/{id}',[CourseController::class,'getcoursebyidnot_subscribed'])->name('getcoursebyid');
 Route::get('/course/subscripe/{id}',[CourseController::class,'getcoursebyidsubscripe'])->name('getcoursebyid');
@@ -46,6 +52,11 @@ Route::post('/add/comment/freecourse',[CommentsController::class,'add_comment_fr
 Route::get('/category/grades',[CategoryGradesController::class,'get_category']);
 Route::get('/grades/bycategoryid/{id?}',[UsersGradesController::class,'get_grades_by_category']);
 Route::get('payment/method',[PaymentsOnlineController::class,'get_payment']);
+
+Route::get('/category/books',[CategoryBookController::class,'get_category_book']);
+Route::get('/books/bycategory/{id?}',[StoreBookController::class,'get_books_by_category']);
+// Route::get('/books/buy/{id?}',[StoreBookController::class,'get_books_by_category']);
+
 Route::middleware(['jwt.verify'])->group(function () {
 
 
