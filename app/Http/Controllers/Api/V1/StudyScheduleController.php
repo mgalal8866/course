@@ -19,7 +19,7 @@ class StudyScheduleController extends Controller
     {
         $data = $this->StudySchedule->create_study_schedule($request);
         if ($data) {
-            return Resp($data, 'success');
+            return Resp('', 'success');
         } else {
             return Resp('error', 401);
         }
