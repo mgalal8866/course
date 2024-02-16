@@ -22,19 +22,19 @@ class DBUsersRepository implements UsersRepositoryinterface
 
         $credentials = [
             'phone' => $request->phone,
-            'password' => $request->password,
+            'password' =>  $request->password,
         ];
         if ($token =Auth::guard('student')->attempt(  $credentials )) {
             $user =auth('student')->user();
         } else {
-            return Resp(null, 'Invalid Credentials', 404, false);
+            return Resp('', 'Invalid Credentials', 404, false);
 
         }
 
         if ($token == null) {
-            return Resp(null, 'User Not found', 404, false);
+            return Resp('', 'User Not found', 404, false);
         }
-        $user =  auth('student')->user();
+        // $user =  auth('student')->user();
         $user->token = $token;
         $data =  new LoginUserResource($user);
         return Resp($data, 'Success', 200, true);
@@ -54,7 +54,8 @@ class DBUsersRepository implements UsersRepositoryinterface
             'first_name'   => $request->first_name,
             'middle_name'  => $request->middle_name,
             'last_name'    => $request->last_name,
-            'password'     => Hash::make($request->password),
+            // 'password'     => Hash::make($request->password),
+            'password'     => $request->password,
             'phone'        => $request->phone,
             'email'        => $request->email,
             'gender'       => $request->gender,
