@@ -62,6 +62,6 @@ class DBUsersRepository implements UsersRepositoryinterface
             // 'email_parent' => $request->email_parent,
             'country_id'   => $request->country_id,
         ]);
-        return Resp('$data', 'Success', 200, true);
+        return Resp($user, 'Success', 200, true);
     }
 }
