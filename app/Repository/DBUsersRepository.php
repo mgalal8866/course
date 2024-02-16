@@ -22,7 +22,7 @@ class DBUsersRepository implements UsersRepositoryinterface
 
         $credentials = [
             'phone' => $request->phone,
-            'password' => Hash::make($request->password),
+            'password' => $request->password,
         ];
         if ($token =Auth::guard('student')->attempt(  $credentials )) {
             $user =auth('student')->user();
