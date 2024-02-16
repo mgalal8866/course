@@ -17,9 +17,16 @@ class DBUsersRepository implements UsersRepositoryinterface
     {
         $this->model = $model;
     }
-    public function login($request){
+    public function login($request)
+    {
 
-        $token =  Auth::guard('api')->attempt(['phone' => $request->get('phone'), 'password' => $request->get('password')]);
+        if ($token =Auth::guard('api')->attempt(['phone' => $request->get('phone'), 'password' => $request->get('password')])) {
+              Auth::user();
+        } else {
+            return Resp(null, 'Invalid Credentials', 404, false);
+
+        }
+
         if ($token == null) {
             return Resp(null, 'User Not found', 404, false);
         }
@@ -27,17 +34,19 @@ class DBUsersRepository implements UsersRepositoryinterface
         $user->token = $token;
         $data =  new LoginUserResource($user);
         return Resp($data, 'Success', 200, true);
-
     }
-    public function sendotp(){
+    public function sendotp()
+    {
         $code = rand(123456, 999999);
         return Resp($code, 'Success', 200, true);
     }
-    public function  verificationcode($code){
+    public function  verificationcode($code)
+    {
         return Resp($code, 'Success', 200, true);
     }
-    public function signup($request){
-        $user=  User::create([
+    public function signup($request)
+    {
+        $user =  User::create([
             'first_name'   => $request->first_name,
             'middle_name'  => $request->middle_name,
             'last_name'    => $request->last_name,
@@ -50,6 +59,5 @@ class DBUsersRepository implements UsersRepositoryinterface
             'country_id'   => $request->country_id,
         ]);
         return Resp('$data', 'Success', 200, true);
-
     }
 }

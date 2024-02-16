@@ -18,6 +18,10 @@ class Courses extends Model
         return $this->hasMany(CourseTrainers::class, 'course_id');
     }
 
+    public function courseenrolled()
+    {
+        return $this->hasMany(CourseEnrolleds::class, 'course_id');
+    }
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id');

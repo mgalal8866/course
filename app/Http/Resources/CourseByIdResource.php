@@ -14,6 +14,7 @@ class CourseByIdResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        
         return [
             'course_id'         => $this->id,
             'course_name'       => $this->name, //اسم الدورة

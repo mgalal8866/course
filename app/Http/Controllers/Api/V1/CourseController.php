@@ -44,12 +44,23 @@ class CourseController extends Controller
     public function getcoursebyidnot_subscribed($id)
     {
         $data = $this->course->getcoursebyid($id);
-           if( $data !=null){
+        if( $data !=null){
 
-               return Resp(new CourseByIdResourcenotsupscrip($data), 'success');
-            }else{
-                return Resp(null,'Not Found Course',404,false);
+            return Resp(new CourseByIdResourcenotsupscrip($data), 'success');
+        }else{
+            return Resp(null,'Not Found Course',404,false);
 
-            };
+        };
+    }
+    public function get_my_course()
+    {
+        $data = $this->course->get_my_course();
+        if( $data !=null){
+
+            return Resp(new CourseByIdResource($data), 'success');
+         }else{
+             return Resp(null,'Not Found Course',404,false);
+
+         };
     }
 }

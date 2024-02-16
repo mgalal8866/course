@@ -4,30 +4,32 @@ namespace App\Providers;
 
 use App\Models\Courses;
 use App\Models\FreeCourse;
-use App\Repository\DBCategoryBookRepository;
 use App\Repository\DBUsersRepository;
 use App\Repository\DBCourseRepository;
 use Illuminate\Support\ServiceProvider;
-use App\Repository\DBFreeCourseRepository;
-use App\Repository\DBCategoryCourseRepository;
-use App\Repository\DBCategoryFreeCourseRepository;
-use App\Repository\DBCategoryGradesRepository;
 use App\Repository\DBCommentsRepository;
 use App\Repository\DBStoreBookRepository;
-use App\Repository\DBStudyScheduleRepository;
+use App\Repository\DBFreeCourseRepository;
 use App\Repository\DBUsersGradesRepository;
-use App\Repositoryinterface\CategoryBookRepositoryinterface;
+use App\Repository\DBCategoryBookRepository;
+use App\Repository\DBStudyScheduleRepository;
+use App\Repository\DBCategoryCourseRepository;
+use App\Repository\DBCategoryGradesRepository;
+use App\Repository\DBCourseEnrolledRepository;
+use App\Repository\DBCategoryFreeCourseRepository;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use App\Repositoryinterface\UsersRepositoryinterface;
 use App\Repositoryinterface\CourseRepositoryinterface;
-use App\Repositoryinterface\FreeCourseRepositoryinterface;
-use App\Repositoryinterface\CategoryCourseRepositoryinterface;
-use App\Repositoryinterface\CategoryFreeCourseRepositoryinterface;
-use App\Repositoryinterface\CategoryGradesRepositoryinterface;
 use App\Repositoryinterface\CommentsRepositoryinterface;
 use App\Repositoryinterface\StoreBookRepositoryinterface;
-use App\Repositoryinterface\StudyScheduleRepositoryinterface;
+use App\Repositoryinterface\FreeCourseRepositoryinterface;
 use App\Repositoryinterface\UsersGradesRepositoryinterface;
-use Illuminate\Database\Eloquent\Relations\Relation;
+use App\Repositoryinterface\CategoryBookRepositoryinterface;
+use App\Repositoryinterface\StudyScheduleRepositoryinterface;
+use App\Repositoryinterface\CategoryCourseRepositoryinterface;
+use App\Repositoryinterface\CategoryGradesRepositoryinterface;
+use App\Repositoryinterface\CourseEnrolledRepositoryinterface;
+use App\Repositoryinterface\CategoryFreeCourseRepositoryinterface;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -47,6 +49,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(StoreBookRepositoryinterface::class, DBStoreBookRepository::class);
         $this->app->bind(StudyScheduleRepositoryinterface::class, DBStudyScheduleRepository::class);
         $this->app->bind(CategoryBookRepositoryinterface::class, DBCategoryBookRepository::class);
+        $this->app->bind(CourseEnrolledRepositoryinterface::class, DBCourseEnrolledRepository::class);
     }
 
     /**
