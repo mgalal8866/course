@@ -20,8 +20,12 @@ class DBUsersRepository implements UsersRepositoryinterface
     public function login($request)
     {
 
-        if ($token =Auth::guard('api')->attempt(['phone' => $request->get('phone'), 'password' => $request->get('password')])) {
-              Auth::user();
+        $credentials = [
+            'phone' => $request->phone,
+            'password' => Hash::make($request->password),
+        ];
+        if ($token =Auth::guard('student')->attempt(  $credentials )) {
+            $user =auth('student')->user();
         } else {
             return Resp(null, 'Invalid Credentials', 404, false);
 
@@ -30,7 +34,7 @@ class DBUsersRepository implements UsersRepositoryinterface
         if ($token == null) {
             return Resp(null, 'User Not found', 404, false);
         }
-        $user =  auth('api')->user();
+        $user =  auth('student')->user();
         $user->token = $token;
         $data =  new LoginUserResource($user);
         return Resp($data, 'Success', 200, true);
