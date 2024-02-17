@@ -22,7 +22,8 @@ class DBCourseRepository implements CourseRepositoryinterface
     public function getcoursesbycategroy($category_id)
     {
         $perPage = $this->request->input('per_page', 20);
-        return $this->model->whereCategoryId($category_id)->paginate($perPage);
+        return $this->model->whereCategoryId($category_id)->with('courseenrolled')
+        ->select(['id','name','image','short_description','created_at' ])->paginate($perPage);
         //    return $this->model->where('category_id',$category_id)->get();
     }
     public function getcoursebyid($id)
@@ -33,5 +34,5 @@ class DBCourseRepository implements CourseRepositoryinterface
         }, 'stages.lessons'])->find($id);
         return  $course;
     }
-  
+
 }

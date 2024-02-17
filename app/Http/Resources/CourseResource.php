@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Resources;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -14,14 +14,15 @@ class CourseResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+
         return [
-            'id'        => $this->id,
-            'name'      => $this->name??'',
-            'image'      => $this->imageurl??'',
+            'id'                => $this->id,
+            'name'              => $this->name??'',
+            'image'             => $this->imageurl??'',
             'short_description' => $this->short_description??'',
-            'status' => '1'??'',
-            'subscripe'  =>'false',
-            'created_at' => $this->created_at->format('d/m/Y')
+            'status'            => '1'??'',
+             'subscripe'        => $this->isEnrolledInCourse($this->id)?'true':'false',
+            'created_at'        => $this->created_at->format('d/m/Y')
             //1=الدوره شغاله
             //2=نفذت المقاعده
             //3=انتهت الدورة

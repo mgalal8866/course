@@ -2,9 +2,10 @@
 
 namespace App\Repository;
 
-use App\Models\CourseEnrolleds;
 use App\Models\Courses;
 use Illuminate\Http\Request;
+use App\Models\CourseEnrolleds;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use App\Repositoryinterface\CourseEnrolledRepositoryinterface;
 
@@ -23,7 +24,8 @@ class DBCourseEnrolledRepository implements CourseEnrolledRepositoryinterface
 
     public function get_my_course()
     {
-        return $this->model->with(['course'])->get();
+
+        return   $this->model->with(['course'])->whereUserId(Auth::guard('student')->user()->id)->get();
     }
-    
+
 }

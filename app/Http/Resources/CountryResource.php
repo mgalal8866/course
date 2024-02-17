@@ -18,6 +18,7 @@ class CountryResource extends JsonResource
             'country_phonecode' => $this->phonecode ,
             'country_code2'     => $this->iso2 ,
             'country_code3'     => $this->iso3 ,
+            'country_flag'      => asset('asset/flag/country-') .$this->iso2.'.svg' ,
             'country_currency'  => $this->currency[Lang::locale()] ,
         ];
     }
