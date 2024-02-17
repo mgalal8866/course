@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\V1\UsersController;
 use App\Http\Controllers\Api\V1\CourseController;
 use App\Http\Controllers\Api\V1\CommentsController;
 use App\Http\Controllers\Api\V1\SetttingController;
+use App\Http\Controllers\Api\V1\CountriesController;
 use App\Http\Controllers\Api\V1\StoreBookController;
 use App\Http\Controllers\Api\V1\FreeCourseController;
 use App\Http\Controllers\Api\V1\UsersGradesController;
@@ -57,6 +58,7 @@ Route::get('payment/method',[PaymentsOnlineController::class,'get_payment']);
 Route::get('/category/books',[CategoryBookController::class,'get_category_book']);
 Route::get('/books/bycategory/{id?}',[StoreBookController::class,'get_books_by_category']);
 Route::get('/course/mycourse',[CourseEnrolledController::class,'get_my_course']);
+Route::get('/countries',[CountriesController::class,'get_countries']);
 // Route::get('/books/buy/{id?}',[StoreBookController::class,'get_books_by_category']);
 
 Route::middleware(['jwt.verify'])->group(function () {
