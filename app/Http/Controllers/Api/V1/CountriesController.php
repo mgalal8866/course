@@ -8,6 +8,7 @@ use App\Models\CategoryBook;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CountryResource;
+use Browser;
 use Stevebauman\Location\Facades\Location;
 use App\Http\Resources\CategoryBookResource;
 use App\Repositoryinterface\CategoryBookRepositoryinterface;
@@ -19,7 +20,11 @@ class CountriesController extends Controller
 
     function get_test(Request $request)
     {
-        return Location::get($request->ip());
+        return [
+            'browser' => !empty(Browser::browserName()) ? Browser::browserName() : $request->browser??'',
+            'os' => !empty(Browser::platformName()) ? Browser::platformName() : $request->os??'',
+            'location' => Location::get($request->ip())
+        ];
     }
     function get_countries()
     {
@@ -37,7 +42,7 @@ class CountriesController extends Controller
         //     'iso2'=>'EG',
         //     'iso3'=>'EGY',
         // ]);
-        $data= Country::whereActive('1')->get();
-          return Resp(CountryResource::collection($data),'success');
+        $data = Country::whereActive('1')->get();
+        return Resp(CountryResource::collection($data), 'success');
     }
 }
