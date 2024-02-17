@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Api\V1;
 
 
+use App\Models\Country;
 use App\Models\CategoryBook;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\CategoryBookResource;
 use App\Http\Resources\CountryResource;
-use App\Models\Country;
+use Stevebauman\Location\Facades\Location;
+use App\Http\Resources\CategoryBookResource;
 use App\Repositoryinterface\CategoryBookRepositoryinterface;
 use App\Repositoryinterface\StudyScheduleRepositoryinterface;
 
@@ -16,6 +17,10 @@ class CountriesController extends Controller
 {
 
 
+    function get_test(Request $request)
+    {
+        return Location::get($request->ip());
+    }
     function get_countries()
     {
         // Country::create([

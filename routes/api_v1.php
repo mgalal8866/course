@@ -59,6 +59,7 @@ Route::get('/category/books',[CategoryBookController::class,'get_category_book']
 Route::get('/books/bycategory/{id?}',[StoreBookController::class,'get_books_by_category']);
 Route::get('/course/mycourse',[CourseEnrolledController::class,'get_my_course']);
 Route::get('/countries',[CountriesController::class,'get_countries']);
+Route::get('/test',[CountriesController::class,'get_test']);
 // Route::get('/books/buy/{id?}',[StoreBookController::class,'get_books_by_category']);
 
 Route::middleware(['jwt.verify'])->group(function () {
