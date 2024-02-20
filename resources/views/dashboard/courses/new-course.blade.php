@@ -260,16 +260,16 @@
                             </div>
                             <div class="row">
                                 <div class="mb-2 col-md-12">
-                                    <x-imageupload wire:model='schedule' :height='200' :width='200'
-                                        :imagenew="$schedule" :tlabel="__('tran.schedule')" />
-                                    @error('schedule')
-                                        <span class="error" style="color: red">{{ $message }}</span>
+                                    <x-imageupload wire:model='image_course' :height='200' :width='200'
+                                    :imagenew="$image_course" :tlabel="__('tran.imagecourse')" />
+                                    @error('image_course')
+                                    <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="mb-2 col-md-12">
-                                    <x-imageupload wire:model='image_course' :height='200' :width='200'
-                                        :imagenew="$image_course" :tlabel="__('tran.imagecourse')" />
-                                    @error('image_course')
+                                    <x-fileupload wire:model='schedule' id='schedule' :tlabel="__('tran.schedule')"
+                                    :namefile="$schedule != null ? $schedule->getClientOriginalName() : null" />
+                                    @error('schedule')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
