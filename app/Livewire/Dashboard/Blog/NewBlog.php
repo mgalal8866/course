@@ -14,6 +14,8 @@ class NewBlog extends Component
 {
     use WithFileUploads, ImageProcessing;
     protected $listeners = ['edit' => 'edit'];
+
+
     public $imageold,$title, $active=1,$image, $article,$edit = false, $id, $header;
     protected $rules = [
         'title'       => 'required',
@@ -23,13 +25,16 @@ class NewBlog extends Component
 
     public function edit($id = null)
     {
-        $this->reset();
+
+         $this->reset();
         if ($id != null) {
+
             $tra = Blog::find($id);
             $this->id = $tra->id;
             $this->title = $tra->title;
             $this->article = $tra->article;
             $this->imageold = $tra->imageurl;
+
             $this->active = $tra->active==1?true:false;
             $this->edit = true;
             $this->header = __('tran.edit') . ' ' . __('tran.blog');
@@ -51,7 +56,7 @@ class NewBlog extends Component
             'active' => $this->active??1,
         ]);
         if ($this->image) {
-            
+
             $dataX =  $this->saveImageAndThumbnail($this->image, false, $Blog->id, 'blog');
             $Blog->image =  $dataX['image'];
 

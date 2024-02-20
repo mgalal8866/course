@@ -107,6 +107,7 @@
                                         for="modalEditUserFirstName">{{ __('tran.country') }}</label>
                                     <select class="form-select" wire:model='country_id' required>
                                         <option value=""> اختيار الدولة</option>
+                                        <option value="">الكل</option>
                                         @foreach ($country as $c)
                                             <option value="{{ $c->id }}">{{ $c->name }}</option>
                                         @endforeach
@@ -267,7 +268,7 @@
                                     @enderror
                                 </div>
                                 <div class="mb-2 col-md-3  border border-black pb-2">
-                                    <x-fileupload wire:model='schedule' id='schedule' :tlabel="__('tran.schedule')"
+                                    <x-fileupload wire:model='schedule' id='schedule' :tlabel="__('tran.courseschedule')"
                                     :namefile="$schedule != null ? $schedule->getClientOriginalName() : null" />
                                     @error('schedule')
                                         <span class="error" style="color: red">{{ $message }}</span>
@@ -374,14 +375,14 @@
 
                                     <div class="col">
                                         <input class="form-control" wire:model="lessons.{{ $key }}.name"
-                                            placeholder="name" type="text" />
+                                            placeholder="اسم الشرح" type="text" />
                                         @error('lessons.' . $key . '.name')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
                                     <div class="col">
                                         <input class="form-control" wire:model="lessons.{{ $key }}.link"
-                                            type="text" placeholder="{{ $key }}" />
+                                            type="text" placeholder="رابط الشرح" />
                                         @error('lessons.' . $key . '.link')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror

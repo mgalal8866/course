@@ -132,6 +132,7 @@ return [
     'book_name'       => 'اسم الكتاب',
     'qty_max'         => 'اقصي كميه للبيع ',
     'studyschedule'     => 'جدول المذاكرة',
+    'courseschedule'     => 'جدول الدورة',
     'viewstudyschedule' => 'عرض جدول المذاكرة',
     'subject' => 'المادة',
     'start_date' => 'تاريخ البداية',
