@@ -22,7 +22,7 @@ class NewCourse extends Component
 
 
     protected $listeners = ['edit' => 'edit', 'refreshDropdown', 'currentPage' => 'currentPage'];
-    public $edit = false,$short_description, $id, $header, $currentPage = 1, $pages = 4, $conditions, $target, $howtostart='sssss',
+    public $edit = false,$short_description, $id, $header, $currentPage = 1, $pages = 4, $conditions, $target, $howtostart,
         $telegram, $telegramgrup, $nextcourse,$course_gender,$schedule,
         $name, $description, $validity='تبقى الدورة بكامل محتوياتها ثلاثة أشهر بحساب المتدرب.', $country_id, $category_id, $price, $pricewith, $startdate, $enddate, $time, $features, $triner = [], $limit_stud, $duration_course='شهر ونصف',
         $image_course, $file_work, $file_explanatory, $file_aggregates, $file_supplementary, $file_free, $file_test,

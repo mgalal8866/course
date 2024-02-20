@@ -37,7 +37,8 @@
                             <label class="form-label" for="modalEditUserFirstName">{{ __('tran.article') }}</label>
                             {{-- <x-summernote  wire:model='article'  name="article" id="article"/> --}}
                             {{-- <x-editor  wire:model='article'  name="article" id="article"/> --}}
-                           <textarea wire:model='article'  name="article" id="article" cols="30" rows="10"></textarea>
+                            <x-summernote wire:model='article' name="article" id="article" />
+
                             @error('article')
                                 <span class="error" style="color: red">{{ $message }}</span>
                             @enderror
