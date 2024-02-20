@@ -20,6 +20,7 @@ class LoginUserResource extends JsonResource
             'country'      => new CountryResource($this->country)??'' ,
             'phone_parent' => $this->phone_parent??''  ,
             'email_parent' => $this->email_parent??'' ,
+            'notifiction'  => $this->notifiction??'' ,
             'token'        => $this->token ,
 
         ];

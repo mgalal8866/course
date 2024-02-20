@@ -61,6 +61,10 @@ class DBUsersRepository implements UsersRepositoryinterface
             'gender'       => $request->gender,
             'country_id'   => $request->country_id,
         ]);
-        return Resp($user, 'Success', 200, true);
+        if($user !=null){
+
+            return $this->login($request);
+        }
+        return Resp('', 'error', 402, true);
     }
 }
