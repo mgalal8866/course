@@ -51,9 +51,10 @@ class NewBlog extends Component
             'active' => $this->active??1,
         ]);
         if ($this->image) {
-            $dataX =  $this->saveImageAndThumbnail($this->image, false, $Blog->id, 'blog');
+
+            $dataX =  $this->saveImageAndThumbnail($this->image, false, $Blog->id, 'blog', 'images');
             $Blog->image =  $dataX['image'];
-            $Blog->save();
+
         }
 
         // $dom = new DOMDocument();

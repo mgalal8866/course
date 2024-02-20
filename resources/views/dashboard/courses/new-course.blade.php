@@ -120,8 +120,9 @@
                                         for="modalEditUserFirstName">{{ __('tran.course_gender') }}</label>
                                     <select class="form-select" wire:model='course_gender' required>
                                         <option value=""> نوع الدورة</option>
-                                            <option value="1">طلاب</option>
-                                            <option value="2">طالبات</option>
+                                        <option value="0">الكل</option>
+                                        <option value="1">طلاب</option>
+                                        <option value="2">طالبات</option>
                                     </select>
                                     @error('country_id')
                                         <span class="error" style="color: red">{{ $message }}</span>
@@ -221,7 +222,7 @@
                                 </div>
                                 <div class="mb-1 col-md-12" wire:ignore>
                                     <label class="form-label" for="description">{{ __('tran.description') }}</label>
-                                        <x-summernote wire:model='description' name="description" id="description" />
+                                    <x-summernote wire:model='description' name="description" id="description" />
                                     @error('description')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
@@ -233,7 +234,7 @@
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="mb-1 col-md-12" wire:ignore >
+                                <div class="mb-1 col-md-12" wire:ignore>
                                     <label class="form-label" for="">{{ __('tran.target') }}</label>
                                     <x-summernote wire:model='target' name="target" id="target" />
                                     @error('target')
@@ -242,7 +243,8 @@
                                 </div>
                                 <div class="mb-1 col-md-12" wire:ignore>
                                     <label class="form-label" for="">{{ __('tran.howtostart') }}</label>
-                                    <x-summernote wire:model='howtostart' name="howtostart" id="howtostart"  value='{{$howtostart}}'/>
+                                    <x-summernote wire:model='howtostart' name="howtostart" id="howtostart"
+                                        value='{{ $howtostart }}' />
                                     @error('howtostart')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
@@ -495,12 +497,12 @@
     </section>
 </div>
 @push('csslive')
-{{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" /> --}}
+    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" /> --}}
 
     <link rel="stylesheet" type="text/css" href="{{ asset('asset/vendors/css/forms/select/select2.min.css') }}">
 @endpush
 @push('jslive')
-{{-- <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script> --}}
+    {{-- <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script> --}}
 
     <script src="{{ asset('asset/vendors/js/forms/select/select2.full.min.js') }}"></script>
 
@@ -530,7 +532,6 @@
         });
     </script>
     <script>
-
         (function(window, document, $) {
             'use strict';
 
