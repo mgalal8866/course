@@ -26,7 +26,7 @@ class Courses extends Model
     }
     public function isEnrolledInCourse($courseId)
     {
-        $userId = Auth::guard('student')->id(); 
+        $userId = Auth::guard('student')->id();
         return CourseEnrolleds::where('user_id', $userId)
                               ->where('course_id', $courseId)
                               ->exists();
@@ -49,7 +49,7 @@ class Courses extends Model
     }
     public function getImageurlAttribute()
     {
-        return path($this->id,'courses') . $this->image;
+        return path($this->id,'courses') . '/' .'images'.'/' . $this->image;
     }
 
     public function comments()
