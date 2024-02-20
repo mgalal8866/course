@@ -19,7 +19,7 @@ class BlogResource extends JsonResource
             'id'     => $this->id??'',
             'image'   => $this->imageurl??'',
             'title'    => $this->title??'',
-            'body'     => $this->article??'',
+            'body'     =>   Str::of(strip_tags( $this->article))->limit(20) ?? ''
 
         ];
     }

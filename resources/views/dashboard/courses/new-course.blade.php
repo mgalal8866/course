@@ -266,7 +266,7 @@
                                     <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="mb-2 col-md-12">
+                                <div class="mb-2 col-md-3  border border-black pb-2">
                                     <x-fileupload wire:model='schedule' id='schedule' :tlabel="__('tran.schedule')"
                                     :namefile="$schedule != null ? $schedule->getClientOriginalName() : null" />
                                     @error('schedule')
@@ -386,7 +386,7 @@
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
-                                    <div class="col-1">
+                                    {{-- <div class="col-1">
                                         <div class="form-check form-switch form-check-success ">
                                             <input type="checkbox" class="form-check-input"
                                                 wire:model="lessons.{{ $key }}.status"
@@ -402,7 +402,7 @@
                                             </label>
                                         </div>
 
-                                    </div>
+                                    </div> --}}
                                     <div class="col-1">
                                         @if ($key != 0)
                                             <button wire:click='removelesson({{ $key }})' type="button"
