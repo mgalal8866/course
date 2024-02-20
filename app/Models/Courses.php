@@ -49,7 +49,7 @@ class Courses extends Model
     }
     public function getImageurlAttribute()
     {
-        return path($this->id,'courses') . '/' .'images'.'/' . $this->image;
+        return path($this->id,'courses') .'images'.'/' . $this->image;
     }
 
     public function comments()
