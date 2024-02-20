@@ -22,6 +22,7 @@
         "spatie/laravel-permission": "^6.1",
         "stevebauman/location": "^7.1",
         "tymon/jwt-auth": "^2.0",
+        "vimeo/laravel": "^5.8",
         "wire-elements/modal": "^2.0"
     },
     "require-dev": {

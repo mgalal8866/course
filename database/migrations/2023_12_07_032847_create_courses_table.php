@@ -18,12 +18,12 @@ return new class extends Migration
             $table->uuid('category_id')->nullable();
             $table->string('description')->nullable();
             $table->string('short_description')->nullable();
+            $table->boolean('course_gender')->nullable();
             $table->string('price')->nullable();
             $table->string('pricewith')->nullable();
             $table->string('start_date')->nullable();
             $table->string('end_date')->nullable();
             $table->string('image')->nullable();
-            $table->string('conditions')->nullable();// شروط واحكام
             $table->string('telegram')->nullable();
             $table->string('telegramgrup')->nullable();
             $table->string('timeline')->nullable(); //ألخطه الزمنية
@@ -32,8 +32,10 @@ return new class extends Migration
             $table->string('validity')->nullable(); //صلاحية الدورة
             $table->string('duration')->nullable(); //مده الدورة
             $table->string('max_drainees')->nullable(); //الحد الاقصي لمتدربين
-            $table->string('how_start')->nullable();
-            $table->string('target')->nullable();
+            $table->text('features')->nullable();
+            $table->text('conditions')->nullable();// شروط واحكام
+            $table->text('how_start')->nullable();
+            $table->text('target')->nullable();
             $table->string('next_cource')->nullable();
             $table->boolean('inputnum')->default(0);
             $table->boolean('lang')->default(0);

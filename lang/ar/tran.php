@@ -134,6 +134,7 @@ return [
     'studyschedule'     => 'جدول المذاكرة',
     'viewstudyschedule' => 'عرض جدول المذاكرة',
     'subject' => 'المادة',
-    'start_date' => 'تاريخ البداية'
+    'start_date' => 'تاريخ البداية',
+    'course_gender' => 'نوع الدورة'
 
 ];

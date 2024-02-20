@@ -22,9 +22,9 @@ class NewCourse extends Component
 
 
     protected $listeners = ['edit' => 'edit', 'refreshDropdown', 'currentPage' => 'currentPage'];
-    public $edit = false, $id, $header, $currentPage = 1, $pages = 4, $conditions, $target, $howtostart,
-        $telegram, $telegramgrup, $nextcourse,
-        $name, $description, $validity, $country_id, $category_id, $price, $pricewith, $startdate, $enddate, $time, $features, $triner = [], $limit_stud, $duration_course,
+    public $edit = false,$short_description, $id, $header, $currentPage = 1, $pages = 4, $conditions, $target, $howtostart='sssss',
+        $telegram, $telegramgrup, $nextcourse,$course_gender,$schedule,
+        $name, $description, $validity='تبقى الدورة بكامل محتوياتها ثلاثة أشهر بحساب المتدرب.', $country_id, $category_id, $price, $pricewith, $startdate, $enddate, $time, $features, $triner = [], $limit_stud, $duration_course='شهر ونصف',
         $image_course, $file_work, $file_explanatory, $file_aggregates, $file_supplementary, $file_free, $file_test,
         $langcourse, $status, $inputnum, $lessons, $stages;
     public function mount()
@@ -102,6 +102,7 @@ class NewCourse extends Component
                 'country_id'   => $this->country_id,
                 'duration'     => $this->duration_course ?? null,
                 'validity'     => $this->validity ?? null,
+                'course_gender'     => $this->course_gender ?? null,
                 'short_description'  => $this->short_description ?? null,
                 'description'  => $this->description ?? null,
                 'category_id'  => $this->category_id ?? null,
@@ -112,6 +113,7 @@ class NewCourse extends Component
                 'time'         => $this->time ?? null,
                 'max_drainees' => $this->limit_stud ?? null,
                 'conditions'   => $this->conditions ?? null,
+                'features'    => $this->features ?? null,
                 'how_start'    => $this->howtostart ?? null,
                 'target'       => $this->target ?? null,
                 'telegramgrup' => $this->telegramgrup ?? null,
@@ -125,6 +127,11 @@ class NewCourse extends Component
             if ($this->image_course) {
                 $dataX = $this->saveImageAndThumbnail($this->image_course, false, $CFC->id, 'courses', 'images');
                 $CFC->image =  $dataX['image'];
+                $CFC->save();
+            }
+            if ($this->schedule) {
+                $dataX = $this->saveImageAndThumbnail($this->schedule, false, $CFC->id, 'courses', 'images');
+                $CFC->schedule =  $dataX['image'];
                 $CFC->save();
             }
 
@@ -146,6 +153,11 @@ class NewCourse extends Component
             if($this->file_supplementary){
                 $file =  uploadfile($this->file_supplementary,"files/courses/"  . $CFC->id . "/doc");
                 $CFC->file_supplementary =  $file;
+                $CFC->save();
+            }
+            if($this->file_free){
+                $file =  uploadfile($this->file_free,"files/courses/"  . $CFC->id . "/doc");
+                $CFC->file_free =  $file;
                 $CFC->save();
             }
 

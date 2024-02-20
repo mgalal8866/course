@@ -172,6 +172,7 @@ return [
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
+        Vimeo\Laravel\VimeoServiceProvider::class
 
 
     ])->toArray(),
@@ -192,6 +193,7 @@ return [
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
+        'Vimeo' => Vimeo\Laravel\Facades\Vimeo::class
 
     ])->toArray(),
 

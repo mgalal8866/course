@@ -5,6 +5,9 @@ use Livewire\Livewire;
 use App\Models\Courses;
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use Vimeo\Laravel\VimeoManager;
+use App\Livewire\Dashboard\Test;
+use Vimeo\Laravel\Facades\Vimeo;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
@@ -12,28 +15,28 @@ use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Session;
 use App\Livewire\Dashboard\Stage\Stages;
 use App\Livewire\Dashboard\Blog\ViewBlog;
-use App\Livewire\Dashboard\Books\Category\CategoryBooks;
-use App\Livewire\Dashboard\Books\ViewBooks;
 use App\Livewire\Dashboard\Exams\Newquiz;
 use App\Livewire\Dashboard\Setting\Slider;
 use Stevebauman\Location\Facades\Location;
+use App\Livewire\Dashboard\Books\ViewBooks;
 use App\Livewire\Dashboard\Exams\ViewQuizz;
 use App\Livewire\Dashboard\Courses\NewCourse;
+use App\Livewire\Dashboard\Grades\ViewGrades;
 use App\Livewire\Dashboard\Trainees\Trainees;
 use App\Livewire\Dashboard\Trainers\Trainers;
+use App\Models\FreeCourse as ModelsFreeCourse;
+use App\Livewire\Dashboard\Courses\ViewCourses;
 use App\Livewire\Dashboard\FreeCourse\FreeCourse;
 use App\Livewire\Dashboard\Exams\Category\CategoryExam;
+use App\Livewire\Dashboard\Books\Category\CategoryBooks;
+use App\Livewire\Dashboard\Grades\Category\CategoryGrades;
 use App\Livewire\Dashboard\Trainers\Specialist\Specialist;
 use App\Livewire\Dashboard\Courses\Category\CategoryCourse;
-use App\Livewire\Dashboard\Courses\ViewCourses;
+use App\Livewire\Dashboard\StudySchedule\ViewStudySchedule;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Livewire\Dashboard\Setting\Setting as SettingSetting;
 use App\Livewire\Dashboard\FreeCourse\Category\CategoryFreeCourse;
-use App\Livewire\Dashboard\Grades\Category\CategoryGrades;
-use App\Livewire\Dashboard\Grades\ViewGrades;
-use App\Livewire\Dashboard\StudySchedule\ViewStudySchedule;
-use App\Livewire\Dashboard\Test;
-use App\Models\FreeCourse as ModelsFreeCourse;
+use App\Livewire\Dashboard\Vimeo\Filemanger;
 
 // use Browser;
 
@@ -48,7 +51,7 @@ use App\Models\FreeCourse as ModelsFreeCourse;
 |
 */
 
- 
+
 Route::group(
     [
         'prefix' => LaravelLocalization::setLocale() . '/dashboard/',
@@ -59,6 +62,65 @@ Route::group(
             return Route::post('/livewire/update', $handle);
         });
 
+        Route::get('/test21', function (Request $request) {
+
+            $pageCount = 5; // عدد صفحات الكتاب
+            $pagesPerDay = ceil($pageCount / 6); // توزيع الصفحات على 6 أيام
+            $distribution = [];
+            $distributedPages = 0;
+
+            // مصفوفة لتتبع الصفحات التي تم توزيعها في كل يوم
+            $distributedPagesInDay = [];
+
+            for ($day = 1; $day <= 6; $day++) {
+                // التأكد من أننا لم نوزع الصفحات في هذا اليوم بالفعل
+                if (!isset($distributedPagesInDay[$day])) {
+                    $startPage = $distributedPages + 1;
+                    $endPage = min($startPage + $pagesPerDay - 1, $pageCount);
+                    $distribution[] = "Day $day: Pages $startPage-$endPage";
+
+                    // تحديث عدد الصفحات الموزعة حتى الآن
+                    $distributedPages += $endPage - $startPage + 1;
+
+                    // إضافة اليوم إلى قائمة الأيام التي تم توزيع الصفحات عليها
+                    $distributedPagesInDay[$day] = range($startPage, $endPage);
+                }
+            }
+
+            // عودة لوضع الكتب المتبقية
+            // $pageCount = 16 - $distributedPages;
+            // $pagesPerDay = ceil($pageCount / (6 - count($distributedPagesInDay)));
+
+            // for ($day = 1; $day <= 6; $day++) {
+            //     // التأكد من أننا لم نوزع الصفحات في هذا اليوم بالفعل
+            //     if (!isset($distributedPagesInDay[$day])) {
+            //         $startPage = $distributedPages + 1;
+            //         $endPage = min($startPage + $pagesPerDay - 1, $pageCount);
+            //         $distribution[] = "Day $day: Pages $startPage-$endPage";
+
+            //         // تحديث عدد الصفحات الموزعة حتى الآن
+            //         $distributedPages += $endPage - $startPage + 1;
+
+            //         // إضافة اليوم إلى قائمة الأيام التي تم توزيع الصفحات عليها
+            //         $distributedPagesInDay[$day] = range($startPage, $endPage);
+            //     }
+            // }
+
+
+            return implode("\n", $distribution) . "\n";
+
+
+            // // $dd =   Vimeo::request('/users/213717808/projects/19542970 ', null, 'GET');
+            $dd =   Vimeo::request('/users/213717808/folders', null, 'GET');
+            //  $dd =  Vimeo::request( '/users/213717808/folders' ,[
+            //     'name' => 'subFolderName',
+            //     "parent_folder_uri"=> "/users/213717808/projects/19543138"
+            // ], 'POST');
+            // $data =  $dd['body']['data'];
+            $data =  $dd['body']['data'];
+            // return $data;
+            return view('viemo', compact('data'));
+        });
         Route::get('/test2', function (Request $request) {
             $phone = '201024346011';
             $curl = curl_init();
@@ -96,8 +158,7 @@ Route::group(
                     ],
                     },
                 }
-                  '
-                ,
+                  ',
                 CURLOPT_HTTPHEADER => array(
                     'Authorization: Bearer EAAZAPwzlXEZAoBO84FZALRI4TNj6rJItJrgGv7GWnKm7vHPR1t89R5wKfnC7fVppRhgfRBUXWdg0yZBdJs2IaR3bGtdj8BUwGuC7ZA6ShzYuH8E462BExNopd3e3NR4E9CtCjJ2nf4ysYgqgbRqvheGPEOiHymFCF1il8mUEuBahaSMwDtM55oESbCz9K5vShsIeXmIHrJ3W98RReDR0ZD',
                     'Content-Type: application/json'
@@ -113,12 +174,12 @@ Route::group(
         Route::get('/test1', Test::class);
         // Route::get('/test1', NewCourse::class)->name('newcourse');
         Route::get('/test/{text?}', function (Request $request) {
-            $gg= Setting::where('key','api_token_chat')->value('value');
+            $gg = Setting::where('key', 'api_token_chat')->value('value');
             $url = 'https://api.openai.com/v1/chat/completions';
 
             $response = Http::withHeaders([
                 'Content-Type' => "application/json",
-                'Authorization' => "Bearer ". $gg,
+                'Authorization' => "Bearer " . $gg,
             ])->post($url, [
 
                 'model' => "gpt-3.5-turbo",
@@ -167,6 +228,7 @@ Route::group(
         Route::get('/', function () {
             return view('layouts.dashboard.app');
         });
+        Route::get('/vimeo', Filemanger::class);
         Route::get('/new/course', NewCourse::class)->name('newcourse');
         Route::get('/course', ViewCourses::class)->name('course');
         Route::get('/free-course', FreeCourse::class)->name('freecourse');

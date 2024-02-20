@@ -78,11 +78,13 @@
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="mb-1 col-md-12">
+                                <div class="mb-1 col-md-12" wire:ignore>
                                     <label class="form-label"
                                         for="short_description">{{ __('tran.short_description') }}</label>
                                     <textarea type="short_description" class="form-control @error('short_description')  is-invalid @enderror "
                                         wire:model='short_description'></textarea>
+                                    {{-- <textarea wire:model='short_description' class="form-control"  id="short_description">{!! $short_description !!}</textarea> --}}
+
                                     @error('short_description')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
@@ -113,11 +115,23 @@
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
+                                <div class="mb-1 col-md-4">
+                                    <label class="form-label"
+                                        for="modalEditUserFirstName">{{ __('tran.course_gender') }}</label>
+                                    <select class="form-select" wire:model='course_gender' required>
+                                        <option value=""> نوع الدورة</option>
+                                            <option value="1">طلاب</option>
+                                            <option value="2">طالبات</option>
+                                    </select>
+                                    @error('country_id')
+                                        <span class="error" style="color: red">{{ $message }}</span>
+                                    @enderror
+                                </div>
 
                                 <div class="mb-1 col-md-4">
                                     <label class="form-label" for="username">{{ __('tran.price') }}</label>
                                     <div class="input-group input-group-merge">
-                                        <select class=" form-select"  wire:model='pricewith' >
+                                        <select class=" form-select" wire:model='pricewith'>
                                             <option value="">اختار الملحقات</option>
                                             <option value="1">PDF شامل كتاب الدورة</option>
                                             <option value="2">بدون كتاب الدورة</option>
@@ -197,50 +211,43 @@
                                     @enderror
                                 </div>
 
-                                <div class="mb-1 col-md-12">
+                                <div class="mb-1 col-md-12" wire:ignore>
                                     <label class="form-label"
                                         for="username">{{ __('tran.features') . ' ' . __('tran.course') }}</label>
-                                    <textarea type="text" class="form-control" wire:model='features' required></textarea>
+                                    <x-summernote wire:model='features' name="features" id="features" />
                                     @error('features')
-                                    <span class="error" style="color: red">{{ $message }}</span>
+                                        <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="mb-1 col-md-12">
+                                <div class="mb-1 col-md-12" wire:ignore>
                                     <label class="form-label" for="description">{{ __('tran.description') }}</label>
-                                    <textarea type="text" class="form-control" wire:model='description' required></textarea>
-                                    {{-- <x-editorforcource wire:model='description' name="description"
-                                        id="description" /> --}}
+                                        <x-summernote wire:model='description' name="description" id="description" />
                                     @error('description')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="mb-1 col-md-12">
+                                <div class="mb-1 col-md-12" wire:ignore>
                                     <label class="form-label" for="conditions">{{ __('tran.conditions') }}</label>
-                                    <textarea type="text" class="form-control" wire:model='conditions' required></textarea>
-
-                                    {{-- <x-editorforcource wire:model='conditions' name="conditions" id="conditions" /> --}}
+                                    <x-summernote wire:model='conditions' name="conditions" id="conditions" />
                                     @error('conditions')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="mb-1 col-md-12">
+                                <div class="mb-1 col-md-12" wire:ignore >
                                     <label class="form-label" for="">{{ __('tran.target') }}</label>
-                                    <textarea type="text" class="form-control" wire:model='target' required></textarea>
-
-                                    {{-- <x-editorforcource wire:model='target' name="target" id="target" /> --}}
+                                    <x-summernote wire:model='target' name="target" id="target" />
                                     @error('target')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="mb-1 col-md-12">
+                                <div class="mb-1 col-md-12" wire:ignore>
                                     <label class="form-label" for="">{{ __('tran.howtostart') }}</label>
-                                    <textarea type="text" class="form-control" wire:model='howtostart' required></textarea>
-
-                                    {{-- <x-editorforcource wire:model='howtostart' name="howtostart" id="howtostart" /> --}}
+                                    <x-summernote wire:model='howtostart' name="howtostart" id="howtostart"  value='{{$howtostart}}'/>
                                     @error('howtostart')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
+
                             </div>
                         </div>
                     @elseif ($currentPage == 2)
@@ -251,9 +258,16 @@
                             </div>
                             <div class="row">
                                 <div class="mb-2 col-md-12">
+                                    <x-imageupload wire:model='schedule' :height='200' :width='200'
+                                        :imagenew="$schedule" :tlabel="__('tran.schedule')" />
+                                    @error('schedule')
+                                        <span class="error" style="color: red">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="mb-2 col-md-12">
                                     <x-imageupload wire:model='image_course' :height='200' :width='200'
                                         :imagenew="$image_course" :tlabel="__('tran.imagecourse')" />
-                                    @error('image')
+                                    @error('image_course')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -269,7 +283,7 @@
                                         :tlabel="__('tran.file_explanatory')" :namefile="$file_explanatory != null
                                             ? $file_explanatory->getClientOriginalName()
                                             : null" />
-                                    @error('image')
+                                    @error('file_explanatory')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -278,7 +292,7 @@
                                         :namefile="$file_aggregates != null
                                             ? $file_aggregates->getClientOriginalName()
                                             : null" />
-                                    @error('image')
+                                    @error('file_aggregates')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -287,30 +301,29 @@
                                         :tlabel="__('tran.file_supplementary')" :namefile="$file_supplementary != null
                                             ? $file_supplementary->getClientOriginalName()
                                             : null" />
-                                    @error('image')
+                                    @error('file_supplementary')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
 
-                                {{-- <div class="mb-2 col-md-3 border border-black pb-2">
+                                <div class="mb-2 col-md-3 border border-black pb-2">
                                     <x-fileupload wire:model='file_free' id='file_free' :tlabel="__('tran.file_free')"
                                         :namefile="$file_free != null ? $file_free->getClientOriginalName() : null" />
-                                    @error('image')
+                                    @error('file_free')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
-                                </div> --}}
+                                </div>
                                 <div class="mb-2 col-md-3 border border-black pb-2">
                                     <x-fileupload wire:model='file_test' id='file_test' :tlabel="__('tran.file_test')"
                                         :namefile="$file_test != null ? $file_test->getClientOriginalName() : null" />
-                                    @error('image')
+                                    @error('file_test')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="mb-1 col-md-12">
-                                    <label class="form-label"
-                                        for="username">{{  __('tran.file_free') }} :</label>
-                                    <input type="text" class="form-control" wire:model='file_free' required />
-                                    @error('name')
+                                    <label class="form-label" for="username">{{ __('tran.file_free') }} :</label>
+                                    <input type="text" class="form-control" wire:model='free_tatorul' required />
+                                    @error('file_free')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -333,17 +346,20 @@
                             @foreach ($lessons as $key => $value)
                                 <div class="mb-1 row">
                                     <div class="col">
-                                        <select class="form-select" wire:model='lessons.{{ $key }}.stage_id' required>
+                                        <select class="form-select" wire:model='lessons.{{ $key }}.stage_id'
+                                            required>
                                             <option value=""> اختار المرحلة</option>
                                             @foreach ($stages as $item)
-                                                <option value="{{ $item->id }}">{{  $item->name . ($item->parent_id == null ? ' مرحلة رئيسية' : ' مرحلة فرعية من  ( ' . $item->_parent->name .' )')}}</option>
+                                                <option value="{{ $item->id }}">
+                                                    {{ $item->name . ($item->parent_id == null ? ' مرحلة رئيسية' : ' مرحلة فرعية من  ( ' . $item->_parent->name . ' )') }}
+                                                </option>
                                             @endforeach
                                         </select>
                                         @error('lessons.' . $key . '.stage_id')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
-                                  
+
                                     {{-- <div class="col border border-black ">
                                         <x-fileupload class="mb-0" wire:model='lessons.{{ $key }}.img'
                                             id='lessons.{{ $key }}.img' :namefile="$lessons[$key]['img'] != null
@@ -479,9 +495,13 @@
     </section>
 </div>
 @push('csslive')
+{{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" /> --}}
+
     <link rel="stylesheet" type="text/css" href="{{ asset('asset/vendors/css/forms/select/select2.min.css') }}">
 @endpush
 @push('jslive')
+{{-- <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script> --}}
+
     <script src="{{ asset('asset/vendors/js/forms/select/select2.full.min.js') }}"></script>
 
     <script>
@@ -510,6 +530,7 @@
         });
     </script>
     <script>
+
         (function(window, document, $) {
             'use strict';
 

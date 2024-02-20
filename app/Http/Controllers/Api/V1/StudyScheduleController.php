@@ -19,7 +19,7 @@ class StudyScheduleController extends Controller
     {
         $data = $this->StudySchedule->create_study_schedule($request);
         if ($data) {
-            return Resp('', 'success');
+            return Resp('', 'تم انشاءالجدول بنجاح وسوف يتم ارسال عبر الواتس اب');
         } else {
             return Resp('error', 401);
         }

@@ -17,7 +17,7 @@ class DBStudyScheduleRepository implements StudyScheduleRepositoryinterface
 
     public function create_study_schedule($request)
     {
-       
+
         $study_schedule = StudySchedule::create($request->only([
             'name',
             'phone',
@@ -26,6 +26,7 @@ class DBStudyScheduleRepository implements StudyScheduleRepositoryinterface
             'end_page',
             'days',
             'start_date',
+            'test_date',
         ]));
 
        return $study_schedule ? true:false;

@@ -1,28 +1,35 @@
-{{-- <div id="{{ $attributes['name'] }}">
-    <div class="editor" {{ $attributes->wire('model') }} >
-    </div>
-</div> --}}
-<div wire:ignore class="form-group" dir="ltr">
-    <label>Description</label>
-    <div {{ $attributes->wire('model') }} class="summernote">summernote 1</div>
+@props([
+    'id' => '',
+    'value'=>''
+])
+<div>
 
-    {{-- <textarea {{ $attributes->wire('model') }} id="summernote" name="body"></textarea> --}}
+    <textarea {{ $attributes->wire('model') }} class="form-control" id="{{ $id }}"> </textarea>
 </div>
 
-@pushonce('csslive')
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" />
-    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-bs5.min.css" /> --}}
+@pushonce('csslive')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.css" />
 @endpushonce
 
 @pushonce('jslive')
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-bs5.min.js"></script> --}}
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.js"></script>
+@endpushonce
+@push ('jslive')
     <script type="text/javascript">
-        $(document).ready(function() {
+        document.addEventListener('livewire:initialized', () => {
+            Livewire.hook('morph.added', (element) => {
+                initialize_{{ $id }}('#{{ $id }}');
+            });
 
-            $('.summernote').summernote({
-                height: 300,
+            initialize_{{ $id }}('#{{ $id }}');
+        });
+
+        function initialize_{{ $id }}(selector) {
+            $(selector).summernote({
+                lang: 'ar-AR',
+                tabsize: 2,
+                minHeight: 100,
                 // popover: {
                 //     image: [
                 //         ['image', ['resizeFull', 'resizeHalf', 'resizeQuarter', 'resizeNone']],
@@ -38,7 +45,6 @@
                 //     ],
                 //     air: [
                 //         ['color', ['color']],
-                //         // ['font', ['bold', 'underline', 'clear']],
                 //         ['para', ['ul', 'paragraph']],
                 //         ['table', ['table']],
                 //         ['insert', ['link', 'picture']]
@@ -56,14 +62,15 @@
                 callbacks: {
                     onChange: function(contents, $editable) {
                         @this.set('{{ $attributes->wire('model')->value() }}', contents);
-                        console.log('onChange:', contents, $editable);
-                    },
-                    // onImageUpload: function(files) {
-                    //     // $summernote.summernote('insertNode', imgNode);
-                    //     console.log(files[0]);
-                    // }
+                        // if ($(selector).summernote('isEmpty')) {
+                        //     @this.set('{{ $attributes->wire('model')->value() }}', '');
+                        // } else {
+                        //     @this.set('{{ $attributes->wire('model')->value() }}', contents);
+                        // }
+                    }
                 }
             });
-        });
+
+        }
     </script>
-@endpushonce
+@endpush
