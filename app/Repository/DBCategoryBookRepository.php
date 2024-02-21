@@ -17,6 +17,6 @@ class DBCategoryBookRepository implements CategoryBookRepositoryinterface
     }
 
     public function get_category_book(){
-        return $this->model->get();
+        return $this->model->whereHas('book')->get();
     }
 }
