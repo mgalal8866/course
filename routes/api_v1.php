@@ -70,7 +70,7 @@ Route::get('/cart/get',[CartController::class,'getcart']);
 Route::get('/wishlist/add/book',[WishlistController::class,'add_to_wishlist']);
 Route::get('/wishlist/delete/book',[WishlistController::class,'delete_from_wishlist']);
 Route::get('/wishlist/get',[WishlistController::class,'get_wishlist']);
-
+    
 // Route::get('/books/buy/{id?}',[StoreBookController::class,'get_books_by_category']);
 
 Route::middleware(['jwt.verify'])->group(function () {

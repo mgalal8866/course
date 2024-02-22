@@ -25,9 +25,12 @@ class DBWishlistRepository implements WishlistRepositoryinterface
     }
     public function deleteWishlist($book_id)
     {
-        
+
         $w =   Wishlist::where('book_id', $book_id)->where('user_id', Auth::guard('student')->user()->id)->first();
-        if ($w->delete() != null) {
+
+
+        if ($w!=null) {
+            $w->delete();
             return   $this->getwishlist();
         } else {
             return   $this->getwishlist();

@@ -29,7 +29,8 @@ class DBCartRepository implements CartRepositoryinterface
     public function deletecart($book_id)
     {
         $w =   Cart::where('book_id', $book_id)->where('user_id', Auth::guard('student')->user()->id)->first();
-        if ($w->delete() != null) {
+        if ($w != null) {
+            $w->delete();
             return   $this->getcart();
         } else {
             return   $this->getcart();

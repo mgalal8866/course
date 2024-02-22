@@ -22,7 +22,7 @@ class WishlistController extends Controller
     public function delete_from_wishlist(Request $request)
     {
         if($request->has('book_id'))
-        return Resp(WishlistResource::collection($this->wishlistRepositry->deletewishlist($request->cart_id)), 'success', 200, true);
+        return Resp(WishlistResource::collection($this->wishlistRepositry->deletewishlist($request->book_id)), 'success', 200, true);
     }
     public function add_to_wishlist(Request $request)
     {
