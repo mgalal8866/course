@@ -60,6 +60,7 @@ Route::get('/grades/bycategoryid/{id?}',[UsersGradesController::class,'get_grade
 Route::get('payment/method',[PaymentsOnlineController::class,'get_payment']);
 
 Route::get('/category/quiz',[CategoryQuizController::class,'get_category_quiz']);
+Route::get('/quiz/bycategory/{id?}',[CategoryQuizController::class,'get_category_quiz']);
 Route::get('/category/books',[CategoryBookController::class,'get_category_book']);
 Route::get('/books/bycategory/{id?}',[StoreBookController::class,'get_books_by_category']);
 Route::get('/course/mycourse',[CourseEnrolledController::class,'get_my_course']);
