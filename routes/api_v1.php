@@ -1,13 +1,16 @@
 <?php
 
+use App\Models\Wishlist;
 use App\Models\StoreBook;
 use App\Models\CategoryBook;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\V1\CartController;
 use App\Http\Controllers\Api\V1\HomeController;
 use App\Http\Controllers\Api\V1\UsersController;
 use App\Http\Controllers\Api\V1\CourseController;
 use App\Http\Controllers\Api\V1\CommentsController;
 use App\Http\Controllers\Api\V1\SetttingController;
+use App\Http\Controllers\Api\V1\WishlistController;
 use App\Http\Controllers\Api\V1\CountriesController;
 use App\Http\Controllers\Api\V1\StoreBookController;
 use App\Http\Controllers\Api\V1\FreeCourseController;
@@ -60,6 +63,14 @@ Route::get('/books/bycategory/{id?}',[StoreBookController::class,'get_books_by_c
 Route::get('/course/mycourse',[CourseEnrolledController::class,'get_my_course']);
 Route::get('/countries',[CountriesController::class,'get_countries']);
 Route::get('/test',[CountriesController::class,'get_test']);
+Route::get('/cart/add/book',[CartController::class,'addtocart']);
+Route::get('/cart/delete/book',[CartController::class,'deletefromcart']);
+Route::get('/cart/get',[CartController::class,'getcart']);
+
+Route::get('/wishlist/add/book',[WishlistController::class,'add_to_wishlist']);
+Route::get('/wishlist/delete/book',[WishlistController::class,'delete_from_wishlist']);
+Route::get('/wishlist/get',[WishlistController::class,'get_wishlist']);
+
 // Route::get('/books/buy/{id?}',[StoreBookController::class,'get_books_by_category']);
 
 Route::middleware(['jwt.verify'])->group(function () {

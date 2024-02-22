@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('carts', function (Blueprint $table) {
+        Schema::create('quiz_result_details', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('user_id')->nullable();
-            $table->uuid('book_id')->nullable();
-            $table->string('qty')->nullable();
-            $table->decimal('price',8,2)->nullable();
-            $table->decimal('discount',8,2)->nullable();
-            $table->decimal('total',8,2)->nullable();
+            $table->uuid('result_header_id');
+            $table->uuid('question_id');
+            $table->uuid('answer_id');
+            $table->string('marks')->nullable();
+            $table->boolean('is_correct')->comment('1=>correct , 0=>notcorrest');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('carts');
+        Schema::dropIfExists('quiz_result_details');
     }
 };

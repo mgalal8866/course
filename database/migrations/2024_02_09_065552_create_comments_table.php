@@ -15,8 +15,9 @@ return new class extends Migration
             $table->increments('id');
             $table->uuid('user_id')->nullable();
             $table->text('body');
-            $table->text('rating')->default(1)->nullable();
+            $table->decimal('rating',8,2)->default(1)->nullable();
             $table->uuidMorphs('commentable');
+            // $table->nullableMorphs('commentable');
             $table->boolean('active')->default(1);
             $table->timestamps();
         });

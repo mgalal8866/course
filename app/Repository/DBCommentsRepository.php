@@ -28,6 +28,7 @@ class DBCommentsRepository implements CommentsRepositoryinterface
             'body' => $request->body,
             'rating' => $request->rating
         ]);
+    
         return $course->comments()->latest()->first();
     }
     public function add_comment_freecourse($request)

@@ -8,7 +8,7 @@ use App\Models\StoreBook;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Cart extends Model
+class Wishlist extends Model
 {
     use UUID,HasFactory;
     protected $guarded = [];
@@ -21,4 +21,5 @@ class Cart extends Model
     {
         return $this->belongsTo(StoreBook::class);
     }
+
 }

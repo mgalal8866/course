@@ -11,14 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('quizzes', function (Blueprint $table) {
+        Schema::create('quizes', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('category_id');
             $table->string('name');
             $table->string('time');
-            $table->string('degree_success');
-            $table->string('total_scores');
+            $table->string('pass_marks');
+            $table->string('total_marks');
             $table->boolean('active')->default(1);
+            $table->nullableMorphs('quizeable');
             $table->softDeletes();
             $table->timestamps();
         });

@@ -4,10 +4,12 @@ namespace App\Providers;
 
 use App\Models\Courses;
 use App\Models\FreeCourse;
+use App\Repository\DBCartRepository;
 use App\Repository\DBUsersRepository;
 use App\Repository\DBCourseRepository;
 use Illuminate\Support\ServiceProvider;
 use App\Repository\DBCommentsRepository;
+use App\Repository\DBWishlistRepository;
 use App\Repository\DBStoreBookRepository;
 use App\Repository\DBFreeCourseRepository;
 use App\Repository\DBUsersGradesRepository;
@@ -17,10 +19,12 @@ use App\Repository\DBCategoryCourseRepository;
 use App\Repository\DBCategoryGradesRepository;
 use App\Repository\DBCourseEnrolledRepository;
 use App\Repository\DBCategoryFreeCourseRepository;
+use App\Repositoryinterface\CartRepositoryinterface;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use App\Repositoryinterface\UsersRepositoryinterface;
 use App\Repositoryinterface\CourseRepositoryinterface;
 use App\Repositoryinterface\CommentsRepositoryinterface;
+use App\Repositoryinterface\WishlistRepositoryinterface;
 use App\Repositoryinterface\StoreBookRepositoryinterface;
 use App\Repositoryinterface\FreeCourseRepositoryinterface;
 use App\Repositoryinterface\UsersGradesRepositoryinterface;
@@ -50,6 +54,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(StudyScheduleRepositoryinterface::class, DBStudyScheduleRepository::class);
         $this->app->bind(CategoryBookRepositoryinterface::class, DBCategoryBookRepository::class);
         $this->app->bind(CourseEnrolledRepositoryinterface::class, DBCourseEnrolledRepository::class);
+        $this->app->bind(CartRepositoryinterface::class, DBCartRepository::class);
+        $this->app->bind(WishlistRepositoryinterface::class, DBWishlistRepository::class);
     }
 
     /**

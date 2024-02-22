@@ -6,7 +6,7 @@ use App\Traits\UUID;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Quizzes extends Model
+class Quizes extends Model
 {
     use UUID,HasFactory;
     protected $guarded = [];
