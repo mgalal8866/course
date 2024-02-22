@@ -16,6 +16,7 @@ use App\Http\Controllers\Api\V1\StoreBookController;
 use App\Http\Controllers\Api\V1\FreeCourseController;
 use App\Http\Controllers\Api\V1\UsersGradesController;
 use App\Http\Controllers\Api\V1\CategoryBookController;
+use App\Http\Controllers\Api\V1\CategoryQuizController;
 use App\Http\Controllers\Api\V1\StudyScheduleController;
 use App\Http\Controllers\Api\V1\CategoryCourseController;
 use App\Http\Controllers\Api\V1\CategoryGradesController;
@@ -58,6 +59,7 @@ Route::get('/category/grades',[CategoryGradesController::class,'get_category']);
 Route::get('/grades/bycategoryid/{id?}',[UsersGradesController::class,'get_grades_by_category']);
 Route::get('payment/method',[PaymentsOnlineController::class,'get_payment']);
 
+Route::get('/category/quiz',[CategoryQuizController::class,'get_category_quiz']);
 Route::get('/category/books',[CategoryBookController::class,'get_category_book']);
 Route::get('/books/bycategory/{id?}',[StoreBookController::class,'get_books_by_category']);
 Route::get('/course/mycourse',[CourseEnrolledController::class,'get_my_course']);
@@ -70,7 +72,7 @@ Route::get('/cart/get',[CartController::class,'getcart']);
 Route::get('/wishlist/add/book',[WishlistController::class,'add_to_wishlist']);
 Route::get('/wishlist/delete/book',[WishlistController::class,'delete_from_wishlist']);
 Route::get('/wishlist/get',[WishlistController::class,'get_wishlist']);
-    
+
 // Route::get('/books/buy/{id?}',[StoreBookController::class,'get_books_by_category']);
 
 Route::middleware(['jwt.verify'])->group(function () {
