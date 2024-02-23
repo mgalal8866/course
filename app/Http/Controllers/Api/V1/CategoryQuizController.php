@@ -20,6 +20,7 @@ class CategoryQuizController extends Controller
 
     function get_category_quiz()
     {
+        
         $data= $this->categoryquiz->get_category_quiz();
           return Resp(CategoryQuizResource::collection($data),'success');
     }

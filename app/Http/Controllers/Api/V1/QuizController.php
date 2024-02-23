@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\Api\V1;
 
 
-use App\Models\CategoryBook;
+use App\Models\Quizes;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\CategoryBookResource;
-use App\Http\Resources\CategoryQuizResource;
+use App\Http\Resources\QuizResource;
+use App\Http\Resources\QuizCollectionResource;
 use App\Repositoryinterface\QuizRepositoryinterface;
-use App\Repositoryinterface\CategoryQuiz;
 
 class QuizController extends Controller
 {
@@ -19,9 +18,19 @@ class QuizController extends Controller
         $this->categoryquiz = $categoryquiz;
     }
 
-    function get_category_quiz()
+    function get_quiz_by_category(Request $request)
     {
-        $data= $this->categoryquiz->get_quiz();
-          return Resp(CategoryQuizResource::collection($data),'success');
+        if ($request->has('category_id'))
+            $data = $this->categoryquiz->get_quiz_by_category($request->category_id);
+
+        return Resp(QuizCollectionResource::collection($data), 'success');
+    }
+    function get_quiz_by_id(Request $request)
+    {
+
+        if ($request->has('quiz_id'))
+            $data = $this->categoryquiz->get_quiz_by_id($request->quiz_id);
+        
+        return Resp(new QuizResource($data), 'success');
     }
 }
