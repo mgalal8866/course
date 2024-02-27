@@ -132,7 +132,7 @@
     <script>
         window.addEventListener('swal', event => {
             Swal.fire({
-                title: event.detail.message,
+                title: event.message,
                 icon: 'info',
                 customClass: {
                     confirmButton: 'btn btn-danger'

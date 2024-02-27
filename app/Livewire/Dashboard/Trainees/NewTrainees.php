@@ -64,8 +64,8 @@ class NewTrainees extends Component
             'gender'     => $this->gender,
             'active'     => $this->active,
         ]);
-
-        $this->dispatch('swal', ['message' => 'تم التعديل بنجاح']);
+        // ['message' => 'تم التعديل بنجاح']
+        $this->dispatch('swal', ['message' => 'تم التعديل بنجاح' ]);
         $this->dispatch('closemodel');
         $this->dispatch('trainees_course_refresh');
     }
