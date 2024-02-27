@@ -32,7 +32,7 @@ class UserRequest extends FormRequest
 
     {
 
-        throw new HttpResponseException(Resp($validator->errors(), 'Error', 200, false));
+        throw new HttpResponseException(Resp($validator->errors(), 'Error', 404, false));
         // throw new HttpResponseException(Resp($validator->errors(),'', 422));
 
     }
