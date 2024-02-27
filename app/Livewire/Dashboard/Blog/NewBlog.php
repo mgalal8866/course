@@ -8,7 +8,6 @@ use Livewire\Component;
 use App\Models\Specialist;
 use Livewire\WithFileUploads;
 use App\Traits\ImageProcessing;
-use DOMDocument;
 
 class NewBlog extends Component
 {

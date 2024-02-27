@@ -23,10 +23,10 @@ trait ImageProcessing
     }
     public function get_mime($mime)
     {
-        if ($mime == 'image/jpeg')
-            $extension = '.jpg';
-        elseif ($mime == 'image/png')
+        if ($mime == 'image/png')
             $extension = '.png';
+        elseif($mime == 'image/jpeg')
+            $extension = '.jpg';
         elseif ($mime == 'image/gif')
             $extension = '.gif';
         elseif ($mime == 'image/svg+xml')
@@ -115,7 +115,7 @@ trait ImageProcessing
 
     public function uploadfile($file, $course_id=null, $folder=null, $folder2=null)
     {
-      
+
 
     }
     public function applyWatermark($imgewatermark, $imageorginal)
