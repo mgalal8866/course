@@ -23,7 +23,6 @@ class LoginUserRequest extends FormRequest
         ];
     }
     public function failedValidation(Validator $validator)
-
     {
         throw new HttpResponseException(Resp($validator->errors(), 'Error', 200, false));
         // throw new HttpResponseException(Resp($validator->errors(),'', 422));
@@ -32,7 +31,6 @@ class LoginUserRequest extends FormRequest
     {
         return [
             'phone.exists' => 'الهاتف غير موجود',
-
         ];
     }
     // public function response(array $errors)
