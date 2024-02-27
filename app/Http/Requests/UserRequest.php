@@ -25,6 +25,7 @@ class UserRequest extends FormRequest
     {
         return [
             'phone' => 'required|unique:users',
+            'email' => 'required|unique:users',
         ];
     }
     public function failedValidation(Validator $validator)
