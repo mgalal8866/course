@@ -35,18 +35,18 @@ class NewTrainees extends Component
             $this->first_name = $tra->first_name;
             $this->phone = $tra->phone;
             $this->mail = $tra->email;
-            $this->balance = $tra->balance;
-            $this->wallet = $tra->wallet;
+            $this->balance = $tra->balance??'0.00';
+            $this->wallet = $tra->wallet??'0.00';
             $this->country = $tra->country_id;
             $this->gender = $tra->gender;
             // $this->specialist = $tra->specialist_id;
             $this->active = $tra->active == 1 ? true : false;
             $this->edit = true;
-            $this->header = __('tran.edit') . ' ' . __('tran.User');
+            $this->header = __('tran.edit') . ' ' . __('tran.user');
         } else {
             $this->name = null;
             $this->edit = false;
-            $this->header =  __('tran.add') . ' ' . __('tran.User');
+            $this->header =  __('tran.add') . ' ' . __('tran.user');
         }
         $this->dispatch('openmodel');
     }

@@ -11,7 +11,7 @@
                     </div>
                     <form id="editUserForm" class="row gy-1 pt-75" wire:submit.prevent="save">
 
-                        <div class="col-12 col-md-6">
+                        <div class=" col-md-4">
                             <label class="form-label" for="modalEditUserFirstfirst_name">{{ __('tran.first_name') }}</label>
                             <input type="text" class="form-control" wire:model="first_name"
                                 data-msg="Please enter your fisssssssrst first_name" required />
@@ -19,7 +19,7 @@
                                 <span class="error" style="color: red">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="col-12 col-md-6">
+                        <div class=" col-md-4">
                             <label class="form-label" for="modalEditUserFirstmiddle_name">{{ __('tran.middle_name') }}</label>
                             <input type="text" class="form-control" wire:model="middle_name"
                                 data-msg="Please enter your fisssssssrst middle_name" required />
@@ -27,7 +27,7 @@
                                 <span class="error" style="color: red">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="col-12 col-md-6">
+                        <div class=" col-md-4">
                             <label class="form-label" for="modalEditUserFirstlast_name">{{ __('tran.last_name') }}</label>
                             <input type="text" class="form-control" wire:model="last_name"
                                 data-msg="Please enter your fisssssssrst last_name" required />
@@ -44,21 +44,21 @@
                         </div>
                         <div class="col-12 col-md-6">
                             <label class="form-label" for="modalEditUserFirstName">{{ __('tran.phone') }}</label>
-                            <input type="text" class="form-control" wire:model="phone" required />
+                            <input type="text" class="form-control" wire:model="phone" readonly />
                             @error('phone')
                                 <span class="error" style="color: red">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="col-12 col-md-6">
                             <label class="form-label" for="modalEditUserFirstName">{{ __('tran.balance') }}</label>
-                            <input type="text" class="form-control" wire:model="balance" required />
+                            <input type="text" class="form-control" wire:model="balance" readonly />
                             @error('balance')
                                 <span class="error" style="color: red">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="col-12 col-md-6">
                             <label class="form-label" for="modalEditUserFirstName">{{ __('tran.wallet') }}</label>
-                            <input type="text" class="form-control" wire:model="wallet" required />
+                            <input type="text" class="form-control" wire:model="wallet" readonly />
                             @error('wallet')
                                 <span class="error" style="color: red">{{ $message }}</span>
                             @enderror
