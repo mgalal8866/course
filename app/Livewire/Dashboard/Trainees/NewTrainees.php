@@ -65,7 +65,7 @@ class NewTrainees extends Component
             'active'     => $this->active,
         ]);
         // ['message' => 'تم التعديل بنجاح']
-        $this->dispatch('swal', ['message' => 'تم التعديل بنجاح' ]);
+        $this->dispatch('swal', message: 'تم التعديل بنجاح' );
         $this->dispatch('closemodel');
         $this->dispatch('trainees_course_refresh');
     }

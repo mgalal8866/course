@@ -11,7 +11,7 @@
                         <h1 class="mb-1">{{ $header }}</h1>
                     </div>
 
-                    <form id="editUserForm" class="row gy-1 pt-75" wire:submit.prevent="save">
+                    <form id="editUserForm" class="row gy-1 pt-75" enctype="multipart/form-data" wire:submit.prevent="save">
 
                         <div class="col-12 col-md-12">
                             <x-imageupload wire:model='image' :imagenew="$image" :imageold="$imageold" />
