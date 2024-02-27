@@ -49,32 +49,20 @@ class NewBlog extends Component
         $this->validate();
 
 
-        $Blog = Blog::updateOrCreate(['id' => $this->id], [
+        $blog = Blog::updateOrCreate(['id' => $this->id], [
             'title'  => $this->title,
             'article'=> '',
             'active' => $this->active??1,
         ]);
         if ($this->image) {
-
-            $dataX =  $this->saveImageAndThumbnail($this->image, false, $Blog->id, 'blog');
-            $Blog->image =  $dataX['image'];
-
+            if( $blog->image != null){
+                
+            }
+            $dataX =  $this->saveImageAndThumbnail($this->image, false, $blog->id, 'blog');
+            $blog->image =  $dataX['image'];
         }
-
-        // $dom = new DOMDocument();
-        // $dom->loadHTML( $this->article,9);
-        // $images = $dom->getElementsByTagName('img');
-        // foreach($images as $key=>$img){
-            // dd($img->getAttribute('src'));
-            // $data = base64_decode(explode(',',explode(';',$img->getAttribute('src'))[1])[1]);
-            // $image_name = "/files/" .time().$key.'.png';
-            // file_put_contents(public_path().$image_name,$data);
-            // $img->removeAttribute('src');
-            // $img->setAttribute('src', $image_name);
-        // }
-        // $Blog->article =    $dom->saveHTML();
-        $Blog->article =    $this->article;
-        $Blog->save();
+        $blog->article =    $this->article;
+        $blog->save();
 
         $this->dispatch('closemodel');
         $this->dispatch('blog_course_refresh');

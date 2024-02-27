@@ -104,9 +104,9 @@ trait ImageProcessing
     public function deleteImage($filePath)
     {
         if ($filePath) {
-            if (is_file(Storage::disk('imagesfp')->path($filePath))) {
-                if (file_exists(Storage::disk('imagesfp')->path($filePath))) {
-                    unlink(Storage::disk('imagesfp')->path($filePath));
+            if (is_file(public_path()::disk('imagesfp')->path($filePath))) {
+                if (file_exists(public_path()::disk('imagesfp')->path($filePath))) {
+                    unlink(public_path()::disk('imagesfp')->path($filePath));
                 }
             }
         }
