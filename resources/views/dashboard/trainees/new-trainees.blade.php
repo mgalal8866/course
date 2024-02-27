@@ -50,9 +50,9 @@
                             @enderror
                         </div>
                         <div class="col-12 col-md-6">
-                            <label class="form-label" for="modalEditUserFirstName">{{ __('tran.balance') }}</label>
-                            <input type="text" class="form-control" wire:model="balance" readonly />
-                            @error('balance')
+                            <label class="form-label" for="modalEditUserFirstpoint">{{ __('tran.point') }}</label>
+                            <input type="text" class="form-control" wire:model="point" readonly />
+                            @error('point')
                                 <span class="error" style="color: red">{{ $message }}</span>
                             @enderror
                         </div>

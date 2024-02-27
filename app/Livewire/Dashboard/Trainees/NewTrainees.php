@@ -11,7 +11,7 @@ class NewTrainees extends Component
 {
 
     protected $listeners = ['edit' => 'edit'];
-    public $phone, $wallet, $first_name, $last_name, $middle_name, $active, $mail, $balance, $country, $gender, $specialist, $name, $edit = false, $id, $header;
+    public $phone, $wallet, $first_name, $last_name, $middle_name, $active, $mail, $point, $country, $gender, $specialist, $name, $edit = false, $id, $header;
     protected $rules = [
         'first_name'      => 'required',
         'middle_name'      => 'required',
@@ -33,7 +33,7 @@ class NewTrainees extends Component
             $this->first_name = $tra->first_name;
             $this->phone = $tra->phone;
             $this->mail = $tra->email;
-            $this->balance = $tra->balance ?? '0.00';
+            $this->point = $tra->point ?? '0.00';
             $this->wallet = $tra->wallet ?? '0.00';
             $this->country = $tra->country_id;
             $this->gender = $tra->gender;
@@ -58,14 +58,14 @@ class NewTrainees extends Component
             'first_name' => $this->first_name,
             'phone'      => $this->phone,
             'email'      => $this->mail,
-            'balance'    => $this->balance,
+            'point'      => $this->point,
             'wallet'     => $this->wallet,
             'country_id' => $this->country,
             'gender'     => $this->gender,
-            'active' => $this->active,
+            'active'     => $this->active,
         ]);
 
-        $this->dispatchBrowserEvent('swal', ['message' => 'تم التعديل بنجاح']);
+        $this->dispatch('swal', ['message' => 'تم التعديل بنجاح']);
         $this->dispatch('closemodel');
         $this->dispatch('trainees_course_refresh');
     }
