@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Api\V1;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LoginUserRequest;
 use App\Repositoryinterface\UsersRepositoryinterface;
 
 class UsersController extends Controller
@@ -16,7 +17,7 @@ class UsersController extends Controller
         $this->users = $Users;
     }
 
-    public function login(Request $request)
+    public function login(LoginUserRequest $request)
     {
       return  $this->users->login($request);
     }

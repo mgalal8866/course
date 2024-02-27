@@ -18,6 +18,22 @@
                                 <span class="error" style="color: red">{{ $message }}</span>
                             @enderror
                         </div>
+                        <div class="col-12 col-md-6">
+                            <label class="form-label" for="modalEditUserFirstName">{{ __('tran.name') }}</label>
+                            <input type="text" class="form-control" wire:model="name"
+                                data-msg="Please enter your fisssssssrst name" required />
+                            @error('name')
+                                <span class="error" style="color: red">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label class="form-label" for="modalEditUserFirstName">{{ __('tran.name') }}</label>
+                            <input type="text" class="form-control" wire:model="name"
+                                data-msg="Please enter your fisssssssrst name" required />
+                            @error('name')
+                                <span class="error" style="color: red">{{ $message }}</span>
+                            @enderror
+                        </div>
 
                         <div class="col-12 col-md-6">
                             <label class="form-label" for="modalEditUserFirstName">{{ __('tran.mail') }}</label>
