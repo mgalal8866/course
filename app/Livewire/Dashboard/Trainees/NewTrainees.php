@@ -67,6 +67,7 @@ class NewTrainees extends Component
             // 'specialist_id' => $this->specialist,
             'active' => $this->active,
         ]);
+        $this->dispatchBrowserEvent('swal',['message'=>'تم التعديل بنجاح' ]);
         $this->dispatch('closemodel');
         $this->dispatch('trainees_course_refresh');
     }
