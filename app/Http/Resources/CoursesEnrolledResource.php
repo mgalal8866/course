@@ -18,6 +18,7 @@ class CoursesEnrolledResource extends JsonResource
         return [
             'course_id'         => $this->course_id,
             'course_name'       => $this->course->name, //اسم الدورة
+            'status'            => $this->course->status??'1',
             'course_subscripe' => 'true',
         ];
     }
