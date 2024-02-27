@@ -29,7 +29,7 @@
                             @forelse ($trainees  as $item)
                                 <tr>
                                     <td>
-                                        <span class="fw-bold">{{ $item->first_name ?? 'N/A'  .  $item->middle_name  ?? 'N/A'   .  $item->last_name  ?? 'N/A' }}</span>
+                                        <span class="fw-bold">{{ ($item->first_name ?? 'N/A')  . ' ' .  ($item->middle_name  ?? 'N/A' )   . ' ' .  ($item->last_name  ?? 'N/A' )}}</span>
                                     </td>
                                     <td>
                                         <span class="fw-bold">{{ $item->phone ?? 'N/A' }}</span>
