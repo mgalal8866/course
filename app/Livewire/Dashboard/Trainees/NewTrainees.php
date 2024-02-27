@@ -13,7 +13,6 @@ class NewTrainees extends Component
     protected $listeners = ['edit' => 'edit'];
     public $phone, $wallet, $first_name, $last_name, $middle_name, $active, $mail, $balance, $country, $gender, $specialist, $name, $edit = false, $id, $header;
     protected $rules = [
-        'name'       => 'required',
         'first_name'      => 'required',
         'middle_name'      => 'required',
         'last_name'      => 'required',
