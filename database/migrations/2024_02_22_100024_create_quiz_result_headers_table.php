@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('quiz_result_headers', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('user_id');
-            $table->uuid('user_id');
+            $table->uuid('quiz_id');
             $table->float('marks');
             $table->string('start_time');
             $table->string('end_time');

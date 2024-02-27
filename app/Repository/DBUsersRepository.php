@@ -28,7 +28,6 @@ class DBUsersRepository implements UsersRepositoryinterface
             $user =auth('student')->user();
         } else {
             return Resp('', 'Invalid Credentials', 404, false);
-
         }
 
         if ($token == null) {
@@ -50,6 +49,7 @@ class DBUsersRepository implements UsersRepositoryinterface
     }
     public function signup($request)
     {
+         
         $user =  User::create([
             'first_name'   => $request->first_name,
             'middle_name'  => $request->middle_name,

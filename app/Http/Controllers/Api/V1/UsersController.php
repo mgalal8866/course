@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Api\V1;
 
 
+use Illuminate\Http\Request;
+use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
 use App\Repositoryinterface\UsersRepositoryinterface;
-use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
@@ -19,7 +20,7 @@ class UsersController extends Controller
     {
       return  $this->users->login($request);
     }
-    public function signup(Request $request)
+    public function signup(UserRequest $request)
     {
       return  $this->users->signup($request);
     }
