@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('img');
             $table->string('link_video');
-            $table->string('paid');
+            $table->boolean('is_lesson');
             $table->softDeletes();
             $table->timestamps();
 

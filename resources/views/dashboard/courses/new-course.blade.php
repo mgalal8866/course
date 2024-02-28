@@ -353,24 +353,17 @@
                                 {{-- <small class="text-muted">{{ $pages[3]['subheading'] }}</small> --}}
                             </div>
                             <div class="mb-1 row">
+                                <div class="col-md-1"><label>شرح \ تدريب </label></div>
                                 <div class="col"><label>قسم الشرح</label></div>
-                                <div class="col"><label>شرح \ تدريب </label></div>
                                 <div class="col"><label>اسم الشرح</label></div>
                                 <div class="col"><label>رابط الشرح</label></div>
                             </div>
                             @foreach ($lessons as $key => $value)
                                 <div class="mb-1 row">
-                                    <div class="col">
-                                        <select class="form-select" wire:model='lessons.{{ $key }}.stage_id'
-                                            required>
-                                            <option value=""> اختار المرحلة</option>
-                                            @foreach ($stages as $item)
-                                                <option value="{{ $item->id }}">
-                                                    {{ $item->name . ($item->parent_id == null ? ' مرحلة رئيسية' : ' مرحلة فرعية من  ( ' . $item->_parent->name . ' )') }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        @error('lessons.' . $key . '.stage_id')
+                                    <div class="col-md-1 form-check form-check-inline ">
+                                            <input class="form-check-input"  wire:model.lazy='lessons.{{ $key }}.is_lesson'type="checkbox" id="inlineCheckbox1" />
+                                            <label class="form-check-label" for="inlineCheckbox1">{{$lessons[$key]['is_lesson'] != false ?'شرح':'تدريب'}}</label>
+                                        @error('lessons.' . $key . '.is_lesson')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
@@ -388,6 +381,7 @@
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
+
 
                                     {{-- <div class="col border border-black ">
                                         <x-fileupload class="mb-0" wire:model='lessons.{{ $key }}.img'
@@ -401,35 +395,19 @@
 
                                     <div class="col">
                                         <input class="form-control" wire:model="lessons.{{ $key }}.name"
-                                            placeholder="اسم الشرح" type="text" />
+                                            placeholder="{{$lessons[$key]['is_lesson'] != false ?'اسم شرح':' اسم تدريب' }}" type="text" />
                                         @error('lessons.' . $key . '.name')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
                                     <div class="col">
                                         <input class="form-control" wire:model="lessons.{{ $key }}.link"
-                                            type="text" placeholder="رابط الشرح" />
+                                            type="text" placeholder="{{$lessons[$key]['is_lesson'] != false ?'رابط شرح':' رابط تدريب' }}" />
                                         @error('lessons.' . $key . '.link')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
-                                    {{-- <div class="col-1">
-                                        <div class="form-check form-switch form-check-success ">
-                                            <input type="checkbox" class="form-check-input"
-                                                wire:model="lessons.{{ $key }}.status"
-                                                id="{{ $key }}s" />
-                                            <label class="form-check-label" for='{{ $key }}s'>
-                                                <span class="switch-icon-left">
-                                                    <i class="fas fa-dollar-sign"></i>
-                                                </span>
-                                                <span class="switch-icon-right">
-                                                    <i class="fas fa-times"></i>
-                                                </span>
 
-                                            </label>
-                                        </div>
-
-                                    </div> --}}
                                     <div class="col-1">
                                         @if ($key != 0)
                                             <button wire:click='removelesson({{ $key }})' type="button"

@@ -33,16 +33,17 @@ class NewCourse extends Component
     {
 
         $this->stages = Stages::orderBy('parent_id', 'DESC')->get();
-        $this->fill(['lessons' => collect([['stage_id' => null, 'img' => null, 'name' => '', 'link' => '', 'status' => true]])]);
+        $this->fill(['lessons' => collect([['stage_id' => null, 'img' => null, 'name' => '', 'link' => '', 'is_lesson' => true]])]);
     }
 
     public function updatedFreeTatorul($value)
     {
         $this->nextcoursesbycat = FreeCourse::whereCategoryId($value)->get();
     }
+
     public function addlesson()
     {
-        $this->lessons->push(['stage_id' => null, 'img' => null, 'name' => '', 'link' => '', 'status' => true]);
+        $this->lessons->push(['stage_id' => null, 'img' => null, 'name' => '', 'link' => '', 'is_lesson' => true]);
     }
     public function removelesson($key)
     {
@@ -59,7 +60,7 @@ class NewCourse extends Component
     public function goToNextPage()
     {
 
-        // $this->validate($this->validtionRules[$this->currentPage]);
+        $this->validate($this->validtionRules[$this->currentPage]);
         $this->currentPage++;
     }
     public function goToPage($pg)
@@ -214,7 +215,7 @@ class NewCourse extends Component
                 $CFC->coursetrainers()->create(['trainer_id' => $i]);
             }
             foreach ($this->lessons as $i) {
-                $lesson = $CFC->lessons()->create(['name' => $i['name'], 'link_video' => $i['link'], 'is_lesson' => $i['status']]);
+                $lesson = $CFC->lessons()->create(['name' => $i['name'], 'link_video' => $i['link'], 'is_lesson' => $i['is_lesson']!=true?0:1]);
                 $CFC->stages()->attach($i['stage_id'], ['course_id' => $CFC->id, 'lesson_id' => $lesson->id]);
             }
             DB::commit();

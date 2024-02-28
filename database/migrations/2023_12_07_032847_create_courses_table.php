@@ -34,6 +34,7 @@ return new class extends Migration
             $table->string('max_drainees')->nullable(); //الحد الاقصي لمتدربين
             $table->text('features')->nullable();
             $table->text('conditions')->nullable();// شروط واحكام
+            $table->string('free_tatorul')->nullable();
             $table->text('how_start')->nullable();
             $table->text('target')->nullable();
             $table->string('next_cource')->nullable();
