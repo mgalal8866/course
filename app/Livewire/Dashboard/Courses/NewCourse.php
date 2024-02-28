@@ -143,8 +143,8 @@ class NewCourse extends Component
 
     public function save()
     {
-        // DB::beginTransaction();
-        // try {
+        DB::beginTransaction();
+        try {
             $rules = collect($this->validtionRules)->collect()->toArray();
             // $this->validate($rules);
             $CFC = Courses::updateOrCreate(['id' => $this->id], [
@@ -217,16 +217,16 @@ class NewCourse extends Component
                 $lesson = $CFC->lessons()->create(['name' => $i['name'], 'link_video' => $i['link'], 'is_lesson' => $i['status']]);
                 $CFC->stages()->attach($i['stage_id'], ['course_id' => $CFC->id, 'lesson_id' => $lesson->id]);
             }
-            // DB::commit();
+            DB::commit();
+            $this->dispatch('swal', message: 'تم انشاء الدورة بنجاح' );
             // $this->resetValidation();
             // $this->reset();
             // return true;
-        // } catch (\Exception $e) {
-        //     dd($e->getMessage());
-        //     DB::rollback();
-        //     // return false;
-        // }
-        $this->dispatch('swal', message: 'تم انشاء الدورة بنجاح' );
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+            DB::rollback();
+            // return false;
+        }
 
     }
     public function render()
