@@ -18,6 +18,7 @@ class LessonResource extends JsonResource
             'lesson_id'        => $this->id,
             'lesson_name'      => $this->name??'',
             'lesson_link'      => $this->link_video??'',
+            'is_lesson'        => $this->is_lesson??'',
         ];
     }
 }
