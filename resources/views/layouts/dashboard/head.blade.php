@@ -6,7 +6,8 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('asset/images/favicon.ico') }}">
 
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900;1000&display=swap"
-        rel="stylesheet">
+    rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/pickers/flatpickr/flatpickr.min.css') }}">
     @if (LaravelLocalization::getCurrentLocaleDirection() == 'rtl')
         <link rel="stylesheet" type="text/css" href="{{ asset('asset/css-rtl/bootstrap.min.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('asset/css-rtl/bootstrap-extended.min.css') }}">
@@ -17,6 +18,7 @@
         <link rel="stylesheet" type="text/css" href="{{ asset('asset/css-rtl/core/menu/menu-types/vertical-menu.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/custom-rtl.min.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('asset/vendors/css/vendors-rtl.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('asset/css-rtl/plugins/forms/pickers/form-flat-pickr.min.css') }}">
     @else
         <link rel="stylesheet" type="text/css" href="{{ asset('asset/css-ltr/bootstrap.min.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('asset/css-ltr/bootstrap-extended.min.css') }}">
@@ -26,16 +28,15 @@
         <link rel="stylesheet" type="text/css" href="{{ asset('asset/css-ltr/themes/semi-dark-layout.min.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('asset/css-ltr/core/menu/menu-types/vertical-menu.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('asset/css-ltr/vendors/vendors.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('asset/css-ltr/plugins/forms/pickers/form-flat-pickr.min.css') }}">
     @endif
-
     <link rel="stylesheet" type="text/css" href="{{ asset('asset/fonts/font-awesome/css/font-awesome.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('asset/vendors/css/extensions/sweetalert2.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('asset/vendors/css/extensions/toastr.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('asset/vendors/css/forms/select/select2.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/cust.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/pickers/flatpickr/flatpickr.min.css') }}">
-   
+
     @stack('csslive')
     <style>
         .navigation .navigation-header,

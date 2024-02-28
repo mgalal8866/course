@@ -140,6 +140,7 @@ return [
     'viewstudyschedule' => 'عرض جدول المذاكرة',
     'subject' => 'المادة',
     'start_date' => 'تاريخ البداية',
-    'course_gender' => 'نوع الدورة'
+    'course_gender' => 'نوع الدورة',
+    'free_tatorul' => 'شرح مجانى'
 
 ];

@@ -78,7 +78,7 @@
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="mb-1 col-md-12" wire:ignore>
+                                <div class="mb-1 col-md-12">
                                     <label class="form-label"
                                         for="short_description">{{ __('tran.short_description') }}</label>
                                     <textarea type="short_description" class="form-control @error('short_description')  is-invalid @enderror "
@@ -147,30 +147,31 @@
                                 </div>
                                 <div class="mb-1 col-md-4">
                                     <label class="form-label" for="username">{{ __('tran.startdate') }}</label>
-                                    <div class="input-group input-group-merge">
+                                    <x-daterange wire:model='startdate' id="startdate" required />
+                                    {{-- <div class="input-group input-group-merge  col-md-4">
                                         <span class="input-group-text"><i class="fas fa-calendar"></i></span>
-                                        <x-daterange wire:model='startdate' id="startdate" required />
-                                    </div>
+                                    </div> --}}
                                     @error('startdate')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="mb-1 col-md-4">
                                     <label class="form-label" for="username">{{ __('tran.enddate') }}</label>
-                                    <div class="input-group input-group-merge">
+                                    <x-daterange wire:model='enddate' id="enddate" required />
+                                    {{-- <div class="input-group input-group-merge">
                                         <span class="input-group-text"><i class="fas fa-calendar"></i></span>
-                                        <x-daterange wire:model='enddate' id="enddate" required />
-                                    </div>
+                                    </div> --}}
                                     @error('enddate')
-                                        <span class="error" style="color: red">{{ $message }}</span>
+                                    <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="mb-1 col-md-4">
+                                <div class="mb-1 col-md-4" wire:ignore>
                                     <label class="form-label" for="username">{{ __('tran.time') }}</label>
-                                    <div class="input-group input-group-merge">
+                                    <x-time class="form-control flatpickr-time text-start" wire:model='time'  id="time"   required />
+                                    {{-- <div class="input-group input-group-merge">
                                         <span class="input-group-text"><i class="fas fa-clock"></i></span>
-                                        <input type="text" class="form-control" wire:model='time' required />
-                                    </div>
+                                         <input type="text" class="form-control" wire:model='time' required />
+                                     </div> --}}
                                     @error('time')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
@@ -196,6 +197,19 @@
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
+                                <div class="mb-1 col-md-4">
+                                    <label class="form-label" for="username">{{ __('tran.free_tatorul') }} :</label>
+                                    <select class="form-select" wire:model.lazy='free_tatorul'required>
+                                        <option value=""> اختار قسم الشرح المجانى</option>
+                                        @foreach ($categoryfreecourse as $item)
+                                            <option value="{{ $item->id }}"> {{ $item->name }} </option>
+                                        @endforeach
+                                    </select>
+                                    @error('free_tatorul')
+                                        <span class="error" style="color: red">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
                                 <div class="mb-1 col-md-12">
                                     <label class="form-label" for="username">{{ __('tran.trainers') }}</label>
                                     <div wire:ignore>
@@ -213,7 +227,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="mb-1 col-md-12" wire:ignore>
+                                <div class="mb-1 col-md-12">
                                     <label class="form-label"
                                         for="username">{{ __('tran.features') . ' ' . __('tran.course') }}</label>
                                     <x-summernote wire:model='features' name="features" id="features" />
@@ -221,28 +235,28 @@
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="mb-1 col-md-12" wire:ignore>
+                                <div class="mb-1 col-md-12">
                                     <label class="form-label" for="description">{{ __('tran.description') }}</label>
                                     <x-summernote wire:model='description' name="description" id="description" />
                                     @error('description')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="mb-1 col-md-12" wire:ignore>
+                                <div class="mb-1 col-md-12">
                                     <label class="form-label" for="conditions">{{ __('tran.conditions') }}</label>
                                     <x-summernote wire:model='conditions' name="conditions" id="conditions" />
                                     @error('conditions')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="mb-1 col-md-12" wire:ignore>
+                                <div class="mb-1 col-md-12">
                                     <label class="form-label" for="">{{ __('tran.target') }}</label>
                                     <x-summernote wire:model='target' name="target" id="target" />
                                     @error('target')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="mb-1 col-md-12" wire:ignore>
+                                <div class="mb-1 col-md-12">
                                     <label class="form-label" for="">{{ __('tran.howtostart') }}</label>
                                     <x-summernote wire:model='howtostart' name="howtostart" id="howtostart"
                                         value='{{ $howtostart }}' />
@@ -262,14 +276,14 @@
                             <div class="row">
                                 <div class="mb-2 col-md-12">
                                     <x-imageupload wire:model='image_course' :height='200' :width='200'
-                                    :imagenew="$image_course" :tlabel="__('tran.imagecourse')" />
+                                        :imagenew="$image_course" :tlabel="__('tran.imagecourse')" />
                                     @error('image_course')
-                                    <span class="error" style="color: red">{{ $message }}</span>
+                                        <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="mb-2 col-md-3  border border-black pb-2">
                                     <x-fileupload wire:model='schedule' id='schedule' :tlabel="__('tran.courseschedule')"
-                                    :namefile="$schedule != null ? $schedule->getClientOriginalName() : null" />
+                                        :namefile="$schedule != null ? $schedule->getClientOriginalName() : null" />
                                     @error('schedule')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
@@ -320,13 +334,6 @@
                                     <x-fileupload wire:model='file_test' id='file_test' :tlabel="__('tran.file_test')"
                                         :namefile="$file_test != null ? $file_test->getClientOriginalName() : null" />
                                     @error('file_test')
-                                        <span class="error" style="color: red">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                                <div class="mb-1 col-md-12">
-                                    <label class="form-label" for="username">{{ __('tran.file_free') }} :</label>
-                                    <input type="text" class="form-control" wire:model='free_tatorul' required />
-                                    @error('file_free')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -442,7 +449,7 @@
                                     <label class="form-label" for="telegram">{{ __('tran.telegram') }}</label>
                                     <div class="input-group input-group-merge">
                                         <span class="input-group-text"><i class="fab fa-telegram-plane"></i></span>
-                                        <input type="text" class="form-control" wire:model='telegram' required />
+                                        <input type="text" class="form-control" wire:model='telegram'  />
                                     </div>
                                     @error('telegram')
                                         <span class="error" style="color: red">{{ $message }}</span>
@@ -453,8 +460,7 @@
                                         for="telegramgrup">{{ __('tran.telegramgrup') }}</label>
                                     <div class="input-group input-group-merge">
                                         <span class="input-group-text"><i class="fab fa-telegram-plane"></i></span>
-                                        <input type="text" class="form-control" wire:model='telegramgrup'
-                                            required />
+                                        <input type="text" class="form-control" wire:model='telegramgrup' />
                                     </div>
                                     @error('telegramgrup')
                                         <span class="error" style="color: red">{{ $message }}</span>
@@ -462,10 +468,19 @@
                                 </div>
                                 <div class="mb-1 col-md-6">
                                     <label class="form-label" for="nextcourse">{{ __('tran.nextcourse') }}</label>
-                                    <div class="input-group input-group-merge">
-                                        <input type="text" class="form-control" wire:model='nextcourse'
-                                            required />
-                                    </div>
+                                        <select class="form-select" wire:model='nextcourse'
+                                            required>
+                                            <option value="">اختار الدورة التالية</option>
+                                            @foreach ($nextcoursesbycat as $item)
+                                                <option value="{{ $item->id }}">
+                                                    {{ $item->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('nextcourse')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+
                                     @error('nextcourse')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
@@ -533,17 +548,7 @@
         });
     </script>
     <script>
-        (function(window, document, $) {
-            'use strict';
 
-            var timePickr = $('.flatpickr-time');
-            if (timePickr.length) {
-                timePickr.flatpickr({
-                    enableTime: true,
-                    noCalendar: true
-                });
-            }
-        });
         window.addEventListener('swal', event => {
             Swal.fire({
                 title: event.detail.message,

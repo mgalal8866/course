@@ -56,13 +56,18 @@ class NewBlog extends Component
         ]);
         if ($this->image) {
             if( $blog->image != null){
-                
+
             }
             $dataX =  $this->saveImageAndThumbnail($this->image, false, $blog->id, 'blog');
             $blog->image =  $dataX['image'];
         }
         $blog->article =    $this->article;
         $blog->save();
+        if ($this->id != null) {
+            $this->dispatch('swal', message: 'تم التعديل بنجاح' );
+        }else{
+            $this->dispatch('swal', message: 'تم الاضافه بنجاح' );
+        }
 
         $this->dispatch('closemodel');
         $this->dispatch('blog_course_refresh');

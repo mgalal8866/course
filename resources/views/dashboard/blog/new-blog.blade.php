@@ -116,15 +116,17 @@
                 buttonsStyling: false
             });
         })
+
         window.addEventListener('openmodel', event => {
             // console.log('www');
             $('#editUser').modal("show");
 
         });
+
         window.addEventListener('closemodel', event => {
             // console.log('www');
             $('#editUser').modal("hide");
-
         });
+
     </script>
 @endpush
