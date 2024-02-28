@@ -134,8 +134,7 @@
                                     <label class="form-label" for="username">{{ __('tran.price') }}</label>
                                     <div class="input-group input-group-merge">
                                         <select class=" form-select" wire:model='pricewith'>
-                                            <option value="">اختار الملحقات</option>
-                                            <option value="1">PDF شامل كتاب الدورة</option>
+                                            <option value="1" selected>PDF شامل كتاب الدورة</option>
                                             <option value="2">بدون كتاب الدورة</option>
                                         </select>
                                         <input type="text" class="form-control" wire:model='price' />
@@ -353,8 +352,28 @@
                                 <h5 class="mb-0">{{ __('tran.lessons') }}</h5>
                                 {{-- <small class="text-muted">{{ $pages[3]['subheading'] }}</small> --}}
                             </div>
+                            <div class="mb-1 row">
+                                <div class="col"><label>قسم الشرح</label></div>
+                                <div class="col"><label>شرح \ تدريب </label></div>
+                                <div class="col"><label>اسم الشرح</label></div>
+                                <div class="col"><label>رابط الشرح</label></div>
+                            </div>
                             @foreach ($lessons as $key => $value)
                                 <div class="mb-1 row">
+                                    <div class="col">
+                                        <select class="form-select" wire:model='lessons.{{ $key }}.stage_id'
+                                            required>
+                                            <option value=""> اختار المرحلة</option>
+                                            @foreach ($stages as $item)
+                                                <option value="{{ $item->id }}">
+                                                    {{ $item->name . ($item->parent_id == null ? ' مرحلة رئيسية' : ' مرحلة فرعية من  ( ' . $item->_parent->name . ' )') }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('lessons.' . $key . '.stage_id')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
                                     <div class="col">
                                         <select class="form-select" wire:model='lessons.{{ $key }}.stage_id'
                                             required>

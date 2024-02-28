@@ -59,7 +59,7 @@ class NewCourse extends Component
     public function goToNextPage()
     {
 
-        $this->validate($this->validtionRules[$this->currentPage]);
+        // $this->validate($this->validtionRules[$this->currentPage]);
         $this->currentPage++;
     }
     public function goToPage($pg)
@@ -219,9 +219,12 @@ class NewCourse extends Component
             }
             DB::commit();
             $this->dispatch('swal', message: 'تم انشاء الدورة بنجاح' );
+
+            return  redirect()->route('course');
             // $this->resetValidation();
             // $this->reset();
             // return true;
+
         } catch (\Exception $e) {
             dd($e->getMessage());
             DB::rollback();
