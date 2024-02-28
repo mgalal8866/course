@@ -59,7 +59,7 @@ class NewCourse extends Component
     public function goToNextPage()
     {
 
-        // $this->validate($this->validtionRules[$this->currentPage]);
+        $this->validate($this->validtionRules[$this->currentPage]);
         $this->currentPage++;
     }
     public function goToPage($pg)
@@ -146,7 +146,7 @@ class NewCourse extends Component
         DB::beginTransaction();
         try {
             $rules = collect($this->validtionRules)->collect()->toArray();
-            $this->validate($rules);
+            // $this->validate($rules);
             $CFC = Courses::updateOrCreate(['id' => $this->id], [
                 'name'         => $this->name,
                 'country_id'   => $this->country_id,
