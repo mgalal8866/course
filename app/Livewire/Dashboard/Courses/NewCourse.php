@@ -180,7 +180,7 @@ class NewCourse extends Component
                 $CFC->image =  $dataX['image'];
             }
             if ($this->schedule) {
-                $dataX = $this->saveImageAndThumbnail($this->schedule, false, $CFC->id, 'courses', 'images');
+                $file =  uploadfile($this->schedule,"files/courses/"  . $CFC->id . "/doc");
                 $CFC->schedule =  $dataX['image'];
             }
 
