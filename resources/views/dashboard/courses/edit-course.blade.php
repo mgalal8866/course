@@ -161,13 +161,12 @@
                                         <span class="input-group-text"><i class="fas fa-calendar"></i></span>
                                     </div> --}}
                                     @error('enddate')
-                                        <span class="error" style="color: red">{{ $message }}</span>
+                                    <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="mb-1 col-md-4" wire:ignore>
                                     <label class="form-label" for="username">{{ __('tran.time') }}</label>
-                                    <x-time class="form-control flatpickr-time text-start" wire:model='time'
-                                        id="time" required />
+                                    <x-time class="form-control flatpickr-time text-start" wire:model='time'  id="time"   required />
                                     {{-- <div class="input-group input-group-merge">
                                         <span class="input-group-text"><i class="fas fa-clock"></i></span>
                                          <input type="text" class="form-control" wire:model='time' required />
@@ -353,20 +352,22 @@
                                 <h5 class="mb-0">{{ __('tran.lessons') }}</h5>
                                 {{-- <small class="text-muted">{{ $pages[3]['subheading'] }}</small> --}}
                             </div>
-
+                            <div class="mb-1 row">
+                                <div class="col-md-1"><label>شرح \ تدريب </label></div>
+                                <div class="col"><label>قسم الشرح</label></div>
+                                <div class="col"><label>اسم الشرح</label></div>
+                                <div class="col"><label>رابط الشرح</label></div>
+                            </div>
                             @foreach ($lessons as $key => $value)
                                 <div class="mb-1 row">
                                     <div class="col-md-1 form-check form-check-inline ">
-                                        <input class="form-check-input"
-                                            wire:model.lazy='lessons.{{ $key }}.is_lesson'type="checkbox"
-                                            id="inlineCheckbox1" />
-                                        <label class="form-check-label"
-                                            for="inlineCheckbox1">{{ $lessons[$key]['is_lesson'] != false ? 'شرح' : 'تدريب' }}</label>
+                                            <input class="form-check-input"  wire:model.lazy='lessons.{{ $key }}.is_lesson'type="checkbox" id="inlineCheckbox1" />
+                                            <label class="form-check-label" for="inlineCheckbox1">{{$lessons[$key]['is_lesson'] != false ?'شرح':'تدريب'}}</label>
                                         @error('lessons.' . $key . '.is_lesson')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col">
                                         <select class="form-select" wire:model='lessons.{{ $key }}.stage_id'
                                             required>
                                             <option value=""> اختار المرحلة</option>
@@ -380,48 +381,32 @@
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
-                                    @if ($lessons[$key]['is_lesson'] != false)
-                                        <div class="col">
-                                            <input class="form-control" wire:model="lessons.{{ $key }}.name"
-                                                placeholder="{{ $lessons[$key]['is_lesson'] != false ? 'اسم شرح' : ' اسم تدريب' }}"
-                                                type="text" />
-                                            @error('lessons.' . $key . '.name')
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                        <div class="col">
 
-                                            <input class="form-control" wire:model="lessons.{{ $key }}.link"
-                                                type="text"
-                                                placeholder="{{ $lessons[$key]['is_lesson'] != false ? 'رابط شرح' : ' رابط تدريب' }}" />
 
-                                            @error('lessons.' . $key . '.link')
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    @else
-                                        <div class="col">
-                                            <input class="form-control" wire:model="lessons.{{ $key }}.name"
-                                                placeholder="{{ $lessons[$key]['is_lesson'] != false ? 'اسم شرح' : ' اسم تدريب' }}"
-                                                type="text" />
-                                            @error('lessons.' . $key . '.name')
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                        <div class="col">
-                                            @if ($lessons[$key]['link'] != null)
-                                                <p>تم اختيار التدريب </p>
-                                            @else
-                                                <x-model wire:model='questions' :questions='$questions'
-                                                    :keys='$key' />
-                                                <button type="button" class="btn btn-outline-success"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#fullscreenModal-{{ $key }}">
-                                                    اضافه تدريب
-                                                </button>
-                                            @endif
-                                        </div>
-                                    @endif
+                                    {{-- <div class="col border border-black ">
+                                        <x-fileupload class="mb-0" wire:model='lessons.{{ $key }}.img'
+                                            id='lessons.{{ $key }}.img' :namefile="$lessons[$key]['img'] != null
+                                                ? $lessons[$key]['img']->getClientOriginalName()
+                                                : null" />
+                                        @error('lessons.' . $key . '.img')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div> --}}
+
+                                    <div class="col">
+                                        <input class="form-control" wire:model="lessons.{{ $key }}.name"
+                                            placeholder="{{$lessons[$key]['is_lesson'] != false ?'اسم شرح':' اسم تدريب' }}" type="text" />
+                                        @error('lessons.' . $key . '.name')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="col">
+                                        <input class="form-control" wire:model="lessons.{{ $key }}.link"
+                                            type="text" placeholder="{{$lessons[$key]['is_lesson'] != false ?'رابط شرح':' رابط تدريب' }}" />
+                                        @error('lessons.' . $key . '.link')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
 
                                     <div class="col-1">
                                         @if ($key != 0)
@@ -461,7 +446,7 @@
                                     <label class="form-label" for="telegram">{{ __('tran.telegram') }}</label>
                                     <div class="input-group input-group-merge">
                                         <span class="input-group-text"><i class="fab fa-telegram-plane"></i></span>
-                                        <input type="text" class="form-control" wire:model='telegram' />
+                                        <input type="text" class="form-control" wire:model='telegram'  />
                                     </div>
                                     @error('telegram')
                                         <span class="error" style="color: red">{{ $message }}</span>
@@ -480,17 +465,18 @@
                                 </div>
                                 <div class="mb-1 col-md-6">
                                     <label class="form-label" for="nextcourse">{{ __('tran.nextcourse') }}</label>
-                                    <select class="form-select" wire:model='nextcourse' required>
-                                        <option value="">اختار الدورة التالية</option>
-                                        @foreach ($nextcoursesbycat as $item)
-                                            <option value="{{ $item->id }}">
-                                                {{ $item->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    @error('nextcourse')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
+                                        <select class="form-select" wire:model='nextcourse'
+                                            required>
+                                            <option value="">اختار الدورة التالية</option>
+                                            @foreach ($nextcoursesbycat as $item)
+                                                <option value="{{ $item->id }}">
+                                                    {{ $item->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('nextcourse')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
 
                                     @error('nextcourse')
                                         <span class="error" style="color: red">{{ $message }}</span>
@@ -507,8 +493,7 @@
                                 class="fas fa-arrow-{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' ? 'right' : 'left' }}  align-middle ms-sm-25 ms-0"></i>
                             <span class="align-middle d-sm-inline-block d-none">{{ __('tran.previous') }}</span>
                         </button>
-                        {{ $currentPage }}
-                        @if ($currentPage === 4)
+                        @if ($currentPage === $pages)
                             <button type="submit" class="btn btn-success btn-submit">
                                 {{ __('tran.submit') }}</button>
                         @else
@@ -560,6 +545,7 @@
         });
     </script>
     <script>
+
         window.addEventListener('swal', event => {
             Swal.fire({
                 title: event.detail.message,
@@ -571,13 +557,13 @@
             });
         })
         window.addEventListener('openmodel', event => {
-
-            $('#fullscreenModal-' + event.detail.key).modal("show");
+            // console.log('www');
+            $('#editUser').modal("show");
 
         });
         window.addEventListener('closemodel', event => {
-
-            $('#fullscreenModal-' + event.detail.key).modal("hide");
+            // console.log('www');
+            $('#editUser').modal("hide");
 
         });
     </script>

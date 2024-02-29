@@ -90,7 +90,7 @@
                                                                 class="fas fa-question"></i></span>
                                                         <input class="form-control"
                                                             wire:model="questions.{{ $key }}.question"
-                                                            placeholder="السؤال" type="text" required/>
+                                                            placeholder="السؤال" type="text" required />
                                                     </div>
                                                     @error('questions.' . $key . '.question')
                                                         <span class="text-danger">{{ $message }}</span>
@@ -100,14 +100,13 @@
 
                                                     <input class="form-control"
                                                         wire:model="questions.{{ $key }}.degree"
-                                                        type="text" placeholder="درجه السؤال" required/>
+                                                        type="text" placeholder="درجه السؤال" required />
 
                                                     @error('questions.' . $key . '.degree')
                                                         <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
                                                 @foreach ($questions[$key]['answers'] as $key1 => $value1)
-
                                                     <div class="mb-1 mt-2 row">
                                                         <div class="col-8">
                                                             <div class="input-group input-group-merge">
@@ -117,9 +116,10 @@
 
                                                                 <input class="form-control"
                                                                     wire:model="questions.{{ $key }}.answers.{{ $key1 }}.answer"
-                                                                    type="text" placeholder="الاجابة" required/>
+                                                                    type="text" placeholder="الاجابة" required />
                                                             </div>
-                                                            @error('questions.'.$key.'.answers.'.$key1.'.answer')
+                                                            @error('questions.' . $key . '.answers.' . $key1 .
+                                                                '.answer')
                                                                 <span class="text-danger">{{ $message }}</span>
                                                             @enderror
                                                         </div>
@@ -128,22 +128,22 @@
                                                                 <input class="form-check-input" type="radio"
                                                                     name="questions.{{ $key }}.answers"
                                                                     value="true" id="inlineRadio1"
-                                                                    wire:model="questions.{{ $key }}.answers.{{ $key1 }}.correct" required/>
+                                                                    wire:model="questions.{{ $key }}.answers.{{ $key1 }}.correct"
+                                                                    required />
                                                                 <label class="form-check-label"
                                                                     for="inlineRadio1">الاجابه الصحيحة</label>
                                                             </div>
-                                                            @error('questions.' . $key . '.answers.' . $key1 .'.correct')
+                                                            @error('questions.' . $key . '.answers.' . $key1 .
+                                                                '.correct')
                                                                 <span class="text-danger">{{ $message }}</span>
                                                             @enderror
                                                         </div>
                                                         <div class="col-2">
-                                                            @if ( $key1 != 0)
-
-
-                                                            <a wire:click='removeanswerquestions({{ $key }},{{ $key1 }})'
-                                                                class="btn btn-sm btn-danger">
-                                                                حذف الاجابة
-                                                            </a>
+                                                            @if ($key1 != 0)
+                                                                <a wire:click='removeanswerquestions({{ $key }},{{ $key1 }})'
+                                                                    class="btn btn-sm btn-danger">
+                                                                    حذف الاجابة
+                                                                </a>
                                                             @endif
                                                         </div>
                                                     </div>
@@ -157,12 +157,11 @@
                                                 class="btn btn-sm btn-success">
                                                 اضافة الاجابة
                                             </a>
-                                            @if ( $key != 0)
-
-                                            <a wire:click='removequestions({{ $key }})'
-                                                class="btn btn-sm btn-danger">
-                                                حذف السؤال
-                                            </a>
+                                            @if ($key != 0)
+                                                <a wire:click='removequestions({{ $key }})'
+                                                    class="btn btn-sm btn-danger">
+                                                    حذف السؤال
+                                                </a>
                                             @endif
                                         </div>
                                     </div>
@@ -177,8 +176,8 @@
                     <button type="submit" class="btn btn-success me-1">{{ __('tran.save') }}</button>
 
                 </div>
+            </form>
         </div>
-        </form>
     </div>
 </div>
 

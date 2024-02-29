@@ -32,6 +32,7 @@ use App\Livewire\Dashboard\Books\Category\CategoryBooks;
 use App\Livewire\Dashboard\Grades\Category\CategoryGrades;
 use App\Livewire\Dashboard\Trainers\Specialist\Specialist;
 use App\Livewire\Dashboard\Courses\Category\CategoryCourse;
+use App\Livewire\Dashboard\Courses\EditCourse;
 use App\Livewire\Dashboard\StudySchedule\ViewStudySchedule;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Livewire\Dashboard\Setting\Setting as SettingSetting;
@@ -230,6 +231,7 @@ Route::group(
         });
         Route::get('/vimeo', Filemanger::class);
         Route::get('/new/course', NewCourse::class)->name('newcourse');
+        Route::get('/edit/course', EditCourse::class)->name('editcourse');
         Route::get('/course', ViewCourses::class)->name('course');
         Route::get('/free-course', FreeCourse::class)->name('freecourse');
         Route::get('/category/free-course', CategoryFreeCourse::class)->name('categoryfree');
