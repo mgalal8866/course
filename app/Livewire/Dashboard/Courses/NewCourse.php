@@ -29,9 +29,9 @@ class NewCourse extends Component
     protected $listeners = ['edit' => 'edit', 'refreshDropdown', 'currentPage' => 'currentPage'];
     public $edit = false, $short_description, $id, $header, $currentPage = 1, $pages = 4, $conditions, $target, $howtostart,
         $telegram, $telegramgrup, $nextcourse, $course_gender, $schedule, $free_tatorul, $nextcoursesbycat,
-        $name, $description, $validity = 'تبقى الدورة بكامل محتوياتها ثلاثة أشهر بحساب المتدرب.', $country_id, $category_id, $price, $pricewith=1, $startdate, $enddate, $time, $features, $triner = [], $limit_stud, $duration_course = 'شهر ونصف',
+        $name, $description, $validity = 'تبقى الدورة بكامل محتوياتها ثلاثة أشهر بحساب المتدرب.', $country_id, $category_id, $price, $pricewith = 1, $startdate, $enddate, $time, $features, $triner = [], $limit_stud, $duration_course = 'شهر ونصف',
         $image_course, $file_work, $file_explanatory, $file_aggregates, $file_supplementary, $file_free, $file_test,
-        $langcourse, $status, $inputnum, $lessons, $stages;
+        $langcourse, $status=true, $inputnum, $lessons, $stages;
     public $questions, $total_scores, $degree_success, $testname, $testtime;
     public function addquestions()
     {
@@ -88,15 +88,14 @@ class NewCourse extends Component
                         'correct'    => $ii['correct'] == true ? 1 : 0,
                     ]);
                 }
-
             }
-            $d= $quiz->id;
+            $d = $quiz->id;
             $this->dispatch('closemodel', key: $key);
             $this->dispatch('swal', message: 'تم انشاء التدريب بنجاح');
 
             DB::commit();
 
-            $this->editw($key,$d);
+            $this->editw($key, $d);
 
 
             // $this->resetValidation();
@@ -118,24 +117,23 @@ class NewCourse extends Component
 
         ]])]);
         $this->stages = Stages::orderBy('parent_id', 'DESC')->get();
-        $this->fill(['lessons' => collect([['stage_id' => null, 'img' => null, 'name' => '', 'link' => '', 'is_lesson' => true,'publish_at'=>null]])]);
+        $this->fill(['lessons' => collect([['stage_id' => null, 'img' => null, 'name' => '', 'link' => '', 'is_lesson' => true, 'publish_at' => null]])]);
     }
 
-    public function updatedFreeTatorul($value)
+    public function updatedCategoryId($value)
     {
-        $this->nextcoursesbycat = FreeCourse::whereCategoryId($value)->get();
+        $this->nextcoursesbycat = Courses::whereCategoryId($value)->get();
     }
 
     public function addlesson()
     {
-        $this->lessons->push(['stage_id' => null, 'img' => null, 'name' => '', 'link' => '', 'is_lesson' => true,'publish_at'=>null]);
+        $this->lessons->push(['stage_id' => null, 'img' => null, 'name' => '', 'link' => '', 'is_lesson' => true, 'publish_at' => null]);
     }
-    public function editw($key,$val)
+    public function editw($key, $val)
     {
-        $this->lessons =$this->lessons->map(function ($object ,$k) use($val){
+        $this->lessons = $this->lessons->map(function ($object, $k) use ($val) {
             $object['link'] = $val;
             return $object;
-
         });
         //  dd($this->lessons);
 
@@ -155,7 +153,7 @@ class NewCourse extends Component
     public function goToNextPage()
     {
 
-        $this->validate($this->validtionRules[$this->currentPage]);
+        // $this->validate($this->validtionRules[$this->currentPage]);
         $this->currentPage++;
     }
     public function goToPage($pg)
@@ -181,7 +179,7 @@ class NewCourse extends Component
             'questions.*.answers.*.correct' => 'required',
             'target.required' => 'اهداف الدورة مطلوبة',
             'name.required'            => 'اسم الدوره مطلوب',
-            'country_id.required'      => 'حقل الدولة مطلوب',
+            // 'country_id.required'      => 'حقل الدولة مطلوب',
             'category_id.required'     => 'حقل الاقسام مطلوب',
             'price.required'           => 'حقل السعر مطلوب',
             'pricewith.required'           => 'حقل شامل السعر مطلوب',
@@ -209,7 +207,7 @@ class NewCourse extends Component
     private  $validtionRules = [
         1 => [
             'name'            => 'required',
-            'country_id'      => 'required|exists:countries,id',
+            // 'country_id'      => 'required|exists:countries,id',
             'category_id'     => 'required|exists:categories,id',
             'price'           => 'required',
             'pricewith'           => 'required',
@@ -256,7 +254,7 @@ class NewCourse extends Component
             // $this->validate($rules);
             $CFC = Courses::updateOrCreate(['id' => $this->id], [
                 'name'         => $this->name,
-                'country_id'   => $this->country_id,
+                'country_id'   => $this->country_id ?? null,
                 'duration'     => $this->duration_course ?? null,
                 'validity'     => $this->validity ?? null,
                 'course_gender'     => $this->course_gender ?? null,
@@ -278,7 +276,7 @@ class NewCourse extends Component
                 'next_cource'  => $this->nextcourse ?? null,
                 'free_tatorul'  => $this->free_tatorul ?? null,
                 'lang'         => $this->langcourse ?? null,
-                'statu'        => $this->status,
+                'statu'        => ($this->status = true) ? 1 : 0,
                 'inputnum'     => $this->inputnum,
                 'file_free'    => $this->file_free ?? null
             ]);
@@ -321,7 +319,7 @@ class NewCourse extends Component
                 $CFC->coursetrainers()->create(['trainer_id' => $i]);
             }
             foreach ($this->lessons as $i) {
-                $lesson = $CFC->lessons()->create(['name' => $i['name'], 'link_video' => $i['link'], 'is_lesson' => $i['is_lesson'] != true ? 0 : 1,'publish_at'=>$i['publish_at']]);
+                $lesson = $CFC->lessons()->create(['name' => $i['name'], 'link_video' => $i['link'], 'is_lesson' => $i['is_lesson'] != true ? 0 : 1, 'publish_at' => $i['publish_at']]);
                 $CFC->stages()->attach($i['stage_id'], ['course_id' => $CFC->id, 'lesson_id' => $lesson->id]);
             }
             DB::commit();

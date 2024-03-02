@@ -3,6 +3,7 @@
 namespace App\Livewire\Dashboard\Courses;
 
 use App\Models\Courses;
+use App\Models\Lessons;
 use Livewire\Component;
 use Illuminate\Support\Carbon;
 
@@ -17,21 +18,20 @@ class ViewCourses extends Component
         $newCourses->created_at = Carbon::now();
         $newCourses->save();
 
-        $recordsToDuplicate = Record::whereIn('id', [1, 2, 3])->get();
+        $recordsToDuplicate = Lessons::whereIn('id', [1, 2, 3])->get();
 
-// Step 2: Create new instances of the model with copied data
-$duplicatedRecords = [];
-foreach ($recordsToDuplicate as $record) {
-    $newRecord = $record->replicate(); // This creates a new instance with the same attributes
-    // Optionally, modify any attributes of the new record here
-    $newRecord->save();
-    $duplicatedRecords[] = $newRecord;
-}
-
+        // Step 2: Create new instances of the model with copied data
+        $duplicatedRecords = [];
+        foreach ($recordsToDuplicate as $record) {
+            $newRecord = $record->replicate(); // This creates a new instance with the same attributes
+            // Optionally, modify any attributes of the new record here
+            $newRecord->save();
+            $duplicatedRecords[] = $newRecord;
+        }
     }
     public function render()
     {
         $courses = Courses::get();
-        return view('dashboard.courses.view-courses',compact('courses'));
+        return view('dashboard.courses.view-courses', compact('courses'));
     }
 }
