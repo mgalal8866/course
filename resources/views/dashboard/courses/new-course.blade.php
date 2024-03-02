@@ -8,6 +8,7 @@
         @endif
 
     @endpush
+
     <section class="horizontal-wizard">
         <div class="bs-stepper horizontal-wizard-example">
             <div class="bs-stepper-header" role="tablist">
@@ -380,6 +381,12 @@
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
+                                    <div class="col-md-2">
+                                        <x-daterange wire:model='lessons.{{ $key }}.publish_at' id="lessons.{{ $key }}.publish_at"  />
+                                        @error('lessons.' . $key . '.publish_at')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
                                     @if ($lessons[$key]['is_lesson'] != false)
                                         <div class="col">
                                             <input class="form-control" wire:model="lessons.{{ $key }}.name"
@@ -500,8 +507,8 @@
                         </div>
                     @endif
 
-                    <div class="d-flex justify-content-between">
-                        <button class="btn {{ $currentPage > 1 ? 'btn-primary' : 'btn-outline-secondary' }} btn-prev"
+                    <div   class="d-flex justify-content-between">
+                        <button  wire:loading.attr="disabled" class="btn {{ $currentPage > 1 ? 'btn-primary' : 'btn-outline-secondary' }} btn-prev"
                             {{ $currentPage == 1 ? 'disabled' : '' }} wire:click.prevent="goToPerviousPage">
                             <i
                                 class="fas fa-arrow-{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' ? 'right' : 'left' }}  align-middle ms-sm-25 ms-0"></i>
@@ -509,10 +516,11 @@
                         </button>
                         {{ $currentPage }}
                         @if ($currentPage === 4)
-                            <button type="submit" class="btn btn-success btn-submit">
+                            <button wire:loading.attr="disabled" type="submit" class="btn btn-success btn-submit">
                                 {{ __('tran.submit') }}</button>
                         @else
-                            <button class="btn btn-primary btn-next" wire:click.prevent="goToNextPage">
+                            <button   wire:loading.attr="disabled" class="btn btn-primary btn-next" wire:click.prevent="goToNextPage">
+
                                 <span class="align-middle d-sm-inline-block d-none">{{ __('tran.next') }}</span>
                                 <i
                                     class="fas fa-arrow-{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' ? 'left' : 'right' }} align-middle me-sm-25 me-0"></i>
