@@ -141,7 +141,7 @@
                                         <input type="text" class="form-control" wire:model='price' />
                                     </div>
 
-                                    @error('price')
+                                    @error('pricewith')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
