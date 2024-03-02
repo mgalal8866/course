@@ -28,6 +28,14 @@ class ViewCourses extends Component
             $newRecord->save();
             $duplicatedRecords[] = $newRecord;
         }
+
+        // foreach ($this->triner as $i) {
+        //     $CFC->coursetrainers()->create(['trainer_id' => $i]);
+        // }
+        // foreach ($this->lessons as $i) {
+        //     $lesson = $CFC->lessons()->create(['name' => $i['name'], 'link_video' => $i['link'], 'is_lesson' => $i['is_lesson'] != true ? 0 : 1, 'publish_at' => $i['publish_at']]);
+        //     $CFC->stages()->attach($i['stage_id'], ['course_id' => $CFC->id, 'lesson_id' => $lesson->id]);
+        // }
     }
     public function render()
     {
