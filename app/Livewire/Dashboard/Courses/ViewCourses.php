@@ -3,7 +3,10 @@
 namespace App\Livewire\Dashboard\Courses;
 
 use App\Models\Courses;
+use App\Models\CourseStages;
+use App\Models\CourseTrainers;
 use App\Models\Lessons;
+use App\Models\Stages;
 use Livewire\Component;
 use Illuminate\Support\Carbon;
 
@@ -11,31 +14,22 @@ class ViewCourses extends Component
 {
 
 
-    public function dup()
+    public function dup($id)
     {
-        $Courses = Courses::find(1);
+        $Courses = Courses::with('stages.lessons')->find($id);
         $newCourses = $Courses->replicate();
+        $newCourses->description = $Courses->description;
         $newCourses->created_at = Carbon::now();
         $newCourses->save();
+        foreach ($Courses->stages as $stages) {
+            foreach ($stages->lessons as $lesson) {
 
-        $recordsToDuplicate = Lessons::whereIn('id', [1, 2, 3])->get();
-
-        // Step 2: Create new instances of the model with copied data
-        $duplicatedRecords = [];
-        foreach ($recordsToDuplicate as $record) {
-            $newRecord = $record->replicate(); // This creates a new instance with the same attributes
-            // Optionally, modify any attributes of the new record here
-            $newRecord->save();
-            $duplicatedRecords[] = $newRecord;
+               $lessonold =  $lesson;
+            }
+            $newCourses->stages()->attach($stages->id, ['course_id' =>  $newCourses->id, 'lesson_id' => $lessonold->id,   'created_at' => Carbon::now()]);
         }
+        $this->dispatch('swal', message: 'تم نسخ الدورة بنجاح');
 
-        // foreach ($this->triner as $i) {
-        //     $CFC->coursetrainers()->create(['trainer_id' => $i]);
-        // }
-        // foreach ($this->lessons as $i) {
-        //     $lesson = $CFC->lessons()->create(['name' => $i['name'], 'link_video' => $i['link'], 'is_lesson' => $i['is_lesson'] != true ? 0 : 1, 'publish_at' => $i['publish_at']]);
-        //     $CFC->stages()->attach($i['stage_id'], ['course_id' => $CFC->id, 'lesson_id' => $lesson->id]);
-        // }
     }
     public function render()
     {

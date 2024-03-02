@@ -15,6 +15,7 @@
                                 <th>{{ __('tran.course') }}</th>
                                 <th>{{ __('tran.category') }}</th>
                                 <th>{{ __('tran.action') }}</th>
+                                <th>{{ __('tran.date') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -26,8 +27,11 @@
                                     <td>
                                         <span class="fw-bold">{{ $item->category->name ?? 'N/A' }}</span>
                                     </td>
-
                                     <td>
+                                        <span class="fw-bold">{{ $item->created_at->format('m/d/Y') ?? 'N/A' }}</span>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-success btn-sm" wire:click="dup('{{$item->id}}')">نسخ الدورة </a>
                                         {{-- <a   wire:click="$dispatch('edit',{id:'{{$item->id}}'})"><i  class="fas fa-edit fa-lg"  style="color: #c2881e;"></i></i></a>
                                         <a wire:click="delete('{{$item->id}}')"><i  class="fas fa-trash-alt fa-lg "  style="color: #ff0000;"></i></i></a>
                                         <a  wire:click="activetoggle('{{$item->id}}')"> <i   class="fas {{$item->active ==1 ?'fas fa-eye':'fa-eye-slash'}} fa-lg "   style="{{$item->active ==1 ?'color: #1caa0f;':''}}"></i></a> --}}
