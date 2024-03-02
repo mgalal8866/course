@@ -28,10 +28,11 @@ class DBCourseRepository implements CourseRepositoryinterface
     }
     public function getcoursebyid($id)
     {
-        //    return $this->model->with('stages.lessons')->find($id);
         $course = $this->model->with(['stages' => function ($query) {
             $query->distinct();
-        }, 'stages.lessons'])->find($id);
+        }, 'stages.lessons'=>function ($query) {
+            $query->whereDate('publish_at', '<=', now());
+        }])->find($id);
         return  $course;
     }
 
