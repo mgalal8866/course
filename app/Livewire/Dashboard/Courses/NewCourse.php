@@ -155,7 +155,7 @@ class NewCourse extends Component
     public function goToNextPage()
     {
 
-        // $this->validate($this->validtionRules[$this->currentPage]);
+        $this->validate($this->validtionRules[$this->currentPage]);
         $this->currentPage++;
     }
     public function goToPage($pg)
