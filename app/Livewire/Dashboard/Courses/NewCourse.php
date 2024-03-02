@@ -198,7 +198,7 @@ class NewCourse extends Component
             'duration_course.required' => 'مده الدوره مطلوب',
             'image_course.required' => ' صورة الدورة مطلوبه',
             'schedule.required' => 'جدول الدورة مطلوب',
-            'free_tatorul.required' => 'الشرح المجانى مطلوب',
+           // 'free_tatorul.required' => 'الشرح المجانى مطلوب',
             'lessons.*.name.required' => 'اسم الشرح مطلوب',
             'lessons.*.link.required' => 'الرابط مطلوب',
             'lessons.*.stage_id.required' => 'المرحلة مطلوب ',
@@ -224,7 +224,7 @@ class NewCourse extends Component
             'limit_stud'      => 'required|integer',
             'validity' => 'required',
             'duration_course' => 'required',
-            'free_tatorul' => 'required',
+        //    'free_tatorul' => 'required',
 
         ],
         2 => [
