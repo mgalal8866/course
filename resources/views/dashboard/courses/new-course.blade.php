@@ -138,10 +138,13 @@
                                             <option value="1" selected>PDF شامل كتاب الدورة</option>
                                             <option value="2">بدون كتاب الدورة</option>
                                         </select>
-                                        <input type="text" class="form-control" wire:model='price' />
+                                        <input  type="number" step="0.01" class="form-control" wire:model='price' />
                                     </div>
 
                                     @error('pricewith')
+                                        <span class="error" style="color: red">{{ $message }}</span>
+                                    @enderror
+                                    @error('price')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -193,7 +196,7 @@
                                 </div>
                                 <div class="mb-1 col-md-4">
                                     <label class="form-label" for="username">{{ __('tran.limit_stud') }}</label>
-                                    <input type="text" class="form-control" wire:model='limit_stud' />
+                                    <input  type="number" step="1" class="form-control" wire:model='limit_stud' />
                                     @error('limit_stud')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
