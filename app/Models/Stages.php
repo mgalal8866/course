@@ -35,6 +35,7 @@ class Stages extends Model
     }
     public function lessons()
     {
-        return $this->belongsToMany(Lessons::class, 'course_stages',  'stage_id','lesson_id');
+        return $this->belongsToMany(Lessons::class, 'course_stages', 'stage_id','lesson_id')->withTimestamps();
     }
+    
 }

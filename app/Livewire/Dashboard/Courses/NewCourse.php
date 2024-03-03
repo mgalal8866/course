@@ -15,6 +15,7 @@ use App\Models\CourseStages;
 use Livewire\WithFileUploads;
 use App\Models\CourseTrainers;
 use App\Models\CategoryFCourse;
+use App\Models\Lessons;
 use App\Models\Quiz_question_answers;
 use App\Models\Quiz_questions;
 use App\Models\Quizes;
@@ -31,7 +32,7 @@ class NewCourse extends Component
         $telegram, $telegramgrup, $nextcourse, $course_gender, $schedule, $free_tatorul, $nextcoursesbycat,
         $name, $description, $validity = 'تبقى الدورة بكامل محتوياتها ثلاثة أشهر بحساب المتدرب.', $country_id, $category_id, $price, $pricewith = 1, $startdate, $enddate, $time, $features, $triner = [], $limit_stud, $duration_course = 'شهر ونصف',
         $image_course, $file_work, $file_explanatory, $file_aggregates, $file_supplementary, $file_free, $file_test,
-        $langcourse, $status=true, $inputnum, $lessons, $stages;
+        $langcourse=false, $status=true, $inputnum=false, $lessons, $stages;
     public $questions, $total_scores, $degree_success, $testname, $testtime;
     public function addquestions()
     {
@@ -224,7 +225,7 @@ class NewCourse extends Component
             'limit_stud'      => 'required|integer',
             'validity' => 'required',
             'duration_course' => 'required',
-            'free_tatorul' => 'required',
+            // 'free_tatorul' => 'required',
 
         ],
         2 => [
@@ -275,9 +276,9 @@ class NewCourse extends Component
                 'telegram'     => $this->telegram ?? null,
                 'next_cource'  => $this->nextcourse ?? null,
                 'free_tatorul'  => $this->free_tatorul ?? null,
-                'lang'         => $this->langcourse ?? null,
+                'lang'         => ($this->langcourse= true) ? 1 : 0,
                 'statu'        => ($this->status = true) ? 1 : 0,
-                'inputnum'     => $this->inputnum,
+                'inputnum'     => ($this->inputnum= true) ? 1 : 0,
                 'file_free'    => $this->file_free ?? null
             ]);
             if ($this->image_course) {
@@ -319,13 +320,13 @@ class NewCourse extends Component
                 $CFC->coursetrainers()->create(['trainer_id' => $i]);
             }
             foreach ($this->lessons as $i) {
-                $lesson = $CFC->lessons()->create(['name' => $i['name'], 'link_video' => $i['link'], 'is_lesson' => $i['is_lesson'] != true ? 0 : 1, 'publish_at' => $i['publish_at']]);
+                $lesson = Lessons::create(['name' => $i['name'], 'link_video' => $i['link'], 'is_lesson' => $i['is_lesson'] != true ? 0 : 1, 'publish_at' => $i['publish_at']]);
                 $CFC->stages()->attach($i['stage_id'], ['course_id' => $CFC->id, 'lesson_id' => $lesson->id]);
             }
             DB::commit();
             $this->dispatch('swal', message: 'تم انشاء الدورة بنجاح');
 
-            return  redirect()->route('course');
+            // return  redirect()->route('course');
             // $this->resetValidation();
             // $this->reset();
             // return true;

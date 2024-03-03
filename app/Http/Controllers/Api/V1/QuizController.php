@@ -22,7 +22,7 @@ class QuizController extends Controller
     {
         if ($request->has('category_id'))
             $data = $this->categoryquiz->get_quiz_by_category($request->category_id);
-
+        
         return Resp(QuizCollectionResource::collection($data), 'success');
     }
     function get_quiz_by_id(Request $request)
@@ -30,7 +30,7 @@ class QuizController extends Controller
 
         if ($request->has('quiz_id'))
             $data = $this->categoryquiz->get_quiz_by_id($request->quiz_id);
-        
+
         return Resp(new QuizResource($data), 'success');
     }
 }

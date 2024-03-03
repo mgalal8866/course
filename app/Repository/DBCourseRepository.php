@@ -2,10 +2,13 @@
 
 namespace App\Repository;
 
+use App\Models\Course;
+use App\Models\Stages;
 use App\Models\Courses;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;
 use App\Repositoryinterface\CourseRepositoryinterface;
-use Illuminate\Http\Request;
 
 class DBCourseRepository implements CourseRepositoryinterface
 {
@@ -21,19 +24,22 @@ class DBCourseRepository implements CourseRepositoryinterface
 
     public function getcoursesbycategroy($category_id)
     {
-        $perPage = $this->request->input('per_page', 20);
-        return $this->model->whereCategoryId($category_id)->with('courseenrolled')
-        ->select(['id','name','image','short_description','created_at' ])->paginate($perPage);
-        //    return $this->model->where('category_id',$category_id)->get();
+      return Cache::remember('course_category_' . $category_id, 60, function () use ($category_id) {
+            $perPage = $this->request->input('per_page', 20);
+            return $this->model->whereCategoryId($category_id)->with('courseenrolled')
+                ->select(['id', 'name', 'image', 'short_description', 'created_at'])->paginate($perPage);
+        });
     }
     public function getcoursebyid($id)
     {
-        $course = $this->model->with(['stages' => function ($query) {
-            $query->distinct();
-        }, 'stages.lessons'=>function ($query) {
-            $query->whereDate('publish_at', '<=', now());
-        }])->find($id);
+        $course = Cache::remember('course_full_' . $id, 60, function () use ($id) {
+            return  $this->model->with(['stages' => function ($query) use ($id) {
+                $query->distinct()->with(['lessons' => function ($query) use ($id) {
+                    $query->where('course_id', $id);
+                }]);
+            }])->find($id);
+        });
+
         return  $course;
     }
-
 }

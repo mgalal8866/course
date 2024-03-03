@@ -40,12 +40,11 @@ class Courses extends Model
     public function stages()
     {
 
-        return $this->belongsToMany(Stages::class,'course_stages','course_id', 'stage_id');
+        return $this->belongsToMany(Stages::class,'course_stages','course_id', 'stage_id' )->withTimestamps();
     }
     public function lessons()
     {
-
-        return $this->belongsTo(Lessons::class);
+        return $this->belongsToMany(Lessons::class, 'course_stages', 'course_id','lesson_id')->withTimestamps();
     }
     public function getImageurlAttribute()
     {

@@ -30,12 +30,12 @@ class ApiCheckKey
                 return $next($request);
             }
         } else {
-            $data = [
-                'status' => 400,
-                'msg'    => 'Api Token Not Found'
-            ];
-            return response()->json($data);
-            // return $next($request);
+            // $data = [
+            //     'status' => 400,
+            //     'msg'    => 'Api Token Not Found'
+            // ];
+            // return response()->json($data);
+            return $next($request);
         }
     }
 }

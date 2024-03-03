@@ -11,7 +11,7 @@ class Lessons extends Model
 {
     use UUID, HasFactory, SoftDeletes;
     protected $guarded = [];
-    protected $hidden = ['pivot'];
+    // protected $hidden = ['pivot'];
 
     public function courses()
     {

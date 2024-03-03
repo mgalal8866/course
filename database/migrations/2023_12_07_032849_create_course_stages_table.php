@@ -12,11 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('course_stages', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->bigIncrements('id');
             $table->uuid('course_id')->index();
             $table->uuid('lesson_id')->index();
             $table->uuid('stage_id')->index();
-            $table->softDeletes();
             $table->timestamps();
             $table->foreign('lesson_id')->references('id')->on('lessons');
             $table->foreign('course_id')->references('id')->on('courses');
