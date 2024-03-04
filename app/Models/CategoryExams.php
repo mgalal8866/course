@@ -11,9 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class CategoryExams extends Model
 {
     use UUID, HasFactory, SoftDeletes;
-    protected $fillable = [
-        'name', 'active'
-    ];
+    protected $guarded = [];
     protected $casts = [
         'type' => Quiz::class
     ];
