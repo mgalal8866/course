@@ -36,9 +36,9 @@ class NewQuizCategory extends Component
         $this->validate();
         if( $this->edit == true){
             $CC = CategoryExams::find($this->id);
-            $CC->update(['name' => $this->name,'type'=>$this->typecategory]);
+            $CC->update(['name' => $this->name,'typecategory'=>$this->typecategory]);
         }else{
-            CategoryExams::create(['name' => $this->name,'type'=>$this->typecategory]);
+            CategoryExams::create(['name' => $this->name,'typecategory'=>$this->typecategory]);
         }
         $this->edit = false;
         $this->dispatch('closemodel');
