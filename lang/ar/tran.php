@@ -141,6 +141,11 @@ return [
     'subject' => 'المادة',
     'start_date' => 'تاريخ البداية',
     'course_gender' => 'نوع الدورة',
-    'free_tatorul' => 'شرح مجانى'
+    'free_tatorul' => 'شرح مجانى',
+    'level-test-categorys' => 'اقسام ختبار قياس المستوى',
+    'quizz-categorys' => 'اقسام المسابقات',
+    'typequiz-LEVEL' => 'قسم اختبار تحديد مستوى',
+    'typequiz-QUIZ' => 'قسم مسابقات',
+    'typecategory' => 'نوع القسم'
 
 ];

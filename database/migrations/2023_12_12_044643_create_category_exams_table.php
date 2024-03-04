@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('category_exams', function (Blueprint $table) {
+        Schema::create('category_Level Placement Tests', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name');
+            $table->boolean('typecategory');
             $table->boolean('active')->default(1);
             $table->softDeletes();
             $table->timestamps();

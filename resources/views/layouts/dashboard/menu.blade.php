@@ -111,11 +111,12 @@
                  </a>
                  <ul class="menu-content">
                      <li>
-                         <a class="d-flex align-items-center" href="{{ route('examcategory') }}">
+                         <a class="d-flex align-items-center" href="{{ route('category-quiz') }}">
                              <i data-feather="circle"></i>
                              <span class="menu-item text-truncate">{{ __('tran.categorys') }}</span>
                          </a>
                      </li>
+
                      <li>
                          <a class="d-flex align-items-center" href="{{route('newquiz')}}">
                              <i data-feather="circle"></i>

@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Livewire\Dashboard\Exams;
+namespace App\Livewire\Dashboard\Quizzes;
 
-use App\Models\Quizzes;
+
 use Livewire\Component;
 use App\Models\CategoryExams;
 use App\Models\Quiz_question_answers;
 use App\Models\Quiz_questions;
+use App\Models\Quizes;
 use Illuminate\Support\Facades\DB;
 
 class Newquiz extends Component
@@ -59,7 +60,7 @@ class Newquiz extends Component
         $this->validate($this->rules);
         DB::beginTransaction();
         try {
-            $quiz = Quizzes::create([
+            $quiz = Quizes::create([
                 'name'          => $this->testname,
                 'category_id'   => $this->testcategory,
                 'time'          => $this->testtime,
@@ -93,6 +94,6 @@ class Newquiz extends Component
     public function render()
     {
         $category = CategoryExams::get();
-        return view('dashboard.exams.newquiz', compact('category'));
+        return view('dashboard.quizzes.newquiz', compact('category'));
     }
 }

@@ -1,20 +1,21 @@
 <?php
 
-namespace App\Livewire\Dashboard\Exams\Category;
+namespace App\Livewire\Dashboard\Quizzes\QuizCategory;
 
 
 use App\Models\CategoryExams;
 use Livewire\Component;
 
-class NewCategory extends Component
+class NewQuizCategory extends Component
 {
     protected $listeners = ['edit' => 'edit'];
-    public $name,$edit=false,$id,$header;
+    public $name,$edit=false,$id,$header,$typecategory;
     public function edit($id = null)
     {
         if ($id != null) {
             $CC = CategoryExams::find($id);
             $this->name = $CC->name;
+            $this->typecategory = $CC->typecategory;
             $this->id = $id;
             $this->edit = true;
             $this->header = __('tran.editcategory');
@@ -35,9 +36,9 @@ class NewCategory extends Component
         $this->validate();
         if( $this->edit == true){
             $CC = CategoryExams::find($this->id);
-            $CC->update(['name' => $this->name]);
+            $CC->update(['name' => $this->name,'type'=>$this->typecategory]);
         }else{
-            CategoryExams::create(['name' => $this->name]);
+            CategoryExams::create(['name' => $this->name,'type'=>$this->typecategory]);
         }
         $this->edit = false;
         $this->dispatch('closemodel');
@@ -47,6 +48,6 @@ class NewCategory extends Component
     }
     public function render()
     {
-        return view('dashboard.exams.category.new-category');
+        return view('dashboard.quizzes.category-quiz.new-category');
     }
 }

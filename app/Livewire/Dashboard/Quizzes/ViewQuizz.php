@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Livewire\Dashboard\Exams;
+namespace App\Livewire\Dashboard\Quizzes;
 
-use App\Models\Quizzes;
+use App\Models\Quizes;
 use Livewire\Component;
 
 class ViewQuizz extends Component
 {
     public function activetoggle($id)
     {
-        $quizz = Quizzes::find($id);
+        $quizz = Quizes::find($id);
         if($quizz->active == 1){
             $quizz->update(['active' => 0 ]);
         }
@@ -19,13 +19,13 @@ class ViewQuizz extends Component
     }
     public function delete($id)
     {
-        $quizz = Quizzes::find($id);
+        $quizz = Quizes::find($id);
         $quizz->delete();
 
     }
     public function render()
     {
-        $quiz = Quizzes::latest()->get();
-        return view('dashboard.exams.view-quizz',compact('quiz'));
+        $quiz = Quizes::latest()->get();
+        return view('dashboard.quizzes.view-quizz',compact('quiz'));
     }
 }

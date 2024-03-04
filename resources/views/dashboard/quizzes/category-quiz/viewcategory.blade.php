@@ -1,5 +1,7 @@
 <div>
     <div class="row" id="basic-table">
+        {{-- @livewire('dashboard.quizzes.category-quiz.new-category') --}}
+        @livewire('dashboard.quizzes.quiz-category.new-quiz-category')
         <div class="col-12">
             <div class="card outline-success">
                 <div class="card-header">
@@ -7,7 +9,7 @@
                     <a class="btn btn-primary" wire:click="$dispatch('edit')">{{ __('tran.newcategory') }}</a>
 
                 </div>
-                @livewire('dashboard.exams.category.new-category')
+
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
@@ -64,9 +66,8 @@
                 </div>
             </div>
         </div>
-
-
     </div>
+</div>
 
     @push('jslive')
         <script>
@@ -82,4 +83,4 @@
             })
         </script>
     @endpush
-    </div>
+

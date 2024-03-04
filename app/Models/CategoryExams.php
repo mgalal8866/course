@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enum\Quiz;
 use App\Traits\UUID;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -9,12 +10,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class CategoryExams extends Model
 {
-    use UUID,HasFactory,SoftDeletes;
+    use UUID, HasFactory, SoftDeletes;
     protected $fillable = [
-        'name','active' ];
+        'name', 'active'
+    ];
+    protected $casts = [
+        'type' => Quiz::class
+    ];
 
-        public function quizz()
-        {
-            return $this->hasMany(Quizzes::class, 'category_id');
-        }
+    public function quizz()
+    {
+        return $this->hasMany(Quizes::class, 'category_id');
+    }
 }

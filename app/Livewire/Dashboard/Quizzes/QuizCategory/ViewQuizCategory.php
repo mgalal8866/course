@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Livewire\Dashboard\Exams\Category;
+namespace App\Livewire\Dashboard\Quizzes\QuizCategory;
 
 use App\Models\CategoryExams;
 use Livewire\Component;
 
-class CategoryExam extends Component
+class ViewQuizCategory extends Component
 {
     protected $listeners = ['category_exams_refresh'=>'$refresh'];
 
@@ -28,6 +28,6 @@ class CategoryExam extends Component
     public function render()
     {
         $category_exams = CategoryExams::latest()->get();
-         return view('dashboard.exams.category.category-course',compact('category_exams'));
+         return view('dashboard.quizzes.category-quiz.viewcategory',compact('category_exams'));
     }
 }
