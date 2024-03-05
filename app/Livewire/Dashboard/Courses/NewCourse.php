@@ -44,7 +44,7 @@ class NewCourse extends Component
             'answers' => collect([['answer' => '', 'correct' => '']])
 
         ]])]);
-        $this->stages = Stages::orderBy('parent_id', 'DESC')->get();
+        $this->stages = Stages::parentonly()->orderBy('parent_id', 'DESC')->get();
         $this->fill(['lessons' => collect([['stage_id' => null, 'img' => null, 'name' => '', 'link' => '', 'is_lesson' => true, 'publish_at' => null]])]);
     }
     public function updated($propertyName)
@@ -231,7 +231,7 @@ class NewCourse extends Component
     public function goToNextPage()
     {
 
-        $this->validate($this->validtionRules[$this->currentPage]);
+        // $this->validate($this->validtionRules[$this->currentPage]);
         $this->currentPage++;
     }
     public function goToPage($pg)
@@ -342,7 +342,7 @@ class NewCourse extends Component
         $category = Category::get();
         $country = Country::get();
         $triners = Trainer::get();
-        $categoryfreecourse = CategoryFCourse::whereActive('1')->whereHas('freecourse')->get();
+        $categoryfreecourse = CategoryFCourse::whereHas('freecourse')->get();
         return view('dashboard.courses.new-course', compact(['category', 'triners', 'country', 'categoryfreecourse']));
     }
 }

@@ -3,9 +3,10 @@
 namespace App\Models;
 
 use App\Traits\UUID;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Scopes\HasActiveScope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Stages extends Model
 {
@@ -37,5 +38,13 @@ class Stages extends Model
     {
         return $this->belongsToMany(Lessons::class, 'course_stages', 'stage_id','lesson_id')->withTimestamps();
     }
-    
+    public function scopeParentonly($query)
+    {
+        return $query->where('parent_id','!=' , null);
+    }
+    protected static function booted()
+    {
+        // static::addGlobalScope(new HasActiveScope);
+    }
+
 }

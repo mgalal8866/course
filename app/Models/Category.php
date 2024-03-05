@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\UUID;
+use App\Scopes\HasActiveScope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -16,6 +17,10 @@ class Category extends Model
         'active',
         'image'
     ];
+    protected static function booted()
+    {
+        static::addGlobalScope(new HasActiveScope);
+    }
     public function getImageurlAttribute()
     {
         return $this->image?path('','category') . $this->image: path('','').'no-imag.png';
