@@ -18,9 +18,9 @@ class UsersController extends Controller
         $this->users = $Users;
     }
 
-    public function login(LoginUserRequest $request)
+    public function login(Request $request)
     {
-     
+        Log::error( $request);
       return  $this->users->login($request);
     }
     public function signup(UserRequest $request)

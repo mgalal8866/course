@@ -26,7 +26,7 @@ use App\Http\Controllers\Api\V1\CourseEnrolledController;
 use App\Http\Controllers\Api\V1\PaymentsOnlineController;
 use App\Http\Controllers\Api\V1\CategoryFreeCourseController;
 
-Route::post('/login',[UsersController::class,'login'])->name('login');
+Route::any('/login',[UsersController::class,'login'])->name('login');
 Route::post('/sendotp',[UsersController::class,'sendotp']);
 Route::post('/signup',[UsersController::class,'signup']);
 Route::post('/update/profile',[UsersController::class,'profile_update']);
