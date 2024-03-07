@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Traits\UUID;
 use App\Models\Category;
+use App\Models\CourseStages;
 use App\Models\CourseTrainers;
 use App\Models\CourseEnrolleds;
 use Illuminate\Support\Facades\Auth;
@@ -36,12 +37,17 @@ class Courses extends Model
     {
         return $this->belongsTo(Category::class, 'category_id');
     }
-
+    
     public function stages()
     {
 
         return $this->belongsToMany(Stages::class,'course_stages','course_id', 'stage_id' )->withTimestamps();
     }
+    public function stagesparent()
+    {
+         return $this->hasMany(CourseStages::class,'course_id'  );
+    }
+
     public function lessons()
     {
         return $this->belongsToMany(Lessons::class, 'course_stages', 'course_id','lesson_id')->withTimestamps();

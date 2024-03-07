@@ -29,6 +29,7 @@ use App\Http\Controllers\Api\V1\CategoryFreeCourseController;
 Route::post('/login',[UsersController::class,'login'])->name('login');
 Route::post('/sendotp',[UsersController::class,'sendotp']);
 Route::post('/signup',[UsersController::class,'signup']);
+Route::post('/update/profile',[UsersController::class,'profile_update']);
 
 Route::get('/home',[HomeController::class,'homep'])->name('homep');
 Route::get('/home/section1',[HomeController::class,'section1'])->name('section1');

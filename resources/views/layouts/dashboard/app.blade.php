@@ -29,7 +29,7 @@
     </div>
     <div class="spinner-border text-primary" role="status"></div>
     <div class="sidenav-overlay"></div>
-    <div class="drag-target"></div>
+    {{-- <div class="drag-target"></div> --}}
     @include('layouts.dashboard.footer')
 
     @include('layouts.dashboard.script')

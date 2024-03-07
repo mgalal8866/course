@@ -34,11 +34,12 @@ class DBResultQuizRepository implements ResultQuizRepositoryinterface
             $r='' ;
             $totalDegree = $dd->sum(function ($item)use($r) {
                 if($item->correct != 0){
-                    $r = $item->question->degree;
-                    return $item->question->degree;
+                    $r = $item->question->mark;
+                    return $item->question->mark;
                 }
             });
-            dd($totalDegree);
+            // dd($totalDegree);
+            dd($dd);
            foreach($dd as $data){
 
                dd($data->question->degree);

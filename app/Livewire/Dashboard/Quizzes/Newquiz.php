@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 
 class Newquiz extends Component
 {
-    public $questions, $testname, $testcategory, $testtime, $degree_success, $total_scores;
+    public $typecategory, $questions,$category=[], $testname, $testcategory, $testtime, $degree_success, $total_scores;
     private   $rules = [
         // 'testname'=> 'required' ,
         // 'testcategory'=> 'required' ,
@@ -27,6 +27,10 @@ class Newquiz extends Component
         'questions.*.answers.*.correct' => 'required'
 
     ];
+    public function updatedTypecategory($value)
+    {
+        $this->category  = CategoryExams::where('typecategory', $value)->get();
+    }
     public function mount()
     {
         $this->fill(['questions' => collect([[
@@ -64,14 +68,14 @@ class Newquiz extends Component
                 'name'          => $this->testname,
                 'category_id'   => $this->testcategory,
                 'time'          => $this->testtime,
-                'degree_success' => $this->degree_success,
-                'total_scores'  => $this->total_scores,
+                'pass_marks' => $this->degree_success,
+                'total_marks'  => $this->total_scores,
             ]);
             foreach ($this->questions as $i) {
                 $question =   Quiz_questions::create([
                     'quiz_id'  => $quiz->id,
                     'question' => $i['question'],
-                    'degree'   => $i['degree'],
+                    'mark'   => $i['degree'],
                 ]);
                 foreach ($i['answers'] as $ii) {
                     Quiz_question_answers::create([
@@ -82,6 +86,8 @@ class Newquiz extends Component
                 }
             }
             DB::commit();
+            $this->dispatch('swal', message: 'تم انشاء  الاختبار بنجاح');
+
             // $this->resetValidation();
             // $this->reset();
             // return true;
@@ -93,7 +99,7 @@ class Newquiz extends Component
     }
     public function render()
     {
-        $category = CategoryExams::get();
-        return view('dashboard.quizzes.newquiz', compact('category'));
+
+        return view('dashboard.quizzes.newquiz');
     }
 }

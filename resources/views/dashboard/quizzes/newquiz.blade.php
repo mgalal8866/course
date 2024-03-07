@@ -11,16 +11,27 @@
             <form id="editUserForm" class="row gy-1 pt-75" wire:submit.prevent="save">
                 <div class="row">
 
-                    <div class="col-12 col-md-6">
+                    <div class="col-12 col-md-4">
                         <label class="form-label" for="testname">{{ __('tran.testname') }}</label>
                         <input type="text" class="form-control" wire:model="testname" id="testname" />
                         @error('testname')
                             <span class="error" style="color: red">{{ $message }}</span>
                         @enderror
                     </div>
-                    <div class="col-12 col-md-6">
+                    <div class="col-12 col-md-4">
+                        <label class="form-label" for="modalEditUserFirstName">{{__('tran.typecategory')}}</label>
+                        <select class="form-select" id="typecategory" wire:model.live='typecategory'>
+
+                            @foreach ( \App\Enum\Quiz::cases() as $q)
+
+                            <option value="{{$q->value}}">{{ __('tran.typequiz-'.$q->name)}} </option>
+                            @endforeach
+                        </select>
+                      @error('typecategory') <span class="error" style="color: red" >{{ $message }}</span> @enderror
+                    </div>
+                    <div class="col-12 col-md-4">
                         <label class="form-label" for="testcategory">{{ __('tran.testcategory') }}</label>
-                        <select class="form-select" id="testcategory" wire:model='testcategory'>
+                        <select class="form-select" id="testcategory" wire:model='testcategory' @empty($category) disabled @endempty>
                             <option value="">اختار القسم</option>
                             @foreach ($category as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -34,21 +45,21 @@
 
                     <div class="col-12 col-md-4">
                         <label class="form-label" for="testtime">{{ __('tran.testtime') }}</label>
-                        <input type="text" class="form-control" wire:model="testtime" id="testtime" />
+                        <input type="number" step="0.1" class="form-control" wire:model="testtime" id="testtime" />
                         @error('testtime')
                             <span class="error" style="color: red">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="col-12 col-md-4">
                         <label class="form-label" for="degree_success">{{ __('tran.degree_success') }}</label>
-                        <input type="text" class="form-control" wire:model="degree_success" id="degree_success" />
+                        <input type="number" step="0.1" class="form-control" wire:model="degree_success" id="degree_success" />
                         @error('degree_success')
                             <span class="error" style="color: red">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="col-12 col-md-4">
                         <label class="form-label" for="total_scores">{{ __('tran.total_scores') }}</label>
-                        <input type="text" class="form-control" wire:model="total_scores" id="total_scores" />
+                        <input type="number" step="0.1" class="form-control" wire:model="total_scores" id="total_scores" />
                         @error('total_scores')
                             <span class="error" style="color: red">{{ $message }}</span>
                         @enderror

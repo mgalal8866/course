@@ -24,7 +24,7 @@ class DBCourseRepository implements CourseRepositoryinterface
 
     public function getcoursesbycategroy($category_id)
     {
-      return Cache::remember('course_category_' . $category_id, 60, function () use ($category_id) {
+        return Cache::remember('course_category_' . $category_id, 60, function () use ($category_id) {
             $perPage = $this->request->input('per_page', 20);
             return $this->model->whereCategoryId($category_id)->with('courseenrolled')
                 ->select(['id', 'name', 'image', 'short_description', 'created_at'])->paginate($perPage);
@@ -32,14 +32,29 @@ class DBCourseRepository implements CourseRepositoryinterface
     }
     public function getcoursebyid($id)
     {
-        $course = Cache::remember('course_full_' . $id, 60, function () use ($id) {
-            return  $this->model->with(['stages' => function ($query) use ($id) {
-                $query->distinct()->with(['lessons' => function ($query) use ($id) {
-                    $query->where('course_id', $id);
-                }]);
-            }])->find($id);
-        });
+        // $course = Cache::remember('course_full_' . $id, 60, function () use ($id) {
+        $course = $this->model->with(
+            [
+                'stages._parent',
+                'stagesparent',
+                'coursetrainers.triner',
+                'stages' => function ($query) use ($id) {
+                    $query->distinct()->with(
+                        [
+                            '_parent' => function ($query) use ($id) {
+                                $query->distinct();
+                            },
+                            'lessons' => function ($query) use ($id) {
+                                $query->where('course_id', $id);
+                            }
+                        ]
+                    );
+                }
 
+            ]
+        )->find($id);
+        // });
+        // dd($course);
         return  $course;
     }
 }

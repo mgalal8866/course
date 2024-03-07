@@ -17,4 +17,8 @@ class CourseTrainers extends Model
     {
         return $this->belongsTo(Courses::class, 'course_id');
     }
+    public function triner()
+    {
+        return $this->belongsTo(Trainer::class, 'trainer_id');
+    }
 }

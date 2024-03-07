@@ -11,7 +11,10 @@ class LoginUserResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'name'         => $this->first_name??'' . ' ' . $this->last_name??'' ,
+            'name'         => ($this->first_name??'') . ' ' . ($this->middle_name??'') . ' ' . ($this->last_name??'') ,
+            'f_name'         => $this->first_name??''  ,
+            'm_name'         => $this->middle_name??'' ,
+            'l_name'         => $this->last_name??'' ,
             'phone'        => $this->phone??''  ,
             'email'        => $this->email??''  ,
             'gender'       => $this->gender ==1? __('tran.male'):  __('tran.female') ,
@@ -21,7 +24,7 @@ class LoginUserResource extends JsonResource
             'phone_parent' => $this->phone_parent??''  ,
             'email_parent' => $this->email_parent??'' ,
             'notifiction'  => $this->notifiction??'1' ,
-            'token'        => $this->token ,
+            'token'        => $this->token??'' ,
 
         ];
     }
