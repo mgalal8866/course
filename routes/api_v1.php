@@ -26,10 +26,10 @@ use App\Http\Controllers\Api\V1\CourseEnrolledController;
 use App\Http\Controllers\Api\V1\PaymentsOnlineController;
 use App\Http\Controllers\Api\V1\CategoryFreeCourseController;
 
-Route::any('/login',[UsersController::class,'login'])->name('login');
-Route::post('/sendotp',[UsersController::class,'sendotp']);
-Route::post('/signup',[UsersController::class,'signup']);
-Route::post('/update/profile',[UsersController::class,'profile_update']);
+Route::any('/login',[UsersController::class,'login'])->name('login'); //post
+Route::any('/sendotp',[UsersController::class,'sendotp']); //post
+Route::any('/signup',[UsersController::class,'signup']); //post
+Route::any('/update/profile',[UsersController::class,'profile_update']); //post
 
 Route::get('/home',[HomeController::class,'homep'])->name('homep');
 Route::get('/home/section1',[HomeController::class,'section1'])->name('section1');
