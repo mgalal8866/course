@@ -30,6 +30,7 @@ class LoginUserRequest extends FormRequest
     public function messages()
     {
         return [
+            'phone.required' => 'الهاتف مطلوب',
             'phone.exists' => 'الهاتف غير موجود',
         ];
     }
