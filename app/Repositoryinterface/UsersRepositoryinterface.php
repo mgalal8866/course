@@ -8,7 +8,13 @@ interface UsersRepositoryinterface{
     public function signup($request);
     public function profile_update($request);
     public function sendotp();
-    public function verificationcode($code);
+
+    // public function check_code($request);
+    public function verificationcode($request);
+    public function forgotpassword($request);
+    public function change_password($request);
+    public function resend_code($request);
+
 
 }
 

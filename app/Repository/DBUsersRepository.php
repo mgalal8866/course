@@ -21,12 +21,12 @@ class DBUsersRepository implements UsersRepositoryinterface
         $this->model = $model;
         $this->request = $request;
     }
-    public function login($request)
+    public function credentials($data)
     {
 
         $credentials = [
-            'phone' => $request->phone,
-            'password' =>  $request->password,
+            'phone' => $data['phone'],
+            'password' =>  $data['password'],
         ];
         if ($token = Auth::guard('student')->attempt($credentials)) {
             $user = auth('student')->user();
@@ -42,15 +42,17 @@ class DBUsersRepository implements UsersRepositoryinterface
         $data =  new LoginUserResource($user);
         return Resp($data, 'Success', 200, true);
     }
+    public function login($request)
+    {
+        $data= ['phone'=>$request->phone,'password'=>$request->password];
+     return  $this->credentials($data);
+    }
     public function sendotp()
     {
         $code = rand(123456, 999999);
         return Resp($code, 'Success', 200, true);
     }
-    public function  verificationcode($code)
-    {
-        return Resp($code, 'Success', 200, true);
-    }
+
     public function signup($request)
     {
 
@@ -98,7 +100,7 @@ class DBUsersRepository implements UsersRepositoryinterface
         if ($this->request->has('email_parent')) {
             $user->email_parent = $request->email_parent;
         }
-        
+
         $user->save();
         if ($user != null) {
 
@@ -107,4 +109,30 @@ class DBUsersRepository implements UsersRepositoryinterface
         }
         return Resp('', 'error', 402, true);
     }
+    public function  forgotpassword($request)
+    {
+        $user =  $this->model->where('phone', $request->phone)->first();
+        return Resp('', 'Send Code Success', 200, true);
+    }
+    public function  verificationcode($request)
+    {
+        if ($request->code == '11111') {
+            return Resp('', 'Success', 200, true);
+        } else {
+            return Resp('', 'invalid Code', 400, false);
+        }
+    }
+
+    public function  resend_code($request)
+    {
+        return Resp('', 'Send Code Success', 200, true);
+    }
+    public function  change_password($request)
+    {
+        $user =  $this->model->where('phone', $request->phone)->first();
+        $user->password = $request->password;
+        $user->save();
+        $data= ['phone'=>$user->phone,'password'=>$request->password];
+        return  $this->credentials($data);
+        }
 }

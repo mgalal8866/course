@@ -26,14 +26,30 @@ class UsersController extends Controller
     {
       return  $this->users->signup($request);
     }
+
+    public function forgotpassword(LoginUserRequest $request)
+    {
+      return  $this->users->forgotpassword($request);
+    }
+    public function verificationcode(Request $request)
+    {
+        return  $this->users->verificationcode($request);
+    }
+    public function change_password(Request $request)
+    {
+      return  $this->users->change_password($request);
+    }
+    public function resend_code(Request $request)
+    {
+      return  $this->users->resend_code($request);
+    }
+
+
     public function sendotp(Request $request)
     {
       return  $this->users->sendotp($request);
     }
-    public function verificationcode($code)
-    {
-        return  $this->users->verificationcode($code);
-    }
+
     public function profile_update(Request $request)
     {
       return  $this->users->profile_update($request);
