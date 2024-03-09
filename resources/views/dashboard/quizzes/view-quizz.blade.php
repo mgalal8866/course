@@ -38,29 +38,6 @@
                                                     غير مفعل
                                                 @break
 
-                                                @case(1)
-                                                    مفعل
-                                                @break
-                                            @endswitch
-                                        </span>
-                                    </td>
-                                    <td>
-                                        {{-- <a wire:click="$dispatch('edit',{id:'{{ $item->id }}'})"><i
-                                                class="fas fa-edit fa-lg" style="color: #c2881e;"></i></i></a>--}}
-                                        <a wire:click="delete('{{ $item->id }}')"><i class="fas fa-trash-alt fa-lg "
-                                                style="color: #ff0000;"></i></i></a>
-                                        <a wire:clicactk="activetoggle('{{ $item->id }}')"> <i
-                                                class="fas {{ $item->active == 1 ? 'fas fa-eye' : 'fa-eye-slash' }} fa-lg "
-                                                style="{{ $item->ive == 1 ? 'color: #1caa0f;' : '' }}"></i></a>
-                                    </td>
-                                </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="8" class="alert alert-danger text-center"> No Data Here</td>
-                                    </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
                     </div>
                 </div>
             </div>
