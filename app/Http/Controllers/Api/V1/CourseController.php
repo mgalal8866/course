@@ -61,8 +61,7 @@ class CourseController extends Controller
 
         $data=['data'=>$data];
 
-
-        if ($data != null) {
+        if (Count($data['data']) != 0) {
 
             return Resp(new CollectionCourseResource($data), 'success', 200, true);
         } else {
