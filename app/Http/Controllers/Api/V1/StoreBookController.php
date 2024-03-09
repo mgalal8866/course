@@ -26,4 +26,17 @@ class StoreBookController extends Controller
 
           return Resp($data,'success') ;
     }
+    function get_book_by_id()
+    {
+        $data=  $this->store_book->get_book_by_id();
+        //   $data= BooksResource::Collection($data);
+          $data =  new BooksResource($data) ;
+          if( $data !=null){
+
+            return Resp($data, 'success');
+        }else{
+            return Resp(null,'Not Found Book',404,false);
+
+        };
+    }
 }

@@ -25,6 +25,12 @@ class DBStoreBookRepository implements StoreBookRepositoryinterface
         $perPage = $this->request->input('per_page', 20);
         return $this->model->whereCategoryId($id)->paginate($perPage);
     }
+    public function get_book_by_id()
+    {
+        $book_id = $this->request->input('book_id');
+        
+        return $this->model->find($book_id);
+    }
     public function buy_book($id)
     {
         $perPage = $this->request->input('per_page', 20);

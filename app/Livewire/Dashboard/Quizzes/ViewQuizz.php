@@ -7,6 +7,17 @@ use Livewire\Component;
 
 class ViewQuizz extends Component
 {
+    public $selecttab=1,$quiz=[];
+    public function mount()  {
+        $this->quiz = Quizes::whereHas('category', function($q) {
+            $q->where('typecategory', $this->selecttab);
+        })->latest()->get();
+    }
+    public function changeselecttab($val)  {
+        $this->quiz = Quizes::whereHas('category', function($q) use($val) {
+            $q->where('typecategory', $val);
+        })->latest()->get();
+    }
     public function activetoggle($id)
     {
         $quizz = Quizes::find($id);
@@ -25,7 +36,7 @@ class ViewQuizz extends Component
     }
     public function render()
     {
-        $quiz = Quizes::latest()->get();
-        return view('dashboard.quizzes.view-quizz',compact('quiz'));
+
+        return view('dashboard.quizzes.view-quizz');
     }
 }

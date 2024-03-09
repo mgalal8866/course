@@ -1,11 +1,14 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Course;
 
 use Illuminate\Http\Request;
+use App\Http\Resources\StageResource;
+use App\Http\Resources\TrainerResource;
+use App\Http\Resources\CommentsResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CourseByIdResource extends JsonResource
+class CourseResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,12 +17,8 @@ class CourseByIdResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-
-        // $uniqueBrands = $this->collection->pluck('stages')->filter(function ($brand) {
-        //     return !is_null($brand);
-        // })->unique();
-        // dd($uniqueBrands??'');
         return [
+            'course_id'         => $this['id'],
             'course_id'         => $this->id,
             'course_name'       => $this->name, //اسم الدورة
             'course_image'      => $this->imageurl ?? '', //الصورة
@@ -53,11 +52,7 @@ class CourseByIdResource extends JsonResource
                 'file_test'          => $this->file_test ?? '',
                 'file_free'          => $this->file_free ?? ''
             ],
-            'course_trainer'    => TrainerResource::collection($this->coursetrainers),
-            // 'course_parent_stages'     =>      $this,
-            'course_stages'     => StageResource::collection($this->stages),
-            'comments'          => CommentsResource::collection($this->comments->where('active', 1)),
             'course_subscripe'  => 'true',
-        ];
+            ];
     }
 }

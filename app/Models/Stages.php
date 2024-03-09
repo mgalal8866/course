@@ -18,7 +18,11 @@ class Stages extends Model
 
     public function courses()
     {
-        return $this->belongsToMany(Courses::class,'course_stages') ;
+        return $this->belongsToMany(Courses::class,'course_stages','stage_id','course_id') ;
+    }
+    public function coursesparent_id()
+    {
+        return $this->belongsToMany(Courses::class,'course_stages','stage_id','course_id','parent_id') ;
     }
 
     public function childrens()

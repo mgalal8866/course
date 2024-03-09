@@ -15,22 +15,22 @@ class StageResource extends JsonResource
     public function toArray(Request $request): array
     {
 
-        // $uniqueBrands = $this->collection;
 
-        // ->filter(function ($parent_id) {
-        //         return !is_null($parent_id);
-        //     });
-
-
-            return[
-            // 'parent_stage_id'      => $this->_parent->id,
+        // ->filter(function ($brand) {
+        //     return !is_null($brand);
+        // })
+        // ->unique();
+        // dd($uniqueBrands);
+        return [
+            // 'parent_stage_id'      => $this,
             // 'parent_stage_name'      => $this->_parent->name,
             // 'stage'=>[
+            // 'parent_idi'      => $uniqueBrands,
             'parent_id'      => $this->parent_id,
             'stage_id'        => $this->id,
             'stage_name'      => $this->name,
             'stage_lessons' => LessonResource::collection($this->lessons)
-        // ]
-    ];
+            // ]
+        ];
     }
 }

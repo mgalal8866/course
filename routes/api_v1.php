@@ -55,6 +55,7 @@ Route::post('/new/study_schedule',[StudyScheduleController::class,'create_study_
 Route::get('/courses/{category_id}',[CourseController::class,'getcoursesbycategroy'])->name('getcoursesbycategroy');
 Route::get('/course/not_subscribed/{id}',[CourseController::class,'getcoursebyidnot_subscribed'])->name('getcoursebyid');
 Route::get('/course/subscripe/{id}',[CourseController::class,'getcoursebyidsubscripe'])->name('getcoursebyid');
+Route::get('/course/subscripe2/{id}',[CourseController::class,'getcoursebyidsubscripe2'])->name('getcoursebyid');
 Route::get('/slider',[HomeController::class,'getslider'])->name('getslider');
 Route::get('/setting',[HomeController::class,'getsetting'])->name('getsetting');
 Route::get('/category/free/course',[CategoryFreeCourseController::class,'getcategoryfreecourse']);
@@ -71,6 +72,7 @@ Route::get('/quiz',[QuizController::class,'get_quiz_by_id']);
 Route::get('/quiz/bycategory',[QuizController::class,'get_quiz_by_category']);
 Route::get('/category/books',[CategoryBookController::class,'get_category_book']);
 Route::get('/books/bycategory/{id?}',[StoreBookController::class,'get_books_by_category']);
+Route::get('/book',[StoreBookController::class,'get_book_by_id']);
 Route::get('/course/mycourse',[CourseEnrolledController::class,'get_my_course']);
 Route::get('/countries',[CountriesController::class,'get_countries']);
 Route::get('/test',[CountriesController::class,'get_test']);

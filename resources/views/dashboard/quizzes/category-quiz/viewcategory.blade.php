@@ -15,6 +15,7 @@
                         <thead>
                             <tr>
                                 <th>{{ __('tran.category') }}</th>
+                                <th>{{ __('tran.typecategory') }}</th>
                                 <th>{{ __('tran.statu') }}</th>
                                 <th>{{ __('tran.action') }}</th>
                             </tr>
@@ -24,6 +25,9 @@
                                 <tr>
                                     <td>
                                         <span class="fw-bold">{{ $item->name ?? 'N/A' }}</span>
+                                    </td>
+                                    <td>
+                                        <span class="fw-bold">{{ __('tran.typequiz-' . \App\Enum\Quiz::from($item->typecategory )->name)}}</span>
                                     </td>
                                     <td>
                                         <span

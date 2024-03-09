@@ -111,7 +111,7 @@
 
                                                     <input class="form-control"
                                                         wire:model="questions.{{ $key }}.degree"
-                                                        type="text" placeholder="درجه السؤال" required />
+                                                        type="number" step="0.1" placeholder="درجه السؤال" required />
 
                                                     @error('questions.' . $key . '.degree')
                                                         <span class="text-danger">{{ $message }}</span>
