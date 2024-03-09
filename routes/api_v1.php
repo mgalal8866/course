@@ -55,7 +55,7 @@ Route::post('/new/study_schedule',[StudyScheduleController::class,'create_study_
 Route::get('/courses/{category_id}',[CourseController::class,'getcoursesbycategroy'])->name('getcoursesbycategroy');
 Route::get('/course/not_subscribed/{id}',[CourseController::class,'getcoursebyidnot_subscribed'])->name('getcoursebyid');
 Route::get('/course/subscripe/{id}',[CourseController::class,'getcoursebyidsubscripe'])->name('getcoursebyid');
-Route::get('/course/subscripe2/{id}',[CourseController::class,'getcoursebyidsubscripe2'])->name('getcoursebyid');
+Route::get('/course/subscribe/{id}',[CourseController::class,'getcoursebyidsubscripe2'])->name('getcoursebyid');
 Route::get('/slider',[HomeController::class,'getslider'])->name('getslider');
 Route::get('/setting',[HomeController::class,'getsetting'])->name('getsetting');
 Route::get('/category/free/course',[CategoryFreeCourseController::class,'getcategoryfreecourse']);
