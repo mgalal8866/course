@@ -10,18 +10,17 @@ use Vimeo\Laravel\Facades\Vimeo;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
-use Intervention\Image\Facades\Image;
-use Illuminate\Support\Facades\Session;
 use App\Livewire\Dashboard\Stage\Stages;
 use App\Livewire\Dashboard\Blog\ViewBlog;
 use App\Livewire\Dashboard\Setting\Slider;
 use Stevebauman\Location\Facades\Location;
 use App\Livewire\Dashboard\Books\ViewBooks;
-use App\Livewire\Dashboard\Quizzes\ViewQuizz;
 use App\Livewire\Dashboard\Quizzes\Newquiz;
+use App\Livewire\Dashboard\Quizzes\Newquiz2;
 use App\Livewire\Dashboard\Vimeo\Filemanger;
 use App\Livewire\Dashboard\Courses\NewCourse;
 use App\Livewire\Dashboard\Grades\ViewGrades;
+use App\Livewire\Dashboard\Quizzes\ViewQuizz;
 use App\Livewire\Dashboard\Trainees\Trainees;
 use App\Livewire\Dashboard\Trainers\Trainers;
 use App\Livewire\Dashboard\Courses\EditCourse;
@@ -34,8 +33,8 @@ use App\Livewire\Dashboard\Courses\Category\CategoryCourse;
 use App\Livewire\Dashboard\StudySchedule\ViewStudySchedule;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Livewire\Dashboard\Setting\Setting as SettingSetting;
-use App\Livewire\Dashboard\FreeCourse\Category\CategoryFreeCourse;
 use App\Livewire\Dashboard\Quizzes\QuizCategory\ViewQuizCategory;
+use App\Livewire\Dashboard\FreeCourse\Category\CategoryFreeCourse;
 
 // use Browser;
 
@@ -236,6 +235,7 @@ Route::group(
         Route::get('/category/courses', CategoryCourse::class)->name('category');
         Route::get('/category/quiz', ViewQuizCategory::class)->name('category-quiz');
         Route::get('/new/quiz', Newquiz::class)->name('newquiz');
+        Route::get('/new/quiz2', Newquiz2::class)->name('newquiz');
         Route::get('/view/quiz', ViewQuizz::class)->name('viewquiz');
         Route::get('/trainers', Trainers::class)->name('trainers');
         Route::get('/trainees', Trainees::class)->name('trainees');

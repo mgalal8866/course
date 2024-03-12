@@ -109,6 +109,18 @@ class DBUsersRepository implements UsersRepositoryinterface
         }
         return Resp('', 'error', 402, true);
     }
+    public function profile_details()
+    {
+
+        $id = Auth::guard('student')->user()->id;
+        $user =  User::find($id);
+        if ($user != null) {
+
+            $data =  new LoginUserResource($user);
+            return Resp($data, 'Success', 200, true);
+        }
+        return Resp('', 'error', 402, true);
+    }
     public function  forgotpassword($request)
     {
         $user =  $this->model->where('phone', $request->phone)->first();

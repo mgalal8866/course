@@ -4,8 +4,10 @@
     <div class="card border-primary">
         <div class="card-header">
             <h3>اضافه اختبار</h3>
-        </div>
+            <a  class="btn btn-primary" wire:click="$dispatch('edit')">اضافة سؤال</a>
 
+        </div>
+        @livewire('dashboard.quizzes.model')
 
         <div class="card-body">
             <form id="editUserForm" class="row gy-1 pt-75" wire:submit.prevent="save">
@@ -100,17 +102,6 @@
                                                         <input class="form-control"
                                                             wire:model="questions.{{ $key }}.question"
                                                             placeholder="السؤال" type="text" required />
-                                                    </div>
-                                                    @error('questions.' . $key . '.question')
-                                                        <span class="text-danger">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
-                                                <div class="col-6">
-                                                    <div class="input-group input-group-merge">
-                                                        <span class="input-group-text"> </span>
-                                                        <input class="form-control"
-                                                            wire:model="questions.{{ $key }}.question"
-                                                            placeholder="وصف" type="text" required />
                                                     </div>
                                                     @error('questions.' . $key . '.question')
                                                         <span class="text-danger">{{ $message }}</span>

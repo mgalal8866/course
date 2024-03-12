@@ -43,6 +43,10 @@ class UsersController extends Controller
     {
       return  $this->users->resend_code($request);
     }
+    public function profile_details()
+    {
+      return  $this->users->profile_details();
+    }
 
 
     public function sendotp(Request $request)

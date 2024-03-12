@@ -30,6 +30,7 @@ Route::any('/login',[UsersController::class,'login'])->name('login'); //post
 Route::any('/sendotp',[UsersController::class,'sendotp']); //post
 Route::any('/signup',[UsersController::class,'signup']); //post
 Route::any('/update/profile',[UsersController::class,'profile_update']); //post
+Route::any('/details/profile',[UsersController::class,'profile_details']); //post
 Route::any('/forgotpassword',[UsersController::class,'forgotpassword']); //post
 Route::any('/verificationcode',[UsersController::class,'verificationcode']); //post
 Route::any('/change-password',[UsersController::class,'change_password']); //post

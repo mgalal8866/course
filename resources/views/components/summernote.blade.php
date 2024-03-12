@@ -28,7 +28,7 @@
 
 
         function initialize_{{ $id }}(selector) {
-            $(document).ready(function() {
+            // $(document).ready(function() {
                 $(selector).summernote({
                     lang: 'ar-AR',
                     tabsize: 2,
@@ -44,8 +44,7 @@
                         }
                     }
                 });
-
-            });
+            // });
         }
     </script>
 

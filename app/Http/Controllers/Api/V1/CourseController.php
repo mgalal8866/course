@@ -44,8 +44,6 @@ class CourseController extends Controller
     }
     public function getcoursebyidsubscripe2($id)
     {
-
-
         $data =  Stages::with([
             'childrens', 'childrens.lessons',
             'childrens.courses.comments',
