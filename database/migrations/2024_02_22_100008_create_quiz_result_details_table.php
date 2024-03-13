@@ -16,6 +16,7 @@ return new class extends Migration
             $table->uuid('result_header_id');
             $table->uuid('question_id');
             $table->uuid('answer_id');
+            $table->integer('batch')->nullable();
             $table->string('marks')->nullable();
             $table->boolean('is_correct')->comment('1=>correct , 0=>notcorrest');
             $table->timestamps();

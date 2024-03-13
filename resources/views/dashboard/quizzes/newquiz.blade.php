@@ -109,10 +109,10 @@
                                                     <div class="input-group input-group-merge">
                                                         <span class="input-group-text"> </span>
                                                         <input class="form-control"
-                                                            wire:model="questions.{{ $key }}.question"
+                                                            wire:model="questions.{{ $key }}.description"
                                                             placeholder="وصف" type="text" required />
                                                     </div>
-                                                    @error('questions.' . $key . '.question')
+                                                    @error('questions.' . $key . '.description')
                                                         <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>

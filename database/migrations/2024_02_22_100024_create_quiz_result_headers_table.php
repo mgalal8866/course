@@ -16,6 +16,7 @@ return new class extends Migration
             $table->uuid('user_id');
             $table->uuid('quiz_id');
             $table->float('marks');
+            $table->json('history');
             $table->string('start_time');
             $table->string('end_time');
             $table->timestamps();

@@ -42,7 +42,7 @@ class Newquiz extends Component
     }
     public function addquestions()
     {
-        $this->questions->push(['question' => '', 'degree' => '', 'answers' => collect([['answer' => '', 'correct' => '']])]);
+        $this->questions->push(['question' => '','description'=>'', 'degree' => '', 'answers' => collect([['answer' => '', 'correct' => '']])]);
     }
     public function removequestions($key)
     {
@@ -75,6 +75,7 @@ class Newquiz extends Component
                 $question =   Quiz_questions::create([
                     'quiz_id'  => $quiz->id,
                     'question' => $i['question'],
+                    'description' => $i['description'],
                     'mark'   => $i['degree'],
                 ]);
                 foreach ($i['answers'] as $ii) {

@@ -47,11 +47,11 @@ Route::get('/home/section1',[HomeController::class,'section1'])->name('section1'
 // Route::get('/home/section8',[HomeController::class,'section8'])->name('section8');
 // Route::get('/home/header',[HomeController::class,'homeheader'])->name('homeheader');
 // Route::get('/home/footer',[HomeController::class,'homefooter'])->name('homefooter');
+// Route::get('/getcourses',[CourseController::class,'getcategorycourse'])->name('getcategorycourse');
 
 Route::get('/verificationcode/{code?}',[UsersController::class,'verificationcode'])->name('signup');
 Route::get('/category_course',[CategoryCourseController::class,'getcategorycourse'])->name('getcategorycourse');
 Route::get('/home_category_course',[CategoryCourseController::class,'gethomecategorycourse'])->name('gethomecategorycourse');
-// Route::get('/getcourses',[CourseController::class,'getcategorycourse'])->name('getcategorycourse');
 Route::post('/new/study_schedule',[StudyScheduleController::class,'create_study_schedule'])->name('create_study_schedule');
 Route::get('/courses/{category_id}',[CourseController::class,'getcoursesbycategroy'])->name('getcoursesbycategroy');
 Route::get('/course/not_subscribed/{id}',[CourseController::class,'getcoursebyidnot_subscribed'])->name('getcoursebyid');
