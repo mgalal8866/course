@@ -26,7 +26,7 @@ class CourseByIdResource extends JsonResource
             'course_gender'      => $this->course_gender == 1 ? 'طلاب' : 'طالبات', //الصورة
             'course_currency'   => 'ر.س', //عملة الدفع
             'course_price'      => $this->price ?? '', //السعر
-            'course_price_include'      => $this->pricewith == 1 ? 'شامل كتاب الدورة' : '',
+            'course_price_include'      => $this->pricewith == 1 ? 'شامل كتاب الدورة' : 'غير شامل كتاب الدورة',
             'file_schedule'     => $this->schedule ?? 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', //كتاب الدورة
             'duration'          => $this->duration ?? '', //مده الدورة
             'validity'          => $this->validity ?? '', //صلاحية الدورة
@@ -44,6 +44,8 @@ class CourseByIdResource extends JsonResource
             'inputnum'          => $this->inputnum ?? '',
             'price_print'       => $this->price_print ?? '',
             'max_drainees'      => $this->max_drainees ?? '',
+            'telegram_gorup'    => $this->telegramgrup ?? '',
+            'telegram_channel'  => $this->telegram ?? '',
             'created_at'        => $this->created_at->format('d/m/Y'),
             'course_files'      => [
                 'file_supplementary' => $this->file_supplementary ?? '',

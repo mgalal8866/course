@@ -37,11 +37,11 @@ class Courses extends Model
     {
         return $this->belongsTo(Category::class, 'category_id');
     }
-    
+
     public function stages()
     {
 
-        return $this->belongsToMany(Stages::class,'course_stages','course_id', 'stage_id' )->withTimestamps();
+        return $this->belongsToMany(Stages::class,'course_stages','course_id', 'stage_id' )->withPivot('publish_at')->withTimestamps();
     }
     public function stagesparent()
     {
@@ -50,7 +50,7 @@ class Courses extends Model
 
     public function lessons()
     {
-        return $this->belongsToMany(Lessons::class, 'course_stages', 'course_id','lesson_id')->withTimestamps();
+        return $this->belongsToMany(Lessons::class, 'course_stages', 'course_id','lesson_id')->withPivot('publish_at')->withTimestamps();
     }
     public function getImageurlAttribute()
     {

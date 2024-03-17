@@ -34,22 +34,27 @@ class DBQuizRepository implements QuizRepositoryinterface
         if (Auth::guard('student')->check()) {
             $user_id = Auth::guard('student')->user()->id;
             $QuizResultHeader = QuizResultHeader::where(['quiz_id' => $quiz_id, 'user_id' => $user_id])->with(['quiz_result_details'])->first();
+
+            $newrow = ["batch" => '1', "start" => Carbon::now(), "finish" => '', 'time' => '', 'total_question' =>  '', 'answered' => '0', 'not_answered' => '0'];
+            if ($QuizResultHeader == null) {
+                $QuizResultHeader =   QuizResultHeader::Create(['quiz_id' => $quiz_id, 'user_id' => $user_id, 'history' => [$newrow]]);
+            }
+
             $qq = $QuizResultHeader->quiz_result_details->pluck('question_id');
             $question = $this->model->withCount('question')->with([
                 'question' => function ($query) use ($qq) {
                     $query->whereNotIn('id', $qq);
                 }, 'question.answer'
             ])->find($quiz_id);
-            $newrow = [["batch" => '1', "start" => Carbon::now(), "finish" => '', 'time' => '', 'total_question' =>  number_format($question->questions_count), 'answered' => '0', 'not_answered' => '0']];
             if ($QuizResultHeader) {
                 if (!empty($QuizResultHeader->history)) {
                     // dd(array_column($QuizResultHeader->history, 'batch'));
-                    $max = max(array_column($QuizResultHeader->history, 'batch')) ;
+                    $max = max(array_column($QuizResultHeader->history, 'batch'));
 
-                    if ($QuizResultHeader->history[$max- 1]['answered'] == 0 && $QuizResultHeader->history[$max- 1]['not_answered'] == 0) {
+                    if ($QuizResultHeader->history[$max - 1]['answered'] == 0 && $QuizResultHeader->history[$max - 1]['not_answered'] == 0) {
 
                         $history  = $QuizResultHeader->history;
-                        $history[$max- 1]['start']    = Carbon::now();
+                        $history[$max - 1]['start']    = Carbon::now();
                         $QuizResultHeader->history = $history;
                         $QuizResultHeader->save();
                     } else {

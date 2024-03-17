@@ -40,7 +40,7 @@ class Stages extends Model
     }
     public function lessons()
     {
-        return $this->belongsToMany(Lessons::class, 'course_stages', 'stage_id','lesson_id')->withTimestamps();
+        return $this->belongsToMany(Lessons::class, 'course_stages', 'stage_id','lesson_id')->withPivot('publish_at')->withTimestamps();
     }
     public function scopeParentonly($query)
     {

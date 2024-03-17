@@ -10,6 +10,7 @@ use Vimeo\Laravel\Facades\Vimeo;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
+use Intervention\Image\Facades\Image;
 use App\Livewire\Dashboard\Stage\Stages;
 use App\Livewire\Dashboard\Blog\ViewBlog;
 use App\Livewire\Dashboard\Setting\Slider;
@@ -204,27 +205,49 @@ Route::group(
             // return    json_decode( json_encode(Location::get($request->ip())), true);
 
 
-            //   $p1 = asset('files/1.jpg');
-            // $p1 = public_path('\files\1.jpg');
-            // $p2 = public_path('\files\watermark.png');
+              $p1 = asset('files/1.jpg');
+            $p1 = public_path('\files\1.jpg');
+            $p2 = public_path('\files\watermark.png');
 
-            // $watermark = Image::make($p2);
-            // $watermark->rotate(45);
+            $watermark = Image::make($p2);
+            $watermark->rotate(45);
 
-            // $image = Image::make($p1);
-            // // $image->blur(18);
-            // $image->greyscale();
+            $image = Image::make($p1);
+            // $image->blur(18);
+            $image->greyscale();
 
-            // // $imageWidth = $image->width();
-            // // $imageHeight = $image->height();
-            // // $positionX = ($imageWidth - $watermark->width()) / 2;
-            // // $positionY = ($imageHeight - $watermark->height()) / 2;
-            // // // $image->insert($p2, 'center',  number_format($positionX),  number_format($positionY));
-            // $image->insert($watermark, 'center');
-            // return $image->response('jpg');
+            // $imageWidth = $image->width();
+            // $imageHeight = $image->height();
+            // $positionX = ($imageWidth - $watermark->width()) / 2;
+            // $positionY = ($imageHeight - $watermark->height()) / 2;
+            // // $image->insert($p2, 'center',  number_format($positionX),  number_format($positionY));
+            $image->insert($watermark, 'center');
+            return $image->response('jpg');
         });
         Route::get('/', function () {
             return view('layouts.dashboard.app');
+        });
+        Route::get('/image', function () {
+
+            // $p1 = asset('files/1.jpg');
+            $p1 = public_path('\files\1.jpg');
+            // $p2 = public_path('\files\watermark.png');
+            $p2 = public_path('\files\stamp.png');
+
+            $watermark = Image::make($p2);
+            $watermark->rotate(10);
+
+            $image = Image::make($p1);
+            // $image->blur(18);
+            // $image->greyscale();
+
+            // $imageWidth = $image->width();
+            // $imageHeight = $image->height();
+            // $positionX = ($imageWidth - $watermark->width()) / 2;
+            // $positionY = ($imageHeight - $watermark->height()) / 2;
+            // // $image->insert($p2, 'center',  number_format($positionX),  number_format($positionY));
+            $image->insert($watermark, 'center');
+            return $image->response('jpg');
         });
         Route::get('/vimeo', Filemanger::class);
         Route::get('/new/course', NewCourse::class)->name('newcourse');
