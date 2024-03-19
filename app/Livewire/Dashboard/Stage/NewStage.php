@@ -12,9 +12,9 @@ class NewStage extends Component
     use WithFileUploads, ImageProcessing;
 
     protected $listeners = ['edit' => 'edit'];
-    public $stageparent=null,$name, $edit = false, $id,$parent_id, $header,$maincat,$stages;
+    public $stageparent=null,$name, $edit = false, $id,$parent_id, $header,$maincat,$stagesmain;
     public function mount(){
-        $this->stages= Stages::get();
+
 
     }
     public function edit($id = null)
@@ -46,7 +46,7 @@ class NewStage extends Component
 
     public function save()
     {
- 
+
         $this->validate();
         if ($this->edit == true) {
             $CC = Stages::find($this->id);
@@ -65,6 +65,7 @@ class NewStage extends Component
     }
     public function render()
     {
+        $this->stagesmain= Stages::where('parent_id',null)->get();
         return view('dashboard.stage.new-stage');
     }
 }

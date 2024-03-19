@@ -9,7 +9,7 @@ class Stages extends Component
 {
 
     protected $listeners = ['stages_refresh'=>'$refresh'];
-
+public $maincat;
     public function activetoggle($id)
      {
          $CC = ModelsStages::find($id);

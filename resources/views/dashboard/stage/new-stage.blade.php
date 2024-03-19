@@ -26,7 +26,7 @@
                             <select id="stageparent" name="stageparent" class="form-select"
                                 wire:model='stageparent' {{$maincat == true ? 'disabled':''}}>
                                 <option value="null">{{ __('tran.stagesubdefault') }}</option>
-                                @foreach ($stages as $stage)
+                                @foreach ($stagesmain as $stage)
                                     <option value="{{ $stage->id }}">{{ $stage->name }}</option>
                                 @endforeach
                             </select>
