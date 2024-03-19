@@ -54,6 +54,10 @@ class Courses extends Model
     }
     public function getImageurlAttribute()
     {
+        if($this->image ==null){
+
+            return '';
+        }
         return path($this->id,'courses') .'images'.'/' . $this->image;
     }
     public function getCalcRateurlAttribute()
