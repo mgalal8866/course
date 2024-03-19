@@ -25,7 +25,7 @@ class CourseResource extends JsonResource
             'course_gender'      => $this->course_gender == 1 ? 'طلاب' : 'طالبات', //الصورة
             'course_currency'   => 'ر.س', //عملة الدفع
             'course_price'      => $this->price ?? '', //السعر
-            'course_price_include'      => $this->pricewith == 1 ? 'شامل كتاب الدورة' : '',
+            'course_price_include'      => $this->pricewith == 1 ? 'شامل كتاب الدورة' : 'غير شامل كتاب الدورة',
             'file_schedule'     => $this->schedule ?? 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', //كتاب الدورة
             'duration'          => $this->duration ?? '', //مده الدورة
             'validity'          => $this->validity ?? '', //صلاحية الدورة
