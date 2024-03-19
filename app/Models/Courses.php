@@ -58,6 +58,9 @@ class Courses extends Model
     }
     public function getCalcRateurlAttribute()
     {
+        // if($this->calc_rate ==null)
+        // return path($this->id,'courses') .'images'.'/' . $this->calc_rate;
+
         return path($this->id,'courses') .'images'.'/' . $this->calc_rate;
     }
 
