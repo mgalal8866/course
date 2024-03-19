@@ -56,6 +56,10 @@ class Courses extends Model
     {
         return path($this->id,'courses') .'images'.'/' . $this->image;
     }
+    public function getCalcRateurlAttribute()
+    {
+        return path($this->id,'courses') .'images'.'/' . $this->calc_rate;
+    }
 
     public function comments()
     {
