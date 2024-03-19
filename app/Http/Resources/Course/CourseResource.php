@@ -43,6 +43,10 @@ class CourseResource extends JsonResource
             'inputnum'          => $this->inputnum ?? '',
             'price_print'       => $this->price_print ?? '',
             'max_drainees'      => $this->max_drainees ?? '',
+            'answer_the_question'    => $this->answer_the_question ?? '',
+            'calc_rate'    => $this->calc_rateurl ?? '',
+            'telegram_gorup'    => $this->telegramgrup ?? '',
+            'telegram_channel'  => $this->telegram ?? '',
             'created_at'        => $this->created_at->format('d/m/Y'),
             'course_subscripe'  => 'true',
             ];
