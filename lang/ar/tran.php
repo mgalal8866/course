@@ -146,6 +146,8 @@ return [
     'quizz-categorys' => 'اقسام المسابقات',
     'typequiz-LEVEL' => 'قسم اختبار تحديد مستوى',
     'typequiz-QUIZ' => 'قسم مسابقات',
-    'typecategory' => 'نوع القسم'
+    'typecategory' => 'نوع القسم',
+    'calc_rate' => 'حساب معدل الدوره ',
+    'answer_the_question' => 'أليه الرد على الاستفسار'
 
 ];

@@ -268,6 +268,14 @@
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
+                                <div class="mb-1 col-md-12">
+                                    <label class="form-label" for="">{{ __('tran.calc_rate') }}</label>
+                                    <x-summernote wire:model='calc_rate' name="calc_rate" id="calc_rate"
+                                        value='{{ $calc_rate }}' />
+                                    @error('calc_rate')
+                                        <span class="error" style="color: red">{{ $message }}</span>
+                                    @enderror
+                                </div>
 
                             </div>
                         </div>
@@ -278,10 +286,17 @@
                                 {{-- <small class="text-muted">{{ $pages[2]['subheading'] }}</small> --}}
                             </div>
                             <div class="row">
-                                <div class="mb-2 col-md-12">
+                                <div class="mb-2 col-md-6">
                                     <x-imageupload wire:model='image_course' :height='200' :width='200'
                                         :imagenew="$image_course" :tlabel="__('tran.imagecourse')" />
                                     @error('image_course')
+                                        <span class="error" style="color: red">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="mb-2 col-md-6">
+                                    <x-imageupload wire:model='calc_rate' :height='200' :width='200'
+                                        :imagenew="$calc_rate" :tlabel="__('tran.calc_rate')" />
+                                    @error('calc_rate')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>

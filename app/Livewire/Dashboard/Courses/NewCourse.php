@@ -32,7 +32,7 @@ class NewCourse extends Component
         $telegram, $telegramgrup, $nextcourse, $course_gender, $schedule, $free_tatorul, $nextcoursesbycat,
         $name, $description, $validity = 'تبقى الدورة بكامل محتوياتها ثلاثة أشهر بحساب المتدرب.', $country_id, $category_id, $price, $pricewith = 1, $startdate, $enddate, $time, $features, $triner = [], $limit_stud, $duration_course = 'شهر ونصف',
         $image_course, $file_work, $file_explanatory, $file_aggregates, $file_supplementary, $file_free, $file_test,
-        $langcourse = false, $status = true, $inputnum = false, $lessons, $stages;
+        $langcourse = false, $status = true, $inputnum = false, $lessons, $stages,$answer_the_question,$calc_rate;
     public $questions, $total_scores, $degree_success, $testname, $testtime;
 
 
@@ -231,7 +231,7 @@ class NewCourse extends Component
     public function goToNextPage()
     {
 
-        // $this->validate($this->validtionRules[$this->currentPage]);
+        $this->validate($this->validtionRules[$this->currentPage]);
         $this->currentPage++;
     }
     public function goToPage($pg)
@@ -277,8 +277,13 @@ class NewCourse extends Component
                 'lang'         => ($this->langcourse = true) ? 1 : 0,
                 'statu'        => ($this->status = true) ? 1 : 0,
                 'inputnum'     => ($this->inputnum = true) ? 1 : 0,
-                'file_free'    => $this->file_free ?? null
+                'file_free'    => $this->file_free ?? null,
+                'calc_rate'    => $this->calc_rate ?? null
             ]);
+            if ($this->answer_the_question) {
+                $dataX = $this->saveImageAndThumbnail($this->answer_the_question, false, $CFC->id, 'courses', 'images');
+                $CFC->image =  $dataX['image'];
+            }
             if ($this->image_course) {
                 $dataX = $this->saveImageAndThumbnail($this->image_course, false, $CFC->id, 'courses', 'images');
                 $CFC->image =  $dataX['image'];
