@@ -269,10 +269,10 @@
                                     @enderror
                                 </div>
                                 <div class="mb-1 col-md-12">
-                                    <label class="form-label" for="">{{ __('tran.calc_rate') }}</label>
-                                    <x-summernote wire:model='calc_rate' name="calc_rate" id="calc_rate"
-                                        value='{{ $calc_rate }}' />
-                                    @error('calc_rate')
+                                    <label class="form-label" for="">{{ __('tran.answer_the_question') }}</label>
+                                    <x-summernote wire:model='answer_the_question' name="answer_the_question" id="answer_the_question"
+                                        value='{{ $answer_the_question }}' />
+                                    @error('answer_the_question')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
