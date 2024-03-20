@@ -45,7 +45,7 @@ class CourseController extends Controller
     public function getcoursebyidsubscripe2($id)
     {
         $data =  Stages::with([
-            'childrens '=> function ($q) use ($id) {
+            'childrens'=> function ($query) use ($id) {
                 $q->whereHas('courses', function ($qq) use ($id) {
                     $qq->where('course_id', $id);
                 });
