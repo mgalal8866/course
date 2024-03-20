@@ -52,15 +52,15 @@ class CourseController extends Controller
                 $query->where('course_id', $id);
             }
         ])
-        // ->whereHas('childrens', function ($q) use ($id) {
-        //     $q->whereHas('courses', function ($qq) use ($id) {
-        //         $qq->where('course_id', $id);
-        //     });
-        // })
+        ->whereHas('childrens', function ($q) use ($id) {
+            $q->whereHas('courses', function ($qq) use ($id) {
+                $qq->where('course_id', $id);
+            });
+        })
         ->get();
 
         $data=['data'=>$data];
-// dd($data['data']);
+dd($data['data']);
         if (Count($data['data']) != 0) {
 
             return Resp(new CollectionCourseResource($data), 'success', 200, true);
