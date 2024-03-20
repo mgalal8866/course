@@ -179,7 +179,7 @@ class NewCourse extends Component
                     $question =   Quiz_questions::create([
                         'quiz_id'  => $quiz->id,
                         'question' => $i['question'],
-                        'degree'   => $i['degree'],
+                        'mark'   => $i['degree'],
                     ]);
                     foreach ($i['answers'] as $ii) {
                         Quiz_question_answers::create([
@@ -278,10 +278,11 @@ class NewCourse extends Component
                 'statu'        => ($this->status = true) ? 1 : 0,
                 'inputnum'     => ($this->inputnum = true) ? 1 : 0,
                 'file_free'    => $this->file_free ?? null,
+                'answer_the_question'    => $this->answer_the_question ?? null,
                 'calc_rate'    => $this->calc_rate ?? null
             ]);
-            if ($this->answer_the_question) {
-                $dataX = $this->saveImageAndThumbnail($this->answer_the_question, false, $CFC->id, 'courses', 'images');
+            if ($this->calc_rate) {
+                $dataX = $this->saveImageAndThumbnail($this->calc_rate, false, $CFC->id, 'courses', 'images');
                 $CFC->image =  $dataX['image'];
             }
             if ($this->image_course) {
