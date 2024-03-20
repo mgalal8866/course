@@ -287,7 +287,7 @@ class NewCourse extends Component
             }
             if ($this->image_course) {
                 $dataX = $this->saveImageAndThumbnail($this->image_course, false, $CFC->id, 'courses', 'images');
-                $CFC->image_course =  $dataX['image'];
+                $CFC->image =  $dataX['image'];
             }
             if ($this->schedule) {
                 $file =  uploadfile($this->schedule, "files/courses/"  . $CFC->id . "/doc");
