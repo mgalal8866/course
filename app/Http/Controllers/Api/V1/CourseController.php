@@ -58,7 +58,7 @@ class CourseController extends Controller
         })->get();
 
         $data=['data'=>$data];
-
+dd($data['data']);
         if (Count($data['data']) != 0) {
 
             return Resp(new CollectionCourseResource($data), 'success', 200, true);
