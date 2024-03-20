@@ -279,15 +279,15 @@ class NewCourse extends Component
                 'inputnum'     => ($this->inputnum = true) ? 1 : 0,
                 'file_free'    => $this->file_free ?? null,
                 'answer_the_question'    => $this->answer_the_question ?? null,
-                'calc_rate'    => $this->calc_rate ?? null
+
             ]);
             if ($this->calc_rate) {
                 $dataX = $this->saveImageAndThumbnail($this->calc_rate, false, $CFC->id, 'courses', 'images');
-                $CFC->image =  $dataX['image'];
+                $CFC->calc_rate =  $dataX['image'];
             }
             if ($this->image_course) {
                 $dataX = $this->saveImageAndThumbnail($this->image_course, false, $CFC->id, 'courses', 'images');
-                $CFC->image =  $dataX['image'];
+                $CFC->image_course =  $dataX['image'];
             }
             if ($this->schedule) {
                 $file =  uploadfile($this->schedule, "files/courses/"  . $CFC->id . "/doc");
