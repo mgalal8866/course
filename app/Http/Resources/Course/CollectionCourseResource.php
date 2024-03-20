@@ -23,8 +23,8 @@ class CollectionCourseResource extends JsonResource
                 'file_free'          => $this['data'][0]['childrens'][0]['courses'][0]['file_free'] ?? ''
             ],
             'stages' => ParentStagesResource::collection( $this['data']),
-            'comments' => CommentsResource::collection( $this['data'][0]['childrens'][0]['courses'][0]['comments']),
-            'triners' => TrainerResource::collection( $this['data'][0]['childrens'][0]['courses'][0]['coursetrainers']),
+            'comments' => $this['data'][0]['childrens'][0]['courses'][0]['comments']?CommentsResource::collection( $this['data'][0]['childrens'][0]['courses'][0]['comments']):[],
+            'triners' => $this['data'][0]['childrens'][0]['courses'][0]['coursetrainers']?TrainerResource::collection( $this['data'][0]['childrens'][0]['courses'][0]['coursetrainers']):[],
 
         ];
     }
