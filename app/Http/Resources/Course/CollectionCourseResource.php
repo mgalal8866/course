@@ -13,7 +13,7 @@ class CollectionCourseResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'course' => $this['data'][0]['childrens'][0]['courses'][0]?new CourseResource( $this['data'][0]['childrens'][0]['courses'][0]):[],
+            'course' =>  isset($this['data'][0]['childrens'][0]['courses'][0])? new CourseResource( $this['data'][0]['childrens'][0]['courses'][0]):[],
             'course_files'      => [
                 'file_supplementary' => $this['data'][0]['childrens'][0]['courses'][0]['file_supplementary'] ?? '',
                 'file_aggregates'    => $this['data'][0]['childrens'][0]['courses'][0]['file_aggregates'] ?? '',
@@ -24,7 +24,7 @@ class CollectionCourseResource extends JsonResource
             ],
             'stages' => ParentStagesResource::collection( $this['data']),
             'comments' => $this['data'][0]['childrens'][0]['courses'][0]['comments']?CommentsResource::collection( $this['data'][0]['childrens'][0]['courses'][0]['comments']):[],
-            'triners' => $this['data'][0]['childrens'][0]['courses'][0]['coursetrainers']?TrainerResource::collection( $this['data'][0]['childrens'][0]['courses'][0]['coursetrainers']):[],
+            'triners' => isset($this['data'][0]['childrens'][0]['courses'][0])?TrainerResource::collection( $this['data'][0]['childrens'][0]['courses'][0]['coursetrainers']):[],
 
         ];
     }
