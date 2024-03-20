@@ -59,7 +59,7 @@ class DBCourseRepository implements CourseRepositoryinterface
             ]
         )->find($id);
         // });
-        dd($course);
+        // dd($course);
         return  $course;
     }
 }
