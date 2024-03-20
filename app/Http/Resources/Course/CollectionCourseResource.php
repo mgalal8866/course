@@ -13,9 +13,9 @@ class CollectionCourseResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'course' =>  isset($this['data'][0]['childrens'][0]['courses'][0])? new CourseResource( $this['data'][0]['childrens'][0]['courses'][0]):[],
+            'course' => new CourseResource( $this['data'][0]['childrens'][0]['courses'][0]??[]) ,
             'course_files'      => [
-                'file_supplementary' => isset( $this['data'][0]['childrens'][0]['courses'][0]['file_supplementary']) ?? '',
+                'file_supplementary' => isset( $this['data'][0]['childrens'][0]['courses'][0]['file_supplementary']) ?$this['data'][0]['childrens'][0]['courses'][0]['file_supplementary']:  '',
                 'file_aggregates'    =>  isset($this['data'][0]['childrens'][0]['courses'][0]['file_aggregates']) ?? '',
                 'file_explanatory'   =>  isset($this['data'][0]['childrens'][0]['courses'][0]['file_explanatory']) ?? '',
                 'file_work'          => isset( $this['data'][0]['childrens'][0]['courses'][0]['file_work']) ?? '',
