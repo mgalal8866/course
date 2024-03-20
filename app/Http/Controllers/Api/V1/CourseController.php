@@ -51,11 +51,13 @@ class CourseController extends Controller
             'childrens.courses'  => function ($query) use ($id) {
                 $query->where('course_id', $id);
             }
-        ])->whereHas('childrens', function ($q) use ($id) {
-            $q->whereHas('courses', function ($qq) use ($id) {
-                $qq->where('course_id', $id);
-            });
-        })->get();
+        ])
+        // ->whereHas('childrens', function ($q) use ($id) {
+        //     $q->whereHas('courses', function ($qq) use ($id) {
+        //         $qq->where('course_id', $id);
+        //     });
+        // })
+        ->get();
 
         $data=['data'=>$data];
 // dd($data['data']);
