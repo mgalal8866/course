@@ -4,8 +4,9 @@ namespace App\Repository;
 
 use Carbon\Carbon;
 use App\Models\Quizes;
-use App\Models\QuizResultHeader;
 use Illuminate\Http\Request;
+use App\Models\QuizResultHeader;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use App\Repositoryinterface\QuizRepositoryinterface;
@@ -33,6 +34,7 @@ class DBQuizRepository implements QuizRepositoryinterface
 
         if (Auth::guard('student')->check()) {
             $user_id = Auth::guard('student')->user()->id;
+            Log::error($user_id );
             $QuizResultHeader = QuizResultHeader::where(['quiz_id' => $quiz_id, 'user_id' => $user_id])->with(['quiz_result_details'])->first();
 
             $newrow = ["batch" => '1', "start" => Carbon::now(), "finish" => '', 'time' => '', 'total_question' =>  '', 'answered' => '0', 'not_answered' => '0'];

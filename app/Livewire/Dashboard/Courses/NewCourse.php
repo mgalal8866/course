@@ -32,7 +32,7 @@ class NewCourse extends Component
         $telegram, $telegramgrup, $nextcourse, $course_gender, $schedule, $free_tatorul, $nextcoursesbycat,
         $name, $description, $validity = 'تبقى الدورة بكامل محتوياتها ثلاثة أشهر بحساب المتدرب.', $country_id, $category_id, $price, $pricewith = 1, $startdate, $enddate, $time, $features, $triner = [], $limit_stud, $duration_course = 'شهر ونصف',
         $image_course, $file_work, $file_explanatory, $file_aggregates, $file_supplementary, $file_free, $file_test,
-        $langcourse = false, $status = true, $inputnum = false, $lessons, $stages,$answer_the_question,$calc_rate;
+        $langcourse = false, $status = true, $inputnum = false, $lessons, $stages, $answer_the_question, $calc_rate;
     public $questions, $total_scores, $degree_success, $testname, $testtime;
 
 
@@ -54,176 +54,183 @@ class NewCourse extends Component
     }
 
 
-     //############### Start validtion ###############
-        public function messages(): array
-        {
-            return [
-                'testname.required'            => 'مطلوب اسم الاختبار',
-                'testtime.required'     => 'وقت الاختبار مطلوب',
-                'total_scores.required'           => 'اجمالى الدرجات مطلوب',
-                'degree_success.required'           => 'درجه النجاح مطلوب',
-                'questions.*.question.required'           => 'ألسؤال مطلوب',
-                'questions.*.degree.required'            => 'درجه السؤال مطلوب',
-                'questions.*.answers.required'           => 'required',
-                'questions.*.answers.*.answer'  => 'required',
-                'questions.*.answers.*.correct' => 'required',
-                'target.required' => 'اهداف الدورة مطلوبة',
-                'name.required'            => 'اسم الدوره مطلوب',
-                // 'country_id.required'      => 'حقل الدولة مطلوب',
-                'category_id.required'     => 'حقل الاقسام مطلوب',
-                'price.required'           => 'حقل السعر مطلوب',
-                'pricewith.required'           => 'حقل شامل السعر مطلوب',
-                'startdate.required'       => 'تاريخ البدا مطلوب',
-                'enddate.required'         => 'تاريخ الانتهاء مطلوب',
-                'time.required'            => 'الوقت مطلوب',
-                'features.required'        => 'المميزات مطلوب',
-                'howtostart.required'        => 'كيف البدا مطلوب',
-                'target.required'        => 'الاهداف مطلوب',
-                'conditions.required'        => 'الشروط والاحكام مطلوبه',
-                'short_description.required'        => 'نبذه مختصره مطلوبة',
-                'description.required'        => 'نبذه مطلوبة',
-                'triner.required'          => 'المدربون مطلوب',
-                'limit_stud.required'      => 'عدد المقاعد مطلوب',
-                'validity.required' => 'صلاحية الدوره مطلوب',
-                'duration_course.required' => 'مده الدوره مطلوب',
-                'image_course.required' => ' صورة الدورة مطلوبه',
-                'schedule.required' => 'جدول الدورة مطلوب',
-                // 'free_tatorul.required' => 'الشرح المجانى مطلوب',
-                'lessons.*.name.required' => 'اسم الشرح مطلوب',
-                'lessons.*.link.required' => 'الرابط مطلوب',
-                'lessons.*.stage_id.required' => 'المرحلة مطلوب ',
-            ];
-        }
-        private  $validtionRules = [
-            1 => [
-                'name'            => 'required',
-                // 'country_id'      => 'required|exists:countries,id',
-                'category_id'     => 'required|exists:categories,id',
-                'price'           => 'required',
-                'pricewith'           => 'required',
-                'startdate'       => 'required|date_format:Y/m/d',
-                'enddate'         => 'required|date_format:Y/m/d',
-                'time'            => 'required',
-                'features'        => 'required',
-                'howtostart'        => 'required',
-                'target'        => 'required',
-                'conditions'        => 'required',
-                'short_description'        => 'required',
-                'description'        => 'required',
-                'triner'          => 'required',
-                'limit_stud'      => 'required|integer',
-                'validity' => 'required',
-                'duration_course' => 'required',
-            ],
-            2 => [
-                'image_course' => 'required',
-                'schedule' => 'required',
-                'file_work' => '',
-                'file_explanatory' => '',
-                'file_aggregates' => '',
-                'file_supplementary' => '',
-                'file_free' => '',
-                'file_test' => ''
-            ],
-            3 => [
-                'lessons.*.name' => 'required',
-                'lessons.*.link' => 'required',
-                'lessons.*.stage_id' => 'required',
-                'lessons.*.publish_at' => 'required',
-            ],
+    //############### Start validtion ###############
+    public function messages(): array
+    {
+        return [
+            'testname.required'            => 'مطلوب اسم الاختبار',
+            'testtime.required'     => 'وقت الاختبار مطلوب',
+            'total_scores.required'           => 'اجمالى الدرجات مطلوب',
+            'degree_success.required'           => 'درجه النجاح مطلوب',
+            'questions.*.question.required'           => 'ألسؤال مطلوب',
+            'questions.*.degree.required'            => 'درجه السؤال مطلوب',
+            'questions.*.answers.required'           => 'required',
+            'questions.*.answers.*.answer'  => 'required',
+            'questions.*.answers.*.correct' => 'required',
+            'target.required' => 'اهداف الدورة مطلوبة',
+            'name.required'            => 'اسم الدوره مطلوب',
+            // 'country_id.required'      => 'حقل الدولة مطلوب',
+            'category_id.required'     => 'حقل الاقسام مطلوب',
+            'price.required'           => 'حقل السعر مطلوب',
+            'pricewith.required'           => 'حقل شامل السعر مطلوب',
+            'startdate.required'       => 'تاريخ البدا مطلوب',
+            'enddate.required'         => 'تاريخ الانتهاء مطلوب',
+            'time.required'            => 'الوقت مطلوب',
+            'features.required'        => 'المميزات مطلوب',
+            'howtostart.required'        => 'كيف البدا مطلوب',
+            'target.required'        => 'الاهداف مطلوب',
+            'conditions.required'        => 'الشروط والاحكام مطلوبه',
+            'short_description.required'        => 'نبذه مختصره مطلوبة',
+            'description.required'        => 'نبذه مطلوبة',
+            'triner.required'          => 'المدربون مطلوب',
+            'limit_stud.required'      => 'عدد المقاعد مطلوب',
+            'validity.required' => 'صلاحية الدوره مطلوب',
+            'duration_course.required' => 'مده الدوره مطلوب',
+            'image_course.required' => ' صورة الدورة مطلوبه',
+            'schedule.required' => 'جدول الدورة مطلوب',
+            // 'free_tatorul.required' => 'الشرح المجانى مطلوب',
+            'lessons.*.name.required' => 'اسم الشرح مطلوب',
+            'lessons.*.link.required' => 'الرابط مطلوب',
+            'lessons.*.stage_id.required' => 'المرحلة مطلوب ',
+        ];
+    }
+    private  $validtionRules = [
+        1 => [
+            'name'            => 'required',
+            // 'country_id'      => 'required|exists:countries,id',
+            'category_id'     => 'required|exists:categories,id',
+            'price'           => 'required',
+            'pricewith'           => 'required',
+            'startdate'       => 'required|date_format:Y/m/d',
+            'enddate'         => 'required|date_format:Y/m/d',
+            'time'            => 'required',
+            'features'        => 'required',
+            'howtostart'        => 'required',
+            'target'        => 'required',
+            'conditions'        => 'required',
+            'short_description'        => 'required',
+            'description'        => 'required',
+            'triner'          => 'required',
+            'limit_stud'      => 'required|integer',
+            'validity' => 'required',
+            'duration_course' => 'required',
+        ],
+        2 => [
+            'image_course' => 'required',
+            'schedule' => 'required',
+            'file_work' => '',
+            'file_explanatory' => '',
+            'file_aggregates' => '',
+            'file_supplementary' => '',
+            'file_free' => '',
+            'file_test' => ''
+        ],
+        3 => [
+            'lessons.*.name' => 'required',
+            'lessons.*.link' => 'required',
+            'lessons.*.stage_id' => 'required',
+            'lessons.*.publish_at' => 'required',
+        ],
 
-        ];
-        private  $validtionRules2 = [
-            'testname'                              => 'required',
-            'testtime'                      => 'required',
-            'total_scores'                              => 'required',
-            'degree_success'                            => 'required',
-            'questions.*.question'                              => 'required',
-            'questions.*.degree'            => 'required',
-        ];
-     //############### End validtion ###############
+    ];
+    private  $validtionRules2 = [
+        'testname'                              => 'required',
+        'testtime'                      => 'required',
+        'total_scores'                              => 'required',
+        'degree_success'                            => 'required',
+        'questions.*.question'                              => 'required',
+        'questions.*.degree'            => 'required',
+    ];
+    //############### End validtion ###############
 
     //############## Start Questions ################
-        public function addquestions()
-        {
-            $this->questions->push(['question' => '', 'degree' => '', 'answers' => collect([['answer' => '', 'correct' => '']])]);
-        }
-        public function removequestions($key)
-        {
-            if ($this->questions->count() != 1)
-                $this->questions->pull($key);
-        }
-        public function addanswerquestions($key)
-        {
-            $this->questions[$key]['answers']->push(['answer' => '', 'correct' => '']);
-        }
-        public function  removeanswerquestions($key, $key1)
-        {
-            $this->questions[$key]['answers']->pull($key1);
-        }
+    public function addquestions()
+    {
+        $this->questions->push(['question' => '', 'degree' => '', 'answers' => collect([['answer' => '', 'correct' => '']])]);
+    }
+    public function removequestions($key)
+    {
+        if ($this->questions->count() != 1)
+            $this->questions->pull($key);
+    }
+    public function addanswerquestions($key)
+    {
+        $this->questions[$key]['answers']->push(['answer' => '', 'correct' => '']);
+    }
+    public function  removeanswerquestions($key, $key1)
+    {
+        $this->questions[$key]['answers']->pull($key1);
+    }
 
-        public function  savequti($key)
-        {
-            $this->validate($this->validtionRules2);
+    public function  savequti($key)
+    {
+        $this->validate($this->validtionRules2);
 
-            DB::beginTransaction();
-            try {
-                $quiz = Quizes::create([
-                    'name'          => $this->testname ?? null,
-                    'category_id'   => $this->testcategory ?? null,
-                    'time'          => $this->testtime ?? null,
-                    'pass_marks' => $this->degree_success ?? null,
-                    'total_marks'  => $this->total_scores ?? null,
+        DB::beginTransaction();
+        try {
+            $quiz = Quizes::create([
+                'name'          => $this->testname ?? null,
+                'category_id'   => $this->testcategory ?? null,
+                'time'          => $this->testtime ?? null,
+                'pass_marks' => $this->degree_success ?? null,
+                'total_marks'  => $this->total_scores ?? null,
+            ]);
+            foreach ($this->questions as $i) {
+                $question =   Quiz_questions::create([
+                    'quiz_id'  => $quiz->id,
+                    'question' => $i['question'],
+                    'mark'   => $i['degree'],
                 ]);
-                foreach ($this->questions as $i) {
-                    $question =   Quiz_questions::create([
-                        'quiz_id'  => $quiz->id,
-                        'question' => $i['question'],
-                        'mark'   => $i['degree'],
+                foreach ($i['answers'] as $ii) {
+                    Quiz_question_answers::create([
+                        'question_id' => $question->id,
+                        'answer'     => $ii['answer'],
+                        'correct'    => $ii['correct'] == true ? 1 : 0,
                     ]);
-                    foreach ($i['answers'] as $ii) {
-                        Quiz_question_answers::create([
-                            'question_id' => $question->id,
-                            'answer'     => $ii['answer'],
-                            'correct'    => $ii['correct'] == true ? 1 : 0,
-                        ]);
-                    }
                 }
-                $d = $quiz->id;
-                $this->dispatch('closemodel', key: $key);
-                $this->dispatch('swal', message: 'تم انشاء التدريب بنجاح');
-                DB::commit();
-                $this->editw($key, $d);
-            } catch (\Exception $e) {
-                dd($e->getMessage());
-                DB::rollback();
             }
+            $d = $quiz->id;
+            $this->dispatch('closemodel', key: $key);
+            $this->dispatch('swal', message: 'تم انشاء التدريب بنجاح');
+            DB::commit();
+            $this->editw($key, $d);
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+            DB::rollback();
         }
+    }
     //############## End Questions ################
 
     //################ Start Lesson ################
-        public function updatedCategoryId($value)
-        {
-            $this->nextcoursesbycat = Courses::whereCategoryId($value)->get();
-        }
-        public function addlesson()
-        {
-            $this->lessons->push(['stage_id' => null, 'img' => null, 'name' => '', 'link' => '', 'is_lesson' => true, 'publish_at' => null]);
-        }
-        public function removelesson($key)
-        {
-            if ($this->lessons->count() != 1)
-                $this->lessons->pull($key);
-        }
-        public function editw($key, $val)
-        {
-            $this->lessons = $this->lessons->map(function ($object, $k) use ($val) {
+    public function updatedCategoryId($value)
+    {
+        $this->nextcoursesbycat = Courses::whereCategoryId($value)->get();
+    }
+    public function addlesson()
+    {
+        $this->lessons->push(['stage_id' => null, 'img' => null, 'name' => '', 'link' => '', 'is_lesson' => true, 'publish_at' => null]);
+    }
+    public function removelesson($key)
+    {
+        if ($this->lessons->count() != 1)
+            $this->lessons->pull($key);
+    }
+    public function editw($key, $val)
+    {
+        // if (isset($this->lessons[$key])) {
+        //     $this->lessons[$key]['link'] = $val;
+        // }
+        $this->lessons = $this->lessons->map(function ($object, $k) use ($val,$key) {
+
+            if ($k == $key) {
                 $object['link'] = $val;
                 return $object;
-            });
-            //  dd($this->lessons);
+            }
+            return $object;
+        });
 
-        }
+        dd($this->lessons);
+    }
     //################ End Lesson ################
 
     //############## End Questions ##############
@@ -231,7 +238,7 @@ class NewCourse extends Component
     public function goToNextPage()
     {
 
-        $this->validate($this->validtionRules[$this->currentPage]);
+        // $this->validate($this->validtionRules[$this->currentPage]);
         $this->currentPage++;
     }
     public function goToPage($pg)

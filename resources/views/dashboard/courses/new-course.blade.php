@@ -505,7 +505,7 @@
                                 </div>
                                 <div class="mb-1 col-md-6">
                                     <label class="form-label" for="nextcourse">{{ __('tran.nextcourse') }}</label>
-                                    <select class="form-select" wire:model='nextcourse' required>
+                                    <select class="form-select" wire:model='nextcourse' >
                                         <option value="">اختار الدورة التالية</option>
                                         @foreach ($nextcoursesbycat as $item)
                                             <option value="{{ $item->id }}">

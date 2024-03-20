@@ -39,9 +39,9 @@
     </div>
 
     <!-- Progress Bar -->
-    <div x-show="isUploading"  >
+    {{-- <div x-show="isUploading"  >
         <x-loading></x-loading>
-    </div>
+    </div> --}}
 
     <div x-show="isUploading" class="progress progress-sm mt-2 rounded">
         <div class="progress-bar bg-success  progress-bar-striped" role="progressbar" aria-valuenow="40"
