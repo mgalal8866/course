@@ -49,7 +49,7 @@ class CourseController extends Controller
             'childrens.courses.comments',
             'childrens.courses.coursetrainers',
             'childrens.courses'  => function ($query) use ($id) {
-                $query->where('course_id', $id)->first();
+                $query->where('course_id', $id);
             }
         ])->whereHas('childrens', function ($q) use ($id) {
             $q->whereHas('courses', function ($qq) use ($id) {
