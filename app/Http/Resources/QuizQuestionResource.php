@@ -14,7 +14,7 @@ class QuizQuestionResource extends JsonResource
         return [
             'question_id'     => $this->id,
             'question_body'   => $this->question??'',
-            'question_body'   => $this->description??'',
+            'question_description'   => $this->description??'',
             'answers'         => QuizAnswerResource::collection($this->answer),
         ];
     }
