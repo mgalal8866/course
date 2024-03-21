@@ -146,7 +146,7 @@ class NewCourse extends Component
     //############## Start Questions ################
     public function addquestions()
     {
-        $this->questions->push(['question' => '', 'degree' => '', 'answers' => collect([['answer' => '', 'correct' => '']])]);
+        $this->questions->push(['question' => '','testdescription'=>'', 'degree' => '', 'answers' => collect([['answer' => '', 'correct' => '']])]);
     }
     public function removequestions($key)
     {
@@ -178,6 +178,7 @@ class NewCourse extends Component
             foreach ($this->questions as $i) {
                 $question =   Quiz_questions::create([
                     'quiz_id'  => $quiz->id,
+                    'description' => $i['testdescription'],
                     'question' => $i['question'],
                     'mark'   => $i['degree'],
                 ]);
@@ -229,7 +230,7 @@ class NewCourse extends Component
             return $object;
         });
 
-        dd($this->lessons);
+        // dd($this->lessons);
     }
     //################ End Lesson ################
 

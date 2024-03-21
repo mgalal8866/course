@@ -30,6 +30,7 @@
                                     <span class="error" style="color: red">{{ $message }}</span>
                                 @enderror
                             </div>
+
                             <div class="col-12 col-md-4">
                                 <label class="form-label" for="testtime">{{ __('tran.testtime') }}</label>
                                 <input type="text" class="form-control" wire:model="testtime" id="testtime" />
@@ -89,7 +90,19 @@
                                                                 <span class="text-danger">{{ $message }}</span>
                                                             @enderror
                                                         </div>
-                                                        <div class="col-2">
+                                                        <div class="col-6">
+                                                            <div class="input-group input-group-merge">
+                                                                <span class="input-group-text"><i
+                                                                        class="fas fa-question"></i></span>
+                                                                <input class="form-control"
+                                                                    wire:model="questions.{{ $key }}.testdescription"
+                                                                    placeholder="وصف السؤال" type="text" />
+                                                            </div>
+                                                            @error('questions.' . $key . '.testdescription')
+                                                                <span class="text-danger">{{ $message }}</span>
+                                                            @enderror
+                                                        </div>
+                                                        <div class="col-2 mt-2">
 
                                                             <input class="form-control"
                                                                 wire:model.live="questions.{{ $key }}.degree"
