@@ -78,6 +78,7 @@ Route::get('/category/books',[CategoryBookController::class,'get_category_book']
 Route::get('/books/bycategory/{id?}',[StoreBookController::class,'get_books_by_category']);
 Route::get('/category/blog',[CategoryBlogController::class,'get_category_blog']);
 Route::get('/blog/by/category',[BlogController::class,'get_blog_by_category']);
+Route::get('/blog',[BlogController::class,'get_blog_by_id']);
 Route::get('/book',[StoreBookController::class,'get_book_by_id']);
 Route::get('/course/mycourse',[CourseEnrolledController::class,'get_my_course']);
 Route::get('/course/category/mycourse',[CourseEnrolledController::class,'get_category_my_course']);

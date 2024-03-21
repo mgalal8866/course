@@ -14,13 +14,14 @@ class BlogController extends Controller
         $this->blogRepositry = $blogRepositry;
     }
 
-    public function getcart()
-    {
-        return Resp(ApiBlogResource::collection($this->blogRepositry->get_blog_by_id('a')), 'success', 200, true);
-    }
+    
     public function get_blog_by_category()
     {
         return Resp(ApiBlogResource::collection($this->blogRepositry->get_blog_by_category()), 'success', 200, true);
+    }
+    public function get_blog_by_id()
+    {
+        return Resp(ApiBlogResource::collection($this->blogRepositry->get_blog_by_id()), 'success', 200, true);
     }
 
 
