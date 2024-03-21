@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class BlogResource extends JsonResource
+class ApiBlogResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -20,7 +20,7 @@ class BlogResource extends JsonResource
             'id'      => $this->id??'',
             'image'   => $this->imageurl??'',
             'title'   => $this->title??'',
-            'body'    => Str::of(strip_tags( $this->article))->limit(20) ?? ''
+            'body'    => $this->article ?? ''
 
         ];
     }

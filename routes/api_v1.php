@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\Api\V1\BlogController;
 use App\Models\Wishlist;
 use App\Models\StoreBook;
 use App\Models\CategoryBook;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\CartController;
+use App\Http\Controllers\Api\V1\CategoryBlogController;
 use App\Http\Controllers\Api\V1\HomeController;
 use App\Http\Controllers\Api\V1\QuizController;
 use App\Http\Controllers\Api\V1\UsersController;
@@ -25,6 +27,7 @@ use App\Http\Controllers\Api\V1\CategoryGradesController;
 use App\Http\Controllers\Api\V1\CourseEnrolledController;
 use App\Http\Controllers\Api\V1\PaymentsOnlineController;
 use App\Http\Controllers\Api\V1\CategoryFreeCourseController;
+use App\Models\CategoryBlog;
 
 Route::any('/login',[UsersController::class,'login'])->name('login'); //post
 Route::any('/sendotp',[UsersController::class,'sendotp']); //post
@@ -73,6 +76,8 @@ Route::get('/quiz',[QuizController::class,'get_quiz_by_id']);
 Route::get('/quiz/bycategory',[QuizController::class,'get_quiz_by_category']);
 Route::get('/category/books',[CategoryBookController::class,'get_category_book']);
 Route::get('/books/bycategory/{id?}',[StoreBookController::class,'get_books_by_category']);
+Route::get('/category/blog',[CategoryBlogController::class,'get_category_blog']);
+Route::get('/blog/by/category',[BlogController::class,'get_blog_by_category']);
 Route::get('/book',[StoreBookController::class,'get_book_by_id']);
 Route::get('/course/mycourse',[CourseEnrolledController::class,'get_my_course']);
 Route::get('/course/category/mycourse',[CourseEnrolledController::class,'get_category_my_course']);

@@ -4,7 +4,9 @@ namespace App\Providers;
 
 use App\Models\Courses;
 use App\Models\FreeCourse;
+use App\Models\CategoryBlog;
 use App\Models\CategoryQuiz;
+use App\Repository\DBBlogRepository;
 use App\Repository\DBCartRepository;
 use App\Repository\DBQuizRepository;
 use App\Repository\DBUsersRepository;
@@ -16,6 +18,7 @@ use App\Repository\DBStoreBookRepository;
 use App\Repository\DBFreeCourseRepository;
 use App\Repository\DBResultQuizRepository;
 use App\Repository\DBUsersGradesRepository;
+use App\Repository\DBCategoryBlogRepository;
 use App\Repository\DBCategoryBookRepository;
 use App\Repository\DBCategoryQuizRepository;
 use App\Repository\DBStudyScheduleRepository;
@@ -23,6 +26,7 @@ use App\Repository\DBCategoryCourseRepository;
 use App\Repository\DBCategoryGradesRepository;
 use App\Repository\DBCourseEnrolledRepository;
 use App\Repository\DBCategoryFreeCourseRepository;
+use App\Repositoryinterface\BlogRepositoryinterface;
 use App\Repositoryinterface\CartRepositoryinterface;
 use App\Repositoryinterface\QuizRepositoryinterface;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -34,6 +38,7 @@ use App\Repositoryinterface\StoreBookRepositoryinterface;
 use App\Repositoryinterface\FreeCourseRepositoryinterface;
 use App\Repositoryinterface\ResultQuizRepositoryinterface;
 use App\Repositoryinterface\UsersGradesRepositoryinterface;
+use App\Repositoryinterface\CategoryBlogRepositoryinterface;
 use App\Repositoryinterface\CategoryBookRepositoryinterface;
 use App\Repositoryinterface\CategoryQuizRepositoryinterface;
 use App\Repositoryinterface\StudyScheduleRepositoryinterface;
@@ -68,6 +73,8 @@ class AppServiceProvider extends ServiceProvider
             CategoryQuizRepositoryinterface::class     => DBCategoryQuizRepository::class,
             QuizRepositoryinterface::class             => DBQuizRepository::class,
             ResultQuizRepositoryinterface::class       => DBResultQuizRepository::class,
+            BlogRepositoryinterface::class             => DBBlogRepository::class,
+            CategoryBlogRepositoryinterface::class     => DBCategoryBlogRepository::class,
         ];
 
         foreach ($repositories as $interface => $implementation) {
