@@ -70,7 +70,7 @@ class Courses extends Model
         return path($this->id,'courses') .'images'.'/' . $this->calc_rate;
     }
 
-    public function getScheduleAttribute()
+    public function getScheduleurlAttribute()
     {
         if($this->schedule ==null){
 
@@ -78,7 +78,7 @@ class Courses extends Model
         }
         return path($this->id,'courses') .'doc'.'/' . $this->schedule;
     }
-    public function getFreeFileAttribute()
+    public function getFreeFileurlAttribute()
     {
         if($this->free_file ==null){
 
@@ -86,7 +86,7 @@ class Courses extends Model
         }
         return path($this->id,'courses') .'doc'.'/' . $this->free_file;
     }
-    public function getFileSupplementaryAttribute()
+    public function getFileSupplementaryurlAttribute()
     {
         if($this->file_supplementary ==null){
 
@@ -94,7 +94,7 @@ class Courses extends Model
         }
         return path($this->id,'courses') .'doc'.'/' . $this->file_supplementary;
     }
-    public function getFileAggregatesAttribute()
+    public function getFileAggregatesurlAttribute()
     {
         if($this->file_aggregates ==null){
 
@@ -102,7 +102,7 @@ class Courses extends Model
         }
         return path($this->id,'courses') .'doc'.'/' . $this->file_aggregates;
     }
-    public function getFileExplanatoryAttribute()
+    public function getFileExplanatoryurlAttribute()
     {
         if($this->file_explanatory ==null){
 
@@ -110,7 +110,7 @@ class Courses extends Model
         }
         return path($this->id,'courses') .'doc'.'/' . $this->file_explanatory;
     }
-    public function getFileWorkAttribute()
+    public function getFileWorkurlAttribute()
     {
         if($this->file_work ==null){
 
@@ -118,7 +118,7 @@ class Courses extends Model
         }
         return path($this->id,'courses') .'doc'.'/' . $this->file_work;
     }
-    public function getFileTestAttribute()
+    public function getFileTesturlAttribute()
     {
         if($this->file_test ==null){
 
