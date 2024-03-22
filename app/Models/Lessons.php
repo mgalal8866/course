@@ -26,5 +26,4 @@ class Lessons extends Model
     {
         return $this->belongsTo(Quizes::class, 'link_video');
     }
-
 }
