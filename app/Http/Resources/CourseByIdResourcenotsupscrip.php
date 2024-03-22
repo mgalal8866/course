@@ -25,6 +25,7 @@ class CourseByIdResourcenotsupscrip extends JsonResource
             'duration'          => $this->duration ?? '', //مده الدورة
             'validity'          => $this->validity ?? '', //صلاحية الدورة
             'short_description' => $this->short_description ?? '', //نبذه مختصرة
+            'description'       => $this->description ?? '', //نبذه مختصرة
             'features'          => $this->features ?? '<p style="text-align:center"><span style="color:#e74c3c"><span style="font-size:14px"><strong>نبذه مختصرة بتنسيق</strong></span></span></p>' ?? '', // مييزات الدورة
             'conditions'        => $this->conditions ?? '', //شروط واحكام
             'free_tatorul'      => $this->free_tatorul ?? '',
