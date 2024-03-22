@@ -78,13 +78,13 @@ class Courses extends Model
         }
         return path($this->id,'courses') .'doc'.'/' . $this->schedule;
     }
-    public function getFreeFileurlAttribute()
+    public function getFileFreeurlAttribute()
     {
-        if($this->free_file ==null){
+        if($this->file_free ==null){
 
             return '';
         }
-        return path($this->id,'courses') .'doc'.'/' . $this->free_file;
+        return path($this->id,'courses') .'doc'.'/' . $this->file_free;
     }
     public function getFileSupplementaryurlAttribute()
     {
