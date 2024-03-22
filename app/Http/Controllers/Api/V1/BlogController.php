@@ -14,14 +14,25 @@ class BlogController extends Controller
         $this->blogRepositry = $blogRepositry;
     }
 
-    
+
     public function get_blog_by_category()
     {
-        return Resp(ApiBlogResource::collection($this->blogRepositry->get_blog_by_category()), 'success', 200, true);
+        $get_blog = $this->blogRepositry->get_blog_by_category();
+        if( $get_blog != null){
+          return Resp(ApiBlogResource::collection($get_blog), 'success', 200, true);
+        }else{
+          return Resp('','No Blog','404');
+        }
     }
     public function get_blog_by_id()
     {
-        return Resp(ApiBlogResource::collection($this->blogRepositry->get_blog_by_id()), 'success', 200, true);
+        $get_blog = $this->blogRepositry->get_blog_by_id();
+        if( $get_blog != null){
+          return Resp(ApiBlogResource::collection($get_blog), 'success', 200, true);
+        }else{
+          return Resp('','No Blog','404');
+        }
+
     }
 
 
