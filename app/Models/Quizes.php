@@ -20,6 +20,6 @@ class Quizes extends Model
     }
     public function quizresult()
     {
-        return $this->hasOne(QuizResultHeader::class, 'quiz_id');
+        return $this->belongsTo(QuizResultHeader::class, 'quiz_id');
     }
 }
