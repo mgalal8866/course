@@ -79,7 +79,7 @@ class CourseController extends Controller
                     $qq->where('course_id', $request->id);
                 });
             },'childrens.lessons'=> function ($query) use ($request) {
-                $query->where('Is_lesson', '0');
+                $query->where('is_lesson', '0');
             },
             'childrens.courses'  => function ($query) use ($request) {
                 // $query->where('course_id', $id)->first();
