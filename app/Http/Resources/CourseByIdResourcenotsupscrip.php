@@ -28,7 +28,7 @@ class CourseByIdResourcenotsupscrip extends JsonResource
             'features'          => $this->features ?? '<p style="text-align:center"><span style="color:#e74c3c"><span style="font-size:14px"><strong>نبذه مختصرة بتنسيق</strong></span></span></p>' ?? '', // مييزات الدورة
             'conditions'        => $this->conditions ?? '', //شروط واحكام
             'free_tatorul'      => $this->free_tatorul ?? '',
-            'free_file'          => $this->file_freeurl ?? '',
+            'free_file'          => $this->free_fileurl?? '',
             'start_date'        => $this->start_date ?? '', //تاريخ بدايه الدورة
             'end_date'          => $this->end_date ?? '', //تايخ انتهاء الدورة
             'max_drainees'      => $this->max_drainees ?? '', //عدد المقاعد
