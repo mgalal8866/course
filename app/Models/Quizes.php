@@ -18,4 +18,8 @@ class Quizes extends Model
     {
         return $this->hasMany(Quiz_questions::class, 'quiz_id');
     }
+    public function quizresult()
+    {
+        return $this->hasOne(QuizResultHeader::class, 'quiz_id');
+    }
 }

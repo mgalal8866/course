@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enum\Quiz;
 use App\Traits\UUID;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -20,6 +21,10 @@ class Lessons extends Model
     public function stages()
     {
         return $this->belongsToMany(Stages::class, 'course_stages', 'lesson_id', 'stage_id');
+    }
+    public function quiz()
+    {
+        return $this->belongsTo(Quizes::class, 'link_video');
     }
 
 }

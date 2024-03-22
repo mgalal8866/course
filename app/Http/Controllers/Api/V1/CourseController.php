@@ -74,6 +74,7 @@ class CourseController extends Controller
     public function get_calc_prog(Request $request)
     {
         $data =  Stages::with([
+            'childrens.lessons.quiz.quizresult',
             'childrens' => function ($q) use ($request) {
                 $q->whereHas('courses', function ($qq) use ($request) {
                     $qq->where('course_id', $request->id);
@@ -82,7 +83,6 @@ class CourseController extends Controller
                 $query->where('is_lesson', '0');
             },
             'childrens.courses'  => function ($query) use ($request) {
-                // $query->where('course_id', $id)->first();
                 $query->where('course_id', $request->id);
             }
         ])->whereHas('childrens', function ($q) use ($request) {
