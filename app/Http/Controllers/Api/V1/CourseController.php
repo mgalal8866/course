@@ -4,17 +4,18 @@ namespace App\Http\Controllers\Api\V1;
 
 
 use App\Models\Slider;
+use App\Models\Stages;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Course\CollectionCourseResource;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\CourseResource;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Resources\CourseByIdResource;
-use App\Http\Resources\CourseByIdResourcenotsupscrip;
 use App\Http\Resources\PaginationResource;
-use App\Models\Stages;
+use App\Http\Resources\CourseByIdResourcenotsupscrip;
 use App\Repositoryinterface\CourseRepositoryinterface;
+use App\Http\Resources\Course\CollectionCourseResource;
 
 class CourseController extends Controller
 {
@@ -74,7 +75,10 @@ class CourseController extends Controller
     public function get_calc_prog(Request $request)
     {
         $data =  Stages::with([
-            'childrens.lessons.quiz.quizresult',
+            'childrens.lessons.quiz.quizresult'=> function ($q) use ($request) {
+                $user_id = Auth::guard('student')->user()->id;
+                $q->where('user_id',$user_id);
+            },
             'childrens' => function ($q) use ($request) {
                 $q->whereHas('courses', function ($qq) use ($request) {
                     $qq->where('course_id', $request->id);
