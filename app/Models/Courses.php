@@ -70,6 +70,63 @@ class Courses extends Model
         return path($this->id,'courses') .'images'.'/' . $this->calc_rate;
     }
 
+    public function getScheduleAttribute()
+    {
+        if($this->schedule ==null){
+
+            return '';
+        }
+        return path($this->id,'courses') .'doc'.'/' . $this->schedule;
+    }
+    public function getFreeFileAttribute()
+    {
+        if($this->free_file ==null){
+
+            return '';
+        }
+        return path($this->id,'courses') .'doc'.'/' . $this->free_file;
+    }
+    public function getFileSupplementaryAttribute()
+    {
+        if($this->file_supplementary ==null){
+
+            return '';
+        }
+        return path($this->id,'courses') .'doc'.'/' . $this->file_supplementary;
+    }
+    public function getFileAggregatesAttribute()
+    {
+        if($this->file_aggregates ==null){
+
+            return '';
+        }
+        return path($this->id,'courses') .'doc'.'/' . $this->file_aggregates;
+    }
+    public function getFileExplanatoryAttribute()
+    {
+        if($this->file_explanatory ==null){
+
+            return '';
+        }
+        return path($this->id,'courses') .'doc'.'/' . $this->file_explanatory;
+    }
+    public function getFileWorkAttribute()
+    {
+        if($this->file_work ==null){
+
+            return '';
+        }
+        return path($this->id,'courses') .'doc'.'/' . $this->file_work;
+    }
+    public function getFileTestAttribute()
+    {
+        if($this->file_test ==null){
+
+            return '';
+        }
+        return path($this->id,'courses') .'doc'.'/' . $this->file_test;
+    }
+
     public function comments()
     {
         return $this->morphMany(Comments::class, 'commentable');

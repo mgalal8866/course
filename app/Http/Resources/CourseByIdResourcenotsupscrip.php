@@ -21,15 +21,14 @@ class CourseByIdResourcenotsupscrip extends JsonResource
             'course_currency'   => 'ر.س', //عملة الدفع
             'course_price'      => $this->price ?? '',//السعر
             'course_price_include'      => $this->pricewith == 1 ? 'شامل كتاب الدورة' : 'غير شامل كتاب الدورة',
-            'file_schedule'     => $this->schedule ?? 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', //كتاب الدورة
+            'file_schedule'     => $this->urlschedule ?? 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', //كتاب الدورة
             'duration'          => $this->duration ?? '', //مده الدورة
             'validity'          => $this->validity ?? '', //صلاحية الدورة
             'short_description' => $this->short_description ?? '', //نبذه مختصرة
             'features'          => $this->features ?? '<p style="text-align:center"><span style="color:#e74c3c"><span style="font-size:14px"><strong>نبذه مختصرة بتنسيق</strong></span></span></p>' ?? '', // مييزات الدورة
             'conditions'        => $this->conditions ?? '', //شروط واحكام
             'free_tatorul'      => $this->free_tatorul ?? '',
-            // 'free_file'         => 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'?? '',
-            'free_file'          => $this->file_free ?? '',
+            'free_file'          => $this->urlfile_free ?? '',
             'start_date'        => $this->start_date ?? '', //تاريخ بدايه الدورة
             'end_date'          => $this->end_date ?? '', //تايخ انتهاء الدورة
             'max_drainees'      => $this->max_drainees ?? '', //عدد المقاعد
