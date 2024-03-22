@@ -71,6 +71,35 @@ class CourseController extends Controller
             return Resp(null, 'Not Found Course', 404, false);
         };
     }
+    public function get_calc_prog(Request $request)
+    {
+        $data =  Stages::with([
+            'childrens' => function ($q) use ($request) {
+                $q->whereHas('courses', function ($qq) use ($request) {
+                    $qq->where('course_id', $request->id);
+                });
+            },'childrens.lessons'=> function ($query) use ($request) {
+                $query->where('Is_lesson', '0');
+            },
+            'childrens.courses'  => function ($query) use ($request) {
+                // $query->where('course_id', $id)->first();
+                $query->where('course_id', $request->id);
+            }
+        ])->whereHas('childrens', function ($q) use ($request) {
+            $q->whereHas('courses', function ($qq) use ($request) {
+                $qq->where('course_id', $request->id);
+            });
+        })->get();
+
+        $data = ['data' => $data];
+        dd($data['data']);
+        if (Count($data['data']) != 0) {
+
+            return Resp(new CollectionCourseResource($data), 'success', 200, true);
+        } else {
+            return Resp(null, 'Not Found Course', 404, false);
+        };
+    }
     public function getcoursebyidnot_subscribed($id)
     {
         $data = $this->course->getcoursebyid($id);

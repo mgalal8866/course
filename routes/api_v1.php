@@ -60,6 +60,8 @@ Route::get('/courses/{category_id}',[CourseController::class,'getcoursesbycategr
 Route::get('/course/not_subscribed/{id}',[CourseController::class,'getcoursebyidnot_subscribed'])->name('getcoursebyid');
 Route::get('/course/subscripe/{id}',[CourseController::class,'getcoursebyidsubscripe'])->name('getcoursebyid');
 Route::get('/course/subscribe/{id}',[CourseController::class,'getcoursebyidsubscripe2'])->name('getcoursebyid');
+Route::get('/calculating-progress-rate',[CourseController::class,'get_calc_prog']);
+
 Route::get('/slider',[HomeController::class,'getslider'])->name('getslider');
 Route::get('/setting',[HomeController::class,'getsetting'])->name('getsetting');
 Route::get('/category/free/course',[CategoryFreeCourseController::class,'getcategoryfreecourse']);
@@ -70,6 +72,7 @@ Route::post('/add/comment/freecourse',[CommentsController::class,'add_comment_fr
 Route::get('/category/grades',[CategoryGradesController::class,'get_category']);
 Route::get('/grades/bycategoryid/{id?}',[UsersGradesController::class,'get_grades_by_category']);
 Route::get('payment/method',[PaymentsOnlineController::class,'get_payment']);
+
 
 Route::post('/quiz/send/answers',[ResultQuizController::class,'send_answers']);
 Route::get('/quiz',[QuizController::class,'get_quiz_by_id']);
