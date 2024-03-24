@@ -16,6 +16,7 @@ use App\Http\Resources\PaginationResource;
 use App\Http\Resources\CourseByIdResourcenotsupscrip;
 use App\Repositoryinterface\CourseRepositoryinterface;
 use App\Http\Resources\Course\CollectionCourseResource;
+use App\Http\Resources\Course\CalculatingProgresRateResource;
 
 class CourseController extends Controller
 {
@@ -96,10 +97,10 @@ class CourseController extends Controller
         })->get();
 
         $data = ['data' => $data];
-        dd($data['data']);
+        // dd($data['data']);
         if (Count($data['data']) != 0) {
 
-            return Resp(new CollectionCourseResource($data), 'success', 200, true);
+            return Resp(new CalculatingProgresRateResource($data), 'success', 200, true);
         } else {
             return Resp(null, 'Not Found Course', 404, false);
         };

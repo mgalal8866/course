@@ -72,5 +72,6 @@ class Kernel extends HttpKernel
         'jwt.verify' => \App\Http\Middleware\JwtMiddleware::class, //WE ADDED THIS!
         'ApiVersion' => \App\Http\Middleware\ApiVersion::class,
         'ApiCheckKey' => \App\Http\Middleware\ApiCheckKey::class,
+        'api.auth.check'  => \App\Http\Middleware\ApiAuthCheck::class,
     ];
 }

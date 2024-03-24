@@ -148,6 +148,7 @@ return [
     'typequiz-QUIZ' => 'قسم مسابقات',
     'typecategory' => 'نوع القسم',
     'calc_rate' => 'حساب معدل الدوره ',
+    'sections_guide' => 'دليل اقسام الاساسية',
     'answer_the_question' => 'أليه الرد على الاستفسار'
 
 ];

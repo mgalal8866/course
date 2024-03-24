@@ -34,7 +34,7 @@ class DBQuizRepository implements QuizRepositoryinterface
 
         if (Auth::guard('student')->check()) {
             $user_id = Auth::guard('student')->user()->id;
-            Log::error($user_id );
+            Log::error($user_id);
             $QuizResultHeader = QuizResultHeader::where(['quiz_id' => $quiz_id, 'user_id' => $user_id])->with(['quiz_result_details'])->first();
 
             $newrow = ["batch" => '1', "start" => Carbon::now(), "finish" => '', 'time' => '', 'total_question' =>  '', 'answered' => '0', 'not_answered' => '0'];
@@ -83,9 +83,13 @@ class DBQuizRepository implements QuizRepositoryinterface
 
                 $QuizResultHeader =   QuizResultHeader::Create(['quiz_id' => $quiz_id, 'user_id' => $user_id, 'history' => [$newrow]]);
             }
+
+            $arr['result'] = $QuizResultHeader;
         } else {
             $question = $this->model->withCount('question')->with(['question', 'question.answer'])->find($quiz_id);
+            $arr['result'] = [];
         }
-        return $question;
+        $arr['question'] = $question;
+        return $arr;
     }
 }

@@ -12,13 +12,14 @@ class QuizResource extends JsonResource
     {
 
         return [
-            'id'                => $this->id,
-            'name'              => $this->name??'',
-            'image'             => $this->urlimage??'',
-            'description'       => $this->description??'',
-            'time'              => $this->time??'',
-            'questions_count'   =>number_format($this->question_count) ??'',
-            'questions'         =>QuizQuestionResource::collection($this->question) ??'',
+            'id'                => $this['question']->id,
+            'name'              => $this['question']->name??'',
+            'image'             => $this['question']->urlimage??'',
+            'description'       => $this['question']->description??'',
+            'time'              => $this['question']->time??'',
+            'questions_count'   =>number_format($this['question']->question_count) ??'',
+            'questions'         =>QuizQuestionResource::collection($this['question']->question) ??'',
+            'results'           => new ResultQuizResource( $this['result']),
         ];
     }
 }

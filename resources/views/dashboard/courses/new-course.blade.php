@@ -276,6 +276,14 @@
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
+                                <div class="mb-1 col-md-12">
+                                    <label class="form-label" for="">{{ __('tran.sections_guide') }}</label>
+                                    <x-summernote wire:model='sections_guide' name="sections_guide" id="sections_guide"
+                                        value='{{ $sections_guide }}' />
+                                    @error('sections_guide')
+                                        <span class="error" style="color: red">{{ $message }}</span>
+                                    @enderror
+                                </div>
 
                             </div>
                         </div>

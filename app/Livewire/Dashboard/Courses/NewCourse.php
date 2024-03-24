@@ -33,7 +33,7 @@ class NewCourse extends Component
         $name, $description, $validity = 'تبقى الدورة بكامل محتوياتها ثلاثة أشهر بحساب المتدرب.', $country_id, $category_id, $price, $pricewith = 1, $startdate, $enddate, $time, $features, $triner = [], $limit_stud, $duration_course = 'شهر ونصف',
         $image_course, $file_work, $file_explanatory, $file_aggregates, $file_supplementary, $file_free, $file_test,
         $langcourse = false, $status = true, $inputnum = false, $lessons, $stages, $answer_the_question, $calc_rate;
-    public $questions, $total_scores, $degree_success, $testname, $testtime;
+    public $questions, $total_scores, $degree_success, $testname, $testtime,$sections_guide;
 
 
     public function mount()
@@ -276,6 +276,7 @@ class NewCourse extends Component
                 'max_drainees' => $this->limit_stud ?? null,
                 'conditions'   => $this->conditions ?? null,
                 'features'    => $this->features ?? null,
+                'sections_guide'    => $this->sections_guide ?? null,
                 'how_start'    => $this->howtostart ?? null,
                 'target'       => $this->target ?? null,
                 'telegramgrup' => $this->telegramgrup ?? null,
@@ -332,6 +333,9 @@ class NewCourse extends Component
                 $CFC->coursetrainers()->create(['trainer_id' => $i]);
             }
             foreach ($this->lessons as $i) {
+                if($i['is_lesson'] ==false){
+                    Quizes::updated(['id'=>$i['link']],['course_id' => $CFC->id]);
+                }
                 $lesson = Lessons::create(['name' => $i['name'], 'link_video' => $i['link'], 'is_lesson' => $i['is_lesson'] != true ? 0 : 1, 'publish_at' => $i['publish_at']]);
                 $CFC->stages()->attach($i['stage_id'], ['course_id' => $CFC->id, 'lesson_id' => $lesson->id]);
             }
