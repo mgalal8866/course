@@ -1,12 +1,14 @@
 <?php
 
-use App\Http\Controllers\Api\V1\BlogController;
 use App\Models\Wishlist;
 use App\Models\StoreBook;
+use App\Models\CategoryBlog;
 use App\Models\CategoryBook;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Cookie;
+use App\Http\Controllers\Api\V1\BlogController;
 use App\Http\Controllers\Api\V1\CartController;
-use App\Http\Controllers\Api\V1\CategoryBlogController;
 use App\Http\Controllers\Api\V1\HomeController;
 use App\Http\Controllers\Api\V1\QuizController;
 use App\Http\Controllers\Api\V1\UsersController;
@@ -19,6 +21,7 @@ use App\Http\Controllers\Api\V1\StoreBookController;
 use App\Http\Controllers\Api\V1\FreeCourseController;
 use App\Http\Controllers\Api\V1\ResultQuizController;
 use App\Http\Controllers\Api\V1\UsersGradesController;
+use App\Http\Controllers\Api\V1\CategoryBlogController;
 use App\Http\Controllers\Api\V1\CategoryBookController;
 use App\Http\Controllers\Api\V1\CategoryQuizController;
 use App\Http\Controllers\Api\V1\StudyScheduleController;
@@ -27,7 +30,6 @@ use App\Http\Controllers\Api\V1\CategoryGradesController;
 use App\Http\Controllers\Api\V1\CourseEnrolledController;
 use App\Http\Controllers\Api\V1\PaymentsOnlineController;
 use App\Http\Controllers\Api\V1\CategoryFreeCourseController;
-use App\Models\CategoryBlog;
 
 Route::any('/login', [UsersController::class, 'login'])->name('login'); //post
 Route::any('/sendotp', [UsersController::class, 'sendotp']); //post
@@ -87,6 +89,9 @@ Route::get('/category/quiz', [CategoryQuizController::class, 'get_category_quiz'
 // Route::get('/books/buy/{id?}',[StoreBookController::class,'get_books_by_category']);
 
 Route::middleware(['jwt.verify'])->group(function () {
+
+});
+Route::middleware(['jwt.verify'])->group(function () {
     Route::any('/update/profile', [UsersController::class, 'profile_update']); //post
     Route::any('/details/profile', [UsersController::class, 'profile_details']); //post
     Route::get('/course/subscripe/{id}', [CourseController::class, 'getcoursebyidsubscripe'])->name('getcoursebyid');
@@ -101,5 +106,19 @@ Route::middleware(['jwt.verify'])->group(function () {
     Route::get('/course/category/mycourse', [CourseEnrolledController::class, 'get_category_my_course']);
 });
 
-Route::middleware(['jwt.verify'])->group(function () {
+Route::get('/cc',function (Request $request) {
+// return Cookie::get();
+// setcookie('Helo', 'some value', time()+60*60*24*365);
+// $cookie = Cookie::make('Helo', 'John Doe', -1); // Expired cookie
+// Cookie::make('name', $id, 60);
+// cookie()->forever('Helo', 'aaaaaaa');
+
+return  Cookie::get('c_user');
+  cookie('datr','aa');
+
+
+return       cookie()->all();
+
+return cookie('c_user');
+
 });

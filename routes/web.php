@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Cookie;
 use App\Livewire\Dashboard\Stage\Stages;
 use App\Livewire\Dashboard\Blog\ViewBlog;
 use App\Livewire\Dashboard\Setting\Slider;
@@ -50,6 +51,17 @@ use App\Livewire\Dashboard\FreeCourse\Category\CategoryFreeCourse;
 |
 */
 
+Route::get('/cc',function (Request $request) {
+
+    $cUserCookie = $request->cookie('c_user');
+
+    if ($cUserCookie) {
+        return $cUserCookie;
+    } else {
+        return 'The "c_user" cookie is not set or could not be retrieved.';
+    }
+
+    });
 
 Route::group(
     [
