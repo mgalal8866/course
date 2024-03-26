@@ -43,6 +43,7 @@ class Newquiz2 extends Component
     {
         $this->fill(['questions' => collect([[
             'question' => '',
+            'description'=>'',
             'degree' => '',
             'answers' => collect([['answer' => '', 'correct' => '']])
 
@@ -50,7 +51,7 @@ class Newquiz2 extends Component
     }
     public function addquestions()
     {
-        $this->questions->push(['question' => '', 'degree' => '', 'answers' => collect([['answer' => '', 'correct' => '']])]);
+        $this->questions->push(['question' => '','description'=>'', 'degree' => '', 'answers' => collect([['answer' => '', 'correct' => '']])]);
     }
     public function removequestions($key)
     {
@@ -74,6 +75,7 @@ class Newquiz2 extends Component
                 'name'          => $this->testname,
                 'category_id'   => $this->testcategory,
                 'time'          => $this->testtime,
+                'pass_marks' => $this->degree_success,
                 'pass_marks' => $this->degree_success,
                 'total_marks'  => $this->total_scores,
             ]);

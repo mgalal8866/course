@@ -14,7 +14,7 @@ class QuizCollectionResource  extends JsonResource
         return [
             'id'                => $this->id,
             'name'              => $this->name??'',
-            'image'             => $this->urlimage??'',
+            'image'             => $this->imageurl??'',
             'description'       => $this->description??'',
             'time'              => $this->time??'',
             'questions_count'   =>number_format($this->question_count) ??'',
