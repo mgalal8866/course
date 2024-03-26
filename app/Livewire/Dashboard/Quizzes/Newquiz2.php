@@ -3,15 +3,18 @@
 namespace App\Livewire\Dashboard\Quizzes;
 
 
+use App\Models\Quizes;
 use Livewire\Component;
 use App\Models\CategoryExams;
-use App\Models\Quiz_question_answers;
+use Livewire\WithFileUploads;
 use App\Models\Quiz_questions;
-use App\Models\Quizes;
+use App\Traits\ImageProcessing;
 use Illuminate\Support\Facades\DB;
+use App\Models\Quiz_question_answers;
 
 class Newquiz2 extends Component
 {
+    use WithFileUploads, ImageProcessing;
     protected $listeners = ['edit' => 'edit'];
     public $typecategory,$image, $questions, $category = [], $testname, $testcategory, $testtime, $degree_success, $total_scores;
     private   $rules = [

@@ -22,4 +22,9 @@ class Quizes extends Model
     {
         return $this->hasOne(QuizResultHeader::class, 'quiz_id');
     }
+    public function getImageurlAttribute()
+    {
+        return $this->image?path('','Quize') . $this->image: path('','').'no-imag.png';
+    }
+
 }

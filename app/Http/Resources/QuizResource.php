@@ -14,7 +14,7 @@ class QuizResource extends JsonResource
         return [
             'id'                => $this['question']->id,
             'name'              => $this['question']->name??'',
-            'image'             => $this['question']->urlimage??'',
+            'image'             => $this['question']->imageurl??'',
             'description'       => $this['question']->description??'',
             'time'              => $this['question']->time??'',
             'questions_count'   =>number_format($this['question']->question_count) ??'',
