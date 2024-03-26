@@ -52,7 +52,8 @@ use App\Livewire\Dashboard\FreeCourse\Category\CategoryFreeCourse;
 */
 
 Route::get('/cc',function (Request $request) {
-
+    // return request()->cookie('c_user');
+    return  $request->cookies->all();
     $cUserCookie = $request->cookie('c_user');
 
     if ($cUserCookie) {
