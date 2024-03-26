@@ -12,7 +12,13 @@
         <div class="card-body">
             <form id="editUserForm" class="row gy-1 pt-75" wire:submit.prevent="save">
                 <div class="row">
-
+                    <div class="mb-2 col-md-12">
+                        <x-imageupload wire:model='image' :height='200' :width='200'
+                            :imagenew="$image" :tlabel="__('tran.image')" />
+                        @error('image')
+                            <span class="error" style="color: red">{{ $message }}</span>
+                        @enderror
+                    </div>
                     <div class="col-12 col-md-4">
                         <label class="form-label" for="testname">{{ __('tran.testname') }}</label>
                         <input type="text" class="form-control" wire:model="testname" id="testname" />
@@ -104,6 +110,16 @@
                                                             placeholder="السؤال" type="text" required />
                                                     </div>
                                                     @error('questions.' . $key . '.question')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="input-group input-group-merge">
+                                                        <input class="form-control"
+                                                            wire:model="questions.{{ $key }}.description"
+                                                            placeholder="وصف السؤال" type="text" required />
+                                                    </div>
+                                                    @error('questions.' . $key . '.description')
                                                         <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>

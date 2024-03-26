@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 class Newquiz2 extends Component
 {
     protected $listeners = ['edit' => 'edit'];
-    public $typecategory, $questions, $category = [], $testname, $testcategory, $testtime, $degree_success, $total_scores;
+    public $typecategory,$image, $questions, $category = [], $testname, $testcategory, $testtime, $degree_success, $total_scores;
     private   $rules = [
         // 'testname'=> 'required' ,
         // 'testcategory'=> 'required' ,
@@ -64,8 +64,6 @@ class Newquiz2 extends Component
     }
     public function save()
     {
-        // $rules = collect($this->rules)->collect()->toArray();
-        // dd($this->validate($rules));
         $this->validate($this->rules);
         DB::beginTransaction();
         try {
@@ -76,9 +74,16 @@ class Newquiz2 extends Component
                 'pass_marks' => $this->degree_success,
                 'total_marks'  => $this->total_scores,
             ]);
+            if ($this->image) {
+                $dataX = $this->saveImageAndThumbnail($this->image, false, null,null,'Quize');
+                $quiz->image =  $dataX['image'];
+                $quiz->save();
+            }
+
             foreach ($this->questions as $i) {
                 $question =   Quiz_questions::create([
                     'quiz_id'  => $quiz->id,
+                    'description' => $i['description'],
                     'question' => $i['question'],
                     'mark'   => $i['degree'],
                 ]);

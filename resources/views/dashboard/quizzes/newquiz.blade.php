@@ -10,7 +10,7 @@
         <div class="card-body">
             <form id="editUserForm" class="row gy-1 pt-75" wire:submit.prevent="save">
                 <div class="row">
-
+                   
                     <div class="col-12 col-md-4">
                         <label class="form-label" for="testname">{{ __('tran.testname') }}</label>
                         <input type="text" class="form-control" wire:model="testname" id="testname" />
