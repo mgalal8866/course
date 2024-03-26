@@ -383,12 +383,19 @@
 
                             @foreach ($lessons as $key => $value)
                                 <div class="mb-1 row">
-                                    <div class="col-md-1 form-check form-check-inline ">
-                                        <input class="form-check-input"
+                                    <div class="col-md-2 form-check form-check-inline ">
+                                        <select class="form-select" id="lessons.{{ $key }}.is_lesson" wire:model.lazy='lessons.{{ $key }}.is_lesson'>
+
+                                            @foreach ( \App\Enum\LessonStatu::cases() as $q)
+
+                                            <option value="{{$q->value}}">{{ __('tran.typelesson-'.$q->name)}} </option>
+                                            @endforeach
+                                        </select>
+                                        {{-- <input class="form-check-input"
                                             wire:model.lazy='lessons.{{ $key }}.is_lesson'type="checkbox"
-                                            id="inlineCheckbox1" />
-                                        <label class="form-check-label"
-                                            for="inlineCheckbox1">{{ $lessons[$key]['is_lesson'] != false ? 'شرح' : 'تدريب' }}</label>
+                                            id="inlineCheckbox1" /> --}}
+                                        {{-- <label class="form-check-label"
+                                            for="inlineCheckbox1">{{ $lessons[$key]['is_lesson'] ==1 ? 'شرح' :($lessons[$key]['is_lesson'] ==0 ? 'تدريب': 'بث مباشر') }}</label> --}}
                                         @error('lessons.' . $key . '.is_lesson')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
@@ -416,7 +423,7 @@
                                     @if ($lessons[$key]['is_lesson'] != false)
                                         <div class="col">
                                             <input class="form-control" wire:model="lessons.{{ $key }}.name"
-                                                placeholder="{{ $lessons[$key]['is_lesson'] != false ? 'اسم شرح' : ' اسم تدريب' }}"
+                                                placeholder="{{ $lessons[$key]['is_lesson'] ==1 ? 'اسم الشرح' :($lessons[$key]['is_lesson'] ==0 ? 'اسم تدريب': 'اسم بث مباشر') }}"
                                                 type="text" />
                                             @error('lessons.' . $key . '.name')
                                                 <span class="text-danger">{{ $message }}</span>
@@ -426,7 +433,7 @@
 
                                             <input class="form-control" wire:model="lessons.{{ $key }}.link"
                                                 type="text"
-                                                placeholder="{{ $lessons[$key]['is_lesson'] != false ? 'رابط شرح' : ' رابط تدريب' }}" />
+                                                placeholder="{{  $lessons[$key]['is_lesson'] ==1 ? 'رابط الشرح' :($lessons[$key]['is_lesson'] ==0 ? 'رابط تدريب': 'رابط بث مباشر') }}" />
 
                                             @error('lessons.' . $key . '.link')
                                                 <span class="text-danger">{{ $message }}</span>

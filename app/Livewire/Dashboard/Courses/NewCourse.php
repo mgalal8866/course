@@ -45,7 +45,7 @@ class NewCourse extends Component
 
         ]])]);
         $this->stages = Stages::parentonly()->orderBy('parent_id', 'DESC')->get();
-        $this->fill(['lessons' => collect([['stage_id' => null, 'img' => null, 'name' => '', 'link' => '', 'is_lesson' => true, 'publish_at' => null]])]);
+        $this->fill(['lessons' => collect([['stage_id' => null, 'img' => null, 'name' => '', 'link' => '', 'is_lesson' => 1, 'publish_at' => null]])]);
     }
     public function updated($propertyName)
     {
@@ -209,7 +209,7 @@ class NewCourse extends Component
     }
     public function addlesson()
     {
-        $this->lessons->push(['stage_id' => null, 'img' => null, 'name' => '', 'link' => '', 'is_lesson' => true, 'publish_at' => null]);
+        $this->lessons->push(['stage_id' => null, 'img' => null, 'name' => '', 'link' => '', 'is_lesson' => 1, 'publish_at' => null]);
     }
     public function removelesson($key)
     {
@@ -239,7 +239,7 @@ class NewCourse extends Component
     public function goToNextPage()
     {
 
-        // $this->validate($this->validtionRules[$this->currentPage]);
+        $this->validate($this->validtionRules[$this->currentPage]);
         $this->currentPage++;
     }
     public function goToPage($pg)
@@ -333,10 +333,11 @@ class NewCourse extends Component
                 $CFC->coursetrainers()->create(['trainer_id' => $i]);
             }
             foreach ($this->lessons as $i) {
-                if($i['is_lesson'] ==false){
+                if($i['is_lesson'] == 0){
                     Quizes::updated(['id'=>$i['link']],['course_id' => $CFC->id]);
                 }
-                $lesson = Lessons::create(['name' => $i['name'], 'link_video' => $i['link'], 'is_lesson' => $i['is_lesson'] != true ? 0 : 1, 'publish_at' => $i['publish_at']]);
+
+                $lesson = Lessons::create(['name' => $i['name'], 'link_video' => $i['link'], 'is_lesson' => $i['is_lesson'] , 'publish_at' => $i['publish_at']]);
                 $CFC->stages()->attach($i['stage_id'], ['course_id' => $CFC->id, 'lesson_id' => $lesson->id]);
             }
             DB::commit();
