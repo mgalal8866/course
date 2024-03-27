@@ -37,6 +37,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Livewire\Dashboard\Setting\Setting as SettingSetting;
 use App\Livewire\Dashboard\Quizzes\QuizCategory\ViewQuizCategory;
 use App\Livewire\Dashboard\FreeCourse\Category\CategoryFreeCourse;
+use Illuminate\Support\Facades\Artisan;
 
 // use Browser;
 
@@ -51,18 +52,18 @@ use App\Livewire\Dashboard\FreeCourse\Category\CategoryFreeCourse;
 |
 */
 
-Route::get('/cc',function (Request $request) {
-    // return request()->cookie('c_user');
-    return  $request->cookies->all();
-    $cUserCookie = $request->cookie('c_user');
+Route::get('/ccc', function (Request $request) {
 
-    if ($cUserCookie) {
-        return $cUserCookie;
-    } else {
-        return 'The "c_user" cookie is not set or could not be retrieved.';
-    }
+    Artisan::call('optimize');
+    return Artisan::output();
+});
+Route::get('/ncc', function (Request $request) {
 
-    });
+     Artisan::call('optimize:clear');
+     return Artisan::output();
+
+});
+
 
 Route::group(
     [
@@ -70,9 +71,9 @@ Route::group(
         'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
     ],
     function () {
-        Livewire::setUpdateRoute(function ($handle) {
-            return Route::post('/livewire/update', $handle);
-        });
+        // Livewire::setUpdateRoute(function ($handle) {
+        //     return Route::post('/livewire/update', $handle);
+        // });
 
         Route::get('/test21', function (Request $request) {
 
@@ -218,7 +219,7 @@ Route::group(
             // return    json_decode( json_encode(Location::get($request->ip())), true);
 
 
-              $p1 = asset('files/1.jpg');
+            $p1 = asset('files/1.jpg');
             $p1 = public_path('\files\1.jpg');
             $p2 = public_path('\files\watermark.png');
 
@@ -270,7 +271,7 @@ Route::group(
         Route::get('/category/free-course', CategoryFreeCourse::class)->name('categoryfree');
         Route::get('/category/courses', CategoryCourse::class)->name('category');
         Route::get('/category/quiz', ViewQuizCategory::class)->name('category-quiz');
-        Route::get('/new/quiz', Newquiz::class)->name('newquiz');
+        // Route::get('/new/quiz', Newquiz::class)->name('newquiz');
         Route::get('/new/quiz2', Newquiz2::class)->name('newquiz');
         Route::get('/view/quiz', ViewQuizz::class)->name('viewquiz');
         Route::get('/trainers', Trainers::class)->name('trainers');

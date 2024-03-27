@@ -57,7 +57,7 @@ Route::get('/category_course', [CategoryCourseController::class, 'getcategorycou
 Route::get('/home_category_course', [CategoryCourseController::class, 'gethomecategorycourse'])->name('gethomecategorycourse');
 Route::post('/new/study_schedule', [StudyScheduleController::class, 'create_study_schedule'])->name('create_study_schedule');
 Route::get('/courses/{category_id}', [CourseController::class, 'getcoursesbycategroy'])->name('getcoursesbycategroy');
-Route::get('/course/not_subscribed/{id}', [CourseController::class, 'getcoursebyidnot_subscribed'])->name('getcoursebyid');
+Route::get('/course/not_subscribed/{id}', [CourseController::class, 'getcoursebyidnot_subscribed']);
 Route::get('/calculating-progress-rate', [CourseController::class, 'get_calc_prog']);
 
 Route::get('/slider', [HomeController::class, 'getslider'])->name('getslider');
@@ -70,7 +70,6 @@ Route::post('/add/comment/freecourse', [CommentsController::class, 'add_comment_
 Route::get('/category/grades', [CategoryGradesController::class, 'get_category']);
 Route::get('/grades/bycategoryid/{id?}', [UsersGradesController::class, 'get_grades_by_category']);
 Route::get('payment/method', [PaymentsOnlineController::class, 'get_payment']);
-
 
 Route::post('/quiz/send/answers', [ResultQuizController::class, 'send_answers']);
 Route::get('/quiz', [QuizController::class, 'get_quiz_by_id']);
@@ -88,13 +87,11 @@ Route::get('/category/quiz', [CategoryQuizController::class, 'get_category_quiz'
 
 // Route::get('/books/buy/{id?}',[StoreBookController::class,'get_books_by_category']);
 
-Route::middleware(['jwt.verify'])->group(function () {
 
-});
 Route::middleware(['jwt.verify'])->group(function () {
     Route::any('/update/profile', [UsersController::class, 'profile_update']); //post
     Route::any('/details/profile', [UsersController::class, 'profile_details']); //post
-    Route::get('/course/subscripe/{id}', [CourseController::class, 'getcoursebyidsubscripe'])->name('getcoursebyid');
+    // Route::get('/course/subscripe/{id}', [CourseController::class, 'getcoursebyidsubscripe'])->name('getcoursebyid');
     Route::get('/course/subscribe/{id}', [CourseController::class, 'getcoursebyidsubscripe2'])->name('getcoursebyid');
     Route::get('/cart/add/book', [CartController::class, 'addtocart']);
     Route::get('/cart/delete/book', [CartController::class, 'deletefromcart']);
@@ -106,19 +103,6 @@ Route::middleware(['jwt.verify'])->group(function () {
     Route::get('/course/category/mycourse', [CourseEnrolledController::class, 'get_category_my_course']);
 });
 
-Route::get('/cc',function (Request $request) {
-// return Cookie::get();
-// setcookie('Helo', 'some value', time()+60*60*24*365);
-// $cookie = Cookie::make('Helo', 'John Doe', -1); // Expired cookie
-// Cookie::make('name', $id, 60);
-// cookie()->forever('Helo', 'aaaaaaa');
-
-return  Cookie::get('c_user');
-  cookie('datr','aa');
-
-
-return       cookie()->all();
-
-return cookie('c_user');
-
+Route::get('/cc', function (Request $request) {
+    return cookie('c_user');
 });
