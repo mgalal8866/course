@@ -94,12 +94,12 @@ class CourseController extends Controller
 
             $allqutioncount = $e->quiz->question_count;
 
-            $allquiz_result_detailscount =   $q != null ? $q->quiz_result_details->count() : 0;
+            $allquiz_result_detailscount =   $q != null ? $q->quiz_result_details->count() : '0';
             $questions[] = ['name' => $e->name,
-            'total_question' => $e->quiz->question_count,
-            'answer' =>  $q != null ? $q->quiz_result_details->count() : 0,
-            'not_answer' =>   $q != null ? $e->quiz->question_count - $q->quiz_result_details->count() : 0,
-            'degree' =>  $q != null ? number_format(($allquiz_result_detailscount / $allqutioncount) * 100) : 0];
+            'total_question' =>  number_format($e->quiz->question_count),
+            'answer' =>  $q != null ?  number_format($q->quiz_result_details->count()) : '0',
+            'not_answer' =>   $q != null ?  number_format($e->quiz->question_count - $q->quiz_result_details->count()) : '0',
+            'degree' =>  $q != null ? number_format(($allquiz_result_detailscount / $allqutioncount) * 100 ,1) : '0.0'];
         }
 
         // $e = '9679fefa-0fdb-4545-862e-6d9a31f258b1';
