@@ -58,7 +58,6 @@ Route::get('/home_category_course', [CategoryCourseController::class, 'gethomeca
 Route::post('/new/study_schedule', [StudyScheduleController::class, 'create_study_schedule'])->name('create_study_schedule');
 Route::get('/courses/{category_id}', [CourseController::class, 'getcoursesbycategroy'])->name('getcoursesbycategroy');
 Route::get('/course/not_subscribed/{id}', [CourseController::class, 'getcoursebyidnot_subscribed']);
-Route::get('/calculating-progress-rate', [CourseController::class, 'get_calc_prog']);
 
 Route::get('/slider', [HomeController::class, 'getslider'])->name('getslider');
 Route::get('/setting', [HomeController::class, 'getsetting'])->name('getsetting');
@@ -89,6 +88,7 @@ Route::get('/category/quiz', [CategoryQuizController::class, 'get_category_quiz'
 
 
 Route::middleware(['jwt.verify'])->group(function () {
+    Route::get('/calculating-progress-rate', [CourseController::class, 'get_calc_prog']);
     Route::any('/update/profile', [UsersController::class, 'profile_update']); //post
     Route::any('/details/profile', [UsersController::class, 'profile_details']); //post
     // Route::get('/course/subscripe/{id}', [CourseController::class, 'getcoursebyidsubscripe'])->name('getcoursebyid');

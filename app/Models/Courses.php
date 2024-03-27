@@ -72,7 +72,7 @@ class Courses extends Model
 
     public function getScheduleurlAttribute()
     {
-        if($this->schedule ==null){
+        if($this->schedule == null){
 
             return '';
         }

@@ -6,8 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Resources\TrainerResource;
 use App\Http\Resources\CommentsResource;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Nette\Utils\ArrayList;
 
-class CalculatingProgresRateResource extends JsonResource
+class CalculatingProgresRateResource extends ArrayList
 {
 
     public function toArray(Request $request): array
