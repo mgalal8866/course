@@ -30,9 +30,18 @@ class RouteServiceProvider extends ServiceProvider
     {
         Livewire::setUpdateRoute(function ($handle) {
             return Route::post('/livewire/update', $handle)
-                ->middleware(['web','localeSessionRedirect', 'localizationRedirect', 'localeViewPath'])
-                ->prefix( LaravelLocalization::setLocale() . '/dashboard/');
+            ->prefix( LaravelLocalization::setLocale() . '/dashboard/')
+                ->middleware(['web','localeSessionRedirect', 'localizationRedirect', 'localeViewPath']);
         });
+        // Livewire::setScriptRoute(function ($handle) {
+        //      return Route::get('/vendor/livewire/livewire.js', $handle)
+        //      ->middleware(['web','localeSessionRedirect', 'localizationRedirect', 'localeViewPath'])
+        //      ->prefix( LaravelLocalization::setLocale() . '/dashboard/');
+
+
+        //       });
+
+
 
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
