@@ -69,7 +69,6 @@ Route::post('/add/comment/course', [CommentsController::class, 'add_comment_cour
 Route::post('/add/comment/freecourse', [CommentsController::class, 'add_comment_freecourse']);
 Route::get('/category/grades', [CategoryGradesController::class, 'get_category']);
 Route::get('/grades/bycategoryid/{id?}', [UsersGradesController::class, 'get_grades_by_category']);
-Route::get('payment/method', [PaymentsOnlineController::class, 'get_payment']);
 
 Route::post('/quiz/send/answers', [ResultQuizController::class, 'send_answers']);
 Route::get('/quiz', [QuizController::class, 'get_quiz_by_id']);
