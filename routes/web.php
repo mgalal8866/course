@@ -37,6 +37,8 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Livewire\Dashboard\Setting\Setting as SettingSetting;
 use App\Livewire\Dashboard\Quizzes\QuizCategory\ViewQuizCategory;
 use App\Livewire\Dashboard\FreeCourse\Category\CategoryFreeCourse;
+use App\Models\QuizResultDetails;
+use App\Models\QuizResultHeader;
 use Illuminate\Support\Facades\Artisan;
 
 // use Browser;
@@ -52,10 +54,12 @@ use Illuminate\Support\Facades\Artisan;
 |
 */
 
-Route::get('/ccc', function (Request $request) {
+Route::get('/clear', function (Request $request) {
+    QuizResultHeader::truncate();
+    QuizResultDetails::truncate();
 
-    Artisan::call('optimize');
-    return Artisan::output();
+    // Artisan::call('optimize');
+    // return Artisan::output();
 });
 Route::get('/ncc', function (Request $request) {
 
