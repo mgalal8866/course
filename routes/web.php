@@ -57,7 +57,7 @@ use Illuminate\Support\Facades\Artisan;
 Route::get('/clear', function (Request $request) {
     QuizResultHeader::truncate();
     QuizResultDetails::truncate();
-
+    return 'Done' ;
     // Artisan::call('optimize');
     // return Artisan::output();
 });
