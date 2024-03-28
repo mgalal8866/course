@@ -82,9 +82,9 @@ Route::group(
         'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
     ],
     function () {
-        Livewire::setUpdateRoute(function ($handle) {
-                return Route::post('/livewire/update', $handle);
-            });
+        // Livewire::setUpdateRoute(function ($handle) {
+        //         return Route::post('/livewire/update', $handle);
+        //     });
             Route::get('/', function () {
 
                 return view('layouts.dashboard.app');
