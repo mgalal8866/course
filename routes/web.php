@@ -61,6 +61,13 @@ Route::get('/clear', function (Request $request) {
     // Artisan::call('optimize');
     // return Artisan::output();
 });
+Route::get('/cache', function (Request $request) {
+
+
+    Artisan::call('optimize');
+    Artisan::call('route:trans:cache');
+    return Artisan::output();
+});
 Route::get('/ncc', function (Request $request) {
 
      Artisan::call('optimize:clear');
@@ -71,14 +78,17 @@ Route::get('/ncc', function (Request $request) {
 
 Route::group(
     [
-        'prefix' => LaravelLocalization::setLocale() . '/dashboard/',
+        'prefix' => LaravelLocalization::setLocale() . '/dashboard',
         'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
     ],
     function () {
-        // Livewire::setUpdateRoute(function ($handle) {
-        //     return Route::post('/livewire/update', $handle);
-        // });
+        Livewire::setUpdateRoute(function ($handle) {
+                return Route::post('/livewire/update', $handle);
+            });
+            Route::get('/', function () {
 
+                return view('layouts.dashboard.app');
+            });
         Route::get('/test21', function (Request $request) {
 
             $pageCount = 5; // عدد صفحات الكتاب
@@ -188,6 +198,7 @@ Route::group(
 
             echo $response;
         });
+
         Route::get('/test1', Test::class);
         // Route::get('/test1', NewCourse::class)->name('newcourse');
         Route::get('/test/{text?}', function (Request $request) {
@@ -241,9 +252,6 @@ Route::group(
             // // $image->insert($p2, 'center',  number_format($positionX),  number_format($positionY));
             $image->insert($watermark, 'center');
             return $image->response('jpg');
-        });
-        Route::get('/', function () {
-            return view('layouts.dashboard.app');
         });
         Route::get('/image', function () {
 

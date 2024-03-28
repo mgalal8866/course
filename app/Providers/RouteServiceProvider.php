@@ -13,6 +13,7 @@ use Livewire\Livewire;
 
 class RouteServiceProvider extends ServiceProvider
 {
+    use \Mcamara\LaravelLocalization\Traits\LoadsTranslatedCachedRoutes;
     /**
      * The path to your application's "home" route.
      *
@@ -30,7 +31,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         Livewire::setUpdateRoute(function ($handle) {
             return Route::post('/livewire/update', $handle)
-            ->prefix( LaravelLocalization::setLocale() . '/dashboard/')
+            ->prefix( LaravelLocalization::setLocale() . '/dashboard')
                 ->middleware(['web','localeSessionRedirect', 'localizationRedirect', 'localeViewPath']);
         });
         // Livewire::setScriptRoute(function ($handle) {
