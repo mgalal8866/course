@@ -65,11 +65,13 @@ Route::get('/cache', function (Request $request) {
 
 
     Artisan::call('optimize');
+    Artisan::call('view:cache');
     Artisan::call('route:trans:cache');
     return Artisan::output();
 });
 Route::get('/ncc', function (Request $request) {
 
+     Artisan::call('view:clear');
      Artisan::call('optimize:clear');
      return Artisan::output();
 
