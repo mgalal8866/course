@@ -30,6 +30,7 @@ use App\Http\Controllers\Api\V1\CategoryGradesController;
 use App\Http\Controllers\Api\V1\CourseEnrolledController;
 use App\Http\Controllers\Api\V1\PaymentsOnlineController;
 use App\Http\Controllers\Api\V1\CategoryFreeCourseController;
+use App\Http\Controllers\Api\V1\PaymentsController;
 
 Route::any('/login', [UsersController::class, 'login'])->name('login'); //post
 Route::any('/sendotp', [UsersController::class, 'sendotp']); //post
@@ -86,6 +87,7 @@ Route::get('/category/quiz', [CategoryQuizController::class, 'get_category_quiz'
 
 // Route::get('/books/buy/{id?}',[StoreBookController::class,'get_books_by_category']);
 
+Route::get('/get_payment', [PaymentsController::class, 'get_payment']);
 
 Route::middleware(['jwt.verify'])->group(function () {
     Route::get('/calculating-progress-rate', [CourseController::class, 'get_calc_prog']);

@@ -9,9 +9,12 @@ class PaymentMethods extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    public function PaymentMethodCredentials()
+    public function payment()
     {
-        return $this->hasMany(PaymentMethodCredentials::class);
+        return $this->morphMany(PaymentTransaction::class, 'paymentable');
     }
-
+    public function getImageAttribute($value)
+    {
+        return   $value != null ?asset('/asset/images/' . $value):'';
+    }
 }

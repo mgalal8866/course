@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('payment_transactions', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->uuid('user_id')->nullable();
+            $table->uuid('payment_id')->nullable();
             $table->string('price')->nullable();
             $table->string('response')->nullable();
             $table->string('image')->nullable();
