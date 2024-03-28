@@ -32,6 +32,7 @@ class CourseResource extends JsonResource
             'short_description' => $this->short_description ?? '', //نبذه مختصرة
             'features'          => $this->features ?? '<p style="text-align:center"><span style="color:#e74c3c"><span style="font-size:14px"><strong>نبذه مختصرة بتنسيق</strong></span></span></p>' ?? '', // مييزات الدورة
             'description'       => $this->description ?? '',
+            'sections_guide'    => $this->sections_guide ?? '',
             'start_date'        => $this->start_date ?? '',
             'end_date'          => $this->end_date ?? '',
             'time'              => $this->time ?? '',
