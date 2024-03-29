@@ -22,16 +22,29 @@ class DBCartRepository implements CartRepositoryinterface
     }
     public function getcart()
     {
-
-        // dd(  $this->model->whereHas('book')->orwhereHas('course')->where('user_id', Auth::guard('student')->user()->id)->with(['book', 'course'])->get());
-        return  $this->model->whereHas('book')->orwhereHas('course')->where('user_id', Auth::guard('student')->user()->id)->with(['book', 'course'])->get();
+        return $this->model->where('user_id', Auth::guard('student')->user()->id)->with(['book' => function ($q) {
+            $q->select('book_name', 'id', 'price');
+        }, 'course' => function ($q) {
+            $q->select('name', 'id', 'price');
+        }])->get();
     }
     public function addtocart()
     {
-        $book_id = $this->request->input('book_id', 1);
-        $course_id = $this->request->input('course_id', 1);
+        $is_book = $this->request->input('is_book', 1);
+        $product_id = $this->request->input('product_id', 1);
         $qty = $this->request->input('qty', 1);
-        $w =   $this->model->updateOrCreate(['book_id' => $book_id ?? null, 'course_id' => $course_id ?? null, 'user_id' => Auth::guard('student')->user()->id], ['user_id' => Auth::guard('student')->user()->id, 'book_id' => $book_id, 'qty' => $qty]);
+        $w =   $this->model->updateOrCreate(
+            [
+                'product_id' => $product_id ?? null,
+                'is_book' => $is_book ?? null,
+                'user_id' => Auth::guard('student')->user()->id
+            ],
+            [
+                'user_id' => Auth::guard('student')->user()->id,
+                'product_id' => $product_id, 'is_book' => $is_book ?? null,
+                'qty' => $qty
+            ]
+        );
         if ($qty == 0) {
             $this->deletecart($w->id);
         }
@@ -41,9 +54,8 @@ class DBCartRepository implements CartRepositoryinterface
     }
     public function deletecart()
     {
-        $book_id = $this->request->input('book_id', 1);
-        $course_id = $this->request->input('course_id', 1);
-        $w =   $this->model->where(['book_id' => $book_id, 'course_id' => $course_id])->where('user_id', Auth::guard('student')->user()->id)->first();
+        $product_id = $this->request->input('product_id', 1);
+        $w =   $this->model->where(['product_id' => $product_id])->where('user_id', Auth::guard('student')->user()->id)->first();
         if ($w != null) {
             $w->delete();
             return   $this->getcart();

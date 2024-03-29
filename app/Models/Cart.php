@@ -19,10 +19,10 @@ class Cart extends Model
 
     public function book()
     {
-        return $this->belongsTo(StoreBook::class);
+        return $this->belongsTo(StoreBook::class,'product_id');
     }
     public function course()
     {
-        return $this->belongsTo(Courses::class);
+        return $this->belongsTo(Courses::class,'product_id');
     }
 }

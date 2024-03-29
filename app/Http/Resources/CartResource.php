@@ -19,20 +19,14 @@ class CartResource extends JsonResource
 
         return [
             'cart_id' => $this->id ?? '',
-            'book' => [
-                'book_id'    => $this->book->id ?? '',
-                'book_name'  => $this->book->book_name ?? '',
-                'book_qty'   => $this->qty ?? ''
-            ],
-            'course' => [
-                'course_id'    => $this->course->id ?? '',
-                'course_name'  => $this->course->name ?? '',
-                'course_qty'   => $this->qty ?? ''
-            ],
-            'price'      => $this->price ?? '',
-            'discount'   => $this->discount ?? '',
-            'subtotal'   => $this->subtotal ?? '',
-            'total'      => $this->total ?? '',
+            'product_id'    => $this->is_book ==1 ?$this->book->id :$this->course->id,
+            'name'          => $this->is_book == 1 ?$this->book->book_name :$this->course->name ?? '',
+            'is_book'       => number_format($this->is_book) ?? '',
+            'qty'           => $this->qty ?? '',
+            'price'         => number_format(($this->is_book == 1 ?$this->book->price :$this->course->price) ,2)?? '',
+            'total'         => number_format($this->qty *  ($this->is_book == 1 ?$this->book->price :$this->course->price) ,2),
+            // 'discount'      => $this->discount ?? '0',
+            // 'subtotal'      => number_format($this->qty *  ($this->is_book == 1 ?$this->book->price :$this->course->price) ,2),
         ];
     }
 }

@@ -19,14 +19,12 @@ class CartController extends Controller
     {
         return Resp(CartResource::collection($this->cartRepositry->getcart()), 'success', 200, true);
     }
-    public function deletefromcart(Request $request)
+    public function deletefromcart()
     {
-        if($request->has('cart_id'))
-        return Resp(CartResource::collection($this->cartRepositry->deletecart($request->cart_id)), 'success', 200, true);
+        return Resp(CartResource::collection($this->cartRepositry->deletecart()), 'success', 200, true);
     }
-    public function addtocart(Request $request)
+    public function addtocart()
     {
-        if($request->has('book_id') && $request->has('qty'))
         return Resp(CartResource::collection($this->cartRepositry->addtocart()), 'success', 200, true);
     }
 

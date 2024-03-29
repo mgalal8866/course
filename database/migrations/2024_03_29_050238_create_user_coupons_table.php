@@ -11,15 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('carts', function (Blueprint $table) {
+        Schema::create('user_coupons', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->string('name')->nullable();
+            $table->string('discount')->nullable()->comment('%');
+            $table->string('note')->nullable();
             $table->uuid('user_id')->nullable();
-            $table->uuid('product_id')->nullable();
-            $table->boolean('is_book')->nullable();
-            $table->string('qty')->nullable();
-            $table->decimal('price',8,2)->nullable();
-            $table->decimal('discount',8,2)->nullable();
-            $table->decimal('total',8,2)->nullable();
+            $table->uuid('country_id')->nullable();
+            $table->boolean('active')->default(1);
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('carts');
+        Schema::dropIfExists('user_coupons');
     }
 };

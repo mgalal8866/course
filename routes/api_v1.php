@@ -12,8 +12,10 @@ use App\Http\Controllers\Api\V1\CartController;
 use App\Http\Controllers\Api\V1\HomeController;
 use App\Http\Controllers\Api\V1\QuizController;
 use App\Http\Controllers\Api\V1\UsersController;
+use App\Http\Controllers\Api\V1\CouponController;
 use App\Http\Controllers\Api\V1\CourseController;
 use App\Http\Controllers\Api\V1\CommentsController;
+use App\Http\Controllers\Api\V1\PaymentsController;
 use App\Http\Controllers\Api\V1\SetttingController;
 use App\Http\Controllers\Api\V1\WishlistController;
 use App\Http\Controllers\Api\V1\CountriesController;
@@ -30,7 +32,6 @@ use App\Http\Controllers\Api\V1\CategoryGradesController;
 use App\Http\Controllers\Api\V1\CourseEnrolledController;
 use App\Http\Controllers\Api\V1\PaymentsOnlineController;
 use App\Http\Controllers\Api\V1\CategoryFreeCourseController;
-use App\Http\Controllers\Api\V1\PaymentsController;
 
 Route::any('/login', [UsersController::class, 'login'])->name('login'); //post
 Route::any('/sendotp', [UsersController::class, 'sendotp']); //post
@@ -89,6 +90,7 @@ Route::get('/category/quiz', [CategoryQuizController::class, 'get_category_quiz'
 Route::get('/get_payment', [PaymentsController::class, 'get_payment']);
 
 Route::middleware(['jwt.verify'])->group(function () {
+    Route::get('/checkcoupon', [CouponController::class, 'checkcoupon']);
     Route::get('/calculating-progress-rate', [CourseController::class, 'get_calc_prog']);
     Route::any('/update/profile', [UsersController::class, 'profile_update']); //post
     Route::any('/details/profile', [UsersController::class, 'profile_details']); //post
