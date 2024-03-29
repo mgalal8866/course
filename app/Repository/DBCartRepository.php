@@ -22,6 +22,7 @@ class DBCartRepository implements CartRepositoryinterface
     }
     public function getcart()
     {
+
         return $this->model->where('user_id', Auth::guard('student')->user()->id)->with(['book' => function ($q) {
             $q->select('book_name', 'id', 'price');
         }, 'course' => function ($q) {
