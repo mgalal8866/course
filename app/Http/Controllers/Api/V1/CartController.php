@@ -27,7 +27,7 @@ class CartController extends Controller
     public function addtocart(Request $request)
     {
         if($request->has('book_id') && $request->has('qty'))
-        return Resp(CartResource::collection($this->cartRepositry->addtocart($request->book_id, $request->qty)), 'success', 200, true);
+        return Resp(CartResource::collection($this->cartRepositry->addtocart()), 'success', 200, true);
     }
 
 }

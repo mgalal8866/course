@@ -21,4 +21,8 @@ class Cart extends Model
     {
         return $this->belongsTo(StoreBook::class);
     }
+    public function course()
+    {
+        return $this->belongsTo(Courses::class);
+    }
 }
