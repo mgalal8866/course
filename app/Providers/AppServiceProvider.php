@@ -9,6 +9,7 @@ use App\Models\CategoryQuiz;
 use App\Repository\DBBlogRepository;
 use App\Repository\DBCartRepository;
 use App\Repository\DBQuizRepository;
+use App\Repository\DBOrderRepository;
 use App\Repository\DBUsersRepository;
 use App\Repository\DBCouponRepository;
 use App\Repository\DBCourseRepository;
@@ -31,6 +32,7 @@ use App\Repositoryinterface\BlogRepositoryinterface;
 use App\Repositoryinterface\CartRepositoryinterface;
 use App\Repositoryinterface\QuizRepositoryinterface;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use App\Repositoryinterface\OrderRepositoryinterface;
 use App\Repositoryinterface\UsersRepositoryinterface;
 use App\Repositoryinterface\CouponRepositoryinterface;
 use App\Repositoryinterface\CourseRepositoryinterface;
@@ -78,6 +80,7 @@ class AppServiceProvider extends ServiceProvider
             BlogRepositoryinterface::class             => DBBlogRepository::class,
             CategoryBlogRepositoryinterface::class     => DBCategoryBlogRepository::class,
             CouponRepositoryinterface::class           => DBCouponRepository::class,
+            OrderRepositoryinterface::class            => DBOrderRepository::class,
         ];
 
         foreach ($repositories as $interface => $implementation) {
