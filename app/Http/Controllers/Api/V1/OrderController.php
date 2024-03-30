@@ -1,0 +1,31 @@
+<?php
+
+namespace App\Http\Controllers\Api\V1;
+
+use App\Http\Controllers\Controller;
+use App\Http\Resources\ApiBlogResource;
+use App\Http\Resources\Course\OrderResource;
+use App\Repositoryinterface\BlogRepositoryinterface;
+use App\Repositoryinterface\OrderRepositoryinterface;
+
+class OrderController extends Controller
+{
+    private $orderRepositry;
+    public function __construct(OrderRepositoryinterface $orderRepositry)
+    {
+        $this->orderRepositry = $orderRepositry;
+    }
+
+
+    public function please_order()
+    {
+        $please_order = $this->orderRepositry->please_order();
+        if( $please_order != null){
+          return Resp(OrderResource::collection($please_order), 'success', 200, true);
+        }else{
+          return Resp('','No Blog','404');
+        }
+    }
+
+
+}

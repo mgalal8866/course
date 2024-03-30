@@ -20,8 +20,9 @@ return new class extends Migration
             $table->string('source');
             $table->string('transaction_id');
             $table->string('blance');
-            $table->string('sub_total');
-            $table->string('grand_total');
+            $table->decimal('subtotal',8,2)->nullable();
+            $table->decimal('discount',8,2)->nullable();
+            $table->decimal('total',8,2)->nullable();
             $table->timestamps();
         });
     }

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->uuid('user_id')->nullable();
             $table->uuid('payment_id')->nullable();
+            $table->boolean('payment_type')->nullable();
             $table->string('price')->nullable();
             $table->string('response')->nullable();
             $table->string('image')->nullable();

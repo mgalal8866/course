@@ -12,7 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('orders_details', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
+            $table->uuid('product_id')->nullable();
+            $table->boolean('is_book')->nullable();
+            $table->uuid('coupon_id')->nullable();
+            $table->string('qty')->nullable();
+            $table->decimal('price',8,2)->nullable();
+            $table->decimal('subtotal',8,2)->nullable();
+            $table->decimal('discount',8,2)->nullable();
+            $table->decimal('total',8,2)->nullable();
             $table->timestamps();
         });
     }

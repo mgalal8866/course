@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\V1\BlogController;
 use App\Http\Controllers\Api\V1\CartController;
 use App\Http\Controllers\Api\V1\HomeController;
 use App\Http\Controllers\Api\V1\QuizController;
+use App\Http\Controllers\Api\V1\OrderController;
 use App\Http\Controllers\Api\V1\UsersController;
 use App\Http\Controllers\Api\V1\CouponController;
 use App\Http\Controllers\Api\V1\CourseController;
@@ -90,6 +91,7 @@ Route::get('/category/quiz', [CategoryQuizController::class, 'get_category_quiz'
 Route::get('/get_payment', [PaymentsController::class, 'get_payment']);
 
 Route::middleware(['jwt.verify'])->group(function () {
+    Route::get('/please-order', [OrderController::class, 'please_order']);
     Route::get('/checkcoupon', [CouponController::class, 'checkcoupon']);
     Route::get('/calculating-progress-rate', [CourseController::class, 'get_calc_prog']);
     Route::any('/update/profile', [UsersController::class, 'profile_update']); //post
