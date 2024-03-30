@@ -27,15 +27,16 @@ class DBOrderRepository implements OrderRepositoryinterface
             $q->select('book_name', 'id', 'price');
         }, 'course' => function ($q) {
             $q->select('name', 'id', 'price');
-        }])->get();;
-        dd($this->request);
+        }])->get();
+
         $order =  $this->order->create([
-            'date' => '',
+            'date' =>now(),
             'user_id' => Auth::guard('student')->user()->id,
-            'transaction_id' => '',
+            'code' => null,
+            'transaction_id' => null,
             'subtotal' => $cart->sum('price'),
-            'discount' => '',
-            'total' => '',
+            'discount' => null,
+            'total' => null,
         ]);
         foreach ($cart as $item) {
             $details = $this->detailsorder->create([
@@ -45,9 +46,10 @@ class DBOrderRepository implements OrderRepositoryinterface
                 'qty'        => number_format($item->qty),
                 'price'      => number_format($item->price, 2),
                 'subtotal'   => number_format($item->qty * $item->price, 2),
-                'discount'   => '',
+                'discount'   => null,
                 'total'      => number_format($item->qty * $item->price, 2),
             ]);
         }
+
     }
 }
