@@ -19,6 +19,7 @@ class BooksResource extends JsonResource
             'features'  => $this->features??'',
             'type'      => $this->type ==0 ?'كتاب مطبوع':'كتاب الكترونى (PDF)',
             'link'      => $this->link ??'',
+            'currency'  => 'جنية مصرى',
             'price'     => $this->price??'',
             'qty_max'   => $this->qty_max??'',
         ];
