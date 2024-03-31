@@ -28,7 +28,7 @@ class BlogController extends Controller
     {
         $get_blog = $this->blogRepositry->get_blog_by_id();
         if( $get_blog != null){
-          return Resp(ApiBlogResource::collection($get_blog), 'success', 200, true);
+          return Resp(new ApiBlogResource($get_blog), 'success', 200, true);
         }else{
           return Resp('','No Blog','404');
         }

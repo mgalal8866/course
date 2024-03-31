@@ -18,7 +18,6 @@ class DBBlogRepository implements BlogRepositoryinterface
     }
 
     public function get_blog_by_id(){
-
         $id = $this->request->input('id', 1);
       return  $this->model->find($id);
     }
