@@ -25,7 +25,12 @@ class CartController extends Controller
     }
     public function addtocart()
     {
-        return Resp(CartResource::collection($this->cartRepositry->addtocart()), 'success', 200, true);
+       $add_cart= $this->cartRepositry->addtocart();
+        if( $add_cart != null){
+            return Resp(CartResource::collection($add_cart), 'success', 200, true);
+          }else{
+            return Resp('','Not found ','404');
+          }
     }
 
 }

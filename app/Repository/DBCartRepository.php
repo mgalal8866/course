@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use Carbon\Carbon;
 use App\Models\Cart;
+use App\Models\Courses;
 use App\Models\deferred;
 use App\Models\StoreBook;
 use Illuminate\Support\Facades\Log;
@@ -34,6 +35,17 @@ class DBCartRepository implements CartRepositoryinterface
         $is_book = $this->request->input('is_book', 1);
         $product_id = $this->request->input('product_id', 1);
         $qty = $this->request->input('qty', 1);
+        if($is_book==1){
+           $storebook=  StoreBook::find( $product_id);
+           if(!$storebook){
+            return null;
+           }
+        }else{
+            $courses=  Courses::find( $product_id);
+            if(!$courses){
+             return null;
+            }
+        }
         $w =   $this->model->updateOrCreate(
             [
                 'product_id' => $product_id ?? null,
