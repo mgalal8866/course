@@ -28,7 +28,7 @@ class DBCommentsRepository implements CommentsRepositoryinterface
             'body' => $request->body,
             'rating' => $request->rating
         ]);
-    
+
         return $course->comments()->latest()->first();
     }
     public function add_comment_freecourse($request)
@@ -39,7 +39,7 @@ class DBCommentsRepository implements CommentsRepositoryinterface
         }
         $course->comments()->create([
             'body' => $request->body,
-            'reting' => $request->rating
+            'rating' => $request->rating
         ]);
         return $course->comments()->latest()->first();
     }
