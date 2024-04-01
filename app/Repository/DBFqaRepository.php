@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Models\Fqa;
 use App\Models\Blog;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;
 use App\Repositoryinterface\BlogRepositoryinterface;use App\Repositoryinterface\FqaRepositoryinterface;
 
@@ -19,9 +20,10 @@ class DBFqaRepository implements FqaRepositoryinterface
     }
 
     public function get_fqa(){
-        $fqa =$this->model->get();
+        $fqa = Cache::rememberForever('fqaall', function () {
+            return   $this->model->get();
 
-      return  $fqa ;
+        });
     }
 
 }
