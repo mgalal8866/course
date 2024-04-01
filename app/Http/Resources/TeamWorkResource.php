@@ -15,7 +15,7 @@ class TeamWorkResource extends JsonResource
             'image'        => $this->imageurl??''  ,
             'description'  => $this->description??''  ,
             'specialist'   => $this->specialist ??'',
-            'facebook'     => $this->point??'0'  ,
+            'facebook'     => $this->facebook??''  ,
             'x'            => $this->x??'' ,
             'linkedin'     =>  $this->linkedin ??'' ,
             'telegram'     => $this->telegram??''  ,
