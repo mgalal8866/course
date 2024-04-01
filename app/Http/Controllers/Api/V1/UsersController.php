@@ -8,6 +8,7 @@ use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginUserRequest;
+use App\Http\Resources\TeamWorkResource;
 use App\Repositoryinterface\UsersRepositoryinterface;
 
 class UsersController extends Controller
@@ -27,7 +28,7 @@ class UsersController extends Controller
         $teamwork =  $this->users->get_teamwork();
 
         if ($teamwork) {
-            return Resp($teamwork, 'sucess',200);
+            return Resp(TeamWorkResource::collection($teamwork), 'sucess',200);
         } else {
             return Resp('error', 401);
         }
