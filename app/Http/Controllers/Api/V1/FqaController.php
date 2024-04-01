@@ -19,7 +19,7 @@ class FqaController extends Controller
     {
         $get_fqa = $this->fqaRepositry->get_fqa();
         if( $get_fqa != null){
-          return Resp(new FqaResource($get_fqa), 'success', 200, true);
+          return Resp( FqaResource::collection($get_fqa), 'success', 200, true);
         }else{
           return Resp('','No Fqa','404');
         }
