@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('content_us', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->boolean('type')->comment('0=work with elyuser  1=content to owner')->nullable();
             $table->string('name')->nullable();
             $table->string('mail')->nullable();
             $table->string('phone')->nullable();

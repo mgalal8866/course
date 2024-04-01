@@ -33,6 +33,7 @@ use App\Http\Controllers\Api\V1\CategoryGradesController;
 use App\Http\Controllers\Api\V1\CourseEnrolledController;
 use App\Http\Controllers\Api\V1\PaymentsOnlineController;
 use App\Http\Controllers\Api\V1\CategoryFreeCourseController;
+use App\Http\Controllers\Api\V1\ContentUsController;
 
 Route::any('/login', [UsersController::class, 'login'])->name('login'); //post
 Route::any('/sendotp', [UsersController::class, 'sendotp']); //post
@@ -67,8 +68,6 @@ Route::get('/setting', [HomeController::class, 'getsetting'])->name('getsetting'
 Route::get('/category/free/course', [CategoryFreeCourseController::class, 'getcategoryfreecourse']);
 Route::get('/free/course/bycategory/{id?}', [FreeCourseController::class, 'get_free_course_by_category']);
 Route::get('/free/course/{id?}', [FreeCourseController::class, 'get_free_course_by_id']);
-Route::post('/add/comment/course', [CommentsController::class, 'add_comment_course']);
-Route::post('/add/comment/freecourse', [CommentsController::class, 'add_comment_freecourse']);
 Route::get('/category/grades', [CategoryGradesController::class, 'get_category']);
 Route::get('/grades/bycategoryid/{id?}', [UsersGradesController::class, 'get_grades_by_category']);
 
@@ -91,6 +90,9 @@ Route::get('/category/quiz', [CategoryQuizController::class, 'get_category_quiz'
 Route::get('/get_payment', [PaymentsController::class, 'get_payment']);
 
 Route::middleware(['jwt.verify'])->group(function () {
+    Route::post('/content_us', [ContentUsController::class, 'send_contentus']);
+    Route::post('/add/comment/course', [CommentsController::class, 'add_comment_course']);
+    Route::post('/add/comment/freecourse', [CommentsController::class, 'add_comment_freecourse']);
     Route::get('/please-order', [OrderController::class, 'please_order']);
     Route::get('/checkcoupon', [CouponController::class, 'checkcoupon']);
     Route::get('/calculating-progress-rate', [CourseController::class, 'get_calc_prog']);

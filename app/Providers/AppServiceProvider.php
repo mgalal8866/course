@@ -16,6 +16,7 @@ use App\Repository\DBCourseRepository;
 use Illuminate\Support\ServiceProvider;
 use App\Repository\DBCommentsRepository;
 use App\Repository\DBWishlistRepository;
+use App\Repository\DBContentUsRepository;
 use App\Repository\DBStoreBookRepository;
 use App\Repository\DBFreeCourseRepository;
 use App\Repository\DBResultQuizRepository;
@@ -38,6 +39,7 @@ use App\Repositoryinterface\CouponRepositoryinterface;
 use App\Repositoryinterface\CourseRepositoryinterface;
 use App\Repositoryinterface\CommentsRepositoryinterface;
 use App\Repositoryinterface\WishlistRepositoryinterface;
+use App\Repositoryinterface\ContentUsRepositoryinterface;
 use App\Repositoryinterface\StoreBookRepositoryinterface;
 use App\Repositoryinterface\FreeCourseRepositoryinterface;
 use App\Repositoryinterface\ResultQuizRepositoryinterface;
@@ -81,6 +83,7 @@ class AppServiceProvider extends ServiceProvider
             CategoryBlogRepositoryinterface::class     => DBCategoryBlogRepository::class,
             CouponRepositoryinterface::class           => DBCouponRepository::class,
             OrderRepositoryinterface::class            => DBOrderRepository::class,
+            ContentUsRepositoryinterface::class        => DBContentUsRepository::class,
         ];
 
         foreach ($repositories as $interface => $implementation) {
