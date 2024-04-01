@@ -47,6 +47,11 @@ class DBUsersRepository implements UsersRepositoryinterface
         $data= ['phone'=>$request->phone,'password'=>$request->password];
      return  $this->credentials($data);
     }
+    public function get_teamwork()
+    {
+        $data= User::whereTeamwork('1')->get();
+     return   $data;
+    }
     public function sendotp()
     {
         $code = rand(123456, 999999);

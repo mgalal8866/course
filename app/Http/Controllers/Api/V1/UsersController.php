@@ -22,6 +22,17 @@ class UsersController extends Controller
     {
       return  $this->users->login($request);
     }
+    public function get_teamwork()
+    {
+        $teamwork =  $this->users->get_teamwork();
+
+        if ($teamwork) {
+            return Resp($teamwork, 'sucess',200);
+        } else {
+            return Resp('error', 401);
+        }
+
+    }
     public function signup(UserRequest $request)
     {
       return  $this->users->signup($request);

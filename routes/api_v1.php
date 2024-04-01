@@ -84,6 +84,7 @@ Route::get('/countries', [CountriesController::class, 'get_countries']);
 Route::get('/test', [CountriesController::class, 'get_test']);
 Route::get('/category/quiz', [CategoryQuizController::class, 'get_category_quiz']);
 Route::post('/content_us', [ContentUsController::class, 'send_contentus']);
+Route::get('/teamwork', [UsersController::class, 'get_teamwork']);
 
 
 // Route::get('/books/buy/{id?}',[StoreBookController::class,'get_books_by_category']);

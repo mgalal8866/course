@@ -26,6 +26,15 @@ return new class extends Migration
             $table->decimal('wallet',8,2)->default(0);
             $table->string('password');
             $table->boolean('active')->default(1);
+            $table->boolean('teamwork')->default(0)->comment('1= in tramwork  -  0= not show in teamwork');
+            $table->string('description')->nullable();
+            $table->string('image')->nullable();
+            $table->string('specialist')->nullable();
+            $table->string('facebook')->nullable();
+            $table->string('x')->nullable();
+            $table->string('linkedin')->nullable();
+            $table->string('telegram')->nullable();
+            $table->integer('type')->nullable()->comment('1= user - 2=trinner ');
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();
