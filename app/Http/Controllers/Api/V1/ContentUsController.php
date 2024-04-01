@@ -13,7 +13,6 @@ class ContentUsController extends Controller
         $this->contentusRepositry = $contentusRepositry;
     }
 
-
     public function send_contentus()
     {
         $content = $this->contentusRepositry->send_contentus();
@@ -23,7 +22,4 @@ class ContentUsController extends Controller
           return Resp('','No Blog','404');
         }
     }
-
-
-
 }
