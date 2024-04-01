@@ -20,10 +20,10 @@ class DBFqaRepository implements FqaRepositoryinterface
     }
 
     public function get_fqa(){
-        $fqa = Cache::rememberForever('fqaall', function () {
-            return   $this->model->get();
+        return   $this->model->get();
+        // $fqa = Cache::rememberForever('fqaall', function () {
 
-        });
+        // });
     }
 
 }
