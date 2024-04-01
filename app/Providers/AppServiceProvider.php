@@ -6,6 +6,7 @@ use App\Models\Courses;
 use App\Models\FreeCourse;
 use App\Models\CategoryBlog;
 use App\Models\CategoryQuiz;
+use App\Repository\DBFqaRepository;
 use App\Repository\DBBlogRepository;
 use App\Repository\DBCartRepository;
 use App\Repository\DBQuizRepository;
@@ -29,6 +30,7 @@ use App\Repository\DBCategoryCourseRepository;
 use App\Repository\DBCategoryGradesRepository;
 use App\Repository\DBCourseEnrolledRepository;
 use App\Repository\DBCategoryFreeCourseRepository;
+use App\Repositoryinterface\FqaRepositoryinterface;
 use App\Repositoryinterface\BlogRepositoryinterface;
 use App\Repositoryinterface\CartRepositoryinterface;
 use App\Repositoryinterface\QuizRepositoryinterface;
@@ -84,6 +86,7 @@ class AppServiceProvider extends ServiceProvider
             CouponRepositoryinterface::class           => DBCouponRepository::class,
             OrderRepositoryinterface::class            => DBOrderRepository::class,
             ContentUsRepositoryinterface::class        => DBContentUsRepository::class,
+            FqaRepositoryinterface::class              => DBFqaRepository::class,
         ];
 
         foreach ($repositories as $interface => $implementation) {
