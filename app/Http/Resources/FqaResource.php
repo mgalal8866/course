@@ -16,10 +16,8 @@ class FqaResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            // 'id'       => $this->id??'',
             'question' => $this->questions??'',
             'answer'   => $this->answers??'',
-            // 'priority' => $this->priority??'',
 
         ];
     }

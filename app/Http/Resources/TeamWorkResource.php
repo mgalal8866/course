@@ -19,8 +19,6 @@ class TeamWorkResource extends JsonResource
             'x'            => $this->x??'' ,
             'linkedin'     =>  $this->linkedin ??'' ,
             'telegram'     => $this->telegram??''  ,
-
-
         ];
     }
 }

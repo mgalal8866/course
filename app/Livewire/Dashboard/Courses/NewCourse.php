@@ -3,9 +3,12 @@
 namespace App\Livewire\Dashboard\Courses;
 
 
+use App\Models\User;
+use App\Models\Quizes;
 use App\Models\Stages;
 use App\Models\Country;
 use App\Models\Courses;
+use App\Models\Lessons;
 use App\Models\Trainer;
 use Livewire\Component;
 use App\Models\Category;
@@ -14,13 +17,11 @@ use Livewire\Attributes\On;
 use App\Models\CourseStages;
 use Livewire\WithFileUploads;
 use App\Models\CourseTrainers;
-use App\Models\CategoryFCourse;
-use App\Models\Lessons;
-use App\Models\Quiz_question_answers;
 use App\Models\Quiz_questions;
-use App\Models\Quizes;
+use App\Models\CategoryFCourse;
 use App\Traits\ImageProcessing;
 use Illuminate\Support\Facades\DB;
+use App\Models\Quiz_question_answers;
 
 class NewCourse extends Component
 {
@@ -360,7 +361,7 @@ class NewCourse extends Component
     {
         $category = Category::get();
         $country = Country::get();
-        $triners = Trainer::get();
+        $triners = User::whereType('1')->get();
         $categoryfreecourse = CategoryFCourse::whereHas('freecourse')->get();
         return view('dashboard.courses.new-course', compact(['category', 'triners', 'country', 'categoryfreecourse']));
     }

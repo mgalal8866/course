@@ -221,7 +221,7 @@
                                             required>
                                             @foreach ($triners as $item)
                                                 <option @if (in_array($item->id, $triner)) selected @endif
-                                                    value="{{ $item->id ?? '' }}">{{ $item->name ?? '' }}
+                                                    value="{{ $item->id ?? '' }}">{{( $item->first_name ?? '') . ' ' . ( $item->middle_name ?? '')}}
                                                 </option>
                                             @endforeach
                                         </select>
