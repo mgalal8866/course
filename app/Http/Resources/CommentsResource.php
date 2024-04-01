@@ -16,7 +16,7 @@ class CommentsResource extends JsonResource
     {
         return [
             'username' => $this->user->first_name??'' ,
-            'user_image'    => 'https://www.spruko.com/demo/valex/dist/assets/images/faces/6.jpg',
+            // 'user_image'    => 'https://www.spruko.com/demo/valex/dist/assets/images/faces/6.jpg',
             'comment'  => $this->body??'',
             'rating'   => $this->rating??'1',
             'created_at'    => $this->created_at?->format('d/m/Y'),

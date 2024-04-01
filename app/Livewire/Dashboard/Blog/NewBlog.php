@@ -52,6 +52,7 @@ class NewBlog extends Component
         $blog = Blog::updateOrCreate(['id' => $this->id], [
             'title'  => $this->title,
             'article'=> '',
+            'views'=> '0',
             'active' => $this->active??1,
         ]);
         if ($this->image) {
