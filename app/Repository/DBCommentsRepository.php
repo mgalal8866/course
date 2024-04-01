@@ -25,8 +25,9 @@ class DBCommentsRepository implements CommentsRepositoryinterface
             return null;
         }
         $course->comments()->create([
-            'body' => $request->body,
-            'rating' => $request->rating
+            'body'    => $request->body,
+            'rating'  => $request->rating,
+            'user_id' => Auth::guard('student')->user()->id
         ]);
 
         return $course->comments()->latest()->first();
@@ -39,7 +40,8 @@ class DBCommentsRepository implements CommentsRepositoryinterface
         }
         $course->comments()->create([
             'body' => $request->body,
-            'rating' => $request->rating
+            'rating' => $request->rating,
+            'user_id' => Auth::guard('student')->user()->id
         ]);
         return $course->comments()->latest()->first();
     }
