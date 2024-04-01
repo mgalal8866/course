@@ -21,6 +21,7 @@ class DBBlogRepository implements BlogRepositoryinterface
         $id = $this->request->input('id', 1);
         $blog =$this->model->find($id);
         $blog->increment('views');
+        $blog->save();
       return  $blog ;
     }
     public function get_blog_by_category(){

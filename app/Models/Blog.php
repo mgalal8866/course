@@ -11,19 +11,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Blog extends Model
 {
     use UUID, HasFactory, SoftDeletes;
-    protected $fillable =
-    [
-        'title',
-        'image',
-        'short',
-        'article',
-        'category_id',
-        'active',
-    ];
+    protected $guarded = [];
+
     public function getImageurlAttribute()
     {
         return path($this->id,'blog') . $this->image;
     }
+    
     public function category()
     {
         return $this->belongsTo(CategoryBlog::class);
