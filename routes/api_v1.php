@@ -34,6 +34,7 @@ use App\Http\Controllers\Api\V1\CourseEnrolledController;
 use App\Http\Controllers\Api\V1\PaymentsOnlineController;
 use App\Http\Controllers\Api\V1\CategoryFreeCourseController;
 use App\Http\Controllers\Api\V1\ContentUsController;
+use App\Http\Controllers\Api\V1\FqaController;
 
 Route::any('/login', [UsersController::class, 'login'])->name('login'); //post
 Route::any('/sendotp', [UsersController::class, 'sendotp']); //post
@@ -85,6 +86,7 @@ Route::get('/test', [CountriesController::class, 'get_test']);
 Route::get('/category/quiz', [CategoryQuizController::class, 'get_category_quiz']);
 Route::post('/content_us', [ContentUsController::class, 'send_contentus']);
 Route::get('/teamwork', [UsersController::class, 'get_teamwork']);
+Route::get('/fqa', [FqaController::class, 'get_fqa']);
 
 
 // Route::get('/books/buy/{id?}',[StoreBookController::class,'get_books_by_category']);
