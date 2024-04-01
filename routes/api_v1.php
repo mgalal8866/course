@@ -83,6 +83,7 @@ Route::get('/book', [StoreBookController::class, 'get_book_by_id']);
 Route::get('/countries', [CountriesController::class, 'get_countries']);
 Route::get('/test', [CountriesController::class, 'get_test']);
 Route::get('/category/quiz', [CategoryQuizController::class, 'get_category_quiz']);
+Route::post('/content_us', [ContentUsController::class, 'send_contentus']);
 
 
 // Route::get('/books/buy/{id?}',[StoreBookController::class,'get_books_by_category']);
@@ -90,7 +91,6 @@ Route::get('/category/quiz', [CategoryQuizController::class, 'get_category_quiz'
 Route::get('/get_payment', [PaymentsController::class, 'get_payment']);
 
 Route::middleware(['jwt.verify'])->group(function () {
-    Route::post('/content_us', [ContentUsController::class, 'send_contentus']);
     Route::post('/add/comment/course', [CommentsController::class, 'add_comment_course']);
     Route::post('/add/comment/freecourse', [CommentsController::class, 'add_comment_freecourse']);
     Route::get('/please-order', [OrderController::class, 'please_order']);
