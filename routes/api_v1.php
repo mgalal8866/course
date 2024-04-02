@@ -7,6 +7,7 @@ use App\Models\CategoryBook;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Cookie;
+use App\Http\Controllers\Api\V1\FqaController;
 use App\Http\Controllers\Api\V1\BlogController;
 use App\Http\Controllers\Api\V1\CartController;
 use App\Http\Controllers\Api\V1\HomeController;
@@ -15,10 +16,12 @@ use App\Http\Controllers\Api\V1\OrderController;
 use App\Http\Controllers\Api\V1\UsersController;
 use App\Http\Controllers\Api\V1\CouponController;
 use App\Http\Controllers\Api\V1\CourseController;
+use App\Http\Controllers\Api\V1\RatingController;
 use App\Http\Controllers\Api\V1\CommentsController;
 use App\Http\Controllers\Api\V1\PaymentsController;
 use App\Http\Controllers\Api\V1\SetttingController;
 use App\Http\Controllers\Api\V1\WishlistController;
+use App\Http\Controllers\Api\V1\ContentUsController;
 use App\Http\Controllers\Api\V1\CountriesController;
 use App\Http\Controllers\Api\V1\StoreBookController;
 use App\Http\Controllers\Api\V1\FreeCourseController;
@@ -33,8 +36,6 @@ use App\Http\Controllers\Api\V1\CategoryGradesController;
 use App\Http\Controllers\Api\V1\CourseEnrolledController;
 use App\Http\Controllers\Api\V1\PaymentsOnlineController;
 use App\Http\Controllers\Api\V1\CategoryFreeCourseController;
-use App\Http\Controllers\Api\V1\ContentUsController;
-use App\Http\Controllers\Api\V1\FqaController;
 
 Route::any('/login', [UsersController::class, 'login'])->name('login'); //post
 Route::any('/sendotp', [UsersController::class, 'sendotp']); //post
@@ -87,6 +88,9 @@ Route::get('/category/quiz', [CategoryQuizController::class, 'get_category_quiz'
 Route::post('/content_us', [ContentUsController::class, 'send_contentus']);
 Route::get('/teamwork', [UsersController::class, 'get_teamwork']);
 Route::get('/fqa', [FqaController::class, 'get_fqa']);
+Route::get('/privacy', [HomeController::class, 'get_privacy']);
+Route::get('/terms_and_conditions', [HomeController::class, 'get_terms_and_conditions']);
+Route::get('/about_us', [HomeController::class, 'get_about_us']);
 
 
 // Route::get('/books/buy/{id?}',[StoreBookController::class,'get_books_by_category']);
@@ -94,6 +98,8 @@ Route::get('/fqa', [FqaController::class, 'get_fqa']);
 Route::get('/get_payment', [PaymentsController::class, 'get_payment']);
 
 Route::middleware(['jwt.verify'])->group(function () {
+    Route::get('/get_rating_course', [RatingController::class, 'get_rating_course']);
+    Route::Post('/send_rating', [RatingController::class, 'send_rating']);
     Route::post('/add/comment/course', [CommentsController::class, 'add_comment_course']);
     Route::post('/add/comment/freecourse', [CommentsController::class, 'add_comment_freecourse']);
     Route::get('/please-order', [OrderController::class, 'please_order']);

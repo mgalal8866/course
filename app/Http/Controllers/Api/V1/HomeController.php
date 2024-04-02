@@ -89,6 +89,24 @@ class HomeController extends Controller
 
         return Resp(new HomeFooterResource($data), 'success');
     }
+    public function get_privacy()
+    {
+        $data = getsetting('privacy', ['privacy']);
+
+        return Resp( $data, 'success');
+    }
+    public function get_terms_and_conditions()
+    {
+        $data = getsetting('terms_and_conditions', ['terms_and_conditions']);
+
+        return Resp( $data, 'success');
+    }
+    public function get_about_us()
+    {
+        $data = getsetting('about_us', ['about_us']);
+
+        return Resp( $data, 'success');
+    }
     public function homeheader()
     {
         $data = [];

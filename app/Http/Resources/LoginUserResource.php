@@ -19,6 +19,7 @@ class LoginUserResource extends JsonResource
             'email'        => $this->email??''  ,
             'gender'       => $this->gender ==1? __('tran.male'):  __('tran.female') ,
             'point'        => $this->point??'0'  ,
+            'coupon'        => $this->user_coupon->name??'' ,
             'wallet'       => $this->wallet??'0' ,
             'country'      => new CountryResource($this->country)??'' ,
             'phone_parent' => $this->phone_parent??''  ,

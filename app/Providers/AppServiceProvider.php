@@ -14,6 +14,7 @@ use App\Repository\DBOrderRepository;
 use App\Repository\DBUsersRepository;
 use App\Repository\DBCouponRepository;
 use App\Repository\DBCourseRepository;
+use App\Repository\DBRatingRepository;
 use Illuminate\Support\ServiceProvider;
 use App\Repository\DBCommentsRepository;
 use App\Repository\DBWishlistRepository;
@@ -39,6 +40,7 @@ use App\Repositoryinterface\OrderRepositoryinterface;
 use App\Repositoryinterface\UsersRepositoryinterface;
 use App\Repositoryinterface\CouponRepositoryinterface;
 use App\Repositoryinterface\CourseRepositoryinterface;
+use App\Repositoryinterface\RatingRepositoryinterface;
 use App\Repositoryinterface\CommentsRepositoryinterface;
 use App\Repositoryinterface\WishlistRepositoryinterface;
 use App\Repositoryinterface\ContentUsRepositoryinterface;
@@ -87,6 +89,7 @@ class AppServiceProvider extends ServiceProvider
             OrderRepositoryinterface::class            => DBOrderRepository::class,
             ContentUsRepositoryinterface::class        => DBContentUsRepository::class,
             FqaRepositoryinterface::class              => DBFqaRepository::class,
+            RatingRepositoryinterface::class           => DBRatingRepository::class,
         ];
 
         foreach ($repositories as $interface => $implementation) {

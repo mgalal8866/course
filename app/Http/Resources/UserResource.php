@@ -18,6 +18,7 @@ class UsergradesResource extends JsonResource
             'phone'         => $this->phone ,
             'email'         => $this->email ,
             'gender'        => $this->gender ,
+            'coupon'        => $this->user_coupon->name??'' ,
             'country'       =>new CountryResource($this->country) ,
         ];
     }

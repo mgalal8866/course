@@ -6,13 +6,13 @@ use App\Traits\UUID;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class UserCoupon extends Model
+class CourseRatingDetailsResult extends Model
 {
-
-    use UUID, HasFactory;
+    use  UUID,HasFactory;
     protected $guarded = [];
-    public function user()
+    public function courserating()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(CourseRating::class,'rating_id');
     }
+
 }
