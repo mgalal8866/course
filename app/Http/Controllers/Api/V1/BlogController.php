@@ -14,7 +14,6 @@ class BlogController extends Controller
         $this->blogRepositry = $blogRepositry;
     }
 
-
     public function get_blog_by_category()
     {
         $get_blog = $this->blogRepositry->get_blog_by_category();
