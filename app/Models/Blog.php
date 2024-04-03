@@ -17,7 +17,14 @@ class Blog extends Model
     {
         return path($this->id,'blog') . $this->image;
     }
-    
+    public function getAuthorImageurlAttribute()
+    {
+       
+        return $this->author_image?path($this->id,'blog/author') . $this->author_image: path('','').'no-imag.png';
+
+
+    }
+
     public function category()
     {
         return $this->belongsTo(CategoryBlog::class);
