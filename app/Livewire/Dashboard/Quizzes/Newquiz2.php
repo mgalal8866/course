@@ -16,7 +16,7 @@ class Newquiz2 extends Component
 {
     use WithFileUploads, ImageProcessing;
     protected $listeners = ['edit' => 'edit'];
-    public $typecategory,$image, $questions, $category = [], $testname, $testcategory, $testtime, $degree_success, $total_scores;
+    public$redirect_mark,$redirect_to_up,$redirect_to_down, $typecategory,$image, $questions, $category = [], $testname, $testcategory, $testtime, $degree_success, $total_scores;
     private   $rules = [
         // 'testname'=> 'required' ,
         // 'testcategory'=> 'required' ,
@@ -37,6 +37,7 @@ class Newquiz2 extends Component
 }
     public function updatedTypecategory($value)
     {
+
         $this->category  = CategoryExams::where('typecategory', $value)->get();
     }
     public function mount()
@@ -78,6 +79,9 @@ class Newquiz2 extends Component
                 'pass_marks' => $this->degree_success,
                 'pass_marks' => $this->degree_success,
                 'total_marks'  => $this->total_scores,
+                'redirect_to_down'  => $this->redirect_to_down??null,
+                'redirect_to_up'  => $this->redirect_to_up??null,
+                'redirect_mark'  => $this->redirect_mark??null,
             ]);
             if ($this->image) {
                 $dataX = $this->saveImageAndThumbnail($this->image, false, null,null,'Quize');

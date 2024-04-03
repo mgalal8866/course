@@ -49,6 +49,31 @@
                             <span class="error" style="color: red">{{ $message }}</span>
                         @enderror
                     </div>
+                    @if ($typecategory == 2)
+
+
+                    <div class="col-12 col-md-4">
+                        <label class="form-label" for="redirect_mark">{{ __('tran.redirect_mark') }}</label>
+                        <input type="number" step="0.1" class="form-control" wire:model="redirect_mark" id="redirect_mark" />
+                        @error('redirect_mark')
+                            <span class="error" style="color: red">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <label class="form-label" for="redirect_to_up">{{ __('tran.redirect_to_up') }}</label>
+                        <input type="text" step="0.1" class="form-control" wire:model="redirect_to_up" id="redirect_to_up" />
+                        @error('redirect_to_up')
+                            <span class="error" style="color: red">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <label class="form-label" for="redirect_to_down">{{ __('tran.redirect_to_down') }}</label>
+                        <input type="text" step="0.1" class="form-control" wire:model="redirect_to_down" id="redirect_to_down" />
+                        @error('redirect_to_down')
+                            <span class="error" style="color: red">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    @endif
                     <div class="col-12 col-md-4">
                         <label class="form-label" for="testtime">{{ __('tran.testtime') }}</label>
                         <input type="number" step="0.1" class="form-control" wire:model="testtime" id="testtime" />
