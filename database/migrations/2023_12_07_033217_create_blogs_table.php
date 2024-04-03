@@ -19,6 +19,9 @@ return new class extends Migration
             $table->bigInteger('views')->nullable();
             $table->text('short')->nullable();
             $table->text('article')->nullable();
+            $table->json('tags')->nullable();
+            $table->string('author_name')->nullable();
+            $table->string('author_image')->nullable();
             $table->boolean('active')->default(1);
             $table->softDeletes();
             $table->timestamps();

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('body');
             $table->decimal('rating',8,2)->default(1)->nullable();
             $table->uuidMorphs('commentable');
+            $table->boolean('about_us')->default(0);
             // $table->nullableMorphs('commentable');
             $table->boolean('active')->default(1);
             $table->timestamps();
