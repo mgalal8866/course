@@ -9,6 +9,7 @@ use App\Models\Slider;
 use App\Models\AboutUs;
 use App\Models\Setting;
 use App\Models\Category;
+use App\Models\Comments;
 use Illuminate\Http\Request;
 use App\Models\CategoryFCourse;
 use Illuminate\Support\Facades\DB;
@@ -16,6 +17,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\HomeResource;
 use Illuminate\Support\Facades\Cache;
 use App\Http\Resources\SliderResource;
+use App\Http\Resources\AboutUsResource;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Resources\HomePageResource;
 use App\Http\Resources\HomeFooterResource;
@@ -29,7 +31,6 @@ use App\Http\Resources\HomeSection6Resource;
 use App\Http\Resources\HomeSection7Resource;
 use App\Http\Resources\HomeSection8Resource;
 use App\Http\Resources\CategoryCourseResource;
-use App\Models\Comments;
 
 class HomeController extends Controller
 {
@@ -85,9 +86,11 @@ class HomeController extends Controller
 
     public function get_say_about_us()
     {
-        $aboutus = Cache::rememberForever('say_about_u', function () {
-            return         Comments::whereAboutUs('1')->with('user')->get();
-        });
+        // $aboutus = Cache::rememberForever('say_about_u', function () {
+               $aboutus   =    Comments::whereAboutUs('1')->with('user')->get();
+        // });
+
+        return Resp(AboutUsResource::collection($aboutus ), 'success');
     }
 
     public function homefooter()
