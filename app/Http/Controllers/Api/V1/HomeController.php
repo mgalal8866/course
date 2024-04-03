@@ -29,6 +29,7 @@ use App\Http\Resources\HomeSection6Resource;
 use App\Http\Resources\HomeSection7Resource;
 use App\Http\Resources\HomeSection8Resource;
 use App\Http\Resources\CategoryCourseResource;
+use App\Models\Comments;
 
 class HomeController extends Controller
 {
@@ -64,7 +65,7 @@ class HomeController extends Controller
             return         $data['fqa'] = Fqa::where('pin', 1)->get();
         });
         $aboutus = Cache::rememberForever('aboutus', function () {
-            return         AboutUs::with('user')->orderBy(DB::raw('RAND()'))->take(3)->get();
+            return         Comments::whereAboutUs('1')->with('user')->orderBy(DB::raw('RAND()'))->take(3)->get();
         });
         $blog = Cache::rememberForever('blog', function () {
             return         $data['blog'] = Blog::orderBy(DB::raw('RAND()'))->take(3)->get();
