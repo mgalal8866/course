@@ -26,6 +26,7 @@ class BlogController extends Controller
     public function get_blog_by_id()
     {
         $get_blog = $this->blogRepositry->get_blog_by_id();
+        $get_blog->tags= [["name"=>"ترفيهي"],["name"=>"FB"]];
         if( $get_blog != null){
           return Resp(new ApiBlogResource($get_blog), 'success', 200, true);
         }else{
