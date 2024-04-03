@@ -22,8 +22,9 @@ class ApiBlogResource extends JsonResource
             'title'   => $this->title??'',
             'body'    => $this->article ?? '',
             'tags'    => $this->tags ?? '',
-            'author_name'    => $this->author_name ?? '',
-            'author_image'    => $this->author_image ?? ''
+            'author_name'   => $this->author_name ?? '',
+            'author_image'  => $this->author_image ?? '',
+            'created_at'    => $this->created_at->format('d/m/Y') ?? ''
 
         ];
     }
