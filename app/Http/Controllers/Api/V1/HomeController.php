@@ -83,7 +83,7 @@ class HomeController extends Controller
     }
 
 
-    public function say_about_u()
+    public function say_about_us()
     {
         $aboutus = Cache::rememberForever('say_about_u', function () {
             return         Comments::whereAboutUs('1')->with('user')->get();
