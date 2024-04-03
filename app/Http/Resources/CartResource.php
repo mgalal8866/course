@@ -21,7 +21,7 @@ class CartResource extends JsonResource
             'cart_id' => $this->id ?? '',
             'product_id'    => $this->is_book ==1 ?$this->book->id :$this->course->id,
             'name'          => $this->is_book == 1 ?$this->book->book_name :$this->course->name ?? '',
-            'image'         => $this->is_book == 1 ?$this->book->imageurl  ??'' :$this->course->imageurl ??'',
+            'image'         => $this->is_book == 1 ?$this->book->imageurl  :$this->course->imageurl ,
             'is_book'       => number_format($this->is_book) ?? '',
             'qty'           => $this->qty ?? '',
             'price'         => number_format(($this->is_book == 1 ?$this->book->price :$this->course->price) ,2)?? '',
