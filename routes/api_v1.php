@@ -91,6 +91,7 @@ Route::get('/fqa', [FqaController::class, 'get_fqa']);
 Route::get('/privacy', [HomeController::class, 'get_privacy']);
 Route::get('/terms_and_conditions', [HomeController::class, 'get_terms_and_conditions']);
 Route::get('/about_us', [HomeController::class, 'get_about_us']);
+Route::get('/say_about_us', [HomeController::class, 'get_say_about_us']);
 
 
 // Route::get('/books/buy/{id?}',[StoreBookController::class,'get_books_by_category']);

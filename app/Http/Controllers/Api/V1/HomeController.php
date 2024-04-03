@@ -81,6 +81,15 @@ class HomeController extends Controller
 
         return Resp(new HomeResource($data), 'success');
     }
+
+
+    public function say_about_u()
+    {
+        $aboutus = Cache::rememberForever('say_about_u', function () {
+            return         Comments::whereAboutUs('1')->with('user')->get();
+        });
+    }
+
     public function homefooter()
     {
         $data = getsetting('footer_setting', [
