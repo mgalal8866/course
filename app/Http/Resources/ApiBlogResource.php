@@ -20,7 +20,10 @@ class ApiBlogResource extends JsonResource
             'id'      => $this->id??'',
             'image'   => $this->imageurl??'',
             'title'   => $this->title??'',
-            'body'    => $this->article ?? ''
+            'body'    => $this->article ?? '',
+            'tags'    => [$this->tage] ?? '',
+            'author_name'    => $this->author_name ?? '',
+            'author_image'    => $this->author_image ?? ''
 
         ];
     }
