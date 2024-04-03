@@ -20,11 +20,11 @@ class Quizes extends Model
     }
     public function redirect_up()
     {
-        return $this->hasOne(Courses::class, 'redirect_to_up');
+        return $this->belongsTo(Courses::class, 'redirect_to_up');
     }
     public function redirect_down()
     {
-        return $this->hasOne(Courses::class, 'redirect_to_down');
+        return $this->belongsTo(Courses::class, 'redirect_to_down');
     }
     public function quizresult()
     {
