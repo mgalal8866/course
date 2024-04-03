@@ -12,7 +12,9 @@ class Blog extends Model
 {
     use UUID, HasFactory, SoftDeletes;
     protected $guarded = [];
-
+    protected $casts = [
+        'tags' => 'array',
+    ];
     public function getImageurlAttribute()
     {
         return path($this->id,'blog') . $this->image;
