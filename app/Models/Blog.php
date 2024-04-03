@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
+use Illuminate\Support\Facades\File;
 class Blog extends Model
 {
     use UUID, HasFactory, SoftDeletes;
@@ -19,8 +19,13 @@ class Blog extends Model
     }
     public function getAuthorImageurlAttribute()
     {
-       
-        return $this->author_image?path($this->id,'blog/author') . $this->author_image: path('','').'no-imag.png';
+
+        $p =  '/files' . '/' . 'blog' . '/' . $this->id. '/author'.'/';
+        $path = asset($p) ;
+        if (!File::exists($path)) {
+            mkdir($path, 0777, true);
+        }
+        return $this->author_image? $path. '/'. $this->author_image: path('','').'no-imag.png';
 
 
     }
