@@ -42,11 +42,18 @@ class DBCouponRepository implements CouponRepositoryinterface
             } catch (\Exception $e) {
                 dd($e->getMessage());
             }
-            return  $this->cart_details->where('cart_header', $cart->id)->with(['book' => function ($q) {
-                $q->select('book_name', 'image', 'id', 'price');
-            }, 'course' => function ($q) {
-                $q->select('name', 'id', 'image', 'price');
-            }])->get();
+            $cart = $this->model->where('user_id', Auth::guard('student')->user()->id)->with(['cart_details'=>function($q){
+                $q->with(['book' => function ($qq) {
+                    $qq->select('book_name', 'image', 'id', 'price');
+                }, 'course' => function ($qq) {
+                    $qq->select('name', 'id', 'image', 'price');
+                }]);
+            },'coupon'])->first();
+            // return  $this->cart_details->where('cart_header', $cart->id)->with(['book' => function ($q) {
+            //     $q->select('book_name', 'image', 'id', 'price');
+            // }, 'course' => function ($q) {
+            //     $q->select('name', 'id', 'image', 'price');
+            // }])->get();
         } else {
             return null;
         }
