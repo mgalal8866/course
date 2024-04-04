@@ -23,7 +23,7 @@ class CouponController extends Controller
         $check = $this->couponRepositry->checkcoupon();
         if($check != null){
 
-            return Resp(CartCartResource::collection($check), 'success', 200, true);
+            return Resp(new CartCartResource($check), 'success', 200, true);
         }else{
             return Resp('', 'هذا الكوبون غير صالح', 400, true);
         }
