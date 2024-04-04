@@ -42,7 +42,7 @@ class CartResource extends JsonResource
             'user_blance'   => $wallet  ?? '0.00',
             'pay'           => $pay ?? '0.00',
             'remaining_amount_of_balance'  => $pay =='0.00' ? number_format($wallet-$total,2): '0.00',
-            'cart_details'  => CartDetailsResource::collection($this->cart_details),
+            'cart_details'  => CartDetailsResource::collection($this->cart_details??[]),
         ];
     }
 }
