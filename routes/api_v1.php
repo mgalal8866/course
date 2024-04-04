@@ -99,6 +99,7 @@ Route::get('/say_about_us', [HomeController::class, 'get_say_about_us']);
 Route::get('/get_payment', [PaymentsController::class, 'get_payment']);
 
 Route::middleware(['jwt.verify'])->group(function () {
+    Route::get('/my-orders', [OrderController::class, 'get_myorders']);
     Route::get('/get_rating_course', [RatingController::class, 'get_rating_course']);
     Route::Post('/send_rating', [RatingController::class, 'send_rating']);
     Route::post('/add/comment/course', [CommentsController::class, 'add_comment_course']);

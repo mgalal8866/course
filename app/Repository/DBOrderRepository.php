@@ -81,4 +81,16 @@ class DBOrderRepository implements OrderRepositoryinterface
             ]);
         }
     }
+
+    public function myorder()
+    {
+        return $dd=   Orders::with(
+            [
+                'transaction',
+                'order_details',
+                'order_details.book',
+                'order_details.course'
+            ]
+        )->where('user_id', Auth::guard('student')->user()->id)->get();
+    }
 }

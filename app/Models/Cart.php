@@ -7,6 +7,7 @@ use App\Traits\UUID;
 use App\Models\StoreBook;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\Coupons;
 
 class Cart extends Model
 {
@@ -15,6 +16,10 @@ class Cart extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+    public function coupon()
+    {
+        return $this->belongsTo(UserCoupon::class,'coupon_id');
     }
 
     public function cart_details()
