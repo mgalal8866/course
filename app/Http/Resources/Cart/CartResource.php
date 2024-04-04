@@ -35,6 +35,7 @@ class CartResource extends JsonResource
             'cart_id' => $this->id ?? '',
             'coupon_id'        => $this->coupon_id ?? '',
             'discount_coupon' => $this->coupon?$this->coupon->discount . '% Courses Only' :'0.00',
+            'coupon_name' => $this->coupon->name??'',
 
             'subtotal'      => $subtotal ?? '0.00',
             'discount'      => $discount ?? '0.00',

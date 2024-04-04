@@ -29,14 +29,15 @@ class DBCouponRepository implements CouponRepositoryinterface
         $coupon = $this->request->input('coupon', 1);
         $co = $this->model->where('name', $coupon)->first();
         if ($co) {
-            $perco =  ($co->discount / 100);
-
-            $cart = $this->cart->where('user_id', Auth::guard('student')->user()->id)->first();
             try {
+                $perco =  ($co->discount / 100);
+                $cart = $this->cart->where('user_id', Auth::guard('student')->user()->id)->first();
+                $cart->coupon_id = $co->id;
+                $cart->save();
                 $this->cart_details->where(['cart_header' => $cart->id, 'is_book' => '0'])->update([
                     'coupon_id' => $co->id,
                     'discount' => DB::raw('subtotal * ' . $perco),
-                    'total' => DB::raw(' subtotal -discount  '),
+                    'total' => DB::raw('subtotal - discount'),
                 ]);
             } catch (\Exception $e) {
                 dd($e->getMessage());

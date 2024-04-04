@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Cart\CartResource as CartCartResource;
 use App\Http\Resources\CartResource;
 use App\Http\Resources\CouponResource;
 use App\Repositoryinterface\CouponRepositoryinterface;
@@ -22,7 +23,7 @@ class CouponController extends Controller
         $check = $this->couponRepositry->checkcoupon();
         if($check != null){
 
-            return Resp(CartResource::collection($check), 'success', 200, true);
+            return Resp(CartCartResource::collection($check), 'success', 200, true);
         }else{
             return Resp('', 'هذا الكوبون غير صالح', 400, true);
         }
