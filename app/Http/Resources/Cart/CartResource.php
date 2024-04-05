@@ -20,7 +20,7 @@ class CartResource extends JsonResource
         $subtotal      = number_format($this->cart_details->sum('subtotal'), 2) ?? '0.00';
         $discount      = number_format($this->cart_details->sum('discount'), 2) ?? '0.00';
         $total         = number_format($this->cart_details->sum('total'), 2) ?? '0.00';
-
+dd( $subtotal );
         switch (true) {
             case $total > $wallet:
                 $pay =   number_format($total-$wallet,2) ;

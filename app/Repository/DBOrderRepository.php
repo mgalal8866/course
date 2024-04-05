@@ -42,11 +42,7 @@ class DBOrderRepository implements OrderRepositoryinterface
                 $qq->select('name', 'id', 'image', 'price');
             }]);
         }, 'coupon'])->first();
-        // $cart = Cart::where('user_id', Auth::guard('student')->user()->id)->with(['book' => function ($q) {
-        //     $q->select('book_name', 'id', 'price');
-        // }, 'course' => function ($q) {
-        //     $q->select('name', 'id', 'price');
-        // }])->get();
+
 
         $tansaction =  PaymentTransaction::create(
             [
