@@ -104,7 +104,7 @@ Route::middleware(['jwt.verify'])->group(function () {
     Route::Post('/send_rating', [RatingController::class, 'send_rating']);
     Route::post('/add/comment/course', [CommentsController::class, 'add_comment_course']);
     Route::post('/add/comment/freecourse', [CommentsController::class, 'add_comment_freecourse']);
-    Route::get('/please-order', [OrderController::class, 'please_order']);
+    Route::post('/please-order', [OrderController::class, 'please_order']);
     Route::get('/checkcoupon', [CouponController::class, 'checkcoupon']);
     Route::get('/calculating-progress-rate', [CourseController::class, 'get_calc_prog']);
     Route::any('/update/profile', [UsersController::class, 'profile_update']); //post
