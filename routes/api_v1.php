@@ -7,6 +7,7 @@ use App\Models\CategoryBook;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Cookie;
+use Stevebauman\Location\Facades\Location;
 use App\Http\Controllers\Api\V1\FqaController;
 use App\Http\Controllers\Api\V1\BlogController;
 use App\Http\Controllers\Api\V1\CartController;
@@ -122,5 +123,5 @@ Route::middleware(['jwt.verify'])->group(function () {
 });
 
 Route::get('/cc', function (Request $request) {
-    return cookie('c_user');
+    return     json_decode( json_encode(Location::get($request->ip())), true);
 });

@@ -18,6 +18,7 @@ class TransactionResource extends JsonResource
 
             'transaction_id' => $this->id??'',
             'payment_id' => $this->payment_id??'',
+            'payment_name' => ' (محفظه - بنك )أسم طريقه الدفع'??'',
             'statu' => $this->statu??'',
         ];
     }
