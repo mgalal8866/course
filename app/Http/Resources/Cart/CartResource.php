@@ -37,11 +37,11 @@ class CartResource extends JsonResource
             'discount_coupon' => $this->coupon?$this->coupon->discount . '% Courses Only' :'0.00',
             'coupon_name' => $this->coupon->name??'',
 
-            'subtotal'      => $subtotal ?? '0.00',
-            'discount'      => $discount ?? '0.00',
-            'total'         => $total ?? '0.00',
-            'user_blance'   => $wallet  ?? '0.00',
-            'pay'           => $pay ?? '0.00',
+            'subtotal'      => number_format($subtotal,2) ?? '0.00',
+            'discount'      => number_format($discount,2) ?? '0.00',
+            'total'         => number_format($total,2) ?? '0.00',
+            'user_blance'   => number_format($wallet,2)  ?? '0.00',
+            'pay'           => number_format($pay,2) ?? '0.00',
             'remaining_amount_of_balance'  => $pay =='0' ? number_format(($wallet-$total),2): '0.00',
             'cart_details'  => CartDetailsResource::collection($this->cart_details??[]),
         ];
