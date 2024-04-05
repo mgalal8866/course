@@ -31,12 +31,13 @@ class DBOrderRepository implements OrderRepositoryinterface
     public function please_order()
     {
         try {
-            DB::beginTransaction();
+            // DB::beginTransaction();
             $blance     = Auth::guard('student')->user()->wallet;
             $payment_id = $this->request->input('payment_id');
             $type       = $this->request->input('type');
             $image      = $this->request->input('image');
             $response   = $this->request->input('response');
+
             $cart = Cart::where('user_id', Auth::guard('student')->user()->id)->with(['cart_details' => function ($q) {
                 $q->with(['book' => function ($qq) {
                     $qq->select('book_name', 'image', 'id', 'price');
@@ -60,7 +61,6 @@ class DBOrderRepository implements OrderRepositoryinterface
                 $tansaction->image =  $dataX['image'];
                 $tansaction->save();
             }
-
             $order =  $this->order->create([
                 'date'           => now(),
                 'user_id'        => Auth::guard('student')->user()->id,
@@ -71,7 +71,9 @@ class DBOrderRepository implements OrderRepositoryinterface
                 'total'          => $cart->cart_details->sum('total'),
             ]);
             foreach ($cart->cart_details as $item) {
+
                 $details = $this->detailsorder->create([
+                    'order_id' => $order->id,
                     'product_id' => $item->product_id,
                     'is_book'    => $item->is_book,
                     'coupon_id'  => $item->coupon_id,
@@ -83,6 +85,8 @@ class DBOrderRepository implements OrderRepositoryinterface
                 ]);
             }
             DB::commit();
+
+            return true;
         } catch (\Exception $e) {
             $qq = $e->getMessage();
             DB::rollback();

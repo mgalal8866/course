@@ -25,7 +25,8 @@ class DetailsOrderResource extends JsonResource
             'subtotal'      => number_format(($this->qty *  ($this->is_book == 1 ?$this->book->price :$this->course->price))-$this->discount ,2),
             'discount'      => $this->discount ?? '0',
             'total'         => number_format($this->qty *  ($this->is_book == 1 ?$this->book->price :$this->course->price) ,2),
-            'status'        => $this->status,
+            // 'status'        => $this->status,
+            'status'        => 'جارى المراجعه',
         ];
     }
 }

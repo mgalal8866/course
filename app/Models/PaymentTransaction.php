@@ -4,12 +4,13 @@ namespace App\Models;
 
 use App\Models\PaymentOnline;
 use App\Models\PaymentOffline;
+use App\Traits\UUID;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class PaymentTransaction extends Model
 {
-    use HasFactory;
+    use UUID,HasFactory;
     protected $guarded = [];
     public function paymentable()
     {
@@ -17,7 +18,7 @@ class PaymentTransaction extends Model
     }
     public function payment()
     {
-        return $this->belongsTo(PaymentMethodCredentials::class);
+        // return $this->belongsTo(PaymentMethodCredentials::class);
     }
-   
+
 }

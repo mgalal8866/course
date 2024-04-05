@@ -21,9 +21,9 @@ class OrderController extends Controller
     {
         $please_order = $this->orderRepositry->please_order();
         if( $please_order != null){
-          return Resp(OrderResource::collection($please_order), 'success', 200, true);
+          return Resp('', 'success', 200, true);
         }else{
-          return Resp('','No Blog','404');
+          return Resp('','error','404');
         }
     }
     public function get_myorders()

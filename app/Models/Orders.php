@@ -12,7 +12,7 @@ class Orders extends Model
     protected $guarded = [];
     public function order_details()
     {
-        return $this->belongsTo(OrdersDetails::class,'product_id');
+        return $this->hasMany(OrdersDetails::class,'order_id');
     }
     public function  transaction ()
     {
