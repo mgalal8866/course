@@ -21,9 +21,9 @@ class CouponController extends Controller
     public function checkcoupon()
     {
         $check = $this->couponRepositry->checkcoupon();
-        if($check != null){
+        if($check){
 
-            return Resp(new CartCartResource($check), 'success', 200, true);
+            return Resp('', 'تم تطبيق خصم الكوبون', 200, true);
         }else{
             return Resp('', 'هذا الكوبون غير صالح', 400, true);
         }

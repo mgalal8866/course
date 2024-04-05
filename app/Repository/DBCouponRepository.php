@@ -42,7 +42,7 @@ class DBCouponRepository implements CouponRepositoryinterface
             } catch (\Exception $e) {
                 dd($e->getMessage());
             }
-            return $this->cart->where('user_id', Auth::guard('student')->user()->id)->with(['cart_details'=>function($q){
+             $this->cart->where('user_id', Auth::guard('student')->user()->id)->with(['cart_details'=>function($q){
                 $q->with(['book' => function ($qq) {
                     $qq->select('book_name', 'image', 'id', 'price');
                 }, 'course' => function ($qq) {
@@ -54,8 +54,9 @@ class DBCouponRepository implements CouponRepositoryinterface
             // }, 'course' => function ($q) {
             //     $q->select('name', 'id', 'image', 'price');
             // }])->get();
+            return true;
         } else {
-            return null;
+            return false;
         }
     }
 }
