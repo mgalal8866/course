@@ -76,7 +76,7 @@ class DBCartRepository implements CartRepositoryinterface
                 'user_id' => Auth::guard('student')->user()->id,
             ]
         );
-        dd( number_format($qty * $price));
+        // dd( number_format($qty * $price),2);
         $this->cart_details->updateOrCreate(
             [
                 'product_id' => $product_id ?? null,
@@ -86,10 +86,10 @@ class DBCartRepository implements CartRepositoryinterface
                 'cart_header' => $w->id ?? null,
                 'product_id' => $product_id,
                 'is_book' => $is_book ?? null,
-                'qty' => number_format($qty),
-                'price' =>  number_format($price),
-                'subtotal' =>   number_format($qty * $price),
-                'total' =>  number_format($qty * $price),
+                'qty'       =>number_format($qty),
+                'price'     =>number_format($price),
+                'subtotal'  =>number_format($qty * $price),
+                'total'     =>number_format($qty * $price),
             ]
         );
         if ($qty == 0) {
