@@ -48,7 +48,7 @@ class DBOrderRepository implements OrderRepositoryinterface
             [
                 'payment_id'    => $payment_id,
                 'payment_type'  => $type,
-                'price'         => $cart->sum('price'),
+                'price'         => $cart->cart_details->sum('total'),
                 'response'      => $response,
                 'image'         => '',
                 'statu'         => '',
