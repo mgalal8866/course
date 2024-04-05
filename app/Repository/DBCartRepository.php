@@ -26,23 +26,14 @@ class DBCartRepository implements CartRepositoryinterface
     }
     public function getcart()
     {
-        // return
-        // $cart = $this->model->where('user_id', Auth::guard('student')->user()->id)->first('id');
-        $cart = $this->model->where('user_id', Auth::guard('student')->user()->id)->with(['cart_details'=>function($q){
+         $cart = $this->model->where('user_id', Auth::guard('student')->user()->id)->with(['cart_details'=>function($q){
             $q->with(['book' => function ($qq) {
                 $qq->select('book_name','qty_max', 'image', 'id', 'price');
             }, 'course' => function ($qq) {
                 $qq->select('name', 'id', 'image', 'price');
             }]);
         },'coupon'])->first();
-        // return $this->cart_details->where('cart_header', $cart->id)->with(
-        //     ['book' => function ($q) {
-        //         $q->select('book_name', 'image', 'id', 'price');
-        //     }, 'course' => function ($q) {
-        //         $q->select('name', 'id', 'image', 'price');
-        //     }]
-        // )->get();
-        // dd($cart);
+
         return $cart;
 
 
