@@ -105,7 +105,6 @@ class DBCartRepository implements CartRepositoryinterface
 
         if ($w !== null) {
             $cart_details = $this->cart_details->where(['cart_header' => $w->id, 'product_id' => $product_id])->first();
-
             if ($cart_details !== null) {
                 $cart_details->delete();
             }
