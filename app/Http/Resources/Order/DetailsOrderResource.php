@@ -22,9 +22,9 @@ class DetailsOrderResource extends JsonResource
             'is_book'       => number_format($this->is_book) ?? '',
             'qty'           => $this->qty ?? '',
             'price'         => number_format(($this->is_book == 1 ?$this->book->price :$this->course->price) ,2)?? '',
-            'subtotal'      => number_format(($this->qty *  ($this->is_book == 1 ?$this->book->price :$this->course->price))-$this->discount ,2),
+            'subtotal'         => number_format($this->qty *  ($this->is_book == 1 ?$this->book->price :$this->course->price) ,2),
             'discount'      => $this->discount ?? '0',
-            'total'         => number_format($this->qty *  ($this->is_book == 1 ?$this->book->price :$this->course->price) ,2),
+            'total'      => number_format(($this->qty *  ($this->is_book == 1 ?$this->book->price :$this->course->price))-$this->discount ,2),
             // 'status'        => $this->status,
             'status'        => 'جارى المراجعه',
         ];
