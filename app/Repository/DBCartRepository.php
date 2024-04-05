@@ -86,11 +86,11 @@ class DBCartRepository implements CartRepositoryinterface
                 'cart_header' => $w->id ?? null,
                 'product_id' => $product_id,
                 'is_book' => $is_book ?? null,
-                'qty'       =>number_format($qty),
-                'price'     =>number_format(($price),2),
+                'qty'       =>$qty,
+                'price'     =>$price,
                 'subtotal'  =>($qty * $price),
-                // 'subtotal'  =>number_format(($qty * $price),2),
-                'total'     =>number_format(($qty * $price),2),
+                'total'     =>($qty * $price),
+                // 'subtotal'  =>$qty * $price),2),
             ]
         );
         if ($qty == 0) {
