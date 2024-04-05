@@ -17,13 +17,13 @@ class CartResource extends JsonResource
     {
 
         $wallet = Auth::guard('student')->user()->wallet;
-        $subtotal      = number_format($this->cart_details->sum('subtotal'), 2) ?? '0.00';
-        $discount      = number_format($this->cart_details->sum('discount'), 2) ?? '0.00';
-        $total         = number_format($this->cart_details->sum('total'), 2) ?? '0.00';
+        $subtotal      = $this->cart_details->sum('subtotal') ?? '0.00';
+        $discount      = $this->cart_details->sum('discount') ?? '0.00';
+        $total         = $this->cart_details->sum('total') ?? '0.00';
 
         switch (true) {
             case $total > $wallet:
-                $pay =   $total-$wallet;
+                $pay =   ($total-$wallet);
                 break;
             case $total <= $wallet:
                 $pay = '0';
