@@ -20,10 +20,10 @@ class CartResource extends JsonResource
         $subtotal      = number_format($this->cart_details->sum('subtotal'), 2) ?? '0.00';
         $discount      = number_format($this->cart_details->sum('discount'), 2) ?? '0.00';
         $total         = number_format($this->cart_details->sum('total'), 2) ?? '0.00';
- 
+
         switch (true) {
             case $total > $wallet:
-                $pay =   number_format($total-$wallet,2) ;
+                $pay =   $total-$wallet;
                 break;
             case $total <= $wallet:
                 $pay = '0.00';
@@ -42,7 +42,7 @@ class CartResource extends JsonResource
             'total'         => $total ?? '0.00',
             'user_blance'   => $wallet  ?? '0.00',
             'pay'           => $pay ?? '0.00',
-            'remaining_amount_of_balance'  => $pay =='0.00' ? number_format($wallet-$total,2): '0.00',
+            'remaining_amount_of_balance'  => $pay =='0.00' ? number_format(($wallet-$total),2): '0.00',
             'cart_details'  => CartDetailsResource::collection($this->cart_details??[]),
         ];
     }
