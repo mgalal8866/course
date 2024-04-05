@@ -88,7 +88,7 @@ class DBCartRepository implements CartRepositoryinterface
                 'is_book' => $is_book ?? null,
                 'qty'       =>number_format($qty),
                 'price'     =>number_format(($price),2),
-                'subtotal'  =>number_format(($qty * $price)),
+                'subtotal'  =>($qty * $price),
                 // 'subtotal'  =>number_format(($qty * $price),2),
                 'total'     =>number_format(($qty * $price),2),
             ]
