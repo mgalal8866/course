@@ -76,6 +76,7 @@ class DBCartRepository implements CartRepositoryinterface
                 'user_id' => Auth::guard('student')->user()->id,
             ]
         );
+        dd( number_format($qty * $price));
         $this->cart_details->updateOrCreate(
             [
                 'product_id' => $product_id ?? null,
