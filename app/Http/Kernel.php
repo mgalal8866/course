@@ -39,9 +39,11 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
+            \Illuminate\Session\Middleware\StartSession::class,
             // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             \Illuminate\Routing\Middleware\ThrottleRequests::class.':api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \App\Http\Middleware\SelectCountry::class,
         ],
     ];
 
@@ -74,6 +76,7 @@ class Kernel extends HttpKernel
         'ApiCheckKey' => \App\Http\Middleware\ApiCheckKey::class,
         'api.auth.check'  => \App\Http\Middleware\ApiAuthCheck::class,
         'cors' => \App\Http\Middleware\Cors::class,
+        'select.country' => \App\Http\Middleware\SelectCountry::class,
 
     ];
 }
