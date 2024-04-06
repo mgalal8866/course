@@ -25,7 +25,13 @@ class DBNotificationsRepository implements NotificationsRepositoryinterface
     }
     public function read_notifications(){
         $nofi =$this->model->where(['user_id'=> Auth::guard('student')->user()->id ,'is_read'=>1])->update(['is_read'=>0]);
-      return  $nofi;
+      if( $nofi){
+
+          return true;
+      }else{
+
+          return false;
+      }
     }
 
 

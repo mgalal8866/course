@@ -18,7 +18,14 @@ class NotificationsController extends Controller
     }
     public function read_notifications()
     {
-        return Resp( $this->notificationsRepositry->read_notifications() ,'success');
+        $notifi = $this->notificationsRepositry->read_notifications();
+        if($notifi){
+
+            return Resp( '' ,'success');
+        }else{
+
+            return Resp( '' ,'error',400);
+        }
 
     }
 }
