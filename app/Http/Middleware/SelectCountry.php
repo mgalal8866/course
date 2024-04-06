@@ -16,13 +16,11 @@ class SelectCountry
         $country = $request->header('country');
 
         if ($country) {
-
             $request->session()->put('country', $country);
         }else{
            $s =  json_decode( json_encode(Location::get($request->ip())), true);
             $request->session()->put('country', $s['countryCode']);
         }
-        // $country = $request->session()->get('country');
 
         return $next($request);
     }
