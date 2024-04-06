@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\NotificationResource;
 use App\Repositoryinterface\NotificationsRepositoryinterface;
 
 class NotificationsController extends Controller
@@ -14,7 +15,8 @@ class NotificationsController extends Controller
     }
     public function get_notifications()
     {
-        return Resp( $this->notificationsRepositry->get_notifications() ,'success');
+        $notifi = NotificationResource::collection($this->notificationsRepositry->get_notifications());
+        return Resp( $notifi ,'success');
     }
     public function read_notifications()
     {
