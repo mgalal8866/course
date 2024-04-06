@@ -15,11 +15,10 @@ class NotificationResource extends JsonResource
             'id'          => $this->id,
             'title'       => $this->title??'',
             'body'        => $this->body??'',
-            'user_id'     => $this->user_id??'',
             'type'        => $this->type??'',
             'redirect_id' => $this->redirect_id??'',
             'is_read'     => $this->is_read??'',
-            'date'        => $this->created_at??'',
+            'date'        => $this->created_at->diffForHumans()??'',
         ];
     }
 }
