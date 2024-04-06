@@ -19,7 +19,7 @@ class CountryResource extends JsonResource
             'country_id'        => $this->id ,
             'country_name'      => $this->name ,
             'country_phonecode' => $this->phonecode ,
-            'country_code'      => $this->iso2 ,
+            'country_code'      => $this->iso2,
             'is_default'        => $this->iso2  == $request->session()->get('country') ?'1':'0',
             'country_from_ip'   => $s['countryName'] . ' - ' . $s['regionName'] ,
             'country_flag'      => asset('asset/flag/country-') .Str::lower($this->iso2).'.svg' ,
