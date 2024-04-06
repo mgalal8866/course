@@ -14,11 +14,11 @@ class NotificationsController extends Controller
     }
     public function get_notifications()
     {
-        return $this->notificationsRepositry->get_notifications();
+        return Resp( $this->notificationsRepositry->get_notifications() ,'success');
     }
     public function read_notifications()
     {
-        return $this->notificationsRepositry->get_notifications();
+        return Resp( $this->notificationsRepositry->read_notifications() ,'success');
 
     }
 }
