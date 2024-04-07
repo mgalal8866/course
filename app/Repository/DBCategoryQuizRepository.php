@@ -23,6 +23,7 @@ class DBCategoryQuizRepository  implements CategoryQuizRepositoryinterface
 
     public function get_category_quiz(){
         $type = $this->request->input('type', 1);
-        return $this->model->where('typecategory',$type)->get();
+        $country = $this->request->header('country');
+        return $this->model->where('country_id', $country)->orWhereNull('country_id')->where('typecategory',$type)->get();
     }
 }

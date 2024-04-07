@@ -27,7 +27,7 @@
                                         <span class="fw-bold">{{ $item->name ?? 'N/A' }}</span>
                                     </td>
                                     <td>
-                                        <span class="fw-bold">{{ __('tran.typequiz-' . \App\Enum\Quiz::from($item->typecategory )->name)}}</span>
+                                        <span class="fw-bold">{{$item->typecategory? __('tran.typequiz-' . \App\Enum\Quiz::from($item->typecategory )->name) :''}}</span>
                                     </td>
                                     <td>
                                         <span

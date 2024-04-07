@@ -100,7 +100,7 @@ Route::get('/say_about_us', [HomeController::class, 'get_say_about_us']);
 
 Route::get('/get_payment', [PaymentsController::class, 'get_payment']);
 
-Route::middleware(['jwt.verify','cors'])->group(function () {
+Route::middleware(['jwt.verify', 'cors'])->group(function () {
     Route::get('/notifications', [NotificationsController::class, 'get_notifications']);
     Route::get('/read/notifications', [NotificationsController::class, 'read_notifications']);
     Route::get('/my-orders', [OrderController::class, 'get_myorders']);
@@ -126,5 +126,75 @@ Route::middleware(['jwt.verify','cors'])->group(function () {
 });
 
 Route::get('/cc', function (Request $request) {
-    return     json_decode( json_encode(Location::get($request->ip())), true);
+
+    $apiToken = 'BElaIrqq5MSOviLKCXb8J3vXR9FyPxxtAEIK9KAP0037ed33';
+    $client = new \GuzzleHttp\Client();
+
+    $response = $client->request('GET', 'https://waapi.app/api/v1/instances', [
+        'headers' => [
+            'accept' => 'application/json',
+            'authorization' => 'Bearer BElaIrqq5MSOviLKCXb8J3vXR9FyPxxtAEIK9KAP0037ed33',
+        ],
+    ]);
+
+    return $response->getBody();
+    // 'O0VXzpumfxComubXLubUo6Yk9dDCg3UH';
+    // return $ownerEmail ;
+    // return     json_decode( json_encode(Location::get($request->ip())), true);
 });
+Route::get('/wts', function (Request $request) {
+
+    $phone = '201024346011';
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://graph.facebook.com/v15.0/231471670042677/messages',
+        // CURLOPT_URL => 'https://graph.facebook.com/v15.0/192748520596240/message_templates',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'POST',
+
+        CURLOPT_POSTFIELDS => '{
+        "messaging_product": "whatsapp",
+        "recipient_type": "individual",
+        "to": ' . $phone . ',
+        "type": "template",
+        "template": {
+            "name": "ottttp",
+            "language": {
+                "code": "ar"
+            },
+            "components": [
+                {
+                  "type": "body",
+                  "parameters": [
+                    {
+                      "type": "text",
+                      "text": ' . $phone . '
+                    }
+                  ]
+                }
+            ],
+            },
+        }
+          ',
+        CURLOPT_HTTPHEADER => array(
+            'Authorization: Bearer EAAZAPwzlXEZAoBO84FZALRI4TNj6rJItJrgGv7GWnKm7vHPR1t89R5wKfnC7fVppRhgfRBUXWdg0yZBdJs2IaR3bGtdj8BUwGuC7ZA6ShzYuH8E462BExNopd3e3NR4E9CtCjJ2nf4ysYgqgbRqvheGPEOiHymFCF1il8mUEuBahaSMwDtM55oESbCz9K5vShsIeXmIHrJ3W98RReDR0ZD',
+            'Content-Type: application/json'
+        ),
+    ));
+
+    $response = curl_exec($curl);
+
+    curl_close($curl);
+
+    echo $response;
+});
+//     return $response->getBody();
+//     // 'O0VXzpumfxComubXLubUo6Yk9dDCg3UH';
+//     // return $ownerEmail ;
+//     // return     json_decode( json_encode(Location::get($request->ip())), true);
+// });

@@ -3,13 +3,14 @@
 namespace App\Livewire\Dashboard\Quizzes\QuizCategory;
 
 
-use App\Models\CategoryExams;
+use App\Models\Country;
 use Livewire\Component;
+use App\Models\CategoryExams;
 
 class NewQuizCategory extends Component
 {
     protected $listeners = ['edit' => 'edit'];
-    public $name,$edit=false,$id,$header,$typecategory;
+    public $country_id,$name,$edit=false,$id,$header,$typecategory;
     public function edit($id = null)
     {
         if ($id != null) {
@@ -17,6 +18,7 @@ class NewQuizCategory extends Component
             $this->name = $CC->name;
             $this->typecategory = $CC->typecategory;
             $this->id = $id;
+            $this->country_id = $CC->country_id;
             $this->edit = true;
             $this->header = __('tran.editcategory');
         }else{
@@ -36,9 +38,9 @@ class NewQuizCategory extends Component
         $this->validate();
         if( $this->edit == true){
             $CC = CategoryExams::find($this->id);
-            $CC->update(['name' => $this->name,'typecategory'=>$this->typecategory]);
+            $CC->update(['name' => $this->name,'typecategory'=>$this->typecategory,'country_id'=>$this->country_id]);
         }else{
-            CategoryExams::create(['name' => $this->name,'typecategory'=>$this->typecategory]);
+            CategoryExams::create(['name' => $this->name,'typecategory'=>$this->typecategory,'country_id'=>$this->country_id]);
         }
         $this->edit = false;
         $this->dispatch('closemodel');
@@ -48,6 +50,7 @@ class NewQuizCategory extends Component
     }
     public function render()
     {
-        return view('dashboard.quizzes.category-quiz.new-category');
+        $country = Country::get();
+        return view('dashboard.quizzes.category-quiz.new-category',compact('country'));
     }
 }

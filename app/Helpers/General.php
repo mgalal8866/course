@@ -3,7 +3,8 @@
 use App\Models\Setting;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Cache;
- function getsetting($cache, array $value)
+
+function getsetting($cache, array $value)
 {
     // Cache::forget($cache);
     $settings = Cache::rememberForever($cache, function () use ($value) {
@@ -30,14 +31,14 @@ function Resp($data = null, $msg = null, $status = 200, $statusval = true)
     }
 }
 
- function path($course_id, $folder)
+function path($course_id, $folder)
 {
     $p =  '/files' . '/' . $folder . '/' . $course_id . '/';
-    $path = asset($p) ;
+    $path = asset($p);
     if (!File::exists($path)) {
         mkdir($path, 0777, true);
     }
-    return  $path. '/';
+    return  $path . '/';
 }
 // function getSetting($key, $default = null)
 // {
@@ -50,14 +51,13 @@ if (!function_exists('getSetting')) {
     {
         try {
             return app('getSetting');
-
         } catch (Exception $exception) {
             return false;
         }
     }
 }
 if (!function_exists('uploadfile')) {
-    function uploadfile($file,$filePath)
+    function uploadfile($file, $filePath)
     {
         // $file = $orginalfile;
         // $filename = time() . '.' . $file->extension();
@@ -72,6 +72,5 @@ if (!function_exists('uploadfile')) {
         $filename =  $file->getClientOriginalName();;
         $file->storeAs($filePath, $filename, 'files');
         return $filename;
-
     }
 }

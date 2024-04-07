@@ -26,22 +26,8 @@ class CountriesController extends Controller
             'location' => Location::get($request->ip())
         ];
     }
-    function get_countries()
+    function get_countries(Request $request)
     {
-        // Country::create([
-        //     'name'=>'Saudi Arabia',
-        //     'phonecode'=>'966',
-        //     'currency'=>['ar'=>'ريال سعودى','en'=>'SAR'],
-        //     'iso2'=>'SA',
-        //     'iso3'=>'SAU',
-        // ]);
-        // Country::create([
-        //     'name'=>'Egypt',
-        //     'phonecode'=>'20',
-        //     'currency'=>['ar'=>'جنية مصرى','en'=>'EGP'],
-        //     'iso2'=>'EG',
-        //     'iso3'=>'EGY',
-        // ]);
         $data = Country::whereActive('1')->get();
         return Resp(CountryResource::collection($data), 'success');
     }

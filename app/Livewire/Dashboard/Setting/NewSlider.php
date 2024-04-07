@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Dashboard\Setting;
 
+use App\Models\Country;
 use App\Models\Courses;
 use App\Models\Slider;
 use Livewire\Component;
@@ -14,13 +15,14 @@ class NewSlider extends Component
     use WithFileUploads, ImageProcessing;
 
     protected $listeners = ['edit' => 'edit'];
-    public $name,$image,$imageold,$edit=false,$id,$header,$course_id;
+    public $country_id, $name,$image,$imageold,$edit=false,$id,$header,$course_id;
     public function edit($id = null)
     {
         if ($id != null) {
             $this->image = null;
             $CC = Slider::find($id);
             $this->id = $id;
+            $this->country_id = $CC->country_id;
             $this->imageold = $CC->img !=null? $CC->imageurl:null;
             $this->course_id = $CC->course_id;
             $this->edit = true;
@@ -29,6 +31,7 @@ class NewSlider extends Component
           $this->imageold =null;
           $this->course_id =null;
           $this->image =null;
+
           $this->edit = false;
           $this->header = __('tran.newslider');
         }
@@ -49,6 +52,7 @@ class NewSlider extends Component
                 $CC->img =  $dataX['image'];
             }
             $CC->course_id=$this->course_id ;
+            $CC->country_id=$this->country_id ;
         }else{
             $this->validate();
             $CC = Slider::create([]);
@@ -56,6 +60,7 @@ class NewSlider extends Component
                 $dataX = $this->saveImageAndThumbnail($this->image, false, null,null,'slider',472,800);
                 $CC->img =  $dataX['image'];
             }
+            $CC->country_id=$this->country_id ;
             $CC->course_id=$this->course_id ;
         }
         $CC->save();
@@ -67,8 +72,9 @@ class NewSlider extends Component
     }
     public function render()
     {
-        $courses= Courses::get();
 
-        return view('dashboard.setting.new-slider',compact('courses'));
+        $courses= Courses::get();
+        $country= Country::get();
+        return view('dashboard.setting.new-slider',compact('courses','country'));
     }
 }
