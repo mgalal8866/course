@@ -16,12 +16,14 @@ class SelectCountry
     {
         $country = $request->header('country');
         if ($country) {
+
             $request->headers->set('country' ,$country);
         } else {
 
             $s =  json_decode(json_encode(Location::get($request->ip())), true);
             $c = Country::where('iso2', $s['countryCode']??'EG')->first();
             if($c ){
+                dd('1');
                 $request->headers->set('country' ,$c->id);
             }
         }
