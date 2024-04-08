@@ -25,9 +25,9 @@ class CartDetailsResource extends JsonResource
             'max_qty'       => $this->is_book == 1 ?$this->book->qty_max  :'' ?? '',
             'qty'           => $this->qty ?? '',
             'price'         => number_format(($this->is_book == 1 ?$this->book->price :$this->course->price) ,2)?? '',
-            'subtotal'         => number_format($this->qty *  ($this->is_book == 1 ?$this->book->price :$this->course->price) ,2),
+            'subtotal'      => number_format($this->qty *  ($this->is_book == 1 ?$this->book->price :$this->course->price) ,2),
             'discount'      => $this->discount ?? '0',
-            'total'      => number_format(($this->qty *  ($this->is_book == 1 ?$this->book->price :$this->course->price))-$this->discount ,2),
+            'total'         => number_format(($this->qty *  ($this->is_book == 1 ?$this->book->price :$this->course->price))-$this->discount ,2),
         ];
     }
 }

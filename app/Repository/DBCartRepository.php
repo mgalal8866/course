@@ -4,14 +4,16 @@ namespace App\Repository;
 
 use Carbon\Carbon;
 use App\Models\Cart;
-use App\Models\CartDetails;
 use App\Models\Courses;
 use App\Models\deferred;
 use App\Models\StoreBook;
+use App\Models\UserCoupon;
+use App\Models\CartDetails;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use App\Repositoryinterface\CartRepositoryinterface;
-use Illuminate\Http\Request;
 
 class DBCartRepository implements CartRepositoryinterface
 {
@@ -68,6 +70,12 @@ class DBCartRepository implements CartRepositoryinterface
             ]
         );
         // dd( number_format($qty * $price),2);
+
+        $coupon = UserCoupon::find($w->coupon_id);
+        if($coupon){
+            $disc=($coupon->discount / 100);
+
+        }
         $this->cart_details->updateOrCreate(
             [
                 'product_id' => $product_id ?? null,
@@ -77,11 +85,12 @@ class DBCartRepository implements CartRepositoryinterface
                 'cart_header' => $w->id ?? null,
                 'product_id' => $product_id,
                 'coupon_id' => $w->coupon_id ?? null,
-                'is_book' => $is_book ?? null,
+                'is_book'   => $is_book ?? null,
                 'qty'       =>$qty,
                 'price'     =>$price,
                 'subtotal'  =>($qty * $price),
-                'total'     =>($qty * $price),
+                'discount'  =>($w->coupon_id!=null)?DB::raw('subtotal * ' . $disc):0,
+                'total'     =>DB::raw('subtotal - discount'),
                 // 'subtotal'  =>$qty * $price),2),
             ]
         );
