@@ -22,8 +22,7 @@ class SelectCountry
 
             $s =  json_decode(json_encode(Location::get($request->ip())), true);
             $c = Country::where('iso2', $s['countryCode']??'EG')->first();
-            if($c ){
-                dd('1');
+            if($c->id ){
                 $request->headers->set('country' ,$c->id);
             }
         }
