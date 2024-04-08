@@ -15,7 +15,7 @@ class CountryResource extends JsonResource
     {
 
         $s =  json_decode( json_encode(Location::get($request->ip())), true);
-        $s??'';
+        // $s??'';
         return [
             'country_id'        => $this->id ,
             'country_name'      => $this->name ,
