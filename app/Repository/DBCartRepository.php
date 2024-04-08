@@ -76,6 +76,7 @@ class DBCartRepository implements CartRepositoryinterface
             [
                 'cart_header' => $w->id ?? null,
                 'product_id' => $product_id,
+                'coupon_id' => $w->coupon_id ?? null,
                 'is_book' => $is_book ?? null,
                 'qty'       =>$qty,
                 'price'     =>$price,
