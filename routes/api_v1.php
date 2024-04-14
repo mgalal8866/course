@@ -31,6 +31,7 @@ use App\Http\Controllers\Api\V1\UsersGradesController;
 use App\Http\Controllers\Api\V1\CategoryBlogController;
 use App\Http\Controllers\Api\V1\CategoryBookController;
 use App\Http\Controllers\Api\V1\CategoryQuizController;
+use App\Http\Controllers\Api\V1\CollectPointsController;
 use App\Http\Controllers\Api\V1\NotificationsController;
 use App\Http\Controllers\Api\V1\StudyScheduleController;
 use App\Http\Controllers\Api\V1\CategoryCourseController;
@@ -101,6 +102,7 @@ Route::get('/say_about_us', [HomeController::class, 'get_say_about_us']);
 Route::get('/get_payment', [PaymentsController::class, 'get_payment']);
 
 Route::middleware(['jwt.verify', 'cors'])->group(function () {
+    Route::get('/convert-points', [CollectPointsController::class, 'convert_points']);
     Route::get('/notifications', [NotificationsController::class, 'get_notifications']);
     Route::get('/read/notifications', [NotificationsController::class, 'read_notifications']);
     Route::get('/my-orders', [OrderController::class, 'get_myorders']);

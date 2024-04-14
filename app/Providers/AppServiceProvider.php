@@ -26,6 +26,7 @@ use App\Repository\DBUsersGradesRepository;
 use App\Repository\DBCategoryBlogRepository;
 use App\Repository\DBCategoryBookRepository;
 use App\Repository\DBCategoryQuizRepository;
+use App\Repository\DBCollectPointsRepository;
 use App\Repository\DBNotificationsRepository;
 use App\Repository\DBStudyScheduleRepository;
 use App\Repository\DBCategoryCourseRepository;
@@ -52,6 +53,7 @@ use App\Repositoryinterface\UsersGradesRepositoryinterface;
 use App\Repositoryinterface\CategoryBlogRepositoryinterface;
 use App\Repositoryinterface\CategoryBookRepositoryinterface;
 use App\Repositoryinterface\CategoryQuizRepositoryinterface;
+use App\Repositoryinterface\CollectPointsRepositoryinterface;
 use App\Repositoryinterface\NotificationsRepositoryinterface;
 use App\Repositoryinterface\StudyScheduleRepositoryinterface;
 use App\Repositoryinterface\CategoryCourseRepositoryinterface;
@@ -93,6 +95,7 @@ class AppServiceProvider extends ServiceProvider
             FqaRepositoryinterface::class              => DBFqaRepository::class,
             RatingRepositoryinterface::class           => DBRatingRepository::class,
             NotificationsRepositoryinterface::class   => DBNotificationsRepository::class,
+            CollectPointsRepositoryinterface::class   => DBCollectPointsRepository::class,
         ];
 
         foreach ($repositories as $interface => $implementation) {

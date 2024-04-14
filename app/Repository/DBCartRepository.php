@@ -105,7 +105,6 @@ class DBCartRepository implements CartRepositoryinterface
     {
         $product_id = $this->request->input('product_id', 1);
         $w = $this->model->where('user_id', Auth::guard('student')->user()->id)->withCount('cart_details')->first('id');
-
         if ($w !== null) {
 
             $cart_details = $this->cart_details->where(['cart_header' => $w->id, 'product_id' => $product_id])->first();

@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Enum\PaymentStatus;
 use Carbon\Carbon;
 use App\Models\Cart;
 use App\Models\Orders;
@@ -11,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Models\OrdersDetails;
 use App\Traits\ImageProcessing;
 use App\Models\PaymentTransaction;
+use App\Repositoryinterface\CollectPointsRepositoryinterface;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Repositoryinterface\OrderRepositoryinterface;
@@ -20,10 +22,11 @@ class DBOrderRepository implements OrderRepositoryinterface
 {
 
     use  ImageProcessing;
-    protected  $order, $detailsorder;
+    protected  $order, $detailsorder, $collect;
     protected  $request;
-    public function __construct(Orders $order, OrdersDetails $detailsorder, Request $request)
+    public function __construct(Orders $order, CollectPointsRepositoryinterface $collect, OrdersDetails $detailsorder, Request $request)
     {
+        $this->collect = $collect;
         $this->order = $order;
         $this->detailsorder = $detailsorder;
         $this->request = $request;
@@ -53,7 +56,7 @@ class DBOrderRepository implements OrderRepositoryinterface
                     'price'         => $cart->cart_details->sum('total'),
                     'response'      => $response,
                     'image'         => '',
-                    'statu'         => '',
+                    'statu'         => PaymentStatus::Pending,
                 ]
             );
             if ($image) {
@@ -64,26 +67,30 @@ class DBOrderRepository implements OrderRepositoryinterface
             $order =  $this->order->create([
                 'date'           => now(),
                 'user_id'        => Auth::guard('student')->user()->id,
-                'code'           => $cart->coupon_id,
+                'code'           => $cart->coupon_id ?? null,
                 'transaction_id' => $tansaction->id,
                 'subtotal'       => $cart->cart_details->sum('subtotal'),
                 'discount'       => $cart->cart_details->sum('discount'),
                 'total'          => $cart->cart_details->sum('total'),
             ]);
             foreach ($cart->cart_details as $item) {
-
                 $details = $this->detailsorder->create([
                     'order_id' => $order->id,
                     'product_id' => $item->product_id,
                     'is_book'    => $item->is_book,
-                    'coupon_id'  => $item->coupon_id,
+                    'coupon_id'  => $item->coupon_id??null,
                     'qty'        => $item->qty      ?? '0.0',
                     'price'      => $item->price    ?? '0.0',
                     'subtotal'   => $item->subtotal ?? '0.0',
                     'discount'   => $item->discount ?? '0.0',
                     'total'      => $item->total    ?? '0.0',
                 ]);
+                if ($item->coupon_id != null) {
+
+                    $this->collect->collect_points($item->coupon_id,$details->id);
+                }
             }
+
             DB::commit();
 
             return true;
