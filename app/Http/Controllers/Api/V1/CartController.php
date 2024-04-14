@@ -21,12 +21,16 @@ class CartController extends Controller
         if( $this->cartRepositry->getcart()){
             return Resp(new CartCartResource($this->cartRepositry->getcart()), 'success', 200, true);
           }else{
-            return Resp('','Not Cart ','404');
+            return Resp('','Not Cart ');
           }
     }
     public function deletefromcart()
     {
-        return Resp(new CartCartResource($this->cartRepositry->deletecart()), 'success', 200, true);
+        if( $this->cartRepositry->getcart()){
+            return Resp(new CartCartResource($this->cartRepositry->deletecart()), 'success', 200, true);
+          }else{
+            return Resp('','Not Cart');
+          }
     }
     public function addtocart()
     {
@@ -34,7 +38,7 @@ class CartController extends Controller
         if( $add_cart != null){
             return Resp(new CartCartResource( $add_cart), 'success', 200, true);
           }else{
-            return Resp('','Not found ','404');
+            return Resp('','Not found ');
           }
     }
 

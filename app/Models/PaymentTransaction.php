@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enum\PaymentStatus;
 use App\Models\PaymentOnline;
 use App\Models\PaymentOffline;
 use App\Traits\UUID;
@@ -12,6 +13,8 @@ class PaymentTransaction extends Model
 {
     use UUID,HasFactory;
     protected $guarded = [];
+    
+    protected $casts = ['statu'=>PaymentStatus::class];
     public function paymentable()
     {
         return $this->morphTo();

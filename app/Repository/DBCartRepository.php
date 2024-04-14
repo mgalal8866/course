@@ -104,16 +104,20 @@ class DBCartRepository implements CartRepositoryinterface
     public function deletecart()
     {
         $product_id = $this->request->input('product_id', 1);
-        $w = $this->model->where('user_id', Auth::guard('student')->user()->id)->first('id');
+        $w = $this->model->where('user_id', Auth::guard('student')->user()->id)->withCount('cart_details')->first('id');
 
         if ($w !== null) {
+
             $cart_details = $this->cart_details->where(['cart_header' => $w->id, 'product_id' => $product_id])->first();
             if ($cart_details !== null) {
                 $cart_details->delete();
             }
-
+            if ($w->cart_details_count == 1) {
+                $w->delete();
+            }
             return $this->getcart();
         } else {
+            // dd($w);
             return $this->getcart();
         }
     }

@@ -16,7 +16,7 @@ class CartResource extends JsonResource
     public function toArray(Request $request): array
     {
 
-        $wallet = Auth::guard('student')->user()->wallet;
+        $wallet        = Auth::guard('student')->user()->wallet;
         $subtotal      = $this->cart_details->sum('subtotal') ?? '0.00';
         $discount      = $this->cart_details->sum('discount') ?? '0.00';
         $total         = $this->cart_details->sum('total') ?? '0.00';
@@ -32,16 +32,15 @@ class CartResource extends JsonResource
                 break;
         }
         return [
-            'cart_id' => $this->id ?? '',
-            'coupon_id'        => $this->coupon_id ?? '',
+            'cart_id'         => $this->id ?? '',
+            'coupon_id'       => $this->coupon_id ?? '',
             'discount_coupon' => $this->coupon?$this->coupon->discount . '% Courses Only' :'0.00',
-            'coupon_name' => $this->coupon->name??'',
-
-            'subtotal'      => number_format($subtotal,2) ?? '0.00',
-            'discount'      => number_format($discount,2) ?? '0.00',
-            'total'         => number_format($total,2) ?? '0.00',
-            'user_blance'   => number_format($wallet,2)  ?? '0.00',
-            'pay'           => number_format($pay,2) ?? '0.00',
+            'coupon_name'     => $this->coupon->name??'',
+            'subtotal'        => number_format($subtotal,2) ?? '0.00',
+            'discount'        => number_format($discount,2) ?? '0.00',
+            'total'           => number_format($total,2) ?? '0.00',
+            'user_blance'     => number_format($wallet,2)  ?? '0.00',
+            'pay'             => number_format($pay,2) ?? '0.00',
             'remaining_amount_of_balance'  => $pay =='0' ? number_format(($wallet-$total),2): '0.00',
             'cart_details'  => CartDetailsResource::collection($this->cart_details??[]),
         ];

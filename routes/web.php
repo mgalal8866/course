@@ -37,6 +37,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Livewire\Dashboard\Setting\Setting as SettingSetting;
 use App\Livewire\Dashboard\Quizzes\QuizCategory\ViewQuizCategory;
 use App\Livewire\Dashboard\FreeCourse\Category\CategoryFreeCourse;
+use App\Livewire\Dashboard\Order\ViewOrders;
 use App\Models\QuizResultDetails;
 use App\Models\QuizResultHeader;
 use Illuminate\Support\Facades\Artisan;
@@ -294,6 +295,7 @@ Route::group(
         Route::get('/blog', ViewBlog::class)->name('blog');
         Route::get('/setting', SettingSetting::class)->name('setting');
         Route::get('/slider', Slider::class)->name('slider');
+        Route::get('/order', ViewOrders::class)->name('order');
         Route::get('/stage', Stages::class)->name('stage');
         Route::get('/grades', ViewGrades::class)->name('viewgrades');
         Route::get('/grades/category', CategoryGrades::class)->name('categorygrades');
