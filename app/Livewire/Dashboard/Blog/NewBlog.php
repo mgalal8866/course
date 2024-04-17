@@ -3,6 +3,7 @@
 namespace App\Livewire\Dashboard\Blog;
 
 use App\Models\Blog;
+use App\Models\CategoryBlog;
 use App\Models\Country;
 use Livewire\Component;
 use App\Models\Specialist;
@@ -15,7 +16,7 @@ class NewBlog extends Component
     protected $listeners = ['edit' => 'edit'];
 
 
-    public $imageold,$title, $active=1,$image, $article,$edit = false, $id, $header;
+    public $imageold,$title, $active=1,$image, $article,$edit = false, $id, $header,$category_id,$country_id;
     protected $rules = [
         'title'       => 'required',
         'article'     => 'required',
@@ -33,6 +34,8 @@ class NewBlog extends Component
             $this->title = $tra->title;
             $this->article = $tra->article;
             $this->imageold = $tra->imageurl;
+            $this->country_id = $tra->country_id;
+            $this->category_id = $tra->category_id;
 
             $this->active = $tra->active==1?true:false;
             $this->edit = true;
@@ -51,6 +54,8 @@ class NewBlog extends Component
 
         $blog = Blog::updateOrCreate(['id' => $this->id], [
             'title'  => $this->title,
+            'category_id'  => $this->category_id,
+            'country_id'  => $this->country_id,
             'article'=> '',
             'views'=> '0',
             'active' => $this->active??1,
@@ -77,7 +82,8 @@ class NewBlog extends Component
     public function render()
     {
         $spec  = Specialist::latest()->get();
-        $countrylist  = Country::latest()->get();
-        return view('dashboard.blog.new-blog', compact(['spec', 'countrylist']));
+        $country  = Country::latest()->get();
+        $categoryblog  = CategoryBlog::latest()->get();
+        return view('dashboard.blog.new-blog', compact(['spec', 'country','categoryblog']));
     }
 }

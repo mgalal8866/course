@@ -52,6 +52,7 @@ class DBOrderRepository implements OrderRepositoryinterface
             $tansaction =  PaymentTransaction::create(
                 [
                     'payment_id'    => $payment_id,
+                    'user_id'       => Auth::guard('student')->user()->id,
                     'payment_type'  => $type,
                     'price'         => $cart->cart_details->sum('total'),
                     'response'      => $response,

@@ -20,6 +20,32 @@
                             @enderror
                         </div>
                         <div class="col-12 col-md-12">
+                            <label class="form-label"
+                                for="modalEditUserFirstName">{{ __('tran.country') }}</label>
+                            <select class="form-select" wire:model='country_id' required>
+                                <option value=""> اختيار الدولة</option>
+                                @foreach ($country as $c)
+                                    <option value="{{ $c->id }}">{{ $c->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('country_id')
+                                <span class="error" style="color: red">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="col-12 col-md-12">
+                            <label class="form-label"
+                                for="modalEditUserFirstName">{{ __('tran.category') }}</label>
+                            <select class="form-select" wire:model='category_id' required>
+                                <option value=""> اختيار ألقسم</option>
+                                @foreach ($categoryblog as $c)
+                                    <option value="{{ $c->id }}">{{ $c->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('category_id')
+                                <span class="error" style="color: red">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="col-12 col-md-12">
                             <label class="form-label" for="modalEditUserFirstName">{{ __('tran.title') }}</label>
                             <input type="text" class="form-control" wire:model="title"
                                 data-msg="Please enter your fisssssssrst name" required />

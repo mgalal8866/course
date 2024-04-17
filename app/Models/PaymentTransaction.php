@@ -13,7 +13,7 @@ class PaymentTransaction extends Model
 {
     use UUID,HasFactory;
     protected $guarded = [];
-    
+
     protected $casts = ['statu'=>PaymentStatus::class];
     public function paymentable()
     {
@@ -21,7 +21,7 @@ class PaymentTransaction extends Model
     }
     public function payment()
     {
-        // return $this->belongsTo(PaymentMethodCredentials::class);
+        return $this->belongsTo(PaymentMethods::class);
     }
 
 }

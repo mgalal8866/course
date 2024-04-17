@@ -31,14 +31,14 @@ enum PaymentStatus: int
     public function getLabelColor(): string
     {
         return match ($this) {
-            self::Success => 'badge-light-success',
-            self::Pending => 'badge-light-warning',
-            self::EXPIRE  => 'badge-light-danger',
+            self::Success => 'bg-success',
+            self::Pending => 'bg-warning',
+            self::EXPIRE  => 'bg-danger',
         };
     }
     public function getLabelHtml(): string
     {
-        return sprintf('<span class="badge rounded-pill text-white %s">%s</span>', $this->getLabelColor(), $this->getLabelText());
+        return sprintf('<span class="badge badge-glow %s">%s</span>', $this->getLabelColor(), $this->getLabelText());
     }
     public static function toarray(): array
     {

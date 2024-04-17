@@ -10,7 +10,7 @@ class OrdersDetails extends Model
 {
     use UUID,HasFactory;
     protected $guarded = [];
-    
+
     public function book()
     {
         return $this->belongsTo(StoreBook::class,'product_id');
@@ -18,5 +18,9 @@ class OrdersDetails extends Model
     public function course()
     {
         return $this->belongsTo(Courses::class,'product_id');
+    }
+    public function  coupon ()
+    {
+        return $this->belongsTo(UserCoupon::class,'coupon_id');
     }
 }

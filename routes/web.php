@@ -37,6 +37,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Livewire\Dashboard\Setting\Setting as SettingSetting;
 use App\Livewire\Dashboard\Quizzes\QuizCategory\ViewQuizCategory;
 use App\Livewire\Dashboard\FreeCourse\Category\CategoryFreeCourse;
+use App\Livewire\Dashboard\Order\DetailsOrder;
 use App\Livewire\Dashboard\Order\ViewOrders;
 use App\Models\QuizResultDetails;
 use App\Models\QuizResultHeader;
@@ -58,7 +59,7 @@ use Illuminate\Support\Facades\Artisan;
 Route::get('/clear', function (Request $request) {
     QuizResultHeader::truncate();
     QuizResultDetails::truncate();
-    return 'Done' ;
+    return 'Done';
     // Artisan::call('optimize');
     // return Artisan::output();
 });
@@ -72,12 +73,93 @@ Route::get('/cache', function (Request $request) {
 });
 Route::get('/ncc', function (Request $request) {
 
-     Artisan::call('view:clear');
-     Artisan::call('optimize:clear');
-     return Artisan::output();
-
+    Artisan::call('view:clear');
+    Artisan::call('optimize:clear');
+    return Artisan::output();
 });
+Route::get('/image1', function () {
 
+
+
+
+    //#############################11111111111111111111111111111111
+    // $account_id = "102ea1c9-83cb-4842-9fef-aee0d0fdb38b";
+    // $token = "eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1NmIzYjEwNzI0M2ViNjlhMDMxNjExZDVjNTI5MjBiZSIsInBlcm1pc3Npb25zIjpbXSwiYWNjZXNzUnVsZXMiOlt7ImlkIjoidHJhZGluZy1hY2NvdW50LW1hbmFnZW1lbnQtYXBpIiwibWV0aG9kcyI6WyJ0cmFkaW5nLWFjY291bnQtbWFuYWdlbWVudC1hcGk6cmVzdDpwdWJsaWM6KjoqIl0sInJvbGVzIjpbInJlYWRlciIsIndyaXRlciJdLCJyZXNvdXJjZXMiOlsiKjokVVNFUl9JRCQ6KiJdfSx7ImlkIjoibWV0YWFwaS1yZXN0LWFwaSIsIm1ldGhvZHMiOlsibWV0YWFwaS1hcGk6cmVzdDpwdWJsaWM6KjoqIl0sInJvbGVzIjpbInJlYWRlciIsIndyaXRlciJdLCJyZXNvdXJjZXMiOlsiKjokVVNFUl9JRCQ6KiJdfSx7ImlkIjoibWV0YWFwaS1ycGMtYXBpIiwibWV0aG9kcyI6WyJtZXRhYXBpLWFwaTp3czpwdWJsaWM6KjoqIl0sInJvbGVzIjpbInJlYWRlciIsIndyaXRlciJdLCJyZXNvdXJjZXMiOlsiKjokVVNFUl9JRCQ6KiJdfSx7ImlkIjoibWV0YWFwaS1yZWFsLXRpbWUtc3RyZWFtaW5nLWFwaSIsIm1ldGhvZHMiOlsibWV0YWFwaS1hcGk6d3M6cHVibGljOio6KiJdLCJyb2xlcyI6WyJyZWFkZXIiLCJ3cml0ZXIiXSwicmVzb3VyY2VzIjpbIio6JFVTRVJfSUQkOioiXX0seyJpZCI6Im1ldGFzdGF0cy1hcGkiLCJtZXRob2RzIjpbIm1ldGFzdGF0cy1hcGk6cmVzdDpwdWJsaWM6KjoqIl0sInJvbGVzIjpbInJlYWRlciJdLCJyZXNvdXJjZXMiOlsiKjokVVNFUl9JRCQ6KiJdfSx7ImlkIjoicmlzay1tYW5hZ2VtZW50LWFwaSIsIm1ldGhvZHMiOlsicmlzay1tYW5hZ2VtZW50LWFwaTpyZXN0OnB1YmxpYzoqOioiXSwicm9sZXMiOlsicmVhZGVyIiwid3JpdGVyIl0sInJlc291cmNlcyI6WyIqOiRVU0VSX0lEJDoqIl19LHsiaWQiOiJjb3B5ZmFjdG9yeS1hcGkiLCJtZXRob2RzIjpbImNvcHlmYWN0b3J5LWFwaTpyZXN0OnB1YmxpYzoqOioiXSwicm9sZXMiOlsicmVhZGVyIiwid3JpdGVyIl0sInJlc291cmNlcyI6WyIqOiRVU0VSX0lEJDoqIl19LHsiaWQiOiJtdC1tYW5hZ2VyLWFwaSIsIm1ldGhvZHMiOlsibXQtbWFuYWdlci1hcGk6cmVzdDpkZWFsaW5nOio6KiIsIm10LW1hbmFnZXItYXBpOnJlc3Q6cHVibGljOio6KiJdLCJyb2xlcyI6WyJyZWFkZXIiLCJ3cml0ZXIiXSwicmVzb3VyY2VzIjpbIio6JFVTRVJfSUQkOioiXX0seyJpZCI6ImJpbGxpbmctYXBpIiwibWV0aG9kcyI6WyJiaWxsaW5nLWFwaTpyZXN0OnB1YmxpYzoqOioiXSwicm9sZXMiOlsicmVhZGVyIl0sInJlc291cmNlcyI6WyIqOiRVU0VSX0lEJDoqIl19XSwidG9rZW5JZCI6IjIwMjEwMjEzIiwiaW1wZXJzb25hdGVkIjpmYWxzZSwicmVhbFVzZXJJZCI6IjU2YjNiMTA3MjQzZWI2OWEwMzE2MTFkNWM1MjkyMGJlIiwiaWF0IjoxNzEzMTA3ODE0fQ.k-JcNtL8nZKbJEVw8LgcN5dH1BHAc__UJZQAjQCsYCzG0R-J07DOHiwuJrkh03rV010TRV4bARyEZ1NEEIdMFfaESKgb2G1LikTSRt_ITQ_UJR4ZmUd2nyRd3Gcl8tCJDt-IG9F9aZ0FXPOvxO7znzIIgeLJXTowQJZpP870RtbckmUxEM3VGABqBiDYYavBLf8SaSX4DIDIuU9QKZuL7S98ZRbk9XPbnAiOUrdguYAT7fqsROzl9rE93HuuhIQW1hYByQLuxjN_xw7RsqbkMmMQyrezvgwk5ohJexrNO_RxqgBpihd1_oTaJodJ8wjrbv_2OsPXSOZjQ9eztn1bmpY1rA68jFqpYtG51zYrSY9_E09t8h-uojHUsZS53aA_jibLoztJS-pO8pa8cyWfizsErS8w2Nor6T7PB0Z1Co515BsKNUH_hfTf2hvk3BxWty-c6WuCWXgXVSJT0qyBBmtmqGoL_bFJQ_LPX7hZMDrI_tkBEqEKakAW7HIZntmxGR3kRv47OvctZKYxjizVJh-JoOLPbmG8wwB6zLArWP14N73OJc8EZWfJZe7TOjDtXjhUTGuHsO0BH0WjKqM-6MESEASxhV8bega5KpFIgxhtMO-eFy19-9ozqs5kksfnYxelC6E8Qr3HxPn6IwnmJJ13HJOcMUj-HGGXQZh4BlU";
+    // $curl = curl_init();
+    // curl_setopt_array($curl, array(
+    //     CURLOPT_URL => 'https://mt-provisioning-api-v1.agiliumtrade.agiliumtrade.ai/users/current/accounts/' . $account_id . '/redeploy?executeForAllReplicas=true',
+    //     CURLOPT_RETURNTRANSFER => true,
+    //     CURLOPT_ENCODING => '',  CURLOPT_MAXREDIRS => 10,
+    //     CURLOPT_TIMEOUT => 0,  CURLOPT_FOLLOWLOCATION => true,
+    //     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,  CURLOPT_CUSTOMREQUEST => 'POST',
+    //     CURLOPT_HTTPHEADER => array(
+    //         'auth-token:' . $token . '', "Content-Type: application/json",        "Accept: application/json",
+    //     ),
+    // ));
+
+
+    /////////////////222222222222222222222222222222222
+    // $account_id="102ea1c9-83cb-4842-9fef-aee0d0fdb38b";$symbol="EURUSD";
+    // $symbolNumber="1202";  //eurusd
+    // $token="eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1NmIzYjEwNzI0M2ViNjlhMDMxNjExZDVjNTI5MjBiZSIsInBlcm1pc3Npb25zIjpbXSwiYWNjZXNzUnVsZXMiOlt7ImlkIjoidHJhZGluZy1hY2NvdW50LW1hbmFnZW1lbnQtYXBpIiwibWV0aG9kcyI6WyJ0cmFkaW5nLWFjY291bnQtbWFuYWdlbWVudC1hcGk6cmVzdDpwdWJsaWM6KjoqIl0sInJvbGVzIjpbInJlYWRlciIsIndyaXRlciJdLCJyZXNvdXJjZXMiOlsiKjokVVNFUl9JRCQ6KiJdfSx7ImlkIjoibWV0YWFwaS1yZXN0LWFwaSIsIm1ldGhvZHMiOlsibWV0YWFwaS1hcGk6cmVzdDpwdWJsaWM6KjoqIl0sInJvbGVzIjpbInJlYWRlciIsIndyaXRlciJdLCJyZXNvdXJjZXMiOlsiKjokVVNFUl9JRCQ6KiJdfSx7ImlkIjoibWV0YWFwaS1ycGMtYXBpIiwibWV0aG9kcyI6WyJtZXRhYXBpLWFwaTp3czpwdWJsaWM6KjoqIl0sInJvbGVzIjpbInJlYWRlciIsIndyaXRlciJdLCJyZXNvdXJjZXMiOlsiKjokVVNFUl9JRCQ6KiJdfSx7ImlkIjoibWV0YWFwaS1yZWFsLXRpbWUtc3RyZWFtaW5nLWFwaSIsIm1ldGhvZHMiOlsibWV0YWFwaS1hcGk6d3M6cHVibGljOio6KiJdLCJyb2xlcyI6WyJyZWFkZXIiLCJ3cml0ZXIiXSwicmVzb3VyY2VzIjpbIio6JFVTRVJfSUQkOioiXX0seyJpZCI6Im1ldGFzdGF0cy1hcGkiLCJtZXRob2RzIjpbIm1ldGFzdGF0cy1hcGk6cmVzdDpwdWJsaWM6KjoqIl0sInJvbGVzIjpbInJlYWRlciJdLCJyZXNvdXJjZXMiOlsiKjokVVNFUl9JRCQ6KiJdfSx7ImlkIjoicmlzay1tYW5hZ2VtZW50LWFwaSIsIm1ldGhvZHMiOlsicmlzay1tYW5hZ2VtZW50LWFwaTpyZXN0OnB1YmxpYzoqOioiXSwicm9sZXMiOlsicmVhZGVyIiwid3JpdGVyIl0sInJlc291cmNlcyI6WyIqOiRVU0VSX0lEJDoqIl19LHsiaWQiOiJjb3B5ZmFjdG9yeS1hcGkiLCJtZXRob2RzIjpbImNvcHlmYWN0b3J5LWFwaTpyZXN0OnB1YmxpYzoqOioiXSwicm9sZXMiOlsicmVhZGVyIiwid3JpdGVyIl0sInJlc291cmNlcyI6WyIqOiRVU0VSX0lEJDoqIl19LHsiaWQiOiJtdC1tYW5hZ2VyLWFwaSIsIm1ldGhvZHMiOlsibXQtbWFuYWdlci1hcGk6cmVzdDpkZWFsaW5nOio6KiIsIm10LW1hbmFnZXItYXBpOnJlc3Q6cHVibGljOio6KiJdLCJyb2xlcyI6WyJyZWFkZXIiLCJ3cml0ZXIiXSwicmVzb3VyY2VzIjpbIio6JFVTRVJfSUQkOioiXX0seyJpZCI6ImJpbGxpbmctYXBpIiwibWV0aG9kcyI6WyJiaWxsaW5nLWFwaTpyZXN0OnB1YmxpYzoqOioiXSwicm9sZXMiOlsicmVhZGVyIl0sInJlc291cmNlcyI6WyIqOiRVU0VSX0lEJDoqIl19XSwidG9rZW5JZCI6IjIwMjEwMjEzIiwiaW1wZXJzb25hdGVkIjpmYWxzZSwicmVhbFVzZXJJZCI6IjU2YjNiMTA3MjQzZWI2OWEwMzE2MTFkNWM1MjkyMGJlIiwiaWF0IjoxNzEzMTA3ODE0fQ.k-JcNtL8nZKbJEVw8LgcN5dH1BHAc__UJZQAjQCsYCzG0R-J07DOHiwuJrkh03rV010TRV4bARyEZ1NEEIdMFfaESKgb2G1LikTSRt_ITQ_UJR4ZmUd2nyRd3Gcl8tCJDt-IG9F9aZ0FXPOvxO7znzIIgeLJXTowQJZpP870RtbckmUxEM3VGABqBiDYYavBLf8SaSX4DIDIuU9QKZuL7S98ZRbk9XPbnAiOUrdguYAT7fqsROzl9rE93HuuhIQW1hYByQLuxjN_xw7RsqbkMmMQyrezvgwk5ohJexrNO_RxqgBpihd1_oTaJodJ8wjrbv_2OsPXSOZjQ9eztn1bmpY1rA68jFqpYtG51zYrSY9_E09t8h-uojHUsZS53aA_jibLoztJS-pO8pa8cyWfizsErS8w2Nor6T7PB0Z1Co515BsKNUH_hfTf2hvk3BxWty-c6WuCWXgXVSJT0qyBBmtmqGoL_bFJQ_LPX7hZMDrI_tkBEqEKakAW7HIZntmxGR3kRv47OvctZKYxjizVJh-JoOLPbmG8wwB6zLArWP14N73OJc8EZWfJZe7TOjDtXjhUTGuHsO0BH0WjKqM-6MESEASxhV8bega5KpFIgxhtMO-eFy19-9ozqs5kksfnYxelC6E8Qr3HxPn6IwnmJJ13HJOcMUj-HGGXQZh4BlU";
+    // $curl = curl_init();
+    // curl_setopt_array($curl, [
+    //     CURLOPT_URL =>        "https://mt-provisioning-api-v1.agiliumtrade.agiliumtrade.ai/users/current/accounts/" .
+    //         $account_id .        "/expert-advisors/" .
+    //         $symbolNumber,    CURLOPT_RETURNTRANSFER => true,
+    //     CURLOPT_ENCODING => "",    CURLOPT_MAXREDIRS => 10,
+    //     CURLOPT_TIMEOUT => 0,    CURLOPT_FOLLOWLOCATION => true,
+    //     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,    CURLOPT_CUSTOMREQUEST => "PUT",
+    //     //  CURLOPT_POSTFIELDS =>'{"symbol":'.$symbol.',"period":"15m","preset":" "}',    CURLOPT_POSTFIELDS => $post_string,
+    //     CURLOPT_HTTPHEADER => [        "auth-token:" . $token . "",
+    //         "Content-Type: application/json",    ],
+    // ]);
+
+    $accountid = "d2eaa4ca-f568-4a61-b61a-9074cc4d3437";
+    $token = "eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1NmIzYjEwNzI0M2ViNjlhMDMxNjExZDVjNTI5MjBiZSIsInBlcm1pc3Npb25zIjpbXSwiYWNjZXNzUnVsZXMiOlt7ImlkIjoidHJhZGluZy1hY2NvdW50LW1hbmFnZW1lbnQtYXBpIiwibWV0aG9kcyI6WyJ0cmFkaW5nLWFjY291bnQtbWFuYWdlbWVudC1hcGk6cmVzdDpwdWJsaWM6KjoqIl0sInJvbGVzIjpbInJlYWRlciIsIndyaXRlciJdLCJyZXNvdXJjZXMiOlsiKjokVVNFUl9JRCQ6KiJdfSx7ImlkIjoibWV0YWFwaS1yZXN0LWFwaSIsIm1ldGhvZHMiOlsibWV0YWFwaS1hcGk6cmVzdDpwdWJsaWM6KjoqIl0sInJvbGVzIjpbInJlYWRlciIsIndyaXRlciJdLCJyZXNvdXJjZXMiOlsiKjokVVNFUl9JRCQ6KiJdfSx7ImlkIjoibWV0YWFwaS1ycGMtYXBpIiwibWV0aG9kcyI6WyJtZXRhYXBpLWFwaTp3czpwdWJsaWM6KjoqIl0sInJvbGVzIjpbInJlYWRlciIsIndyaXRlciJdLCJyZXNvdXJjZXMiOlsiKjokVVNFUl9JRCQ6KiJdfSx7ImlkIjoibWV0YWFwaS1yZWFsLXRpbWUtc3RyZWFtaW5nLWFwaSIsIm1ldGhvZHMiOlsibWV0YWFwaS1hcGk6d3M6cHVibGljOio6KiJdLCJyb2xlcyI6WyJyZWFkZXIiLCJ3cml0ZXIiXSwicmVzb3VyY2VzIjpbIio6JFVTRVJfSUQkOioiXX0seyJpZCI6Im1ldGFzdGF0cy1hcGkiLCJtZXRob2RzIjpbIm1ldGFzdGF0cy1hcGk6cmVzdDpwdWJsaWM6KjoqIl0sInJvbGVzIjpbInJlYWRlciJdLCJyZXNvdXJjZXMiOlsiKjokVVNFUl9JRCQ6KiJdfSx7ImlkIjoicmlzay1tYW5hZ2VtZW50LWFwaSIsIm1ldGhvZHMiOlsicmlzay1tYW5hZ2VtZW50LWFwaTpyZXN0OnB1YmxpYzoqOioiXSwicm9sZXMiOlsicmVhZGVyIiwid3JpdGVyIl0sInJlc291cmNlcyI6WyIqOiRVU0VSX0lEJDoqIl19LHsiaWQiOiJjb3B5ZmFjdG9yeS1hcGkiLCJtZXRob2RzIjpbImNvcHlmYWN0b3J5LWFwaTpyZXN0OnB1YmxpYzoqOioiXSwicm9sZXMiOlsicmVhZGVyIiwid3JpdGVyIl0sInJlc291cmNlcyI6WyIqOiRVU0VSX0lEJDoqIl19LHsiaWQiOiJtdC1tYW5hZ2VyLWFwaSIsIm1ldGhvZHMiOlsibXQtbWFuYWdlci1hcGk6cmVzdDpkZWFsaW5nOio6KiIsIm10LW1hbmFnZXItYXBpOnJlc3Q6cHVibGljOio6KiJdLCJyb2xlcyI6WyJyZWFkZXIiLCJ3cml0ZXIiXSwicmVzb3VyY2VzIjpbIio6JFVTRVJfSUQkOioiXX0seyJpZCI6ImJpbGxpbmctYXBpIiwibWV0aG9kcyI6WyJiaWxsaW5nLWFwaTpyZXN0OnB1YmxpYzoqOioiXSwicm9sZXMiOlsicmVhZGVyIl0sInJlc291cmNlcyI6WyIqOiRVU0VSX0lEJDoqIl19XSwidG9rZW5JZCI6IjIwMjEwMjEzIiwiaW1wZXJzb25hdGVkIjpmYWxzZSwicmVhbFVzZXJJZCI6IjU2YjNiMTA3MjQzZWI2OWEwMzE2MTFkNWM1MjkyMGJlIiwiaWF0IjoxNzEzMTA3ODE0fQ.k-JcNtL8nZKbJEVw8LgcN5dH1BHAc__UJZQAjQCsYCzG0R-J07DOHiwuJrkh03rV010TRV4bARyEZ1NEEIdMFfaESKgb2G1LikTSRt_ITQ_UJR4ZmUd2nyRd3Gcl8tCJDt-IG9F9aZ0FXPOvxO7znzIIgeLJXTowQJZpP870RtbckmUxEM3VGABqBiDYYavBLf8SaSX4DIDIuU9QKZuL7S98ZRbk9XPbnAiOUrdguYAT7fqsROzl9rE93HuuhIQW1hYByQLuxjN_xw7RsqbkMmMQyrezvgwk5ohJexrNO_RxqgBpihd1_oTaJodJ8wjrbv_2OsPXSOZjQ9eztn1bmpY1rA68jFqpYtG51zYrSY9_E09t8h-uojHUsZS53aA_jibLoztJS-pO8pa8cyWfizsErS8w2Nor6T7PB0Z1Co515BsKNUH_hfTf2hvk3BxWty-c6WuCWXgXVSJT0qyBBmtmqGoL_bFJQ_LPX7hZMDrI_tkBEqEKakAW7HIZntmxGR3kRv47OvctZKYxjizVJh-JoOLPbmG8wwB6zLArWP14N73OJc8EZWfJZe7TOjDtXjhUTGuHsO0BH0WjKqM-6MESEASxhV8bega5KpFIgxhtMO-eFy19-9ozqs5kksfnYxelC6E8Qr3HxPn6IwnmJJ13HJOcMUj-HGGXQZh4BlU";
+
+    $post_string =    '{
+        "name": "api test",
+          "copyStopLoss": true,  "copyTakeProfit": true,
+            "subscriptions": [
+            {      "strategyId": "nqxe",
+                    "reduceCorrelations": "by-strategy",
+              "symbolFilter": {
+                "included": ["EURUSD"]
+              },
+              "copyStopLoss": true,
+              "copyTakeProfit": true    }
+          ]
+        }';
+    $curl = curl_init();
+
+    curl_setopt_array($curl, [
+        CURLOPT_URL => "https://copyfactory-api-v1.new-york.agiliumtrade.ai/users/current/configuration/subscribers/" . $accountid,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "PUT",
+        CURLOPT_POSTFIELDS => $post_string,
+        // CURLOPT_X => "PUT",
+        // CURLOPT_d => $post_string,
+        CURLOPT_HTTPHEADER => [
+            "auth-token:" . $token . "",
+            "Content-Type: application/json",
+            "Accept: application/json",
+        ],
+    ]);
+    $response = curl_exec($curl);
+    $data = [];
+    $data = $response;
+    // curl_close($curl);
+    dd($data);
+
+    //var_dump($response);
+    // return curl_close($curl);
+});
 
 Route::group(
     [
@@ -88,10 +170,10 @@ Route::group(
         // Livewire::setUpdateRoute(function ($handle) {
         //         return Route::post('/livewire/update', $handle);
         //     });
-            Route::get('/', function () {
+        Route::get('/', function () {
 
-                return view('layouts.dashboard.app');
-            });
+            return view('layouts.dashboard.app');
+        });
         Route::get('/test21', function (Request $request) {
 
             $pageCount = 5; // عدد صفحات الكتاب
@@ -234,7 +316,7 @@ Route::group(
             // return app('getSettings');
 
             // return   Browser::browserName() .' - '.Browser::platformName() .' - '.$request->ip() .' - ' .   json_decode( json_encode(Location::get($request->ip())), true);
-            return    json_decode( json_encode(Location::get($request->ip())), true);
+            return    json_decode(json_encode(Location::get($request->ip())), true);
 
 
             $p1 = asset('files/1.jpg');
@@ -278,6 +360,7 @@ Route::group(
             $image->insert($watermark, 'center');
             return $image->response('jpg');
         });
+
         Route::get('/vimeo', Filemanger::class);
         Route::get('/new/course', NewCourse::class)->name('newcourse');
         Route::get('/edit/course', EditCourse::class)->name('editcourse');
@@ -296,6 +379,7 @@ Route::group(
         Route::get('/setting', SettingSetting::class)->name('setting');
         Route::get('/slider', Slider::class)->name('slider');
         Route::get('/order', ViewOrders::class)->name('order');
+        Route::get('/details/order/{id?}', DetailsOrder::class)->name('detailsorder');
         Route::get('/stage', Stages::class)->name('stage');
         Route::get('/grades', ViewGrades::class)->name('viewgrades');
         Route::get('/grades/category', CategoryGrades::class)->name('categorygrades');

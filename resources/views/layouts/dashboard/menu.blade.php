@@ -214,6 +214,26 @@
                  </ul>
              </li>
              <li class=" nav-item">
+                 <a class="d-flex align-items-center" href="#">
+                    <i class="fas fa-shopping-cart"></i>
+                     <span class="menu-title text-truncate">{{ __('tran.orders') }}</span>
+                 </a>
+                 <ul class="menu-content">
+                     <li>
+                        <a class="d-flex align-items-center" href="{{route('order')}}">
+                            <i data-feather="circle"></i>
+                            <span class="menu-item text-truncate">{{ __('tran.view') .' '. __('tran.orders') }}</span>
+                        </a>
+                    </li>
+                     {{-- <li>
+                        <a class="d-flex align-items-center" href="{{route('categoryfree')}}">
+                            <i data-feather="circle"></i>
+                            <span class="menu-item text-truncate">{{ __('tran.category') }}</span>
+                        </a>
+                    </li> --}}
+                 </ul>
+             </li>
+             <li class=" nav-item">
                 <a class="d-flex align-items-center" href="#">
                     <i class="fab fa-blogger"></i>
                     <span class="menu-title text-truncate">{{ __('tran.blog') }}</span>
