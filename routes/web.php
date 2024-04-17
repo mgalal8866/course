@@ -6,18 +6,22 @@ use App\Models\Setting;
 use Illuminate\Http\Request;
 use Vimeo\Laravel\VimeoManager;
 use App\Livewire\Dashboard\Test;
+use App\Models\QuizResultHeader;
 use Vimeo\Laravel\Facades\Vimeo;
+use App\Models\QuizResultDetails;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Artisan;
 use App\Livewire\Dashboard\Stage\Stages;
 use App\Livewire\Dashboard\Blog\ViewBlog;
 use App\Livewire\Dashboard\Setting\Slider;
 use Stevebauman\Location\Facades\Location;
 use App\Livewire\Dashboard\Books\ViewBooks;
 use App\Livewire\Dashboard\Quizzes\Newquiz;
+use App\Livewire\Dashboard\Order\ViewOrders;
 use App\Livewire\Dashboard\Quizzes\Newquiz2;
 use App\Livewire\Dashboard\Vimeo\Filemanger;
 use App\Livewire\Dashboard\Courses\NewCourse;
@@ -26,8 +30,10 @@ use App\Livewire\Dashboard\Quizzes\ViewQuizz;
 use App\Livewire\Dashboard\Trainees\Trainees;
 use App\Livewire\Dashboard\Trainers\Trainers;
 use App\Livewire\Dashboard\Courses\EditCourse;
+use App\Livewire\Dashboard\Order\DetailsOrder;
 use App\Livewire\Dashboard\Courses\ViewCourses;
 use App\Livewire\Dashboard\FreeCourse\FreeCourse;
+use App\Livewire\Dashboard\Blog\Category\CategoryBlog;
 use App\Livewire\Dashboard\Books\Category\CategoryBooks;
 use App\Livewire\Dashboard\Grades\Category\CategoryGrades;
 use App\Livewire\Dashboard\Trainers\Specialist\Specialist;
@@ -35,13 +41,9 @@ use App\Livewire\Dashboard\Courses\Category\CategoryCourse;
 use App\Livewire\Dashboard\StudySchedule\ViewStudySchedule;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Livewire\Dashboard\Setting\Setting as SettingSetting;
+use App\Livewire\Dashboard\Payments\ViewPaymentsMethod;
 use App\Livewire\Dashboard\Quizzes\QuizCategory\ViewQuizCategory;
 use App\Livewire\Dashboard\FreeCourse\Category\CategoryFreeCourse;
-use App\Livewire\Dashboard\Order\DetailsOrder;
-use App\Livewire\Dashboard\Order\ViewOrders;
-use App\Models\QuizResultDetails;
-use App\Models\QuizResultHeader;
-use Illuminate\Support\Facades\Artisan;
 
 // use Browser;
 
@@ -159,7 +161,7 @@ Route::get('/image1', function () {
 
     //var_dump($response);
     // return curl_close($curl);
-    
+
 });
 
 Route::group(
@@ -377,6 +379,8 @@ Route::group(
         Route::get('/trainees', Trainees::class)->name('trainees');
         Route::get('/specialist', Specialist::class)->name('specialist');
         Route::get('/blog', ViewBlog::class)->name('blog');
+        Route::get('/category/blog', CategoryBlog::class)->name('category-blog');
+        Route::get('/payment-method', ViewPaymentsMethod::class)->name('payment-method');
         Route::get('/setting', SettingSetting::class)->name('setting');
         Route::get('/slider', Slider::class)->name('slider');
         Route::get('/order', ViewOrders::class)->name('order');

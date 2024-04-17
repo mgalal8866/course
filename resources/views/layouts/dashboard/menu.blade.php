@@ -245,6 +245,12 @@
                            <span class="menu-item text-truncate">{{ __('tran.view') .' '. __('tran.blog') }}</span>
                        </a>
                    </li>
+                    <li>
+                       <a class="d-flex align-items-center" href="{{route('category-blog')}}">
+                           <i data-feather="circle"></i>
+                           <span class="menu-item text-truncate">{{ __('tran.category-blog')  }}</span>
+                       </a>
+                   </li>
 
                 </ul>
             </li>
@@ -255,7 +261,7 @@
                 </a>
                 <ul class="menu-content">
                     <li>
-                       <a class="d-flex align-items-center" href=" ">
+                       <a class="d-flex align-items-center" href="{{ route('payment-method') }}">
                            <i data-feather="circle"></i>
                            <span class="menu-item text-truncate">{{ __('tran.view') .' '. __('tran.payment_method') }}</span>
                        </a>

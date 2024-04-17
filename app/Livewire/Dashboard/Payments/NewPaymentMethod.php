@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Livewire\Dashboard\Trainers\Specialist;
+namespace App\Livewire\Dashboard\Payments;
 
 use Livewire\Component;
-use App\Models\Specialist;
+use App\Models\PaymentMethods;
 
-class NewSpecialist extends Component
+class NewPaymentMethod extends Component
 {
 
     protected $listeners = ['edit' => 'edit'];
@@ -19,16 +19,16 @@ class NewSpecialist extends Component
     {
         $this->edit = false;
         if ($id != null) {
-            $tra = Specialist::find($id);
+            $tra = PaymentMethods::find($id);
             $this->id = $tra->id;
             $this->name = $tra->name;
             $this->active = $tra->active==1?true:false;
             $this->edit = true;
-            $this->header = __('tran.edit') . ' ' . __('tran.specialist');
+            $this->header = __('tran.edit') . ' ' . __('tran.paymentmethod');
         } else {
             $this->name = null;
             $this->edit = false;
-            $this->header =  __('tran.add') . ' ' . __('tran.specialist');
+            $this->header =  __('tran.add') . ' ' . __('tran.paymentmethod');
         }
         $this->dispatch('openmodel');
     }
@@ -36,17 +36,17 @@ class NewSpecialist extends Component
     public function save()
     {
         $this->validate();
-        $CFC = Specialist::updateOrCreate(['id' => $this->id], [
+        $CFC = PaymentMethods::updateOrCreate(['id' => $this->id], [
             'name'       => $this->name,
             'active' => $this->active??1
         ]);
         $this->dispatch('closemodel');
-        $this->dispatch('specialist_refresh');
+        $this->dispatch('paymentmethod_refresh');
 
     }
     public function render()
     {
-        $spec  = Specialist::latest()->get();
-        return view('dashboard.trainers.specialist.new-specialist', compact('spec'));
+        $paymentmethod  = PaymentMethods::latest()->get();
+        return view('dashboard.payment_method.new-payment_method', compact('paymentmethod'));
     }
 }

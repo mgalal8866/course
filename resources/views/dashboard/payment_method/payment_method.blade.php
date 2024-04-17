@@ -7,7 +7,7 @@
                     {{-- <a class="btn btn-primary"
                         wire:click="$dispatch('edit')">{{ __('tran.add') . ' ' . __('tran.trainee') }}</a> --}}
                 </div>
-                @livewire('dashboard.payment_method.payment_method')
+                {{-- @livewire('dashboard.payment_method.new-payment_method') --}}
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
@@ -26,7 +26,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($trainees  as $item)
+                            @forelse ($paymentmethod  as $item)
                                 <tr>
                                     <td>
                                         <span class="fw-bold">{{ $item->first_name ?? 'N/A' }} {{ $item->last_name  ?? 'N/A'  }}</span>
