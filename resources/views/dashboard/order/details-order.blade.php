@@ -105,7 +105,7 @@
                                     <tr>
                                         <td class="py-1">
                                             <p class="card-text fw-bold mb-25">
-                                                {{ $invod->is_book == 1 ? $invod->book->name : $invod->course->name }}</p>
+                                                {{ $invod->is_book == 1 ? $invod->book->book_name : $invod->course->name }}</p>
                                         </td>
                                         <td class="py-1">
                                             <span class="fw-bold">{{ $invod->price ?? '' }}</span>

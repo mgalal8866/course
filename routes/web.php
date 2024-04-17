@@ -159,6 +159,7 @@ Route::get('/image1', function () {
 
     //var_dump($response);
     // return curl_close($curl);
+    
 });
 
 Route::group(
