@@ -13,15 +13,15 @@
                         <thead>
                             <tr>
                                 <th>{{ __('tran.name') }}</th>
-                                <th>{{ __('tran.phone') }}</th>
-                                <th>{{ __('tran.mail') }}</th>
+                               <th>{{ __('tran.type') }}</th>
+                                  {{--<th>{{ __('tran.mail') }}</th>
                                 <th>{{ __('tran.phone_parent') }}</th>
                                 <th>{{ __('tran.mail_parent') }}</th>
-                                <th>{{ __('tran.country') }}</th>
-                                <th>{{ __('tran.gender') }}</th>
+                                <th>{{ __('tran.country') }}</th> --}}
+                                {{-- <th>{{ __('tran.gender') }}</th>
                                 <th>{{ __('tran.point') }}</th>
                                 <th>{{ __('tran.wallet') }}</th>
-                                <th>{{ __('tran.statu') }}</th>
+                                <th>{{ __('tran.statu') }}</th> --}}
                                 <th>{{ __('tran.action') }}</th>
                             </tr>
                         </thead>
@@ -29,9 +29,12 @@
                             @forelse ($paymentmethod  as $item)
                                 <tr>
                                     <td>
-                                        <span class="fw-bold">{{ $item->first_name ?? 'N/A' }} {{ $item->last_name  ?? 'N/A'  }}</span>
+                                        <span class="fw-bold">{{ $item->name ?? 'N/A' }}</span>
                                     </td>
                                     <td>
+                                        <span class="fw-bold">{!! $item->type->getLabelHtml() !!}</span>
+                                    </td>
+                                    {{-- <td>
                                         <span class="fw-bold">{{ $item->phone ?? 'N/A' }}</span>
                                     </td>
                                     <td>
@@ -45,8 +48,8 @@
                                     </td>
                                     <td>
                                         <span class="fw-bold">{{ $item->country->name ?? 'N/A' }}</span>
-                                    </td>
-                                    <td>
+                                    </td> --}}
+                                    {{-- <td>
                                         <span class="badge  bg-secondary">
                                             @switch($item->gender)
                                                 @case(1)
@@ -86,15 +89,15 @@
                                                 @break
                                             @endswitch
                                         </span>
-                                    </td>
+                                    </td> --}}
                                     <td>
-                                        <a wire:click="$dispatch('edit',{id:'{{ $item->id }}'})"><i
+                                        {{-- <a wire:click="$dispatch('edit',{id:'{{ $item->id }}'})"><i
                                                 class="fas fa-edit fa-lg" style="color: #c2881e;"></i></a>
                                         <a wire:click="delete('{{ $item->id }}')"><i
                                                 class="fas fa-trash-alt fa-lg " style="color: #ff0000;"></i></a>
                                         <a wire:click="activetoggle('{{ $item->id }}')"> <i
                                                 class="fas {{ $item->active == 1 ? 'fas fa-eye' : 'fa-eye-slash' }} fa-lg "
-                                                style="{{ $item->active == 1 ? 'color: #1caa0f;' : '' }}"></i></a>
+                                                style="{{ $item->active == 1 ? 'color: #1caa0f;' : '' }}"></i></a> --}}
                                     </td>
                                 </tr>
                                 @empty
