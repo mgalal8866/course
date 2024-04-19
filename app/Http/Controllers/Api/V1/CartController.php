@@ -18,8 +18,8 @@ class CartController extends Controller
 
     public function getcart()
     {
-        return Resp(new CartCartResource($this->cartRepositry->getcart()), 'success', 200, true);
         if( $this->cartRepositry->getcart()){
+            return Resp(new CartCartResource($this->cartRepositry->getcart()), 'success', 200, true);
           }else{
             return Resp([],'Not Cart ');
           }
