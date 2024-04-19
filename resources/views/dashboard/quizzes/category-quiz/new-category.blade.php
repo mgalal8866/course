@@ -19,6 +19,20 @@
                           @error('name') <span class="error" style="color: red" >{{ $message }}</span> @enderror
                         </div>
                         <div class="col-12 col-md-12">
+                            <label class="form-label"
+                                for="modalEditUserFirstName">{{ __('tran.country') }}</label>
+                            <select class="form-select" wire:model='country_id' required>
+                                <option value=""> اختيار الدولة</option>
+                                @foreach ($country as $c)
+                                    <option value="{{ $c->id }}">{{ $c->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('country_id')
+                                <span class="error" style="color: red">{{ $message }}</span>
+                            @enderror
+                        </div>
+
+                        <div class="col-12 col-md-12">
                             <label class="form-label" for="modalEditUserFirstName">{{__('tran.typecategory')}}</label>
                             <select class="form-select" id="typecategory" wire:model='typecategory'>
 

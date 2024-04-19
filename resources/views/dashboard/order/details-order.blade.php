@@ -105,7 +105,8 @@
                                     <tr>
                                         <td class="py-1">
                                             <p class="card-text fw-bold mb-25">
-                                                {{ $invod->is_book == 1 ? $invod->book->book_name : $invod->course->name }}</p>
+                                                {{ $invod->is_book == 1 ? $invod->book->book_name : $invod->course->name }}
+                                            </p>
                                         </td>
                                         <td class="py-1">
                                             <span class="fw-bold">{{ $invod->price ?? '' }}</span>
@@ -209,6 +210,12 @@
             <div class="col-xl-3 col-md-4 col-12 invoice-actions mt-md-0 mt-2">
                 <div class="card">
                     <div class="card-body">
+                        <select class="form-select mb-2" wire:model.live='status' required>
+                            @foreach (\App\Enum\PaymentStatus::cases() as $q)
+                                <option value="{{ $q->value }}">{{ __('tran.typep-' . $q->name) }} </option>
+                            @endforeach
+                        </select>
+                        {{-- <a class="btn btn-success w-100 mb-75" href="" target="_blank"> {{ __('tran.save') }} </a> --}}
                         {{-- <a class="btn btn-outline-secondary w-100 mb-75" href="{{route('print',['type'=>'open','id'=>$order->id])}}"
                             target="_blank"> طباعة </a> --}}
                     </div>

@@ -14,6 +14,7 @@
                     <table class="table">
                         <thead>
                             <tr>
+                                <th>{{ __('tran.date') }}</th>
                                 <th>{{ __('tran.name') }}</th>
                                 <th>{{ __('tran.coupon') }}</th>
                                 <th>{{ __('tran.subtotal') }}</th>
@@ -26,6 +27,9 @@
                         <tbody>
                             @forelse ($orders  as $item)
                                 <tr>
+                                    <td>
+                                        <span class="fw-bold">{{ $item->created_at->format('d-m-Y h:m a') ?? 'N/A' }}</span>
+                                    </td>
                                     <td>
                                         <span class="fw-bold">{{ $item->user->first_name ?? 'N/A' }}</span>
                                     </td>

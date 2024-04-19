@@ -16,6 +16,10 @@ class CategoryExams extends Model
         'type' => Quiz::class
     ];
 
+    public function country()
+    {
+        return $this->belongsTo(Country::class, 'country_id');
+    }
     public function quizz()
     {
         return $this->hasMany(Quizes::class, 'category_id');

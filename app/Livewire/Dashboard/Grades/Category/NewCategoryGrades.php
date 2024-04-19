@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Dashboard\Grades\Category;
 
+use App\Models\Country;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use App\Models\CategoryGrades;
@@ -11,7 +12,7 @@ class NewCategoryGrades extends Component
     use WithFileUploads;
 
     protected $listeners = ['edit' => 'edit'];
-    public $name,$image,$imagold,$edit=false,$id,$header;
+    public $country_id,$name,$image,$imagold,$edit=false,$id,$header;
     public function edit($id = null)
     {
         if ($id != null) {
@@ -20,6 +21,7 @@ class NewCategoryGrades extends Component
             $CC = CategoryGrades::find($id);
             $this->name = $CC->name;
             $this->id = $id;
+            $this->country_id = $CC->country_id;
             $this->imagold = $CC->image !=null? $CC->imageurl:null;
             $this->edit = true;
             $this->header = __('tran.editcategory');
@@ -44,10 +46,11 @@ class NewCategoryGrades extends Component
         if( $this->edit == true){
             $CC = CategoryGrades::find($this->id);
             $CC->name = $this->name;
+            $CC->country_id = $this->country_id;
 
             $CC->save();
         }else{
-            $CC = CategoryGrades::create(['name' => $this->name]);
+            $CC = CategoryGrades::create(['name' => $this->name,'country_id'=>$this->country_id]);
 
             $CC->save();
         }
@@ -59,6 +62,7 @@ class NewCategoryGrades extends Component
     }
     public function render()
     {
-        return view('dashboard.grades.category.new-category-grades');
+        $country = Country::get();
+        return view('dashboard.grades.category.new-category-grades',compact('country'));
     }
 }

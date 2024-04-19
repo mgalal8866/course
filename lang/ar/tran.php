@@ -166,7 +166,9 @@ return [
     'typequiz-QUIZ' => 'قسم مسابقات',
     'typecategory' => 'نوع القسم',
     'calc_rate' => 'حساب معدل الدوره ',
-    'sections_guide' => 'دليل اقسام الاساسية',
+    'typep-Success' => 'مدفوع',
+    'typep-Pending' => 'جارى الدفع',
+    'typep-Field' => 'فشل الدفع',
     'answer_the_question' => 'أليه الرد على الاستفسار'
 
 ];

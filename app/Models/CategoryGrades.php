@@ -15,5 +15,9 @@ class CategoryGrades extends Model
     {
         return $this->hasOne(UsersGrades::class, 'category_id');
     }
-   
+    public function country()
+    {
+        return $this->belongsTo(Country::class, 'country_id');
+    }
+
 }
