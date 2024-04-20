@@ -168,7 +168,13 @@ return [
     'calc_rate' => 'حساب معدل الدوره ',
     'typep-Success' => 'مدفوع',
     'typep-Pending' => 'جارى الدفع',
+    'entercoupon' => 'ادخل اسم الكوبون',
+    'discoupon' => ' نسبه الخصم لكل عملية شراء (%)',
     'typep-Field' => 'فشل الدفع',
+    'exchange_point' => 'النقاط للتحويل',
+    'collect_point_user' => 'النقاط المكتسبه لكل عملية شراء',
+    'exchange_price' => 'قيمه التحويل لكل نقطة',
+    'date' => 'تاريخ',
     'answer_the_question' => 'أليه الرد على الاستفسار'
 
 ];

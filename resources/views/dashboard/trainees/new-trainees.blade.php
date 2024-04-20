@@ -12,7 +12,8 @@
                     <form id="editUserForm" class="row gy-1 pt-75" wire:submit.prevent="save">
 
                         <div class=" col-md-4">
-                            <label class="form-label" for="modalEditUserFirstfirst_name">{{ __('tran.first_name') }}</label>
+                            <label class="form-label"
+                                for="modalEditUserFirstfirst_name">{{ __('tran.first_name') }}</label>
                             <input type="text" class="form-control" wire:model="first_name"
                                 data-msg="Please enter your fisssssssrst first_name" required />
                             @error('first_name')
@@ -20,7 +21,8 @@
                             @enderror
                         </div>
                         <div class=" col-md-4">
-                            <label class="form-label" for="modalEditUserFirstmiddle_name">{{ __('tran.middle_name') }}</label>
+                            <label class="form-label"
+                                for="modalEditUserFirstmiddle_name">{{ __('tran.middle_name') }}</label>
                             <input type="text" class="form-control" wire:model="middle_name"
                                 data-msg="Please enter your fisssssssrst middle_name" required />
                             @error('middle_name')
@@ -28,7 +30,8 @@
                             @enderror
                         </div>
                         <div class=" col-md-4">
-                            <label class="form-label" for="modalEditUserFirstlast_name">{{ __('tran.last_name') }}</label>
+                            <label class="form-label"
+                                for="modalEditUserFirstlast_name">{{ __('tran.last_name') }}</label>
                             <input type="text" class="form-control" wire:model="last_name"
                                 data-msg="Please enter your fisssssssrst last_name" required />
                             @error('last_name')
@@ -114,6 +117,63 @@
                                 </div>
                             </div>
                         @endif
+                        <div class="divider divider-info">
+                            <div class="divider-text">{{ __('tran.coupon') }}</div>
+                        </div>
+                        <div class="card shadow-none bg-transparent border-info">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12 col-md-6">
+                                        <label class="form-label"
+                                            for="modalEditUserFirstName">{{ __('tran.entercoupon') }}</label>
+                                        <input type="text" class="form-control" wire:model="coupon" required />
+                                        @error('coupon')
+                                            <span class="error" style="color: red">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <label class="form-label"
+                                            for="modalEditUserFirstName">{{ __('tran.discoupon') }}</label>
+                                        <input type="text" class="form-control" wire:model="discount" required />
+                                        @error('discount')
+                                            <span class="error" style="color: red">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <label class="form-label"
+                                            for="modalEditUserFirstName">{{ __('tran.collect_point_user') }}</label>
+                                        <input type="text" class="form-control" wire:model="collect_point_user"
+                                            required />
+                                        @error('collect_point_user')
+                                            <span class="error" style="color: red">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <label class="form-label"
+                                            for="modalEditUserFirstName">{{ __('tran.exchange_price') }}</label>
+                                        <input type="text" class="form-control" wire:model="exchange_price"
+                                            required />
+                                        @error('exchange_price')
+                                            <span class="error" style="color: red">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <div class="d-flex flex-column">
+                                            <label class="form-check-label mb-50" for="coupon_active">
+                                                {{ __('tran.active') }}</label>
+                                            <div class="form-check form-switch form-check-success">
+                                                <input type="checkbox" class="form-check-input" wire:model='coupon_active'
+                                                    id="coupon_active" />
+                                                <label class="form-check-label" for="coupon_active">
+                                                    <span class="switch-icon-left"><i data-feather="check"></i></span>
+                                                    <span class="switch-icon-right"><i data-feather="x"></i></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-12 text-center mt-2 pt-50">
                             <button type="submit" class="btn btn-primary me-1">{{ __('tran.save') }}</button>
                             <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal"
