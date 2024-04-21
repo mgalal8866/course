@@ -8,6 +8,7 @@ enum PaymentStatus: int
     case Success = 1;
     case Pending = 2;
     case Field = 3;
+    case Delivered = 4;
     // public function isEXPIRE(): bool
     // {
     //     return $this === static::EXPIRE;
@@ -23,17 +24,19 @@ enum PaymentStatus: int
     public function getLabelText(): string
     {
         return match ($this) {
-            self::Pending  => 'Pending',
-            self::Success  => 'Success',
-            self::Field   => 'Field',
+            self::Pending   => 'Pending',
+            self::Success   => 'Success',
+            self::Field     => 'Field',
+            self::Delivered => 'delivered',
         };
     }
     public function getLabelColor(): string
     {
         return match ($this) {
-            self::Success => 'bg-success',
-            self::Pending => 'bg-warning',
-            self::Field  => 'bg-danger',
+            self::Success    => 'bg-success',
+            self::Pending    => 'bg-warning',
+            self::Field      => 'bg-danger',
+            self::Delivered  => 'bg-success',
         };
     }
     public function getLabelHtml(): string

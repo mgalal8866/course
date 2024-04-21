@@ -98,6 +98,7 @@
                                     <th class="py-1">{{ __('tran.coupon') }}</th>
                                     <th class="py-1">{{ __('tran.discount') }}</th>
                                     <th class="py-1">{{ __('tran.total') }}</th>
+                                    <th class="py-1">{{ __('tran.status') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -130,6 +131,20 @@
                                         </td>
                                         <td class="py-1">
                                             <span class="fw-bold">{{ $invod->total }}</span>
+                                        </td>
+                                        <td class="py-1">
+                                            @if($invod->is_book == 1)
+                                            <select class="form-select mb-2" required>
+                                                @foreach (\App\Enum\PaymentStatus::cases() as $q)
+                                                    <option
+                                                        wire:click="invod_status('{{ $q->value }}','{{ $invod->id }}')"
+                                                        value="{{ $q->value }}">{{ __('tran.typep-' . $q->name) }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            @else
+                                                -
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach
@@ -212,7 +227,9 @@
                     <div class="card-body">
                         <select class="form-select mb-2" wire:model.live='status' required>
                             @foreach (\App\Enum\PaymentStatus::cases() as $q)
+                            @if($q->value != '4')
                                 <option value="{{ $q->value }}">{{ __('tran.typep-' . $q->name) }} </option>
+                                @endif
                             @endforeach
                         </select>
                         {{-- <a class="btn btn-success w-100 mb-75" href="" target="_blank"> {{ __('tran.save') }} </a> --}}

@@ -28,6 +28,11 @@ class DetailsOrder extends Component
        $s->save();
 
     }
+    public function invod_status($val,$id)
+    {
+    dd($val,$id);
+
+    }
 
     public function render()
     {

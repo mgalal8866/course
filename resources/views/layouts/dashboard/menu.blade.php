@@ -88,6 +88,29 @@
                      </li>
                  </ul>
              </li>
+             <li class=" nav-item">
+                 <a class="d-flex align-items-center" href="#">
+                    <i class="fas fa-book-open"></i>
+                     <span class="menu-title text-truncate">{{ __('tran.books') }}</span>
+                 </a>
+                 <ul class="menu-content">
+                    <li>
+                        <a class="d-flex align-items-center" href="{{ route('categorybooks') }}">
+                            <i data-feather="circle"></i>
+                            <span class="menu-item text-truncate">{{ __('tran.categorybooks') }}</span>
+                        </a>
+                    </li>
+                        <li>
+                            <a class="d-flex align-items-center" href="{{ route('viewbooks') }}">
+                                <i data-feather="circle"></i>
+                                <span class="menu-item text-truncate">{{ __('tran.viewbooks') }}</span>
+                            </a>
+                        </li>
+
+
+
+                 </ul>
+             </li>
 
              {{-- <li class=" nav-item">
                  <a class="d-flex align-items-center" href="#">
@@ -264,6 +287,21 @@
                        <a class="d-flex align-items-center" href="{{ route('payment-method') }}">
                            <i data-feather="circle"></i>
                            <span class="menu-item text-truncate">{{ __('tran.view') .' '. __('tran.payment_method') }}</span>
+                       </a>
+                   </li>
+
+                </ul>
+            </li>
+             <li class=" nav-item">
+                <a class="d-flex align-items-center" href="#">
+                   <i class="far fa-credit-card"></i>
+                    <span class="menu-title text-truncate">{{ __('tran.contactus') }}</span>
+                </a>
+                <ul class="menu-content">
+                    <li>
+                       <a class="d-flex align-items-center" href="{{ route('contactus') }}">
+                           <i data-feather="circle"></i>
+                           <span class="menu-item text-truncate">{{ __('tran.view') .' '. __('tran.contactus') }}</span>
                        </a>
                    </li>
 

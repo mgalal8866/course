@@ -35,6 +35,7 @@ use App\Livewire\Dashboard\Courses\ViewCourses;
 use App\Livewire\Dashboard\FreeCourse\FreeCourse;
 use App\Livewire\Dashboard\Blog\Category\CategoryBlog;
 use App\Livewire\Dashboard\Books\Category\CategoryBooks;
+use App\Livewire\Dashboard\ContactUs\ViewContact;
 use App\Livewire\Dashboard\Grades\Category\CategoryGrades;
 use App\Livewire\Dashboard\Trainers\Specialist\Specialist;
 use App\Livewire\Dashboard\Courses\Category\CategoryCourse;
@@ -433,6 +434,7 @@ Route::group(
         Route::get('/view/quiz', ViewQuizz::class)->name('viewquiz');
         Route::get('/trainers', Trainers::class)->name('trainers');
         Route::get('/trainees', Trainees::class)->name('trainees');
+        Route::get('/contact-us', ViewContact::class)->name('contactus');
         Route::get('/specialist', Specialist::class)->name('specialist');
         Route::get('/blog', ViewBlog::class)->name('blog');
         Route::get('/category/blog', CategoryBlog::class)->name('category-blog');
