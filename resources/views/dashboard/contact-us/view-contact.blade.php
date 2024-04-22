@@ -3,27 +3,27 @@
         <div class="col-12">
             <div class="card outline-success">
                 <div class="card-header">
-                    <h4 class="card-title">{{ __('tran.freecourse') }}</h4>
-                    {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editUser">{{__('tran.newfreecourse')}}</button> --}}
-                     <a  class="btn btn-primary" wire:click="$dispatch('edit')">{{__('tran.newfreecourse')}}</a>
-                    {{-- <button type="button" class="btn btn-primary" wire:click="$dispatch('openmodel')">{{__('tran.newcategory')}}</button> --}}
-
+                    <h4 class="card-title">{{ __('tran.contactus') }}</h4>
                 </div>
-                {{-- @livewire('dashboard.free-course.new-free-course') --}}
+
+                @livewire('dashboard.contact-us.show-details')
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
                             <tr>
+                                <th>{{ __('tran.date') }}</th>
                                 <th>{{ __('tran.name') }}</th>
                                 <th>{{ __('tran.mail') }}</th>
                                 <th>{{ __('tran.phone') }}</th>
-                                <th>{{ __('tran.statu') }}</th>
                                 <th>{{ __('tran.action') }}</th>
                             </tr>
                         </thead>
                         <tbody>
                             @forelse ($contents  as $item)
                                 <tr>
+                                    <td>
+                                        <span class="fw-bold">{{ $item->created_at ?? 'N/A' }}</span>
+                                    </td>
                                     <td>
                                         <span class="fw-bold">{{ $item->name ?? 'N/A' }}</span>
                                     </td>
@@ -35,11 +35,11 @@
                                         <span class="fw-bold">{{ $item->phone ?? 'N/A' }}</span>
                                     </td>
 
-                                    {{-- <td>
-                                        <a wire:click="$dispatch('edit',{id:'{{$item->id}}'})"><i  class="fas fa-edit fa-lg"  style="color: #c2881e;"></i></a>
-                                        <a wire:click="delete('{{$item->id}}')"><i  class="fas fa-trash-alt fa-lg "  style="color: #ff0000;"></i></a>
-                                        <a wire:click="activetoggle('{{$item->id}}')"> <i   class="fas {{$item->active ==1 ?'fas fa-eye':'fa-eye-slash'}} fa-lg "   style="{{$item->active ==1 ?'color: #1caa0f;':''}}"></i></a>
-                                    </td> --}}
+                                    <td>
+                                        <a class="btn btn-info waves-effect waves-float waves-light btn-sm"
+                                        wire:click="$dispatch('showdetails',{id:'{{$item->id}}'})">عرض التفاصيل</a>
+
+                                    </td>
                                 </tr>
                                 @empty
                                     <tr>

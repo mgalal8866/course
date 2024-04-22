@@ -145,7 +145,7 @@ return [
     'coupondis'       => 'كوبون خصم',
     'note'            => 'ملاحظات',
     'subtotal'        => 'فرعى',
-    'statu'           => 'حاله الدفع',
+    'statupay'           => 'حاله الدفع',
     'total'           => 'اجمالى',
     'discount'        => 'خصم',
     'coupon'          => 'كوبون',
@@ -175,6 +175,17 @@ return [
     'collect_point_user' => 'النقاط المكتسبه لكل عملية شراء',
     'exchange_price' => 'قيمه التحويل لكل نقطة',
     'date' => 'تاريخ',
+    'contactus' => 'تواصل معنا',
+    'typecontent' => 'نوع التواصل',
+    'paymentmethod' => 'طريقة دفع',
+    'type' => 'نوع',
+    'account_name' => 'اسم الحساب',
+    'account_number' => 'رقم الحساب',
+    'iban_number' => 'ibn رقم',
+    'typemethod' => 'نوع طريقة الدفع',
+    'notification' =>  'اشعار',
+    'notifications' => 'الاشعارات',
+    'send' => 'ارسال',
     'answer_the_question' => 'أليه الرد على الاستفسار'
 
 ];

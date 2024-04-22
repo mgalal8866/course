@@ -294,7 +294,7 @@
             </li>
              <li class=" nav-item">
                 <a class="d-flex align-items-center" href="#">
-                   <i class="far fa-credit-card"></i>
+                    <i class="fas fa-envelope-open-text"></i>
                     <span class="menu-title text-truncate">{{ __('tran.contactus') }}</span>
                 </a>
                 <ul class="menu-content">
@@ -302,6 +302,21 @@
                        <a class="d-flex align-items-center" href="{{ route('contactus') }}">
                            <i data-feather="circle"></i>
                            <span class="menu-item text-truncate">{{ __('tran.view') .' '. __('tran.contactus') }}</span>
+                       </a>
+                   </li>
+
+                </ul>
+            </li>
+             <li class=" nav-item">
+                <a class="d-flex align-items-center" href="#">
+                    <i class="fas fa-bell"></i>
+                    <span class="menu-title text-truncate">{{ __('tran.notifications') }}</span>
+                </a>
+                <ul class="menu-content">
+                    <li>
+                       <a class="d-flex align-items-center" href="{{ route('notification') }}">
+                           <i data-feather="circle"></i>
+                           <span class="menu-item text-truncate">{{ __('tran.view') .' '. __('tran.notifications') }}</span>
                        </a>
                    </li>
 

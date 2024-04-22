@@ -45,6 +45,7 @@ use App\Livewire\Dashboard\Setting\Setting as SettingSetting;
 use App\Livewire\Dashboard\Payments\ViewPaymentsMethod;
 use App\Livewire\Dashboard\Quizzes\QuizCategory\ViewQuizCategory;
 use App\Livewire\Dashboard\FreeCourse\Category\CategoryFreeCourse;
+use App\Livewire\Dashboard\Notification\ViewNotification;
 
 // use Browser;
 
@@ -429,6 +430,7 @@ Route::group(
         Route::get('/category/free-course', CategoryFreeCourse::class)->name('categoryfree');
         Route::get('/category/courses', CategoryCourse::class)->name('category');
         Route::get('/category/quiz', ViewQuizCategory::class)->name('category-quiz');
+        Route::get('/notification', ViewNotification::class)->name('notification');
         // Route::get('/new/quiz', Newquiz::class)->name('newquiz');
         Route::get('/new/quiz2', Newquiz2::class)->name('newquiz');
         Route::get('/view/quiz', ViewQuizz::class)->name('viewquiz');

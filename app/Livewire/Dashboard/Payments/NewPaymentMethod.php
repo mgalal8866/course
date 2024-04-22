@@ -4,12 +4,13 @@ namespace App\Livewire\Dashboard\Payments;
 
 use Livewire\Component;
 use App\Models\PaymentMethods;
-
+use Livewire\WithFileUploads;
+use App\Traits\ImageProcessing;
 class NewPaymentMethod extends Component
 {
-
+    use WithFileUploads, ImageProcessing;
     protected $listeners = ['edit' => 'edit'];
-    public  $active, $name, $edit = false, $id, $header;
+    public  $imagold,$active, $name, $image, $account_name, $account_number, $type, $iban_number, $edit = false, $id, $header;
     protected $rules = [
         'name'       => 'required',
 
@@ -20,9 +21,15 @@ class NewPaymentMethod extends Component
         $this->edit = false;
         if ($id != null) {
             $tra = PaymentMethods::find($id);
+            // dd($tra->type->value);
             $this->id = $tra->id;
+            $this->type = $tra->type->value == 1 ? false: true;
             $this->name = $tra->name;
-            $this->active = $tra->active==1?true:false;
+            $this->imagold = $tra->image !=null? $tra->imageurl:null;
+            $this->account_number = $tra->account_number;
+            $this->account_name = $tra->account_name;
+            $this->iban_number = $tra->iban_number;
+            $this->active = $tra->active == 1 ? true : false;
             $this->edit = true;
             $this->header = __('tran.edit') . ' ' . __('tran.paymentmethod');
         } else {
@@ -37,12 +44,21 @@ class NewPaymentMethod extends Component
     {
         $this->validate();
         $CFC = PaymentMethods::updateOrCreate(['id' => $this->id], [
-            'name'       => $this->name,
-            'active' => $this->active??1
+            'name'           => $this->name,
+            'type'           => $this->type ==true? 2:1,
+            'name'           => $this->name,
+            'account_number' => $this->account_number,
+            'account_name'   => $this->account_name,
+            'iban_number'    => $this->iban_number,
+            'active'         => $this->active ==true? 1:0
         ]);
+        if ($this->image) {
+            $dataX = $this->saveImageAndThumbnail($this->image, false,  null,null,'payment');
+            $CFC->image =  $dataX['image'];
+            $CFC->save();
+        }
         $this->dispatch('closemodel');
         $this->dispatch('paymentmethod_refresh');
-
     }
     public function render()
     {
