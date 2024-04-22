@@ -11,7 +11,7 @@ use App\Traits\ImageProcessing;
 class NewBooks extends Component
 {
     protected $listeners = ['edit' => 'edit'];
-    public $edit = false, $id, $header,$image,$features, $imagold,$book_name ,$category_id,$price,$qty_max;
+    public $type=0,$link,$edit = false, $id, $header,$image,$features, $imagold,$book_name ,$category_id,$price,$qty_max;
     use WithFileUploads, ImageProcessing;
     public function edit($id = null)
     {
@@ -24,6 +24,8 @@ class NewBooks extends Component
             $this->category_id =  $CC->category_id;
             $this->qty_max =  $CC->qty_max;
             $this->price =  $CC->price;
+            $this->type =  $CC->type;
+            $this->link =  $CC->link;
             $this->features =  $CC->features;
             $this->imagold = $CC->image !=null? $CC->imageurl:null;
             $this->edit = true;
@@ -51,6 +53,8 @@ class NewBooks extends Component
             $CC = StoreBook::find($this->id);
             $CC->book_name = $this->book_name;
             $CC->qty_max = $this->qty_max;
+            $CC->type = $this->type;
+            $CC->link = $this->link??null;
             $CC->features = $this->features;
             $CC->price = $this->price;
             $CC->category_id = $this->category_id;
@@ -61,6 +65,8 @@ class NewBooks extends Component
                 'book_name' => $this->book_name,
                 'category_id'=>$this->category_id,
                 'features'=>$this->features??'',
+                'type'=>$this->type??'',
+                'link'=>$this->link??null,
                 'qty_max'=>$this->qty_max??'1',
                 'price'=>$this->price,
             ]);

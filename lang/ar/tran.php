@@ -185,6 +185,7 @@ return [
     'typemethod' => 'نوع طريقة الدفع',
     'notification' =>  'اشعار',
     'notifications' => 'الاشعارات',
+    'sections_guide' => 'دليل الاقسام',
     'send' => 'ارسال',
     'answer_the_question' => 'أليه الرد على الاستفسار'
 
