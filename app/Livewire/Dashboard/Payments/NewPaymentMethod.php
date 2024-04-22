@@ -10,7 +10,7 @@ class NewPaymentMethod extends Component
 {
     use WithFileUploads, ImageProcessing;
     protected $listeners = ['edit' => 'edit'];
-    public  $imagold,$active, $name, $image, $account_name, $account_number, $type, $iban_number, $edit = false, $id, $header;
+    public  $imagold=null,$active, $name, $image, $account_name, $account_number, $type, $iban_number, $edit = false, $id, $header;
     protected $rules = [
         'name'       => 'required',
 
