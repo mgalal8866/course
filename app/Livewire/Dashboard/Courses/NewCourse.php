@@ -6,7 +6,6 @@ namespace App\Livewire\Dashboard\Courses;
 use App\Models\User;
 use App\Models\Quizes;
 use App\Models\Stages;
-use App\Models\Country;
 use App\Models\Courses;
 use App\Models\Lessons;
 use App\Models\Trainer;
@@ -31,7 +30,7 @@ class NewCourse extends Component
     protected $listeners = ['edit' => 'edit', 'refreshDropdown', 'currentPage' => 'currentPage'];
     public $edit = false, $short_description, $id, $header, $currentPage = 1, $pages = 4, $conditions, $target, $howtostart,
         $telegram, $telegramgrup, $nextcourse, $course_gender, $schedule, $free_tatorul, $nextcoursesbycat,
-        $name, $description, $validity = 'تبقى الدورة بكامل محتوياتها ثلاثة أشهر بحساب المتدرب.', $country_id, $category_id, $price, $pricewith = 1, $startdate, $enddate, $time, $features, $triner = [], $limit_stud, $duration_course = 'شهر ونصف',
+        $name, $description, $validity = 'تبقى الدورة بكامل محتوياتها ثلاثة أشهر بحساب المتدرب.', $category_id, $price, $pricewith = 1, $startdate, $enddate, $time, $features, $triner = [], $limit_stud, $duration_course = 'شهر ونصف',
         $image_course, $file_work, $file_explanatory, $file_aggregates, $file_supplementary, $file_free, $file_test,
         $langcourse = false, $status = true, $inputnum = false, $lessons, $stages, $answer_the_question, $calc_rate;
     public $questions, $total_scores, $degree_success, $testname, $testtime,$sections_guide;
@@ -70,7 +69,6 @@ class NewCourse extends Component
             'questions.*.answers.*.correct' => 'required',
             'target.required' => 'اهداف الدورة مطلوبة',
             'name.required'            => 'اسم الدوره مطلوب',
-            // 'country_id.required'      => 'حقل الدولة مطلوب',
             'category_id.required'     => 'حقل الاقسام مطلوب',
             'price.required'           => 'حقل السعر مطلوب',
             'pricewith.required'           => 'حقل شامل السعر مطلوب',
@@ -98,7 +96,6 @@ class NewCourse extends Component
     private  $validtionRules = [
         1 => [
             'name'            => 'required',
-            // 'country_id'      => 'required|exists:countries,id',
             'category_id'     => 'required|exists:categories,id',
             'price'           => 'required',
             'pricewith'           => 'required',
@@ -262,7 +259,6 @@ class NewCourse extends Component
             // $this->validate($rules);
             $CFC = Courses::updateOrCreate(['id' => $this->id], [
                 'name'         => $this->name,
-                'country_id'   => $this->country_id ?? null,
                 'duration'     => $this->duration_course ?? null,
                 'validity'     => $this->validity ?? null,
                 'course_gender'     => $this->course_gender ?? null,
@@ -360,9 +356,8 @@ class NewCourse extends Component
     public function render()
     {
         $category = Category::get();
-        $country = Country::get();
         $triners = User::whereType('1')->get();
         $categoryfreecourse = CategoryFCourse::whereHas('freecourse')->get();
-        return view('dashboard.courses.new-course', compact(['category', 'triners', 'country', 'categoryfreecourse']));
+        return view('dashboard.courses.new-course', compact(['category', 'triners', 'categoryfreecourse']));
     }
 }

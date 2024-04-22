@@ -103,20 +103,7 @@
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="mb-1 col-md-4">
-                                    <label class="form-label"
-                                        for="modalEditUserFirstName">{{ __('tran.country') }}</label>
-                                    <select class="form-select" wire:model='country_id' required>
-                                        <option value=""> اختيار الدولة</option>
-                                        <option value="">الكل</option>
-                                        @foreach ($country as $c)
-                                            <option value="{{ $c->id }}">{{ $c->name }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('country_id')
-                                        <span class="error" style="color: red">{{ $message }}</span>
-                                    @enderror
-                                </div>
+
                                 <div class="mb-1 col-md-4">
                                     <label class="form-label"
                                         for="modalEditUserFirstName">{{ __('tran.course_gender') }}</label>
@@ -126,7 +113,7 @@
                                         <option value="1">طلاب</option>
                                         <option value="2">طالبات</option>
                                     </select>
-                                    @error('country_id')
+                                    @error('course_gender')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
