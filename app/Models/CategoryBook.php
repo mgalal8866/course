@@ -15,4 +15,8 @@ class CategoryBook extends Model
     {
         return $this->hasMany(StoreBook::class, 'category_id');
     }
+    public function country()
+    {
+        return $this->belongsTo(country::class, 'country_id');
+    }
 }

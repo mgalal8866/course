@@ -27,7 +27,7 @@ class ViewBooks extends Component
     }
     public function render()
     {
-        $books = StoreBook::latest()->get();
+        $books = StoreBook::with(['category','category.country'])->latest()->get();
         return view('dashboard.books.view-books',compact('books'));
     }
 }
