@@ -33,7 +33,8 @@ class NewPaymentMethod extends Component
             $this->edit = true;
             $this->header = __('tran.edit') . ' ' . __('tran.paymentmethod');
         } else {
-            $this->name = null;
+            $this->reset(['name','imagold','account_number','account_name','iban_number']);
+            $this->image =null;
             $this->edit = false;
             $this->header =  __('tran.add') . ' ' . __('tran.paymentmethod');
         }
@@ -57,6 +58,7 @@ class NewPaymentMethod extends Component
             $CFC->image =  $dataX['image'];
             $CFC->save();
         }
+        $this->reset(['name','imagold','account_number','account_name','iban_number']);
         $this->dispatch('closemodel');
         $this->dispatch('paymentmethod_refresh');
     }
