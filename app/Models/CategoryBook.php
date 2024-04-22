@@ -5,7 +5,7 @@ namespace App\Models;
 use App\Traits\UUID;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use App\Models\Country;
 class CategoryBook extends Model
 {
     use UUID,HasFactory;
@@ -17,6 +17,6 @@ class CategoryBook extends Model
     }
     public function country()
     {
-        return $this->belongsTo(country::class, 'country_id');
+        return $this->belongsTo(Country::class, 'country_id');
     }
 }
