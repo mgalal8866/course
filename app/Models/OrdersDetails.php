@@ -23,4 +23,8 @@ class OrdersDetails extends Model
     {
         return $this->belongsTo(UserCoupon::class,'coupon_id');
     }
+    public function  order ()
+    {
+        return $this->belongsTo(Orders::class,'order_id');
+    }
 }
