@@ -14,6 +14,7 @@
                             <tr>
                                 <th>{{ __('tran.image') }}</th>
                                 <th>{{ __('tran.name') }}</th>
+                                <th>{{ __('tran.type') }}</th>
                                 <th>{{ __('tran.price') }}</th>
                                 <th>{{ __('tran.qty_max') }}</th>
                                 <th>{{ __('tran.category') }}</th>
@@ -29,6 +30,9 @@
                                     </td>
                                     <td>
                                         <span class="fw-bold">{{ $item->book_name ?? 'N/A' }}</span>
+                                    </td>
+                                    <td>
+                                        <span class="fw-bold">{{ $item->type ==1 ?'كتاب اليكترونى (PDF)' :'كتاب مطبوع' }}</span>
                                     </td>
                                     <td>
                                         <span class="fw-bold">{{ $item->price ?? 'N/A' }}</span>

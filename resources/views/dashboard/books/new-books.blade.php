@@ -29,8 +29,8 @@
                             <label class="form-label" for="modalEditUserFirsttype">{{ __('tran.type') }}</label>
                             <select class="form-select" wire:model.live='type' required>
                                 <option value="">نوع الكتاب</option>
-                                <option value="0">كتاب الكترونى (PDF)</option>
-                                <option value="1">كتاب مطبوع</option>
+                                <option value="0">كتاب مطبوع</option>
+                                <option value="1">كتاب الكترونى (PDF)</option>
                             </select>
                             @error('type')
                                 <span class="error" style="color: red">{{ $message }}</span>
