@@ -20,12 +20,13 @@ class NewPaymentMethod extends Component
     {
         $this->edit = false;
         if ($id != null) {
+            $this->reset(['name','imagold','account_number','account_name','iban_number']);
             $tra = PaymentMethods::find($id);
             // dd($tra->type->value);
             $this->id = $tra->id;
             $this->type = $tra->type->value == 1 ? false: true;
             $this->name = $tra->name;
-            $this->imagold = $tra->image !=null? $tra->imageurl:null;
+            $this->imagold = $tra->image !=null ? $tra->imageurl:null;
             $this->account_number = $tra->account_number;
             $this->account_name = $tra->account_name;
             $this->iban_number = $tra->iban_number;
@@ -33,7 +34,7 @@ class NewPaymentMethod extends Component
             $this->edit = true;
             $this->header = __('tran.edit') . ' ' . __('tran.paymentmethod');
         } else {
-            $this->reset(['name','imagold','account_number','account_name','iban_number']);
+
             $this->image =null;
             $this->edit = false;
             $this->header =  __('tran.add') . ' ' . __('tran.paymentmethod');
