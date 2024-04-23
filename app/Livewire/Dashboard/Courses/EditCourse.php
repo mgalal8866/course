@@ -66,7 +66,7 @@ class EditCourse extends Component
         $this->enddate               = $course->enddate??'';
         $this->time                  = $course->time??'';
         $this->features              = $course->features??'';
-        $this->triner                = $course->coursetrainers->toarray() ?? [];
+        $this->triner                = $course->coursetrainers?$course->coursetrainers->toarray() :[];
         $this->limit_stud            = $course->limit_stud;
         $this->duration_course       = $course->duration_course;
         $this->image_course          = $course->image_courseurl;
