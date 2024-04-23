@@ -13,12 +13,12 @@ use App\Models\CategoryFCourse;
 class EditCourse extends Component
 {
 
-    public $short_description, $id, $header, $currentPage = 1, $pages = 4, $conditions, $target, $howtostart,
+    public $calc_rate, $answer_the_question,$sections_guide,$short_description, $id, $header, $currentPage = 1, $pages = 4, $conditions, $target, $howtostart,
         $telegram, $telegramgrup, $nextcourse, $course_gender, $schedule, $free_tatorul, $nextcoursesbycat,
         $name, $description, $validity = 'تبقى الدورة بكامل محتوياتها ثلاثة أشهر بحساب المتدرب.', $country_id, $category_id, $price, $pricewith, $startdate, $enddate, $time, $features, $triner = [], $limit_stud, $duration_course = 'شهر ونصف',
         $image_course, $file_work, $file_explanatory, $file_aggregates, $file_supplementary, $file_free, $file_test,
         $langcourse, $status, $inputnum, $lessons, $stages;
-    public function mount($id = 'c69ebe1c-63f4-4859-89a3-ee59bf150b1b')
+    public function mount($id = null)
     {
         $this->stages = Stages::orderBy('parent_id', 'DESC')->get();
         $this->fill(['lessons' => collect([['stage_id' => null, 'img' => null, 'name' => '', 'link' => '', 'is_lesson' => true]])]);
@@ -69,7 +69,7 @@ class EditCourse extends Component
         $this->triner                = $course->coursetrainers->toarray() ?? [];
         $this->limit_stud            = $course->limit_stud;
         $this->duration_course       = $course->duration_course;
-        $this->image_course          = $course->image_course;
+        $this->image_course          = $course->image_courseurl;
         $this->file_work             = $course->file_work;
         $this->file_explanatory      = $course->file_explanatory;
         $this->file_aggregates       = $course->file_aggregates;
@@ -79,10 +79,12 @@ class EditCourse extends Component
         $this->langcourse            = $course->langcourse;
         $this->status                = $course->status;
         $this->inputnum              = $course->inputnum;
+        $this->answer_the_question  = $course->answer_the_question;
+        $this->sections_guide  = $course->sections_guide;
         // $this->lessons               = $course->lessons;
         foreach ($course->lessons() as $item) {
 
-            $this->lessons->push(['stage_id' => $item->stage_id, 'img' => null, 'name' => $item->name, 'link' => $item->link, 'is_lesson' => $item->is_lesson?1:0]);
+            // $this->lessons->push(['stage_id' => $item->stage_id, 'img' => null, 'name' => $item->name, 'link' => $item->link, 'is_lesson' => $item->is_lesson?1:0]);
         }
         $category = Category::get();
         $country = Country::get();

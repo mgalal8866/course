@@ -424,7 +424,7 @@ Route::group(
 
         Route::get('/vimeo', Filemanger::class);
         Route::get('/new/course', NewCourse::class)->name('newcourse');
-        Route::get('/edit/course', EditCourse::class)->name('editcourse');
+        Route::get('/edit/course/{id?}', EditCourse::class)->name('editcourse');
         Route::get('/course', ViewCourses::class)->name('course');
         Route::get('/free-course', FreeCourse::class)->name('freecourse');
         Route::get('/category/free-course', CategoryFreeCourse::class)->name('categoryfree');

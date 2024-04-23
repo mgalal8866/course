@@ -14,6 +14,7 @@
                             <tr>
                                 <th>{{ __('tran.image') }}</th>
                                 <th>{{ __('tran.category') }}</th>
+                                <th>{{ __('tran.country') }}</th>
                                 <th>{{ __('tran.statu') }}</th>
                                 <th>{{ __('tran.action') }}</th>
                             </tr>
@@ -26,6 +27,9 @@
                                     </td>
                                     <td>
                                         <span class="fw-bold">{{ $item->name ?? 'N/A' }}</span>
+                                    </td>
+                                    <td>
+                                        <span class="fw-bold">{{ $item->country->name ?? 'All' }}</span>
                                     </td>
                                     <td>
                                         <span

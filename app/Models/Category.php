@@ -25,7 +25,10 @@ class Category extends Model
     {
         return $this->image?path('','category') . $this->image: path('','').'no-imag.png';
     }
-
+    public function country()
+    {
+        return $this->belongsTo(Country::class, 'country_id');
+    }
     public function courses()
     {
         return $this->hasMany(Courses::class, 'category_id');
