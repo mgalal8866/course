@@ -60,10 +60,10 @@ class DBOrderRepository implements OrderRepositoryinterface
                     'statu'         => PaymentStatus::Pending,
                 ]
             );
+            dd($image);
             if ($image) {
                 $dataX = $this->saveImageAndThumbnail($image, false, $tansaction->id, 'transaction');
                 $tansaction->image =  $dataX['image'];
-                dd($dataX['image']);
                 $tansaction->save();
             }
             $order =  $this->order->create([
