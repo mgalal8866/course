@@ -19,6 +19,7 @@ class OrderController extends Controller
 
     public function please_order()
     {
+        dd('');
         $please_order = $this->orderRepositry->please_order();
         if( $please_order != null && $please_order == true){
           return Resp('', 'success', 200, true);
