@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\User;
 use App\Traits\UUID;
 use App\Models\Courses;
 use Illuminate\Database\Eloquent\Model;
@@ -19,6 +20,6 @@ class CourseTrainers extends Model
     }
     public function triner()
     {
-        return $this->belongsTo(Trainer::class, 'trainer_id');
+        return $this->belongsTo(User::class, 'trainer_id');
     }
 }
