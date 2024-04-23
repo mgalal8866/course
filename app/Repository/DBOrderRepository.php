@@ -56,13 +56,14 @@ class DBOrderRepository implements OrderRepositoryinterface
                     'payment_type'  => $type,
                     'price'         => $cart->cart_details->sum('total'),
                     'response'      => $response,
-                    'image'         => '',
+                    'image'         => null,
                     'statu'         => PaymentStatus::Pending,
                 ]
             );
             if ($image) {
                 $dataX = $this->saveImageAndThumbnail($image, false, $tansaction->id, 'transaction');
                 $tansaction->image =  $dataX['image'];
+                dd($dataX['image']);
                 $tansaction->save();
             }
             $order =  $this->order->create([

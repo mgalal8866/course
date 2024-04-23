@@ -232,7 +232,9 @@
                                 @endif
                             @endforeach
                         </select>
-                        {{-- <a class="btn btn-success w-100 mb-75" href="" target="_blank"> {{ __('tran.save') }} </a> --}}
+                        @if ($order->transaction)
+                        <a class="btn btn-success w-100 mb-75" href="{{ $order->transaction->image}}" >صورة ايصال الدفع</a>
+                    @endif
                         {{-- <a class="btn btn-outline-secondary w-100 mb-75" href="{{route('print',['type'=>'open','id'=>$order->id])}}"
                             target="_blank"> طباعة </a> --}}
                     </div>
