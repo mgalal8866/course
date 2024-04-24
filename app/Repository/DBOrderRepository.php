@@ -34,7 +34,7 @@ class DBOrderRepository implements OrderRepositoryinterface
     public function please_order()
     {
         try {
-            // DB::beginTransaction();
+            DB::beginTransaction();
             $blance     = Auth::guard('student')->user()->wallet;
             $payment_id = $this->request->input('payment_id');
             $type       = $this->request->input('type');
