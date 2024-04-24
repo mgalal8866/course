@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Dashboard\Courses;
 
+use App\Models\User;
 use App\Models\Stages;
 use App\Models\Country;
 use App\Models\Courses;
@@ -66,7 +67,7 @@ class EditCourse extends Component
         $this->enddate               = $course->enddate??'';
         $this->time                  = $course->time??'';
         $this->features              = $course->features??'';
-        $this->triner                = $course->coursetrainers?$course->coursetrainers->toarray() :[];
+        $this->triner                = $course->coursetrainers? $course->coursetrainers->pluck('id')->values():[];
         $this->limit_stud            = $course->limit_stud;
         $this->duration_course       = $course->duration_course;
         $this->image_course          = $course->image_courseurl;
@@ -81,6 +82,9 @@ class EditCourse extends Component
         $this->inputnum              = $course->inputnum;
         $this->answer_the_question  = $course->answer_the_question;
         $this->sections_guide  = $course->sections_guide;
+        // $newArray = array_values($this->triner);
+
+        dd($this->triner);
         // $this->lessons               = $course->lessons;
         foreach ($course->lessons() as $item) {
 
@@ -88,7 +92,7 @@ class EditCourse extends Component
         }
         $category = Category::get();
         $country = Country::get();
-        $triners = Trainer::get();
+        $triners = User::where('type',1)->get();
         $categoryfreecourse = CategoryFCourse::whereActive('1')->whereHas('freecourse')->get();
         return view('dashboard.courses.edit-course', compact(['category', 'triners', 'country', 'categoryfreecourse']));
     }
