@@ -21,6 +21,10 @@ class Courses extends Model
     {
         return $this->hasMany(CourseTrainers::class, 'course_id');
     }
+    public function coursestages()
+    {
+        return $this->hasMany(CourseStages::class, 'course_id');
+    }
 
     public function courseenrolled()
     {

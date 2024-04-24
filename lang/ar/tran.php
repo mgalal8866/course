@@ -183,6 +183,7 @@ return [
     'account_number' => 'رقم الحساب',
     'iban_number' => 'ibn رقم',
     'typemethod' => 'نوع طريقة الدفع',
+    'statu' => 'الحالة',
     'notification' =>  'اشعار',
     'notifications' => 'الاشعارات',
     'sections_guide' => 'دليل الاقسام',

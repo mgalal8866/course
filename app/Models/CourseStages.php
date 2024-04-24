@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class CourseStages extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory;
     protected $guarded = [];
     public function courses()
     {
@@ -17,7 +17,11 @@ class CourseStages extends Model
     }
     public function lessons()
     {
-        return $this->belongsToMany(Lessons::class, 'course_stages', 'stage_id', 'lesson_id')->distinct();
+        return $this->belongsTo(Lessons::class, 'lesson_id');
+    }
+    public function stage()
+    {
+        return $this->belongsTo(Stages::class, 'stage_id');
     }
 }
 

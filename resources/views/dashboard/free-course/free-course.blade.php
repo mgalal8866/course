@@ -15,6 +15,7 @@
                         <thead>
                             <tr>
                                 <th>{{ __('tran.image') }}</th>
+                                <th>{{ __('tran.country') }}</th>
                                 <th>{{ __('tran.name') }}</th>
                                 <th>{{ __('tran.category') }}</th>
                                 <th>{{ __('tran.videolink') }}</th>
@@ -27,6 +28,9 @@
                                 <tr>
                                     <td>
                                         <img src="{{ $item->imageurl ?? 'N/A' }}" class="me-75" height="50" width="50" alt="Noimage" />
+                                    </td>
+                                    <td>
+                                        <img src="{{ asset('asset/flag/country-') .Str::lower($item->category->country->iso2??'').'.svg' }}" class="me-75" height="20" width="20" alt="Noimage" />
                                     </td>
                                     <td>
                                         <span class="fw-bold">{{ $item->name ?? 'N/A' }}</span>

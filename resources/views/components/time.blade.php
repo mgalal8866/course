@@ -19,6 +19,7 @@
             this.instance =flatpickr(this.$refs.input, {{ json_encode((object) $optionss) }});
         }
     }"
+
     x-ref="input"
     type="text"
     id="{{$id}}"

@@ -297,7 +297,7 @@ class NewCourse extends Component
             }
             if ($this->schedule) {
                 $file =  uploadfile($this->schedule, "files/courses/"  . $CFC->id . "/doc");
-                $CFC->schedule =  $dataX['image'];
+                $CFC->schedule =  $file ;
             }
 
             if ($this->file_work) {

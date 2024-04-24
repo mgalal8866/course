@@ -157,10 +157,7 @@
                                     <label class="form-label" for="username">{{ __('tran.time') }}</label>
                                     <x-time class="form-control flatpickr-time text-start" wire:model='time'
                                         id="time" required />
-                                    {{-- <div class="input-group input-group-merge">
-                                        <span class="input-group-text"><i class="fas fa-clock"></i></span>
-                                         <input type="text" class="form-control" wire:model='time' required />
-                                     </div> --}}
+
                                     @error('time')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
@@ -535,7 +532,7 @@
                         {{ $currentPage }}
                         @if ($currentPage === 4)
                             <button wire:loading.attr="disabled" type="submit" class="btn btn-success btn-submit">
-                                {{ __('tran.submit') }}</button>
+                                حفظ</button>
                         @else
                             <button   wire:loading.attr="disabled" class="btn btn-primary btn-next" wire:click.prevent="goToNextPage">
 

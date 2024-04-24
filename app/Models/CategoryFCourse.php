@@ -11,16 +11,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class CategoryFCourse extends Model
 {
     use UUID,HasFactory,SoftDeletes;
-    protected $fillable = [
-        'name','active' ];
+    protected $guarded = [];
 
     public function freecourse()
     {
         return $this->hasMany(FreeCourse::class, 'category_id');
     }
-
+    public function country()
+    {
+        return $this->belongsTo(Country::class, 'country_id');
+    }
     protected static function booted()
     {
-        static::addGlobalScope(new HasActiveScope);
+        // static::addGlobalScope(new HasActiveScope);
     }
 }

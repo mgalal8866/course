@@ -49,7 +49,7 @@
                                         <span class="fw-bold"> <i class="fas fas fa-eye fa-sm "> </i> {{ $item->views ?? 'N/A' }}</span>
                                     </td>
                                     <td>
-                                        <span class="fw-bold">{{ $item->category_id ?? 'N/A' }}</span>
+                                        <span class="fw-bold">{{ $item->category->name?? 'N/A' }}</span>
                                     </td>
                                     <td>
                                         <span
