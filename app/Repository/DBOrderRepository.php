@@ -98,10 +98,10 @@ class DBOrderRepository implements OrderRepositoryinterface
 
             return true;
         } catch (\Exception $e) {
-            $qq = $e->getMessage();
             DB::rollback();
-            dd( $qq);
-            return $qq;
+            return $e->getMessage();
+
+            // return $qq;
         }
     }
 
