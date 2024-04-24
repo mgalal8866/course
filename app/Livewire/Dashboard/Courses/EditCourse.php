@@ -44,7 +44,7 @@ class EditCourse extends Component
     public function render()
     {
         $course = Courses::with(['lessons', 'coursetrainers'])->find($this->id);
-dd($course);
+
         $this->short_description     = $course->short_description??'';
         $this->conditions            = $course->conditions??'';
         $this->target                = $course->target??'';
@@ -84,7 +84,7 @@ dd($course);
         $this->sections_guide  = $course->sections_guide;
         // $newArray = array_values($this->triner);
 
-        dd($this->triner);
+       
         // $this->lessons               = $course->lessons;
         foreach ($course->lessons() as $item) {
 
