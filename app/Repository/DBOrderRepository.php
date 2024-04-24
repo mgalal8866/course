@@ -60,8 +60,8 @@ class DBOrderRepository implements OrderRepositoryinterface
                     'statu'         => PaymentStatus::Pending,
                 ]
             );
-            dd($image);
-            
+
+
             if ($image) {
                 $dataX = $this->saveImageAndThumbnail($image, false, $tansaction->id, 'transaction');
                 $tansaction->image =  $dataX['image'];
@@ -100,6 +100,7 @@ class DBOrderRepository implements OrderRepositoryinterface
         } catch (\Exception $e) {
             $qq = $e->getMessage();
             DB::rollback();
+            dd( $qq);
             return $qq;
         }
     }
