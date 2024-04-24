@@ -63,11 +63,11 @@ class DBOrderRepository implements OrderRepositoryinterface
             );
 
 
-            // if ($image) {
-            //     $dataX = $this->saveImageAndThumbnail($image, false, $tansaction->id, 'transaction');
-            //     $tansaction->image =  $dataX['image'];
-            //     $tansaction->save();
-            // }
+            if ($image) {
+                $dataX = $this->saveImageAndThumbnail($image, false, $tansaction->id, 'transaction');
+                $tansaction->image =  $dataX['image'];
+                $tansaction->save();
+            }
             $order =  $this->order->create([
                 'date'           => now(),
                 'user_id'        => Auth::guard('student')->user()->id,
