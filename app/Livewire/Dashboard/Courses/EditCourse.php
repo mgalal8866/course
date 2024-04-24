@@ -14,7 +14,7 @@ use App\Models\CategoryFCourse;
 class EditCourse extends Component
 {
 
-    public $calc_rate, $answer_the_question,$sections_guide,$short_description, $id, $header, $currentPage = 1, $pages = 4, $conditions, $target, $howtostart,
+    public $image_course_old, $calc_rate,  $calc_rate_old,$answer_the_question,$sections_guide,$short_description, $id, $header, $currentPage = 1, $pages = 4, $conditions, $target, $howtostart,
         $telegram, $telegramgrup, $nextcourse, $course_gender, $schedule, $free_tatorul, $nextcoursesbycat,
         $name, $description, $validity = 'تبقى الدورة بكامل محتوياتها ثلاثة أشهر بحساب المتدرب.', $country_id, $category_id, $price, $pricewith, $startdate, $enddate, $time, $features, $triner = [], $limit_stud, $duration_course = 'شهر ونصف',
         $image_course, $file_work, $file_explanatory, $file_aggregates, $file_supplementary, $file_free, $file_test,
@@ -41,6 +41,10 @@ class EditCourse extends Component
     {
         $this->currentPage--;
     }
+    public function updatedCategoryId($value)
+    {
+        $this->nextcoursesbycat = Courses::whereCategoryId($value)->get();
+    }
     public function render()
     {
         $course = Courses::with(['lessons', 'coursetrainers'])->find($this->id);
@@ -48,14 +52,16 @@ class EditCourse extends Component
         $this->short_description     = $course->short_description??'';
         $this->conditions            = $course->conditions??'';
         $this->target                = $course->target??'';
-        $this->howtostart            = $course->howtostart??'';
+        $this->howtostart            = $course->how_start??'';
         $this->telegram              = $course->telegram??'';
         $this->telegramgrup          = $course->telegramgrup??'';
         $this->nextcourse            = $course->nextcourse??'';
+        // $this->calc_rate            = $course->calc_rateurl??'';
+        $this->calc_rate_old            = $course->calc_rateurl??'';
         $this->course_gender         = $course->course_gender??'';
         $this->schedule              = $course->schedule??'';
         $this->free_tatorul          = $course->free_tatorul??'';
-        $this->nextcoursesbycat      = $course->nextcoursesbycat??'';
+        // $this->nextcoursesbycat      = $course->nextcoursesbycat??'';
         $this->name                  = $course->name??'';
         $this->description           = $course->description??'';
         $this->validity              = $course->validity??'';
@@ -68,9 +74,9 @@ class EditCourse extends Component
         $this->time                  = $course->time??'';
         $this->features              = $course->features??'';
         $this->triner                = $course->coursetrainers? $course->coursetrainers->pluck('id')->toArray():[];
-        $this->limit_stud            = $course->limit_stud;
-        $this->duration_course       = $course->duration_course;
-        $this->image_course          = $course->image_courseurl;
+        $this->limit_stud            = $course->max_drainees;
+        $this->duration_course       = $course->duration;
+        $this->image_course_old      = $course->imageurl;
         $this->file_work             = $course->file_work;
         $this->file_explanatory      = $course->file_explanatory;
         $this->file_aggregates       = $course->file_aggregates;
@@ -90,6 +96,7 @@ class EditCourse extends Component
 
             // $this->lessons->push(['stage_id' => $item->stage_id, 'img' => null, 'name' => $item->name, 'link' => $item->link, 'is_lesson' => $item->is_lesson?1:0]);
         }
+        $this->nextcoursesbycat = Courses::whereCategoryId( $this->category_id)->get();
         $category = Category::get();
         $country = Country::get();
         $triners = User::where('type',1)->get();

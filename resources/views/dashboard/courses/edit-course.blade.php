@@ -281,14 +281,14 @@
                             <div class="row">
                                 <div class="mb-2 col-md-6">
                                     <x-imageupload wire:model='image_course' :height='200' :width='200'
-                                        :imagenew="$image_course" :tlabel="__('tran.imagecourse')" />
+                                        :imagenew="$image_course" :imageold="$image_course_old" :tlabel="__('tran.imagecourse')" />
                                     @error('image_course')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="mb-2 col-md-6">
                                     <x-imageupload wire:model='calc_rate' :height='200' :width='200'
-                                        :imagenew="$calc_rate" :tlabel="__('tran.calc_rate')" />
+                                        :imagenew="$calc_rate" :imageold="$calc_rate_old" :tlabel="__('tran.calc_rate')" />
                                     @error('calc_rate')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
