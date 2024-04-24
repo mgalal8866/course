@@ -25,9 +25,10 @@ class DBCollectPointsRepository implements CollectPointsRepositoryinterface
         $coupon  = UserCoupon::whereUserId(Auth::guard('student')->user()->id)->first();
         $user =  User::find(Auth::guard('student')->user()->id);
         $point=   $user->point ;
-      
+
         if( $point != 0){
-            $decimalNumber =  $point*5;
+            $decimalNumber =  $point*$coupon->exchange_price;
+
             $user->update(['point'=>   0,'wallet'=>$decimalNumber]);
         $ww =  $this->model->create([
             'use_user_id'=> Auth::guard('student')->user()->id,
