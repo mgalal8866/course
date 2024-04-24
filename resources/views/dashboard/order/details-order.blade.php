@@ -133,15 +133,16 @@
                                             <span class="fw-bold">{{ $invod->total }}</span>
                                         </td>
                                         <td class="py-1">
-                                            @if($invod->is_book == 1)
-                                            <select class="form-select mb-2" required>
-                                                @foreach (\App\Enum\PaymentStatus::cases() as $q)
-                                                    <option
-                                                        wire:click="invod_status('{{ $q->value }}','{{ $invod->id }}')"
-                                                        value="{{ $q->value }}">{{ __('tran.typep-' . $q->name) }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
+                                            @if ($invod->is_book == 1)
+                                                <select class="form-select mb-2" required>
+                                                    @foreach (\App\Enum\PaymentStatus::cases() as $q)
+                                                        <option
+                                                            wire:click="invod_status('{{ $q->value }}','{{ $invod->id }}')"
+                                                            value="{{ $q->value }}">
+                                                            {{ __('tran.typep-' . $q->name) }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
                                             @else
                                                 -
                                             @endif
@@ -227,14 +228,15 @@
                     <div class="card-body">
                         <select class="form-select mb-2" wire:model.live='status' required>
                             @foreach (\App\Enum\PaymentStatus::cases() as $q)
-                            @if($q->value != '4')
-                                <option value="{{ $q->value }}">{{ __('tran.typep-' . $q->name) }} </option>
+                                @if ($q->value != '4')
+                                    <option value="{{ $q->value }}">{{ __('tran.typep-' . $q->name) }} </option>
                                 @endif
                             @endforeach
                         </select>
-                        @if ($order->transaction)
-                        <a class="btn btn-success w-100 mb-75" href="{{ $order->transaction->image}}" >صورة ايصال الدفع</a>
-                    @endif
+                        @if ($order->transaction->image)
+                            <a class="btn btn-success w-100 mb-75" target="_blank" href="{{ $order->transaction->imageurl }}">صورة
+                                ايصال الدفع</a>
+                        @endif
                         {{-- <a class="btn btn-outline-secondary w-100 mb-75" href="{{route('print',['type'=>'open','id'=>$order->id])}}"
                             target="_blank"> طباعة </a> --}}
                     </div>

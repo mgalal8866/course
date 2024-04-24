@@ -19,6 +19,14 @@ class PaymentTransaction extends Model
     {
         return $this->morphTo();
     }
+    public function getImageurlAttribute()
+    {
+        if($this->image ==null){
+
+            return '';
+        }
+        return path($this->id,'transaction') .'/' . $this->image;
+    }
     public function payment()
     {
         return $this->belongsTo(PaymentMethods::class);
