@@ -67,7 +67,7 @@ class EditCourse extends Component
         $this->enddate               = $course->enddate??'';
         $this->time                  = $course->time??'';
         $this->features              = $course->features??'';
-        $this->triner                = $course->coursetrainers? $course->coursetrainers->pluck('id')->values():[];
+        $this->triner                = $course->coursetrainers? $course->coursetrainers->pluck('id')->toArray():[];
         $this->limit_stud            = $course->limit_stud;
         $this->duration_course       = $course->duration_course;
         $this->image_course          = $course->image_courseurl;
@@ -84,7 +84,7 @@ class EditCourse extends Component
         $this->sections_guide  = $course->sections_guide;
         // $newArray = array_values($this->triner);
 
-       
+
         // $this->lessons               = $course->lessons;
         foreach ($course->lessons() as $item) {
 
