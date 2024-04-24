@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\UserCoupon;
 use Illuminate\Http\Request;
 use App\Models\PointsTransaction;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use App\Repositoryinterface\CollectPointsRepositoryinterface;
@@ -29,7 +30,7 @@ class DBCollectPointsRepository implements CollectPointsRepositoryinterface
         if( $point != 0){
             $decimalNumber =  $point*$coupon->exchange_price;
 
-            $user->update(['point'=>   0,'wallet'=>$decimalNumber]);
+            $user->update(['point'=>   0,'wallet'=>DB::raw('wallet + ' . $decimalNumber)]);
         $ww =  $this->model->create([
             'use_user_id'=> Auth::guard('student')->user()->id,
             'collect_user_id'=>null,
