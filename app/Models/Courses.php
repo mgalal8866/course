@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\UUID;
+use Illuminate\Database\Eloquent\Builder;
 use App\Models\Category;
 use App\Models\CourseStages;
 use App\Models\CourseTrainers;
@@ -130,5 +131,9 @@ class Courses extends Model
     public function comments()
     {
         return $this->morphMany(Comments::class, 'commentable');
+    }
+    public function ScopeGender(Builder $query)
+    {
+     $query->whereIn('course_gender',['0',Auth::guard('student')->user()->gender]);
     }
 }

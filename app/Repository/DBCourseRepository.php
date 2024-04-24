@@ -2,14 +2,15 @@
 
 namespace App\Repository;
 
+use Carbon\Carbon;
 use App\Models\Course;
 use App\Models\Stages;
 use App\Models\Courses;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;
 use App\Repositoryinterface\CourseRepositoryinterface;
-use Carbon\Carbon;
 
 class DBCourseRepository implements CourseRepositoryinterface
 {
@@ -27,7 +28,7 @@ class DBCourseRepository implements CourseRepositoryinterface
     {
         return Cache::remember('course_category_' . $category_id, 60, function () use ($category_id) {
             $perPage = $this->request->input('per_page', 20);
-            return $this->model->whereCategoryId($category_id)->with('courseenrolled')
+            return $this->model->gender()->whereCategoryId($category_id)->with('courseenrolled')
                 ->select(['id', 'name', 'image', 'short_description', 'created_at'])->paginate($perPage);
         });
     }
@@ -37,7 +38,7 @@ class DBCourseRepository implements CourseRepositoryinterface
 
 
         // $course = Cache::remember('course_full_' . $id, 60, function () use ($id) {
-        $course = $this->model->with(
+        $course = $this->model->gender()->with(
             [
                 // 'stages._parent',
                 'stagesparent',
