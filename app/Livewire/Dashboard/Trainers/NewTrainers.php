@@ -6,14 +6,17 @@ use App\Models\Country;
 use App\Models\Trainer;
 use Livewire\Component;
 use App\Models\Specialist;
+use App\Models\User;
 
 class NewTrainers extends Component
 {
 
     protected $listeners = ['edit' => 'edit'];
-    public $phone, $active,$mail, $balance, $country, $gender, $specialist, $name, $edit = false, $id, $header;
+    public $phone, $active,$mail, $balance, $country, $gender, $specialist, $fname,$mname,$lname, $edit = false, $id, $header;
     protected $rules = [
-        'name'       => 'required',
+        'fname'       => 'required',
+        'mname'       => 'required',
+        'lname'       => 'required',
         'phone'      => 'required',
         'mail'       => 'required|email',
         'balance'    => 'required',
@@ -26,22 +29,26 @@ class NewTrainers extends Component
     {
         $this->edit = false;
         if ($id != null) {
-            $tra = Trainer::find($id);
+            $tra = User::find($id);
             $this->id = $tra->id;
-            $this->name = $tra->name;
+            $this->fname = $tra->first_name;
+            $this->lname = $tra->last_name;
+            $this->mname = $tra->middle_name;
             $this->phone = $tra->phone;
             $this->mail = $tra->email;
-            $this->balance = $tra->balance;
+            $this->balance = $tra->wallet;
             $this->country = $tra->country_id;
             $this->gender = $tra->gender;
-            $this->specialist = $tra->specialist_id;
+            $this->specialist = $tra->specialist;
             $this->active = $tra->active==1?true:false;
             $this->edit = true;
             $this->header = __('tran.edit') . ' ' . __('tran.trainer');
         } else {
             $this->reset();
             $this->id = null;
-            $this->name = null;
+            $this->fname = null;
+            $this->mname = null;
+            $this->lname = null;
             $this->edit = false;
             $this->header =  __('tran.add') . ' ' . __('tran.trainer');
         }
@@ -51,14 +58,18 @@ class NewTrainers extends Component
     public function save()
     {
         $this->validate();
-        $CFC = Trainer::updateOrCreate(['id' => $this->id], [
-            'name'       => $this->name,
+        $CFC = User::updateOrCreate(['id' => $this->id], [
+            'first_name'       => $this->fname,
+            'last_name'       => $this->lname,
+            'middle_name'       => $this->mname,
             'phone'      => $this->phone,
             'email'      => $this->mail,
-            'balance'    => $this->balance,
+            'wallet'    => $this->balance,
+            'password'    => '',
+            'type'    => 1,
             'country_id'    => $this->country,
             'gender'     => $this->gender,
-            'specialist_id' => $this->specialist,
+            'specialist' => $this->specialist,
             'active' => $this->active??1,
         ]);
         $this->dispatch('closemodel');

@@ -28,10 +28,10 @@
                             @forelse ($trainer  as $item)
                                 <tr>
                                     <td>
-                                        <span class="fw-bold">{{ $item->name ?? 'N/A' }}</span>
+                                        <span class="fw-bold">{{ ($item->first_name ?? 'N/A')  . ' ' .  ($item->middle_name  ?? 'N/A' )   . ' ' .  ($item->last_name  ?? 'N/A' )}}</span>
                                     </td>
                                     <td>
-                                        <span class="fw-bold">{{ $item->specialist->name ?? 'N/A' }}</span>
+                                        <span class="fw-bold">{{ $item->specialist_r->name ?? 'N/A' }}</span>
                                     </td>
                                     <td>
                                         <span class="fw-bold">{{ $item->phone ?? 'N/A' }}</span>
@@ -59,7 +59,7 @@
                                         {{-- <span class="fw-bold">{{ $item->gender ?? 'N/A' }}</span> --}}
                                     </td>
                                     <td>
-                                        <span class="fw-bold">{{ $item->balance ?? 'N/A' }}</span>
+                                        <span class="fw-bold">{{ $item->wallet ?? 'N/A' }}</span>
                                     </td>
                                     <td>
                                         <span

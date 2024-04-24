@@ -60,6 +60,10 @@ class User extends Authenticatable  implements JWTSubject
     // {
     //     return $this->hasMany(AboutUs::class, 'user_id');
     // }
+    public function specialist_r()
+    {
+        return $this->belongsTo(Specialist::class, 'specialist');
+    }
     public function getJWTIdentifier()
     {
         return $this->getKey();

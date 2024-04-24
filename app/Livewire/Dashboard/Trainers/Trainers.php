@@ -5,6 +5,7 @@ namespace App\Livewire\Dashboard\Trainers;
 use App\Models\Trainer;
 use Livewire\Component;
 use App\Models\Specialist;
+use App\Models\User;
 
 class Trainers extends Component
 {
@@ -12,7 +13,7 @@ class Trainers extends Component
 
     public function activetoggle($id)
     {
-        $CC = Trainer::find($id);
+        $CC = User::find($id);
         if($CC->active == 1){
             $CC->update(['active' => 0 ]);
         }
@@ -22,14 +23,14 @@ class Trainers extends Component
     }
     public function delete($id)
     {
-        $CC = Trainer::find($id);
+        $CC = User::find($id);
         $CC->delete();
 
     }
     public function render()
     {
 
-        $trainer = Trainer::latest()->get();
+        $trainer = User::whereType(1)->latest()->get();
          return view('dashboard.trainers.trainers',compact('trainer'));
     }
 }
