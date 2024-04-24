@@ -114,6 +114,6 @@ class DBOrderRepository implements OrderRepositoryinterface
                 'order_details.book',
                 'order_details.course'
             ]
-        )->where('user_id', Auth::guard('student')->user()->id)->get();
+        )->where('user_id', Auth::guard('student')->user()->id)->latest()->get();
     }
 }
