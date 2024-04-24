@@ -21,7 +21,6 @@ class OrderController extends Controller
     {
 
         $please_order = $this->orderRepositry->please_order();
-        dd($please_order);
         if( $please_order == true){
           return Resp('', 'success', 200, true);
         }else{

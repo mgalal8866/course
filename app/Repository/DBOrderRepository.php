@@ -33,12 +33,13 @@ class DBOrderRepository implements OrderRepositoryinterface
     }
     public function please_order()
     {
+
         try {
             DB::beginTransaction();
             $blance     = Auth::guard('student')->user()->wallet;
             $payment_id = $this->request->input('payment_id');
             $type       = $this->request->input('type');
-            $image      = $this->request->input('image');
+            $image      = $this->request->file('image');
             $response   = $this->request->input('response');
 
             $cart = Cart::where('user_id', Auth::guard('student')->user()->id)->with(['cart_details' => function ($q) {
@@ -61,12 +62,12 @@ class DBOrderRepository implements OrderRepositoryinterface
                 ]
             );
 
-dd($image);
-            if ($image) {
-                $dataX = $this->saveImageAndThumbnail($image, false, $tansaction->id, 'transaction');
-                $tansaction->image =  $dataX['image'];
-                $tansaction->save();
-            }
+
+            // if ($image) {
+            //     $dataX = $this->saveImageAndThumbnail($image, false, $tansaction->id, 'transaction');
+            //     $tansaction->image =  $dataX['image'];
+            //     $tansaction->save();
+            // }
             $order =  $this->order->create([
                 'date'           => now(),
                 'user_id'        => Auth::guard('student')->user()->id,
@@ -81,7 +82,7 @@ dd($image);
                     'order_id' => $order->id,
                     'product_id' => $item->product_id,
                     'is_book'    => $item->is_book,
-                    'coupon_id'  => $item->coupon_id??null,
+                    'coupon_id'  => $item->coupon_id ?? null,
                     'qty'        => $item->qty      ?? '0.0',
                     'price'      => $item->price    ?? '0.0',
                     'subtotal'   => $item->subtotal ?? '0.0',
@@ -90,7 +91,7 @@ dd($image);
                 ]);
                 if ($item->coupon_id != null) {
 
-                    $this->collect->collect_points($item->coupon_id,$details->id);
+                    $this->collect->collect_points($item->coupon_id, $details->id);
                 }
             }
 
@@ -99,8 +100,7 @@ dd($image);
             return true;
         } catch (\Exception $e) {
             DB::rollback();
-            // return $e->getMessage();
-            dd($e->getMessage());
+            return $e->getMessage();
             // return $qq;
         }
     }
