@@ -4,7 +4,7 @@
     <div class="card border-primary">
         <div class="card-header">
             <h3>اضافه اختبار</h3>
-            <a  class="btn btn-primary" wire:click="$dispatch('edit')">اضافة سؤال</a>
+            {{-- <a  class="btn btn-primary" wire:click="$dispatch('edit')">اضافة سؤال</a> --}}
 
         </div>
         @livewire('dashboard.quizzes.model')
@@ -13,11 +13,13 @@
             <form id="editUserForm" class="row gy-1 pt-75" wire:submit.prevent="save">
                 <div class="row">
                     <div class="mb-2 col-md-12">
-                        <x-imageupload wire:model='image' :height='200' :width='200'
+                    <div class="mb-2 col-md-8">
+                        <x-imageupload  style="text-wrap: balance;"  wire:model='image' :height='200' :width='200'
                             :imagenew="$image" :tlabel="__('tran.image')" />
                         @error('image')
                             <span class="error" style="color: red">{{ $message }}</span>
                         @enderror
+                    </div>
                     </div>
                     <div class="col-12 col-md-4">
                         <label class="form-label" for="testname">{{ __('tran.testname') }}</label>

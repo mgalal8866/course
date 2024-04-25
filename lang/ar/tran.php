@@ -187,7 +187,11 @@ return [
     'notification' =>  'اشعار',
     'notifications' => 'الاشعارات',
     'sections_guide' => 'دليل الاقسام',
+    'redirect_to_up' => 'دليل الاقسام',
+    'redirect_to_down' => 'ترشيح دوره اقل من الدرجه ',
     'send' => 'ارسال',
+    'redirect_to_up' => 'ترشيح دوره اكبر من الدرجه',
+    'redirect_mark' => 'درجه الترشيح',
     'answer_the_question' => 'أليه الرد على الاستفسار'
 
 ];
