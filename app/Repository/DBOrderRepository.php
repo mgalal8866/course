@@ -95,6 +95,9 @@ class DBOrderRepository implements OrderRepositoryinterface
                 }
             }
 
+            $cart=  Cart::whereUserId(Auth::guard('student')->user()->id)->first();
+            $cart->cart_details()->delete();
+            $cart->delete();
             DB::commit();
 
             return true;

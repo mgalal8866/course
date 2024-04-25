@@ -45,7 +45,15 @@
                                 @enderror
                             </div>
                         @endif
+
                         <div class="col-12 col-md-12">
+
+                            {{-- <label class="form-label" for="">{{ __('tran.features') }}</label> --}}
+                            {{-- <x-summernote wire:model='features' name="features" id="features"
+                                value="{{ $features }}" />
+                            @error('features')
+                                <span class="error" style="color: red">{{ $message }}</span>
+                            @enderror --}}
                             <label class="form-label" for="modalEditUserFirstName">{{ __('tran.features') }}</label>
                             <textarea type="text" class="form-control" wire:model="features"></textarea>
                             @error('features')
