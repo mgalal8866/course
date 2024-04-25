@@ -23,7 +23,7 @@ class EditCourse extends Component
 {
     use WithFileUploads, ImageProcessing;
 
-    public $questions,$image_course_old, $calc_rate,  $calc_rate_old,$answer_the_question,$sections_guide,$short_description, $id, $header, $currentPage = 3, $pages = 4, $conditions, $target, $howtostart,
+    public $questions,$image_course_old, $calc_rate,  $calc_rate_old,$answer_the_question,$sections_guide,$short_description, $id, $header, $currentPage = 1, $pages = 4, $conditions, $target, $howtostart,
         $telegram, $telegramgrup, $nextcourse, $course_gender, $schedule, $free_tatorul, $nextcoursesbycat,
         $name, $description, $validity = 'تبقى الدورة بكامل محتوياتها ثلاثة أشهر بحساب المتدرب.', $country_id, $category_id, $price, $pricewith, $startdate, $enddate, $time, $features, $triner = [], $limit_stud, $duration_course = 'شهر ونصف',
         $image_course, $file_work, $file_explanatory, $file_aggregates, $file_supplementary, $file_free, $file_test,

@@ -331,7 +331,6 @@
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
-
                                 <div class="mb-2 col-md-3 border border-black pb-2">
                                     <x-fileupload wire:model='file_free' id='file_free' :tlabel="__('tran.file_free')"
                                         :namefile="$file_free != null ? $file_free: null" />
