@@ -26,7 +26,7 @@ class CartController extends Controller
     }
     public function deletefromcart()
     {
-        if( $this->cartRepositry->getcart()){
+        if( $this->cartRepositry->getcart() == true){
             return Resp(new CartCartResource($this->cartRepositry->deletecart()), 'success', 200, true);
           }else{
             return Resp([],'Not Cart');
