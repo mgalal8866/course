@@ -10,4 +10,8 @@ class TeamWork extends Model
 {
     use UUID, HasFactory;
     protected $guarded = [];
+    public function specialist_r()
+    {
+        return $this->belongsTo(Specialist::class, 'specialist');
+    }
 }
