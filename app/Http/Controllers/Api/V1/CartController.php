@@ -29,7 +29,7 @@ class CartController extends Controller
         if( $this->cartRepositry->deletecart()){
             return Resp(new CartCartResource($this->cartRepositry->getcart()), 'success', 200, true);
           }else{
-            return Resp([],'Not Cart');
+            return Resp([],'succss');
           }
     }
     public function addtocart()
