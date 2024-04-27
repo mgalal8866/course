@@ -68,6 +68,11 @@ class DBOrderRepository implements OrderRepositoryinterface
                 $tansaction->image =  $dataX['image'];
                 $tansaction->save();
             }
+            if($payment_id==0){
+                $user =   User::find(Auth::guard('student')->user()->id);
+                $user->update(['wallet'=> (Auth::guard('student')->user()->wallet - $cart->cart_details->sum('total'))]);
+
+              }
             $order =  $this->order->create([
                 'date'           => now(),
                 'user_id'        => Auth::guard('student')->user()->id,
@@ -94,11 +99,7 @@ class DBOrderRepository implements OrderRepositoryinterface
                     $this->collect->collect_points($item->coupon_id, $details->id);
                 }
             }
-            if($payment_id==0){
-                $user =   User::find(Auth::guard('student')->user()->id);
-                $user->update(['wallet'=> (Auth::guard('student')->user()->wallet - $cart->cart_details->sum('total'))]);
 
-              }
             $cart=  Cart::whereUserId(Auth::guard('student')->user()->id)->first();
             $cart->cart_details()->delete();
             $cart->delete();
@@ -107,8 +108,8 @@ class DBOrderRepository implements OrderRepositoryinterface
             return true;
         } catch (\Exception $e) {
             DB::rollback();
-            return $e->getMessage();
-            // return $qq;
+            $qq= $e->getMessage();
+            dd($qq);
         }
     }
 
