@@ -119,6 +119,7 @@ class DBCartRepository implements CartRepositoryinterface
             if ($w->cart_details_count == 1) {
                 $w->delete();
                 return false;
+                dd('');
             }
             return true;
         } else {
