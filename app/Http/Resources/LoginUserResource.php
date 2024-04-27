@@ -20,7 +20,7 @@ class LoginUserResource extends JsonResource
             'gender'       => $this->gender ==1? __('tran.male'):  __('tran.female') ,
             'point'        =>  number_format($this->point??'0')  ,
             'coupon'        => $this->user_coupon->name??'' ,
-            'wallet'       => number_format( $this->wallet??'0',2)  .$this->country->currency[Lang::locale()] ,
+            'wallet'       => number_format( $this->wallet??'0',2)  . ' ' .$this->country->currency[Lang::locale()] ,
             'country'      => new CountryResource($this->country)??'' ,
             'phone_parent' => $this->phone_parent??''  ,
             'email_parent' => $this->email_parent??'' ,
