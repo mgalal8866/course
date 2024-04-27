@@ -14,17 +14,20 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use App\Repositoryinterface\CartRepositoryinterface;
+use App\Repository\DBCouponRepository;
 
 class DBCartRepository implements CartRepositoryinterface
 {
     protected  $model;
     protected  $cart_details;
     protected  $request;
-    public function __construct(Cart $model, CartDetails $cart_details, Request $request)
+    protected  $couporeposirty;
+    public function __construct(Cart $model, CartDetails $cart_details, Request $request ,DBCouponRepository $couporeposirty)
     {
         $this->cart_details = $cart_details;
         $this->model = $model;
         $this->request = $request;
+        $this->couporeposirty = $couporeposirty;
     }
     public function getcart()
     {
@@ -72,9 +75,11 @@ class DBCartRepository implements CartRepositoryinterface
         // dd( number_format($qty * $price),2);
 
         $coupon = UserCoupon::find($w->coupon_id);
-        if($coupon){
+        if($coupon && $is_book == 0){
             $disc=($coupon->discount / 100);
 
+        }else{
+            $disc=0;
         }
         $this->cart_details->updateOrCreate(
             [
@@ -113,6 +118,9 @@ class DBCartRepository implements CartRepositoryinterface
             }
             if ($w->cart_details_count == 1) {
                 $w->delete();
+            }
+            if ($w->cart_details_count >= 1) {
+                $this->couporeposirty->checkcoupon($w->coupon_id);
             }
             return $this->getcart();
         } else {

@@ -24,9 +24,9 @@ class DBCouponRepository implements CouponRepositoryinterface
         $this->model = $model;
         $this->request = $request;
     }
-    public function checkcoupon()
+    public function checkcoupon($coupon =null)
     {
-        $coupon = $this->request->input('coupon', 1);
+        $coupon = $this->request->input('coupon', $coupon);
         $co = $this->model->where('name', $coupon)->first();
         if ($co) {
             try {
