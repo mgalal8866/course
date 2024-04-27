@@ -65,7 +65,7 @@ class DBCollectPointsRepository implements CollectPointsRepositoryinterface
         ]);
 
         $user =  User::find($coupon->user_id);
-        $user->increment('point', $coupon->point);
         dd('aa');
+        $user->increment('point', $coupon->point);
     }
 }
