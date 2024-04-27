@@ -6,6 +6,7 @@ use App\Enum\PaymentStatus;
 use Carbon\Carbon;
 use App\Models\Cart;
 use App\Models\Orders;
+use App\Models\User;
 use App\Models\UserCoupon;
 
 use Illuminate\Http\Request;
@@ -62,7 +63,6 @@ class DBOrderRepository implements OrderRepositoryinterface
                 ]
             );
 
-
             if ($image) {
                 $dataX = $this->saveImageAndThumbnail($image, false, $tansaction->id, 'transaction');
                 $tansaction->image =  $dataX['image'];
@@ -94,7 +94,11 @@ class DBOrderRepository implements OrderRepositoryinterface
                     $this->collect->collect_points($item->coupon_id, $details->id);
                 }
             }
+            if($payment_id==0){
+                $user =   User::find();
+                $user->update([Auth::guard('student')->user()->id],['wallet'=> (Auth::guard('student')->user()->wallet - $cart->cart_details->sum('total'))]);
 
+              }
             $cart=  Cart::whereUserId(Auth::guard('student')->user()->id)->first();
             $cart->cart_details()->delete();
             $cart->delete();

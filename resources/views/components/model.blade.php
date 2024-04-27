@@ -55,133 +55,83 @@
                                 @enderror
                             </div>
                             <div class="accordion accordion-margin" id="accordionMargin" wire:ignore.self>
+                                @if (count($questions) > 0)
+                                    @foreach ($questions as $key => $value)
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td class="pe-1"> السؤال {{ $key+1 }}: </td>
+                                                <td><span
+                                                        class="fw-bold">{!! $questions[$key]['question'] !!}
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="pe-1">وصف السؤال {{ $key+1 }}: </td>
+                                                <td><span
+                                                        class="fw-bold">{!! $questions[$key]['testdescription'] !!}
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="pe-1">درجة السؤال {{ $key+1 }}: </td>
+                                                <td><span
+                                                        class="fw-bold">{!! $questions[$key]['degree'] !!}
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            @foreach ($questions[$key]['answers'] as $key1 => $value1)
+                                            <tr>
+                                                <td class="pe-1">الاجابة {{ $key1+1 }}: </td>
+                                                <td><span
+                                                    class="fw-bold">{!! $questions[$key]['answers'][$key1]['answer']!!}
+                                                </td>
+                                            </tr>
+                                            {{-- <ul>
+                                                <li>
+                                                    {!! $questions[$key]['answers'][$key1]['answer'] !!}
+                                                </li>
+                                                <li>
+                                                    {!! $questions[$key]['answers'][$key1]['correct'] !!}
+                                                </li>
+                                            </ul> --}}
+                                        @endforeach
 
-                                @foreach ($questions as $key => $value)
-                                    <div class="accordion-item" wire:ignore.self>
-                                        <h2 class="accordion-header" id="headingMarginOne{{ $key }}">
-                                            <button wire:ignore.self class="accordion-button collapsed" type="button"
-                                                data-bs-toggle="collapse"
-                                                data-bs-target="#accordionMarginOne{{ $key }}"
-                                                aria-expanded="false"
-                                                aria-controls="accordionMarginOne{{ $key }}">
-                                                <span class="text-warning">
-                                                    السؤال
-                                                    {{ $loop->iteration }}
-                                                </span>
+                                        </tbody>
+                                    </table>
+                                        {{-- <ul> --}}
+                                            {{ $key }}
+                                            {{-- <li>
+                                                <h1>{!! $questions[$key]['question'] !!}</h1>
+                                            </li>
+                                            <li>
+                                                <h1>{!! $questions[$key]['testdescription'] !!}</h1>
+                                            </li> --}}
+                                            {{-- <li>
+                                                <h1>{!! $questions[$key]['degree'] !!}</h1>
+                                            </li> --}}
 
-                                            </button>
-                                        </h2>
-                                        <div id="accordionMarginOne{{ $key }}"
-                                            class="accordion-collapse collapse"
-                                            aria-labelledby="headingMarginOne{{ $key }}"
-                                            data-bs-parent="#accordionMargin" wire:ignore.self>
-                                            <div class="card ">
-                                                <div class="card-body">
-                                                    <div class="mb-1 row">
-                                                        <div class="col-6">
-                                                            <div class="input-group input-group-merge">
-                                                                <span class="input-group-text"><i
-                                                                        class="fas fa-question"></i></span>
-                                                                <input class="form-control"
-                                                                    wire:model="questions.{{ $key }}.question"
-                                                                    placeholder="السؤال" type="text" />
-                                                            </div>
-                                                            @error('questions.' . $key . '.question')
-                                                                <span class="text-danger">{{ $message }}</span>
-                                                            @enderror
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <div class="input-group input-group-merge">
-                                                                <span class="input-group-text"><i
-                                                                        class="fas fa-question"></i></span>
-                                                                <input class="form-control"
-                                                                    wire:model="questions.{{ $key }}.testdescription"
-                                                                    placeholder="وصف السؤال" type="text" />
-                                                            </div>
-                                                            @error('questions.' . $key . '.testdescription')
-                                                                <span class="text-danger">{{ $message }}</span>
-                                                            @enderror
-                                                        </div>
-                                                        <div class="col-2 mt-2">
-
-                                                            <input class="form-control"
-                                                                wire:model.live="questions.{{ $key }}.degree"
-                                                                type="text" placeholder="درجه السؤال" />
-
-                                                            @error('questions.' . $key . '.degree')
-                                                                <span class="text-danger">{{ $message }}</span>
-                                                            @enderror
-                                                        </div>
-                                                        @foreach ($questions[$key]['answers'] as $key1 => $value1)
-                                                            <div class="mb-1 mt-2 row">
-                                                                <div class="col-8">
-                                                                    <div class="input-group input-group-merge">
-                                                                        <span class="input-group-text"><i
-                                                                                class="fas fa-circle"></i></span>
-
-
-                                                                        <input class="form-control"
-                                                                            wire:model.live="questions.{{ $key }}.answers.{{ $key1 }}.answer"
-                                                                            type="text" placeholder="الاجابة" />
-                                                                    </div>
-                                                                    @error('questions.' . $key . '.answers.' . $key1 . '.answer')
-                                                                        <span
-                                                                            class="text-danger">{{ $message }}</span>
-                                                                    @enderror
-                                                                </div>
-                                                                <div class="col-2">
-                                                                    <div class="form-check form-check-success">
-                                                                        <input class="form-check-input" type="radio"
-                                                                            name="questions.{{ $key }}.answers"
-                                                                            value="true" id="inlineRadio1"
-                                                                            wire:model.live="questions.{{ $key }}.answers.{{ $key1 }}.correct" />
-                                                                        <label class="form-check-label"
-                                                                            for="inlineRadio1">الاجابه
-                                                                            الصحيحة</label>
-                                                                    </div>
-                                                                    @error('questions.' . $key . '.answers.' . $key1 .
-                                                                        '.correct')
-                                                                        <span
-                                                                            class="text-danger">{{ $message }}</span>
-                                                                    @enderror
-                                                                </div>
-                                                                <div class="col-2">
-                                                                    @if ($key1 != 0)
-                                                                        <a wire:click='removeanswerquestions({{ $key }},{{ $key1 }})'
-                                                                            class="btn btn-sm btn-danger">
-                                                                            حذف الاجابة
-                                                                        </a>
-                                                                    @endif
-                                                                </div>
-                                                            </div>
-                                                        @endforeach
-
-                                                    </div>
-                                                </div>
-                                                <div class="card-footer text-muted">
-
-                                                    <a wire:click='addanswerquestions({{ $key }})'
-                                                        class="btn btn-sm btn-success">
-                                                        اضافة الاجابة
-                                                    </a>
-                                                    @if ($key != 0)
-                                                        <a wire:click='removequestions({{ $key }})'
-                                                            class="btn btn-sm btn-danger">
-                                                            حذف السؤال
-                                                        </a>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
-
+                                        {{-- </ul> --}}
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
-                        <div class="col-12 text-center mt-2 pt-50">
+                        <div class="row">
 
-                            {{-- <button type="submit" class="btn btn-success me-1">{{ __('tran.save') }}</button> --}}
-                            <a wire:click='addquestions()' class="btn btn-primary me-1">اضافه سؤال</a>
+                        </div>
+
+                        <div class="col-12 text-center mt-2 pt-50">
+                            <button type="button" class="btn btn-outline-success" wire:click='addquestions()'>
+                                اضافه سؤال
+                            </button>
+                            {{-- <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+                                data-bs-target="#forcoursemodel" wire:click='addquestions()'>
+                                اضافه سؤال
+                            </button> --}}
+                            {{-- <a  class="btn btn-primary" wire:click="addquestions()">1اضافة سؤال</a> --}}
+                            {{-- <a  class="btn btn-primary" wire:click="$dispatch('funquestion')">1اضافة سؤال</a> --}}
+
+                            {{-- <a wire:click='addquestions()' class="btn btn-primary me-1">اضافه سؤال</a> --}}
 
                         </div>
                     </div>
@@ -189,11 +139,9 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Close</button>
-                {{-- <button type="submit" class="btn btn-success me-1">{{ __('tran.save') }}</button> --}}
 
                 <a wire:click='savequti({{ $keys }})' class="btn btn-success me-1">{{ __('tran.save') }}</a>
             </div>
-            {{-- </form> --}}
         </div>
     </div>
 

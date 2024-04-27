@@ -2,18 +2,18 @@
     'id' => '',
     'value' => '',
 ])
-<div wire:ignore>
-
+{{-- <div wire:ignore> --}}
+<div >
     <textarea {{ $attributes->wire('model') }} class="form-control" id="{{ $id }}"></textarea>
 </div>
 
-@pushonce('csslive')
+@push('csslive')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.css" />
-@endpushonce
+@endpush
 
-@pushonce('jslive')
+@push('jslive')
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.js"></script>
-@endpushonce
+@endpush
 @push('jslive')
     <script type="text/javascript">
         document.addEventListener('livewire:initialized', () => {
@@ -29,7 +29,6 @@
 
         function initialize_{{ $id }}(selector) {
 
-            // $(document).ready(function() {
             $(selector).summernote({
                 lang: 'ar-AR',
                 tabsize: 2,
@@ -45,7 +44,7 @@
                     }
                 }
             });
-            // });
+
 
             // $(selector).summernote('pasteHTML', '{!! $value !!}');
         }

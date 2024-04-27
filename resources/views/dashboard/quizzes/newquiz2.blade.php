@@ -4,7 +4,7 @@
     <div class="card border-primary">
         <div class="card-header">
             <h3>اضافه اختبار</h3>
-            {{-- <a  class="btn btn-primary" wire:click="$dispatch('edit')">اضافة سؤال</a> --}}
+            <a  class="btn btn-primary" wire:click="$dispatch('edit')">اضافة سؤال</a>
 
         </div>
         @livewire('dashboard.quizzes.model')

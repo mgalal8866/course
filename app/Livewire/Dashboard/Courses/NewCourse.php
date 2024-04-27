@@ -26,24 +26,21 @@ class NewCourse extends Component
 {
     use WithFileUploads, ImageProcessing;
 
-
-    protected $listeners = ['edit' => 'edit', 'refreshDropdown', 'currentPage' => 'currentPage'];
-    public $edit = false, $short_description, $id, $header, $currentPage = 1, $pages = 4, $conditions, $target, $howtostart,
+    protected $listeners = ['funquestion' => 'funquestion', 'edit' => 'edit', 'refreshDropdown', 'currentPage' => 'currentPage'];
+    public $edit = false, $short_description, $id, $header, $currentPage = 3, $pages = 4, $conditions, $target, $howtostart,
         $telegram, $telegramgrup, $nextcourse, $course_gender, $schedule, $free_tatorul, $nextcoursesbycat,
         $name, $description, $validity = 'تبقى الدورة بكامل محتوياتها ثلاثة أشهر بحساب المتدرب.', $category_id, $price, $pricewith = 1, $startdate, $enddate, $time, $features, $triner = [], $limit_stud, $duration_course = 'شهر ونصف',
         $image_course, $file_work, $file_explanatory, $file_aggregates, $file_supplementary, $file_free, $file_test,
         $langcourse = false, $status = true, $inputnum = false, $lessons, $stages, $answer_the_question, $calc_rate;
-    public $questions, $total_scores, $degree_success, $testname, $testtime,$sections_guide;
+    public $questions =[], $total_scores, $degree_success, $testname, $testtime, $sections_guide;
+    public function funquestion($id = null)
+    {
 
+    }
 
     public function mount()
     {
-        $this->fill(['questions' => collect([[
-            'question' => '',
-            'degree' => '',
-            'answers' => collect([['answer' => '', 'correct' => '']])
 
-        ]])]);
         $this->stages = Stages::parentonly()->orderBy('parent_id', 'DESC')->get();
         $this->fill(['lessons' => collect([['stage_id' => null, 'img' => null, 'name' => '', 'link' => '', 'is_lesson' => 1, 'publish_at' => null]])]);
     }
@@ -142,9 +139,21 @@ class NewCourse extends Component
     //############### End validtion ###############
 
     //############## Start Questions ################
+
     public function addquestions()
     {
-        $this->questions->push(['question' => '','testdescription'=>'', 'degree' => '', 'answers' => collect([['answer' => '', 'correct' => '']])]);
+        if(empty($this->questions)){
+            $this->fill(['questions' => collect([[
+                'question' => '',
+                 'testdescription' => '',
+                'degree' => '',
+                'answers' => collect([['answer' => '', 'correct' => '']])
+
+            ]])]);
+        }else{
+            $this->questions->push(['question' => '', 'testdescription' => '', 'degree' => '', 'answers' => collect([['answer' => '', 'correct' => '']])]);
+        }
+        $this->dispatch('funquestion',key: ($this->questions->keys()->last()-1));
     }
     public function removequestions($key)
     {
@@ -170,8 +179,8 @@ class NewCourse extends Component
                 'name'          => $this->testname ?? null,
                 'category_id'   => $this->testcategory ?? null,
                 'time'          => $this->testtime ?? null,
-                'pass_marks' => $this->degree_success ?? null,
-                'total_marks'  => $this->total_scores ?? null,
+                'pass_marks'    => $this->degree_success ?? null,
+                'total_marks'   => $this->total_scores ?? null,
             ]);
             foreach ($this->questions as $i) {
                 $question =   Quiz_questions::create([
@@ -219,7 +228,7 @@ class NewCourse extends Component
         // if (isset($this->lessons[$key])) {
         //     $this->lessons[$key]['link'] = $val;
         // }
-        $this->lessons = $this->lessons->map(function ($object, $k) use ($val,$key) {
+        $this->lessons = $this->lessons->map(function ($object, $k) use ($val, $key) {
 
             if ($k == $key) {
                 $object['link'] = $val;
@@ -297,7 +306,7 @@ class NewCourse extends Component
             }
             if ($this->schedule) {
                 $file =  uploadfile($this->schedule, "files/courses/"  . $CFC->id . "/doc");
-                $CFC->schedule =  $file ;
+                $CFC->schedule =  $file;
             }
 
             if ($this->file_work) {
@@ -330,11 +339,11 @@ class NewCourse extends Component
                 $CFC->coursetrainers()->create(['trainer_id' => $i]);
             }
             foreach ($this->lessons as $i) {
-                if($i['is_lesson'] == 0){
-                    Quizes::updated(['id'=>$i['link']],['course_id' => $CFC->id]);
+                if ($i['is_lesson'] == 0) {
+                    Quizes::updated(['id' => $i['link']], ['course_id' => $CFC->id]);
                 }
 
-                $lesson = Lessons::create(['name' => $i['name'], 'link_video' => $i['link'], 'is_lesson' => $i['is_lesson'] , 'publish_at' => $i['publish_at']]);
+                $lesson = Lessons::create(['name' => $i['name'], 'link_video' => $i['link'], 'is_lesson' => $i['is_lesson'], 'publish_at' => $i['publish_at']]);
                 $CFC->stages()->attach($i['stage_id'], ['course_id' => $CFC->id, 'lesson_id' => $lesson->id]);
             }
             DB::commit();
@@ -352,6 +361,29 @@ class NewCourse extends Component
         }
     }
     //############## End Course ##################
+
+
+    // public function mount()
+    // {
+    //     $this->fill(['questions' => collect([[
+    //         'question' => '',
+    //         'degree' => '',
+    //         'answers' => collect([['answer' => '', 'correct' => '']])
+
+    //     ]])]);
+    // }
+    // public function  removeanswerquestions($key, $key1)
+    // {
+    //     $this->questions[0]['answers']->pull($key1);
+    // }
+    // public function addquestions()
+    // {
+    //     $this->questions->push(['question' => '', 'degree' => '', 'answers' => collect([['answer' => '', 'correct' => '']])]);
+    // }
+    // public function addanswerquestions($key)
+    // {
+    //     $this->questions[0]['answers']->push(['answer' => '', 'correct' => '']);
+    // }
 
     public function render()
     {

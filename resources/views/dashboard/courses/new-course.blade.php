@@ -125,7 +125,7 @@
                                             <option value="1" selected>PDF شامل كتاب الدورة</option>
                                             <option value="2">بدون كتاب الدورة</option>
                                         </select>
-                                        <input  type="number" step="0.01" class="form-control" wire:model='price' />
+                                        <input type="number" step="0.01" class="form-control" wire:model='price' />
                                     </div>
 
                                     @error('pricewith')
@@ -183,7 +183,8 @@
                                 </div>
                                 <div class="mb-1 col-md-4">
                                     <label class="form-label" for="username">{{ __('tran.limit_stud') }}</label>
-                                    <input  type="number" step="1" class="form-control" wire:model='limit_stud' />
+                                    <input type="number" step="1" class="form-control"
+                                        wire:model='limit_stud' />
                                     @error('limit_stud')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
@@ -208,7 +209,8 @@
                                             required>
                                             @foreach ($triners as $item)
                                                 <option @if (in_array($item->id, $triner)) selected @endif
-                                                    value="{{ $item->id ?? '' }}">{{( $item->first_name ?? '') . ' ' . ( $item->middle_name ?? '')}}
+                                                    value="{{ $item->id ?? '' }}">
+                                                    {{ ($item->first_name ?? '') . ' ' . ($item->middle_name ?? '') }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -256,17 +258,18 @@
                                     @enderror
                                 </div>
                                 <div class="mb-1 col-md-12">
-                                    <label class="form-label" for="">{{ __('tran.answer_the_question') }}</label>
-                                    <x-summernote wire:model='answer_the_question' name="answer_the_question" id="answer_the_question"
-                                        value='{{ $answer_the_question }}' />
+                                    <label class="form-label"
+                                        for="">{{ __('tran.answer_the_question') }}</label>
+                                    <x-summernote wire:model='answer_the_question' name="answer_the_question"
+                                        id="answer_the_question" value='{{ $answer_the_question }}' />
                                     @error('answer_the_question')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="mb-1 col-md-12">
                                     <label class="form-label" for="">{{ __('tran.sections_guide') }}</label>
-                                    <x-summernote wire:model='sections_guide' name="sections_guide" id="sections_guide"
-                                        value='{{ $sections_guide }}' />
+                                    <x-summernote wire:model='sections_guide' name="sections_guide"
+                                        id="sections_guide" value='{{ $sections_guide }}' />
                                     @error('sections_guide')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
@@ -371,11 +374,12 @@
                             @foreach ($lessons as $key => $value)
                                 <div class="mb-1 row">
                                     <div class="col-md-2 form-check form-check-inline ">
-                                        <select class="form-select" id="lessons.{{ $key }}.is_lesson" wire:model.lazy='lessons.{{ $key }}.is_lesson'>
+                                        <select class="form-select" id="lessons.{{ $key }}.is_lesson"
+                                            wire:model.lazy='lessons.{{ $key }}.is_lesson'>
 
-                                            @foreach ( \App\Enum\LessonStatu::cases() as $q)
-
-                                            <option value="{{$q->value}}">{{ __('tran.typelesson-'.$q->name)}} </option>
+                                            @foreach (\App\Enum\LessonStatu::cases() as $q)
+                                                <option value="{{ $q->value }}">
+                                                    {{ __('tran.typelesson-' . $q->name) }} </option>
                                             @endforeach
                                         </select>
                                         {{-- <input class="form-check-input"
@@ -402,7 +406,8 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-2">
-                                        <x-daterange wire:model='lessons.{{ $key }}.publish_at' id="lessons.{{ $key }}.publish_at"  />
+                                        <x-daterange wire:model='lessons.{{ $key }}.publish_at'
+                                            id="lessons.{{ $key }}.publish_at" />
                                         @error('lessons.' . $key . '.publish_at')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
@@ -410,7 +415,7 @@
                                     @if ($lessons[$key]['is_lesson'] != false)
                                         <div class="col">
                                             <input class="form-control" wire:model="lessons.{{ $key }}.name"
-                                                placeholder="{{ $lessons[$key]['is_lesson'] ==1 ? 'اسم الشرح' :($lessons[$key]['is_lesson'] ==0 ? 'اسم تدريب': 'اسم بث مباشر') }}"
+                                                placeholder="{{ $lessons[$key]['is_lesson'] == 1 ? 'اسم الشرح' : ($lessons[$key]['is_lesson'] == 0 ? 'اسم تدريب' : 'اسم بث مباشر') }}"
                                                 type="text" />
                                             @error('lessons.' . $key . '.name')
                                                 <span class="text-danger">{{ $message }}</span>
@@ -420,7 +425,7 @@
 
                                             <input class="form-control" wire:model="lessons.{{ $key }}.link"
                                                 type="text"
-                                                placeholder="{{  $lessons[$key]['is_lesson'] ==1 ? 'رابط الشرح' :($lessons[$key]['is_lesson'] ==0 ? 'رابط تدريب': 'رابط بث مباشر') }}" />
+                                                placeholder="{{ $lessons[$key]['is_lesson'] == 1 ? 'رابط الشرح' : ($lessons[$key]['is_lesson'] == 0 ? 'رابط تدريب' : 'رابط بث مباشر') }}" />
 
                                             @error('lessons.' . $key . '.link')
                                                 <span class="text-danger">{{ $message }}</span>
@@ -439,8 +444,11 @@
                                             @if ($lessons[$key]['link'] != null)
                                                 <p>تم اختيار التدريب </p>
                                             @else
-                                                <x-model wire:model='questions' :questions='$questions'
-                                                    :keys='$key' />
+
+                                                <x-model :questions='$questions' :keys='$key' />
+                                                <x-forcoursemodel  :questions='$questions' />
+                                                    {{-- @livewire('dashboard.quizzes.forcoursemodel') --}}
+
                                                 <button type="button" class="btn btn-outline-success"
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#fullscreenModal-{{ $key }}">
@@ -507,7 +515,7 @@
                                 </div>
                                 <div class="mb-1 col-md-6">
                                     <label class="form-label" for="nextcourse">{{ __('tran.nextcourse') }}</label>
-                                    <select class="form-select" wire:model='nextcourse' >
+                                    <select class="form-select" wire:model='nextcourse'>
                                         <option value="">اختار الدورة التالية</option>
                                         @foreach ($nextcoursesbycat as $item)
                                             <option value="{{ $item->id }}">
@@ -527,8 +535,9 @@
                         </div>
                     @endif
 
-                    <div   class="d-flex justify-content-between">
-                        <button  wire:loading.attr="disabled" class="btn {{ $currentPage > 1 ? 'btn-primary' : 'btn-outline-secondary' }} btn-prev"
+                    <div class="d-flex justify-content-between">
+                        <button wire:loading.attr="disabled"
+                            class="btn {{ $currentPage > 1 ? 'btn-primary' : 'btn-outline-secondary' }} btn-prev"
                             {{ $currentPage == 1 ? 'disabled' : '' }} wire:click.prevent="goToPerviousPage">
                             <i
                                 class="fas fa-arrow-{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' ? 'right' : 'left' }}  align-middle ms-sm-25 ms-0"></i>
@@ -539,7 +548,8 @@
                             <button wire:loading.attr="disabled" type="submit" class="btn btn-success btn-submit">
                                 {{ __('tran.submit') }}</button>
                         @else
-                            <button   wire:loading.attr="disabled" class="btn btn-primary btn-next" wire:click.prevent="goToNextPage">
+                            <button wire:loading.attr="disabled" class="btn btn-primary btn-next"
+                                wire:click.prevent="goToNextPage">
 
                                 <span class="align-middle d-sm-inline-block d-none">{{ __('tran.next') }}</span>
                                 <i
@@ -606,6 +616,19 @@
         window.addEventListener('closemodel', event => {
 
             $('#fullscreenModal-' + event.detail.key).modal("hide");
+
+        });
+
+        window.addEventListener('funquestion', event => {
+
+            // $('#newquestion' + event.detail.key).modal("show");
+            $('#forcoursemodel').modal("show");
+
+        });
+        window.addEventListener('closenewquestion', event => {
+
+            // $('#newquestion-' + event.detail.key).modal("hide");
+            $('#forcoursemodel').modal("hide");
 
         });
     </script>
