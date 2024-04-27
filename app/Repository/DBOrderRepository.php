@@ -96,7 +96,7 @@ class DBOrderRepository implements OrderRepositoryinterface
             }
             if($payment_id==0){
                 $user =   User::find(Auth::guard('student')->user()->id);
-                $user->update(['id'=>Auth::guard('student')->user()->id],['wallet'=> (Auth::guard('student')->user()->wallet - $cart->cart_details->sum('total'))]);
+                $user->update(['wallet'=> (Auth::guard('student')->user()->wallet - $cart->cart_details->sum('total'))]);
 
               }
             $cart=  Cart::whereUserId(Auth::guard('student')->user()->id)->first();
