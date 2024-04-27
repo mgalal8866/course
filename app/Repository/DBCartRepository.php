@@ -119,9 +119,11 @@ class DBCartRepository implements CartRepositoryinterface
             if ($w->cart_details_count == 1) {
                 $w->delete();
             }
-            if ($w->cart_details_count >= 1) {
-                $this->couporeposirty->checkcoupon($w->coupon_id);
+            
+            if ($this->cart_details->where(['cart_header'=>$w->cart_header,'is_book'=>'0'])->count() < 1) {
+                $w->update(['coupon_id' => null]);
             }
+
             return $this->getcart();
         } else {
             // dd($w);
