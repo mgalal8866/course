@@ -22,7 +22,7 @@ class DBCartRepository implements CartRepositoryinterface
     protected  $cart_details;
     protected  $request;
     protected  $couporeposirty;
-    public function __construct(Cart $model, CartDetails $cart_details, Request $request ,DBCouponRepository $couporeposirty)
+    public function __construct(Cart $model, CartDetails $cart_details, Request $request, DBCouponRepository $couporeposirty)
     {
         $this->cart_details = $cart_details;
         $this->model = $model;
@@ -31,17 +31,15 @@ class DBCartRepository implements CartRepositoryinterface
     }
     public function getcart()
     {
-         $cart = $this->model->where('user_id', Auth::guard('student')->user()->id)->with(['cart_details'=>function($q){
+        $cart = $this->model->where('user_id', Auth::guard('student')->user()->id)->with(['cart_details' => function ($q) {
             $q->with(['book' => function ($qq) {
-                $qq->select('book_name','qty_max', 'image', 'id', 'price');
+                $qq->select('book_name', 'qty_max', 'image', 'id', 'price');
             }, 'course' => function ($qq) {
                 $qq->select('name', 'id', 'image', 'price');
             }]);
-        },'coupon'])->first();
+        }, 'coupon'])->first();
 
         return $cart;
-
-
     }
     public function addtocart()
     {
@@ -75,11 +73,10 @@ class DBCartRepository implements CartRepositoryinterface
         // dd( number_format($qty * $price),2);
 
         $coupon = UserCoupon::find($w->coupon_id);
-        if($coupon && $is_book == 0){
-            $disc=($coupon->discount / 100);
-
-        }else{
-            $disc=0;
+        if ($coupon && $is_book == 0) {
+            $disc = ($coupon->discount / 100);
+        } else {
+            $disc = 0;
         }
         $this->cart_details->updateOrCreate(
             [
@@ -91,11 +88,11 @@ class DBCartRepository implements CartRepositoryinterface
                 'product_id' => $product_id,
                 'coupon_id' => $w->coupon_id ?? null,
                 'is_book'   => $is_book ?? null,
-                'qty'       =>$qty,
-                'price'     =>$price,
-                'subtotal'  =>($qty * $price),
-                'discount'  =>($w->coupon_id!=null)?DB::raw('subtotal * ' . $disc):0,
-                'total'     =>DB::raw('subtotal - discount'),
+                'qty'       => $qty,
+                'price'     => $price,
+                'subtotal'  => ($qty * $price),
+                'discount'  => ($w->coupon_id != null) ? DB::raw('subtotal * ' . $disc) : 0,
+                'total'     => DB::raw('subtotal - discount'),
                 // 'subtotal'  =>$qty * $price),2),
             ]
         );
@@ -119,11 +116,14 @@ class DBCartRepository implements CartRepositoryinterface
             if ($w->cart_details_count == 1) {
                 $w->delete();
             }
-            
-            if ($this->cart_details->where(['cart_header'=>$w->cart_header,'is_book'=>'0'])->count() < 1) {
+
+            if ($this->cart_details->where(['cart_header' => $w->cart_header, 'is_book' => '0'])->count() < 1) {
                 $w->update(['coupon_id' => null]);
             }
 
+            if ($cart_details == null) {
+                return false;
+            }
             return $this->getcart();
         } else {
             // dd($w);
