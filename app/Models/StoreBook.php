@@ -25,7 +25,10 @@ class StoreBook extends Model
         return $this->hasOne(OrdersDetails::class, 'product_id')->WhereHas('order', function($q){
             if(Auth::guard('student')->check()){
                 $q->where('user_id', Auth::guard('student')->user()->id);
+            }else{
+                return null;
             }
+
         });
     }
 
