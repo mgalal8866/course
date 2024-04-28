@@ -138,6 +138,8 @@ class Courses extends Model
     }
     public function ScopeGender(Builder $query)
     {
-     $query->whereIn('course_gender',['0',Auth::guard('student')->user()->gender]);
+        if(Auth::guard('student')->check()){
+            $query->whereIn('course_gender',['0',Auth::guard('student')->user()->gender]);
+        }
     }
 }
