@@ -49,6 +49,7 @@ class CourseByIdResource extends JsonResource
             'telegram_gorup'    => $this->telegramgrup ?? '',
             'telegram_channel'  => $this->telegram ?? '',
             'created_at'        => $this->created_at->format('d/m/Y'),
+             'status'            => $this->statu ?? '', //عدد المقاعد
             'course_files'      => [
                 'file_supplementary' => $this->file_supplementary ?? '',
                 'file_aggregates'    => $this->file_aggregates ?? '',
