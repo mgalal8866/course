@@ -40,91 +40,114 @@ use App\Http\Controllers\Api\V1\CourseEnrolledController;
 use App\Http\Controllers\Api\V1\PaymentsOnlineController;
 use App\Http\Controllers\Api\V1\CategoryFreeCourseController;
 
-Route::any('/login', [UsersController::class, 'login'])->name('login'); //post
-Route::any('/sendotp', [UsersController::class, 'sendotp']); //post
-Route::any('/signup', [UsersController::class, 'signup']); //post
-Route::any('/forgotpassword', [UsersController::class, 'forgotpassword']); //post
-Route::any('/verificationcode', [UsersController::class, 'verificationcode']); //post
-Route::any('/change-password', [UsersController::class, 'change_password']); //post
-Route::any('/resend-code', [UsersController::class, 'resend_code']); //post
 
-Route::get('/home', [HomeController::class, 'homep'])->name('homep');
-Route::get('/home/section1', [HomeController::class, 'section1'])->name('section1');
-// Route::get('/home/section2',[HomeController::class,'section2'])->name('section2');
-// Route::get('/home/section3',[HomeController::class,'section3'])->name('section3');
-// Route::get('/home/section4',[HomeController::class,'section4'])->name('section4');
-// Route::get('/home/section5',[HomeController::class,'section5'])->name('section5');
-// Route::get('/home/section6',[HomeController::class,'section6'])->name('section6');
-// Route::get('/home/section7',[HomeController::class,'section7'])->name('section7');
-// Route::get('/home/section8',[HomeController::class,'section8'])->name('section8');
-// Route::get('/home/header',[HomeController::class,'homeheader'])->name('homeheader');
-// Route::get('/home/footer',[HomeController::class,'homefooter'])->name('homefooter');
-// Route::get('/getcourses',[CourseController::class,'getcategorycourse'])->name('getcategorycourse');
 
-Route::get('/verificationcode/{code?}', [UsersController::class, 'verificationcode'])->name('signup');
-Route::get('/category_course', [CategoryCourseController::class, 'getcategorycourse'])->name('getcategorycourse');
-Route::get('/home_category_course', [CategoryCourseController::class, 'gethomecategorycourse'])->name('gethomecategorycourse');
 Route::post('/new/study_schedule', [StudyScheduleController::class, 'create_study_schedule'])->name('create_study_schedule');
-Route::get('/courses/{category_id}', [CourseController::class, 'getcoursesbycategroy'])->name('getcoursesbycategroy');
-Route::get('/course/not_subscribed/{id}', [CourseController::class, 'getcoursebyidnot_subscribed']);
-
-Route::get('/slider', [HomeController::class, 'getslider'])->name('getslider');
-Route::get('/setting', [HomeController::class, 'getsetting'])->name('getsetting');
 Route::get('/category/free/course', [CategoryFreeCourseController::class, 'getcategoryfreecourse']);
-Route::get('/free/course/bycategory/{id?}', [FreeCourseController::class, 'get_free_course_by_category']);
-Route::get('/free/course/{id?}', [FreeCourseController::class, 'get_free_course_by_id']);
 Route::get('/category/grades', [CategoryGradesController::class, 'get_category']);
 Route::get('/grades/bycategoryid/{id?}', [UsersGradesController::class, 'get_grades_by_category']);
-
 Route::post('/quiz/send/answers', [ResultQuizController::class, 'send_answers']);
 Route::get('/quiz', [QuizController::class, 'get_quiz_by_id']);
 Route::get('/quiz/bycategory', [QuizController::class, 'get_quiz_by_category']);
 Route::get('/category/books', [CategoryBookController::class, 'get_category_book']);
-Route::get('/books/bycategory/{id?}', [StoreBookController::class, 'get_books_by_category']);
 Route::get('/category/blog', [CategoryBlogController::class, 'get_category_blog']);
 Route::get('/blog/by/category', [BlogController::class, 'get_blog_by_category']);
 Route::get('/blog', [BlogController::class, 'get_blog_by_id']);
-Route::get('/book', [StoreBookController::class, 'get_book_by_id']);
-Route::get('/countries', [CountriesController::class, 'get_countries']);
-Route::get('/test', [CountriesController::class, 'get_test']);
 Route::get('/category/quiz', [CategoryQuizController::class, 'get_category_quiz']);
 Route::post('/content_us', [ContentUsController::class, 'send_contentus']);
-Route::get('/teamwork', [UsersController::class, 'get_teamwork']);
 Route::get('/fqa', [FqaController::class, 'get_fqa']);
-Route::get('/privacy', [HomeController::class, 'get_privacy']);
-Route::get('/terms_and_conditions', [HomeController::class, 'get_terms_and_conditions']);
-Route::get('/about_us', [HomeController::class, 'get_about_us']);
-Route::get('/say_about_us', [HomeController::class, 'get_say_about_us']);
 
+Route::controller(UsersController::class)->group(function () {
+    Route::any('/login',  'login')->name('login'); //post
+    Route::any('/sendotp',  'sendotp'); //post
+    Route::any('/signup',  'signup'); //post
+    Route::any('/forgotpassword',  'forgotpassword'); //post
+    Route::any('/verificationcode',  'verificationcode'); //post
+    Route::any('/change-password',  'change_password'); //post
+    Route::any('/resend-code',  'resend_code'); //post
+    Route::get('/verificationcode/{code?}', 'verificationcode')->name('signup');
+    Route::get('/teamwork',  'get_teamwork');
+});
 
-// Route::get('/books/buy/{id?}',[StoreBookController::class,'get_books_by_category']);
+Route::controller(CategoryCourseController::class)->group(function () {
+    Route::get('/category_course', 'getcategorycourse')->name('getcategorycourse');
+    Route::get('/home_category_course', 'gethomecategorycourse')->name('gethomecategorycourse');
+});
+
+Route::controller(CourseController::class)->group(function () {
+    Route::get('/courses/{category_id}', 'getcoursesbycategroy')->name('getcoursesbycategroy');
+    Route::get('/course/not_subscribed/{id}', 'getcoursebyidnot_subscribed');
+});
+
+Route::controller(FreeCourseController::class)->group(function () {
+    Route::get('/free/course/bycategory/{id?}', 'get_free_course_by_category');
+    Route::get('/free/course/{id?}', 'get_free_course_by_id');
+});
+
+Route::controller(CountriesController::class)->group(function () {
+    Route::get('/countries', 'get_countries');
+    Route::get('/test', 'get_test');
+});
+
+Route::controller(StoreBookController::class)->group(function () {
+    Route::get('/books/bycategory/{id?}',  'get_books_by_category');
+    Route::get('/book',  'get_book_by_id');
+});
+
+Route::controller(HomeController::class)->group(function () {
+    Route::get('/home',  'homep')->name('homep');
+    Route::get('/home/section1',  'section1')->name('section1');
+    Route::get('/slider',  'getslider')->name('getslider');
+    Route::get('/setting',  'getsetting')->name('getsetting');
+    Route::get('/privacy', 'get_privacy');
+    Route::get('/terms_and_conditions', 'get_terms_and_conditions');
+    Route::get('/about_us', 'get_about_us');
+    Route::get('/say_about_us', 'get_say_about_us');
+});
 
 Route::get('/get_payment', [PaymentsController::class, 'get_payment']);
 
 Route::middleware(['jwt.verify', 'cors'])->group(function () {
+    Route::controller(NotificationsController::class)->group(function () {
+        Route::get('/notifications', 'get_notifications');
+        Route::get('/read/notifications', 'read_notifications');
+    });
+    Route::controller(CartController::class)->group(function () {
+        Route::get('/cart/add/book', 'addtocart');
+        Route::get('/cart/delete/book', 'deletefromcart');
+        Route::get('/cart/get', 'getcart');
+    });
+    Route::controller(CourseController::class)->group(function () {
+        Route::get('/course/subscribe/{id}', 'getcoursebyidsubscripe2')->name('getcoursebyid');
+        Route::get('/calculating-progress-rate', 'get_calc_prog');
+    });
+    Route::controller(OrderController::class)->group(function () {
+        Route::get('/my-orders',  'get_myorders');
+        Route::post('/please-order',  'please_order');
+    });
+    Route::controller(WishlistController::class)->group(function () {
+        Route::get('/wishlist/add/book', 'add_to_wishlist');
+        Route::get('/wishlist/delete/book', 'delete_from_wishlist');
+        Route::get('/wishlist/get', 'get_wishlist');
+    });
+    Route::controller(CommentsController::class)->group(function () {
+        Route::post('/add/comment/course', 'add_comment_course');
+        Route::post('/add/comment/freecourse', 'add_comment_freecourse');
+    });
+    Route::controller(UsersController::class)->group(function () {
+        Route::any('/update/profile', 'profile_update'); //post
+        Route::any('/details/profile', 'profile_details'); //post
+    });
+    Route::controller(RatingController::class)->group(function () {
+        Route::get('/get_rating_course', 'get_rating_course');
+        Route::Post('/send_rating', 'send_rating');
+    });
+    Route::controller(CourseEnrolledController::class)->group(function () {
+        Route::get('/course/mycourse', 'get_my_course');
+        Route::get('/course/category/mycourse', 'get_category_my_course');
+    });
     Route::get('/convert-points', [CollectPointsController::class, 'convert_points']);
-    Route::get('/notifications', [NotificationsController::class, 'get_notifications']);
-    Route::get('/read/notifications', [NotificationsController::class, 'read_notifications']);
-    Route::get('/my-orders', [OrderController::class, 'get_myorders']);
-    Route::get('/get_rating_course', [RatingController::class, 'get_rating_course']);
-    Route::Post('/send_rating', [RatingController::class, 'send_rating']);
-    Route::post('/add/comment/course', [CommentsController::class, 'add_comment_course']);
-    Route::post('/add/comment/freecourse', [CommentsController::class, 'add_comment_freecourse']);
-    Route::post('/please-order', [OrderController::class, 'please_order']);
     Route::get('/checkcoupon', [CouponController::class, 'checkcoupon']);
-    Route::get('/calculating-progress-rate', [CourseController::class, 'get_calc_prog']);
-    Route::any('/update/profile', [UsersController::class, 'profile_update']); //post
-    Route::any('/details/profile', [UsersController::class, 'profile_details']); //post
-    // Route::get('/course/subscripe/{id}', [CourseController::class, 'getcoursebyidsubscripe'])->name('getcoursebyid');
-    Route::get('/course/subscribe/{id}', [CourseController::class, 'getcoursebyidsubscripe2'])->name('getcoursebyid');
-    Route::get('/cart/add/book', [CartController::class, 'addtocart']);
-    Route::get('/cart/delete/book', [CartController::class, 'deletefromcart']);
-    Route::get('/cart/get', [CartController::class, 'getcart']);
-    Route::get('/wishlist/add/book', [WishlistController::class, 'add_to_wishlist']);
-    Route::get('/wishlist/delete/book', [WishlistController::class, 'delete_from_wishlist']);
-    Route::get('/wishlist/get', [WishlistController::class, 'get_wishlist']);
-    Route::get('/course/mycourse', [CourseEnrolledController::class, 'get_my_course']);
-    Route::get('/course/category/mycourse', [CourseEnrolledController::class, 'get_category_my_course']);
 });
 
 Route::get('/cc', function (Request $request) {
@@ -195,8 +218,3 @@ Route::get('/wts', function (Request $request) {
 
     echo $response;
 });
-//     return $response->getBody();
-//     // 'O0VXzpumfxComubXLubUo6Yk9dDCg3UH';
-//     // return $ownerEmail ;
-//     // return     json_decode( json_encode(Location::get($request->ip())), true);
-// });

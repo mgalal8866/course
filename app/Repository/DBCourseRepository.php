@@ -34,13 +34,9 @@ class DBCourseRepository implements CourseRepositoryinterface
     }
     public function getcoursebyid($id)
     {
-
-
-
         // $course = Cache::remember('course_full_' . $id, 60, function () use ($id) {
         $course = $this->model->gender()->with(
             [
-                // 'stages._parent',
                 'stagesparent',
                 'coursetrainers.triner',
                 'stages' => function ($query) use ($id) {
@@ -54,13 +50,9 @@ class DBCourseRepository implements CourseRepositoryinterface
                             }
                         ]
                     );
-
                 },'stages._parent'
-
             ]
         )->find($id);
-        // });
-        // dd($course);
         return  $course;
     }
 }

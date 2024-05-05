@@ -48,6 +48,7 @@ class CourseResource extends JsonResource
             'calc_rate'         => $this->calc_rateurl ?? '',
             'telegram_gorup'    => $this->telegramgrup ?? '',
             'telegram_channel'  => $this->telegram ?? '',
+            'status'            => $this->statu ?? '',
             'created_at'        => $this->created_at->format('d/m/Y'),
             'course_subscripe'  => 'true',
             ];

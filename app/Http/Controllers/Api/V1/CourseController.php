@@ -57,7 +57,6 @@ class CourseController extends Controller
             'childrens.courses.comments',
             'childrens.courses.coursetrainers',
             'childrens.courses'  => function ($query) use ($id) {
-                // $query->where('course_id', $id)->first();
                 $query->where('course_id', $id);
             }
         ])->whereHas('childrens', function ($q) use ($id) {
@@ -67,7 +66,6 @@ class CourseController extends Controller
         })->get();
 
         $data = ['data' => $data];
-        // dd($data['data']);
         if (Count($data['data']) != 0) {
 
             return Resp(new CollectionCourseResource($data), 'success', 200, true);
@@ -95,11 +93,13 @@ class CourseController extends Controller
             $allqutioncount = $e->quiz->question_count;
 
             $allquiz_result_detailscount =   $q != null ? $q->quiz_result_details->count() : '0';
-            $questions[] = ['name' => $e->name,
-            'total_question' =>  number_format($e->quiz->question_count),
-            'answer' =>  $q != null ?  number_format($q->quiz_result_details->count()) : '0',
-            'not_answer' =>   $q != null ?  number_format($e->quiz->question_count - $q->quiz_result_details->count()) : '0',
-            'degree' =>  $q != null ? number_format(($allquiz_result_detailscount / $allqutioncount) * 100 ,1) : '0.0'];
+            $questions[] = [
+                'name' => $e->name,
+                'total_question' =>  number_format($e->quiz->question_count),
+                'answer' =>  $q != null ?  number_format($q->quiz_result_details->count()) : '0',
+                'not_answer' =>   $q != null ?  number_format($e->quiz->question_count - $q->quiz_result_details->count()) : '0',
+                'degree' =>  $q != null ? number_format(($allquiz_result_detailscount / $allqutioncount) * 100, 1) : '0.0'
+            ];
         }
 
         // $e = '9679fefa-0fdb-4545-862e-6d9a31f258b1';
@@ -137,7 +137,7 @@ class CourseController extends Controller
         // dd($data['data']);
         if (Count($questions) != 0) {
 
-            return Resp( $questions, 'success', 200, true);
+            return Resp($questions, 'success', 200, true);
         } else {
             return Resp(null, 'Not Found Course', 404, false);
         };
