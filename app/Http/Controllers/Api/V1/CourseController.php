@@ -5,20 +5,21 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Models\Slider;
 use App\Models\Stages;
+use App\Models\Courses;
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use App\Models\QuizResultHeader;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\CourseResource;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Resources\CourseByIdResource;
 use App\Http\Resources\PaginationResource;
+use App\Http\Resources\Caluc\ParentStagesResource;
 use App\Http\Resources\CourseByIdResourcenotsupscrip;
 use App\Repositoryinterface\CourseRepositoryinterface;
 use App\Http\Resources\Course\CollectionCourseResource;
 use App\Http\Resources\Course\CalculatingProgresRateResource;
-use App\Models\Courses;
-use App\Models\QuizResultHeader;
 
 class CourseController extends Controller
 {
@@ -77,7 +78,7 @@ class CourseController extends Controller
     {
 
         $dd = Courses::with(['lessons.quiz', 'lessons' => function ($q) {
-            $q->with(['quiz' => function ($qq) {
+            $q->with(['stages._parent', 'quiz' => function ($qq) {
                 $qq->withCount('question');
             }, 'quiz.question'])->where('is_lesson', 0);
         }])->find($request->id);
@@ -101,7 +102,127 @@ class CourseController extends Controller
                 'degree' =>  $q != null ? number_format(($allquiz_result_detailscount / $allqutioncount) * 100, 1) : '0.0'
             ];
         }
+        if (Count($questions) != 0) {
+            return Resp($questions, 'Not Found Course', 200);
+        } else {
+            return Resp(null, 'Not Found Course', 404, false);
+        };
+    }
+    public function get_calc_prog2(Request $request)
+    {
 
+        $data =  Stages::with([
+            'childrens' => function ($q) use ($request) {
+                $q->whereHas('courses', function ($qq) use ($request) {
+                    $qq->where('course_id',  $request->id);
+                })->whereHas('lessons', function ($q) use ($request) {
+                    $q->where('is_lesson', 0);
+                });
+            },
+            'childrens.lessons.quiz',
+            'childrens.lessons' => function ($q) {
+                $q->with(['stages._parent', 'quiz' => function ($qq) {
+                    $qq->withCount('question');
+                }, 'quiz.question'])->where('is_lesson', 0);
+            },
+            'childrens.courses'  => function ($query) use ($request) {
+                $query->where('course_id',  $request->id);
+            }
+        ])->whereHas('childrens', function ($q) use ($request) {
+            $q->whereHas('courses', function ($qq) use ($request) {
+                $qq->where('course_id',  $request->id);
+            });
+        })->get();
+        // dd($data);
+        $questions = [];
+        $user_id = Auth::guard('student')->user()->id;
+        $i = 0;
+        foreach ($data as $instages => $Stages) {
+            foreach ($Stages->childrens as $child) {
+                if ($child->lessons->count() > 0) {
+                    $i++;
+                    $questions[] = [
+                        'stage' =>  $Stages->name,
+                        'quiz' => []
+                    ];
+                    foreach ($child->lessons as $les) {
+                        $q =   QuizResultHeader::where(['quiz_id' => $les->link_video, 'user_id' => $user_id])->with(['quiz' => function ($q) {
+                            $q->withCount('question');
+                        }, 'quiz_result_details'])->first();
+                        $allqutioncount = $les->quiz->question_count;
+                        $allquiz_result_detailscount =   $q != null ? $q->quiz_result_details->count() : '0';
+
+                        $questions[count($questions)-1]['quiz'][count($questions[count($questions)-1]['quiz'])]  =   [
+                                'les_id' => $les->id,
+                                'quiz_name' => $les->quiz->name,
+                                'quiz_id' => $les->quiz->id,
+                                'total_question' =>  number_format($les->quiz->question_count),
+                                'answer' =>  $q != null ?  number_format($q->quiz_result_details->count()) : '0',
+                                'not_answer' =>   $q != null ?  number_format($les->quiz->question_count - $q->quiz_result_details->count()) : '0',
+                                'degree' =>  $q != null ? number_format(($allquiz_result_detailscount / $allqutioncount) * 100, 1) : '0.0'
+
+
+                        ];
+                        //  array_push($dataa, $data);
+
+
+                    }
+                }
+            }
+        }
+        return $questions;
+        // $questions = [];
+        // $user_id = Auth::guard('student')->user()->id;
+        // foreach ($dd->lessons as $e) {
+
+        //     $q =   QuizResultHeader::where(['quiz_id' => $e->link_video, 'user_id' => $user_id])->with(['quiz' => function ($q) {
+        //         $q->withCount('question');
+        //     }, 'quiz_result_details'])->first();
+
+        //     $allqutioncount = $e->quiz->question_count;
+        //     $allquiz_result_detailscount =   $q != null ? $q->quiz_result_details->count() : '0';
+        //     $questions[] = [
+        //         'name' => $e,
+        //         'total_question' =>  number_format($e->quiz->question_count),
+        //         'answer' =>  $q != null ?  number_format($q->quiz_result_details->count()) : '0',
+        //         'not_answer' =>   $q != null ?  number_format($e->quiz->question_count - $q->quiz_result_details->count()) : '0',
+        //         'degree' =>  $q != null ? number_format(($allquiz_result_detailscount / $allqutioncount) * 100, 1) : '0.0'
+        //     ];
+        // }
+        //         "data": [{
+        //             "name": "مرحلة التأسيس",
+        //             "quiz": [{
+        //                 "quiz_name": "تدريب تأسيس اللفظي",
+        //                 "total_question": "2",
+        //                 "answer": "0",
+        //                 "not_answer": "0",
+        //                 "degree": "0.0"
+        //             },
+        //             {
+        //                     "quiz_name": "تدريب تأسيس اللفظي",
+        //                     "total_question": "2",
+        //                     "answer": "0",
+        //                     "not_answer": "0",
+        //                     "degree": "0.0"
+
+        //             }]},{
+        //                 "name": "مرحلة التأسيس",
+        //                 "quiz": [{
+        //                     "quiz_name": "تدريب تأسيس اللفظي",
+        //                     "total_question": "2",
+        //                     "answer": "0",
+        //                     "not_answer": "0",
+        //                     "degree": "0.0"
+        //                 },
+        //                 {
+        //                         "quiz_name": "تدريب تأسيس اللفظي",
+        //                         "total_question": "2",
+        //                         "answer": "0",
+        //                         "not_answer": "0",
+        //                         "degree": "0.0"
+
+        //                 }]}
+        // ]
         // $e = '9679fefa-0fdb-4545-862e-6d9a31f258b1';
 
         // $q =   QuizResultHeader::where('quiz_id',  $request->id)->with(['quiz' => function ($q) {
@@ -111,36 +232,33 @@ class CourseController extends Controller
         // $allquiz_result_detailscount = $q->quiz_result_details->count();
         // dd(($allquiz_result_detailscount / $allqutioncount) * 100);
 
+        $data =  Stages::with([
+            'childrens.lessons.quiz.quizresult' => function ($q) use ($request) {
+                $user_id = Auth::guard('student')->user()->id;
+                $q->where('user_id', $user_id);
+            },
+            'childrens' => function ($q) use ($request) {
+                $q->whereHas('courses', function ($qq) use ($request) {
+                    $qq->where('course_id', $request->id);
+                });
+            }, 'childrens.lessons' => function ($query) use ($request) {
+                $query->with(['quiz' => function ($qq) {
+                    $qq->withCount('question');
+                }, 'quiz.question'])->where('is_lesson', '0');
+            },
+            'childrens.courses'  => function ($query) use ($request) {
+                $query->where('course_id', $request->id);
+            }
+        ])->whereHas('childrens', function ($q) use ($request) {
+            $q->whereHas('courses', function ($qq) use ($request) {
+                $qq->where('course_id', $request->id);
+            });
+        })->get();
 
-        // $data =  Stages::with([
-        //     'childrens.lessons.quiz.quizresult' => function ($q) use ($request) {
-        //         $user_id = Auth::guard('student')->user()->id;
-        //         $q->where('user_id', $user_id);
-        //     },
-        //     'childrens' => function ($q) use ($request) {
-        //         $q->whereHas('courses', function ($qq) use ($request) {
-        //             $qq->where('course_id', $request->id);
-        //         });
-        //     }, 'childrens.lessons' => function ($query) use ($request) {
-        //         $query->where('is_lesson', '0');
-        //     },
-        //     // 'childrens.courses'  => function ($query) use ($request) {
-        //     //     $query->where('course_id', $request->id);
-        //     // }
-        // ])->whereHas('childrens', function ($q) use ($request) {
-        //     $q->whereHas('courses', function ($qq) use ($request) {
-        //         $qq->where('course_id', $request->id);
-        //     });
-        // })->get();
+        $data = ['data' => $data];
 
-        // $data = ['data' => $data];
-        // dd($data['data']);
-        if (Count($questions) != 0) {
-
-            return Resp($questions, 'success', 200, true);
-        } else {
-            return Resp(null, 'Not Found Course', 404, false);
-        };
+        // return $data['data'];
+        return Resp(ParentStagesResource::collection($data['data']), 'success', 200, true);
     }
     public function getcoursebyidnot_subscribed($id)
     {

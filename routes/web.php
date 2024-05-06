@@ -365,7 +365,6 @@ Route::group(
 
             echo $response;
         });
-
         Route::get('/test1', Test::class);
         // Route::get('/test1', NewCourse::class)->name('newcourse');
         Route::get('/test/{text?}', function (Request $request) {
