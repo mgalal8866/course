@@ -14,11 +14,11 @@ class Stages extends Model
     // ,SoftDeletes;
     protected $guarded = [];
 
-    protected $hidden = ['pivot'];
+    // protected $hidden = ['pivot'];
 
     public function courses()
     {
-        return $this->belongsToMany(Courses::class,'course_stages','stage_id','course_id') ;
+        return $this->belongsToMany(Courses::class,'course_stages','stage_id','course_id')->withPivot(['publish_at','course_id']) ;
     }
     public function coursesparent_id()
     {
@@ -40,7 +40,7 @@ class Stages extends Model
     }
     public function lessons()
     {
-        return $this->belongsToMany(Lessons::class, 'course_stages', 'stage_id','lesson_id')->withPivot('publish_at')->withTimestamps();
+        return $this->belongsToMany(Lessons::class, 'course_stages', 'stage_id','lesson_id')->withPivot(['publish_at','course_id'])->withTimestamps();
     }
     public function scopeParentonly($query)
     {

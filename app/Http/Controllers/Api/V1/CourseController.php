@@ -110,37 +110,35 @@ class CourseController extends Controller
     }
     public function get_calc_prog2(Request $request)
     {
-
+        $user_id = Auth::guard('student')->user()->id;
+        $user_id = '53cd3b3e-2ad8-4036-8798-e0a0a2847c03';
         $data =  Stages::with([
             'childrens' => function ($q) use ($request) {
                 $q->whereHas('courses', function ($qq) use ($request) {
-                    $qq->where('course_id',  $request->id);
+                    $qq->where('course_id',  $request->id)->select(['courses.id', 'courses.name']);
                 })->whereHas('lessons', function ($q) use ($request) {
-                    $q->where('is_lesson', 0);
-                });
+                    $q->where('is_lesson', 0)
+                    ->select(['lessons.id', 'lessons.name']);
+                })
+                ->with(['lessons' => function ($qe) use ($request) {
+                    $qe->with(['quiz' => function ($qq) {
+                            $qq->select('id', 'name')->withCount('question');
+                        }])
+                        ->where('is_lesson', 0)->wherePivot('course_id',$request->id);
+                }])
+                ;
             },
-            'childrens.lessons.quiz',
-            'childrens.lessons' => function ($q) {
-                $q->with(['stages._parent', 'quiz' => function ($qq) {
-                    $qq->withCount('question');
-                }, 'quiz.question'])->where('is_lesson', 0);
-            },
-            'childrens.courses'  => function ($query) use ($request) {
-                $query->where('course_id',  $request->id);
-            }
         ])->whereHas('childrens', function ($q) use ($request) {
             $q->whereHas('courses', function ($qq) use ($request) {
                 $qq->where('course_id',  $request->id);
             });
         })->get();
-        // dd($data);
         $questions = [];
-        $user_id = Auth::guard('student')->user()->id;
-        $i = 0;
+
         foreach ($data as $instages => $Stages) {
             foreach ($Stages->childrens as $child) {
                 if ($child->lessons->count() > 0) {
-                    $i++;
+
                     $questions[] = [
                         'stage' =>  $Stages->name,
                         'quiz' => []
@@ -149,27 +147,35 @@ class CourseController extends Controller
                         $q =   QuizResultHeader::where(['quiz_id' => $les->link_video, 'user_id' => $user_id])->with(['quiz' => function ($q) {
                             $q->withCount('question');
                         }, 'quiz_result_details'])->first();
+
                         $allqutioncount = $les->quiz->question_count;
                         $allquiz_result_detailscount =   $q != null ? $q->quiz_result_details->count() : '0';
 
-                        $questions[count($questions)-1]['quiz'][count($questions[count($questions)-1]['quiz'])]  =   [
-                                'les_id' => $les->id,
-                                'quiz_name' => $les->quiz->name,
-                                'quiz_id' => $les->quiz->id,
-                                'total_question' =>  number_format($les->quiz->question_count),
-                                'answer' =>  $q != null ?  number_format($q->quiz_result_details->count()) : '0',
-                                'not_answer' =>   $q != null ?  number_format($les->quiz->question_count - $q->quiz_result_details->count()) : '0',
-                                'degree' =>  $q != null ? number_format(($allquiz_result_detailscount / $allqutioncount) * 100, 1) : '0.0'
+                        $questions[count($questions) - 1]['quiz'][count($questions[count($questions) - 1]['quiz'])]  =   [
 
-
+                            'quiz_name' => $les->quiz->name,
+                            'quiz_id' => $les->quiz->id,
+                            // 'quiz_result_details' =>   $q,
+                            // 'total_question' =>  number_format($les->quiz->question_count),
+                            'answer' =>  $q != null ?  number_format($q->quiz_result_details->count()) : '0',
+                            'not_answer' =>   $q != null ?  number_format($les->quiz->question_count - $q->quiz_result_details->count()) : '0',
+                            'degree' =>  $q != null ? number_format(($allquiz_result_detailscount / $allqutioncount) * 100, 1) : '0.0'
                         ];
                         //  array_push($dataa, $data);
-
-
                     }
+
+                    $total_degree= collect($questions[count($questions) - 1]['quiz'])->sum('degree');
+                    $count_quiz= (count( $questions[count($questions) - 1]['quiz'])*100);
+                    $final_total_degree =+ collect($questions[count($questions) - 1]['quiz'])->sum('degree');
+                    $final_count_quiz =+  (count( $questions[count($questions) - 1]['quiz'])*100);
+                    $questions[count($questions) - 1]['result']=[
+                        'rate' =>($total_degree != 0)? (($total_degree/$count_quiz) * 100) :0
+                    ] ;
                 }
             }
         }
+     $questions['final']= ($final_total_degree != 0)? (($final_total_degree/ $final_count_quiz)*100): 0;
+
         return $questions;
         // $questions = [];
         // $user_id = Auth::guard('student')->user()->id;

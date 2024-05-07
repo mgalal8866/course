@@ -16,11 +16,11 @@ class Lessons extends Model
 
     public function courses()
     {
-        return $this->belongsToMany(Courses::class,'course_stages') ;
+        return $this->belongsToMany(Courses::class,'course_stages' ,'lesson_id', 'course_id')->withPivot(['publish_at','course_id']) ;
     }
     public function stages()
     {
-        return $this->belongsToMany(Stages::class, 'course_stages', 'lesson_id', 'stage_id');
+        return $this->belongsToMany(Stages::class, 'course_stages', 'lesson_id', 'stage_id')->withPivot(['publish_at','course_id']);
     }
     public function quiz()
     {
