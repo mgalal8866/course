@@ -126,6 +126,10 @@
                                 aria-label="Close">
                                 {{ __('tran.cancel') }}
                             </button>
+                            <a     class="btn btn-outline-success" data-bs-dismiss="modal"
+                                aria-label="Close">
+                                {{ __('tran.save') }}
+                        </a>
                         </div>
                         {{-- </form> --}}
                     </div>
