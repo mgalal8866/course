@@ -79,7 +79,7 @@
 
                                                                 <input class="form-control"
                                                                     wire:model="questions.{{ $key }}.degree"
-                                                                    type="text"
+                                                                    type="number"
                                                                     placeholder="درجه السؤال"
                                                                     required />
 

@@ -21,7 +21,7 @@ use App\Models\CategoryFCourse;
 use App\Traits\ImageProcessing;
 use Illuminate\Support\Facades\DB;
 use App\Models\Quiz_question_answers;
-
+use function Livewire\Volt\state;
 class NewCourse extends Component
 {
     use WithFileUploads, ImageProcessing;
@@ -33,9 +33,13 @@ class NewCourse extends Component
         $image_course, $file_work, $file_explanatory, $file_aggregates, $file_supplementary, $file_free, $file_test,
         $langcourse = false, $status = true, $inputnum = false, $lessons, $stages, $answer_the_question, $calc_rate;
     public $questions =[], $total_scores, $degree_success, $testname, $testtime, $sections_guide;
-    public function funquestion($id = null)
+    public function cancelq( $id)
     {
+        if(count($this->questions) > 0){
 
+            $this->questions->pull($id);
+        }
+    
     }
 
     public function mount()
@@ -140,19 +144,27 @@ class NewCourse extends Component
 
     //############## Start Questions ################
 
+    public function updatedQuestions($value, $nested)
+    {
+          $nestedData = explode(".", $nested);
+        // dd( $nestedData  );
+
+    }
     public function addquestions()
     {
         if(empty($this->questions)){
             $this->fill(['questions' => collect([[
                 'question' => '',
-                 'testdescription' => '',
+                'testdescription' => '',
                 'degree' => '',
-                'answers' => collect([['answer' => '', 'correct' => '']])
+                'correct' => '',
+                'answers' => collect([['answer' => '']])
 
             ]])]);
         }else{
-            $this->questions->push(['question' => '', 'testdescription' => '', 'degree' => '', 'answers' => collect([['answer' => '', 'correct' => '']])]);
+            $this->questions->push(['question' => '', 'testdescription' => '', 'degree' => '', 'correct' => '','answers' => collect([['answer' => '']])]);
         }
+        // dd( $this->questions);
         $this->dispatch('funquestion',key: ($this->questions->keys()->last()-1));
     }
     public function removequestions($key)
@@ -162,7 +174,7 @@ class NewCourse extends Component
     }
     public function addanswerquestions($key)
     {
-        $this->questions[$key]['answers']->push(['answer' => '', 'correct' => '']);
+        $this->questions[$key]['answers']->push(['answer' => '']);
     }
     public function  removeanswerquestions($key, $key1)
     {
@@ -189,11 +201,11 @@ class NewCourse extends Component
                     'question' => $i['question'],
                     'mark'   => $i['degree'],
                 ]);
-                foreach ($i['answers'] as $ii) {
+                foreach ($i['answers'] as $index2 =>$ii) {
                     Quiz_question_answers::create([
                         'question_id' => $question->id,
                         'answer'     => $ii['answer'],
-                        'correct'    => $ii['correct'] == true ? 1 : 0,
+                        'correct'    =>  ($index2 ==$i['correct']) ? 1 : 0,
                     ]);
                 }
             }
@@ -368,7 +380,7 @@ class NewCourse extends Component
     //     $this->fill(['questions' => collect([[
     //         'question' => '',
     //         'degree' => '',
-    //         'answers' => collect([['answer' => '', 'correct' => '']])
+    //         'answers' => collect([['answer' => '']])
 
     //     ]])]);
     // }
@@ -378,11 +390,11 @@ class NewCourse extends Component
     // }
     // public function addquestions()
     // {
-    //     $this->questions->push(['question' => '', 'degree' => '', 'answers' => collect([['answer' => '', 'correct' => '']])]);
+    //     $this->questions->push(['question' => '', 'degree' => '', 'answers' => collect([['answer' => '']])]);
     // }
     // public function addanswerquestions($key)
     // {
-    //     $this->questions[0]['answers']->push(['answer' => '', 'correct' => '']);
+    //     $this->questions[0]['answers']->push(['answer' => '']);
     // }
 
     public function render()

@@ -33,14 +33,14 @@
 
                             <div class="col-12 col-md-4">
                                 <label class="form-label" for="testtime">{{ __('tran.testtime') }}</label>
-                                <input type="text" class="form-control" wire:model="testtime" id="testtime" />
+                                <input type="number" class="form-control" wire:model="testtime" id="testtime" />
                                 @error('testtime')
                                     <span class="error" style="color: red">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="col-12 col-md-4">
                                 <label class="form-label" for="degree_success">{{ __('tran.degree_success') }}</label>
-                                <input type="text" class="form-control" wire:model="degree_success"
+                                <input type="number" class="form-control" wire:model="degree_success"
                                     id="degree_success" />
                                 @error('degree_success')
                                     <span class="error" style="color: red">{{ $message }}</span>
@@ -48,7 +48,7 @@
                             </div>
                             <div class="col-12 col-md-4">
                                 <label class="form-label" for="total_scores">{{ __('tran.total_scores') }}</label>
-                                <input type="text" class="form-control" wire:model="total_scores"
+                                <input type="number" class="form-control" wire:model="total_scores"
                                     id="total_scores" />
                                 @error('total_scores')
                                     <span class="error" style="color: red">{{ $message }}</span>
@@ -57,37 +57,37 @@
                             <div class="accordion accordion-margin" id="accordionMargin" wire:ignore.self>
                                 @if (count($questions) > 0)
                                     @foreach ($questions as $key => $value)
-                                    <table>
-                                        <tbody>
-                                            <tr>
-                                                <td class="pe-1"> السؤال {{ $key+1 }}: </td>
-                                                <td><span
-                                                        class="fw-bold">{!! $questions[$key]['question'] !!}
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="pe-1">وصف السؤال {{ $key+1 }}: </td>
-                                                <td><span
-                                                        class="fw-bold">{!! $questions[$key]['testdescription'] !!}
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="pe-1">درجة السؤال {{ $key+1 }}: </td>
-                                                <td><span
-                                                        class="fw-bold">{!! $questions[$key]['degree'] !!}
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                            @foreach ($questions[$key]['answers'] as $key1 => $value1)
-                                            <tr>
-                                                <td class="pe-1">الاجابة {{ $key1+1 }}: </td>
-                                                <td><span
-                                                    class="fw-bold">{!! $questions[$key]['answers'][$key1]['answer']!!}
-                                                </td>
-                                            </tr>
-                                            {{-- <ul>
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="pe-1"> السؤال </td>
+                                                    <td><span class="fw-bold">{!! $questions[$key]['question'] !!}
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="pe-1">وصف السؤال </td>
+                                                    <td>
+                                                        {!! $questions[$key]['testdescription'] !!}
+
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="pe-1">درجة السؤال </td>
+                                                    <td>
+                                                         {!! $questions[$key]['degree'] !!} </td>
+                                                </tr>
+                                                @foreach ($questions[$key]['answers'] as $key1 => $value1)
+                                                    <tr>
+                                                        <td class="pe-1">@if ($questions[$key]['correct'] == $key1)
+                                                            <i class="fas fa-check-circle fa-sm"
+                                                                style="color: #0d9123;"></i>
+                                                        @endif الاجابة
+                                                        </td>
+                                                        <td><span class="fw-bold">{!! $questions[$key]['answers'][$key1]['answer'] !!}
+                                                        </td>
+                                                    </tr>
+                                                    {{-- <ul>
                                                 <li>
                                                     {!! $questions[$key]['answers'][$key1]['answer'] !!}
                                                 </li>
@@ -95,19 +95,19 @@
                                                     {!! $questions[$key]['answers'][$key1]['correct'] !!}
                                                 </li>
                                             </ul> --}}
-                                        @endforeach
+                                                @endforeach
 
-                                        </tbody>
-                                    </table>
+                                            </tbody>
+                                        </table>
                                         {{-- <ul> --}}
-                                            {{ $key }}
-                                            {{-- <li>
+                                        {{ $key }}
+                                        {{-- <li>
                                                 <h1>{!! $questions[$key]['question'] !!}</h1>
                                             </li>
                                             <li>
                                                 <h1>{!! $questions[$key]['testdescription'] !!}</h1>
                                             </li> --}}
-                                            {{-- <li>
+                                        {{-- <li>
                                                 <h1>{!! $questions[$key]['degree'] !!}</h1>
                                             </li> --}}
 

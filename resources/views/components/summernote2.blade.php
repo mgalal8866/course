@@ -2,8 +2,8 @@
     'id' => '',
     'value' => '',
 ])
-<div wire:ignore>
-{{-- <div > --}}
+{{-- <div wire:ignore> --}}
+<div >
     <textarea {{ $attributes->wire('model') }} class="form-control" id="{{ $id }}"></textarea>
 </div>
 
