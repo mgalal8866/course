@@ -73,6 +73,10 @@ class User extends Authenticatable  implements JWTSubject
     {
         return $this->image?path('','teamwork') . $this->image: path('','').'no-imag.png';
     }
+    public function getImagetrainerurlAttribute()
+    {
+        return $this->image?path('','trainer') . $this->image: path('','').'no-imag.png';
+    }
     public function getJWTCustomClaims()
     {
         return [];

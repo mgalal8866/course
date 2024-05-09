@@ -2,13 +2,15 @@
 
 namespace App\Livewire\Dashboard\Trainers;
 
+use App\Models\User;
 use App\Models\Trainer;
 use Livewire\Component;
 use App\Models\Specialist;
-use App\Models\User;
 
 class Trainers extends Component
 {
+  
+
     protected $listeners = ['trainer_course_refresh'=>'$refresh'];
 
     public function activetoggle($id)

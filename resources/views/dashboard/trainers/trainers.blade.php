@@ -13,6 +13,7 @@
                     <table class="table">
                         <thead>
                             <tr>
+                                <th>{{ __('tran.image') }}</th>
                                 <th>{{ __('tran.name') }}</th>
                                 <th>{{ __('tran.specialist') }}</th>
                                 <th>{{ __('tran.phone') }}</th>
@@ -27,6 +28,9 @@
                         <tbody>
                             @forelse ($trainer  as $item)
                                 <tr>
+                                    <td>
+                                        <img src="{{ $item->imagetrainerurl ?? 'N/A' }}" class="me-75" height="50" width="50" alt="Noimage" />
+                                    </td>
                                     <td>
                                         <span class="fw-bold">{{ ($item->first_name ?? 'N/A')  . ' ' .  ($item->middle_name  ?? 'N/A' )   . ' ' .  ($item->last_name  ?? 'N/A' )}}</span>
                                     </td>
@@ -108,15 +112,15 @@
 
     @push('jslive')
         <script>
-            window.addEventListener('swal', event => {
-                Swal.fire({
-                    title: event.detail.message,
-                    icon: 'info',
-                    customClass: {
-                        confirmButton: 'btn btn-danger'
-                    },
-                    buttonsStyling: false
-                });
-            })
+             window.addEventListener('swal', event => {
+            Swal.fire({
+                title: event.detail.message,
+                icon: event.detail.type??'info',
+                customClass: {
+                    confirmButton: 'btn btn-danger'
+                },
+                buttonsStyling: false
+            });
+        })
         </script>
     @endpush

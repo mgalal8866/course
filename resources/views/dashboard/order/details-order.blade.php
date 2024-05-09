@@ -1,6 +1,10 @@
 @push('csslive')
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/pages/app-invoice.min.css') }}">
 @endpush
+
+@section('title')
+    تفاصيل الطلب
+@stop
 <div>
     <section class="invoice-preview-wrapper">
         <div class="row invoice-preview">
@@ -31,10 +35,10 @@
                                 <p class="invoice-date-title">{{__('tran.derivername')}}:</p>
                                     <p class="invoice-date">{{$order->employee->name??''}}</p>
                                 </div> --}}
-                                <div class="invoice-date-wrapper">
+                                {{-- <div class="invoice-date-wrapper">
                                     <p class="invoice-date-title">{{ __('tran.username') }}:</p>
-                                    {{-- <p class="invoice-date">{{$order->user->first_name??''}}</p> --}}
-                                </div>
+                                    <p class="invoice-date">{{$order->user->first_name??''}}</p>
+                                </div> --}}
                             </div>
                         </div>
                         <!-- Header ends -->
@@ -134,13 +138,9 @@
                                         </td>
                                         <td class="py-1">
                                             @if ($invod->is_book == 1)
-                                                <select class="form-select mb-2" required>
+                                                <select class="form-select mb-2"  wire:model.live='product_status' required>
                                                     @foreach (\App\Enum\PaymentStatus::cases() as $q)
-                                                        <option
-                                                            wire:click="invod_status('{{ $q->value }}','{{ $invod->id }}')"
-                                                            value="{{ $q->value }}">
-                                                            {{ __('tran.typep-' . $q->name) }}
-                                                        </option>
+                                                        <option value="{{ $q->value }},{{ $invod->id }}"> {{ __('tran.typep-' . $q->name) }} </option>
                                                     @endforeach
                                                 </select>
                                             @else
@@ -234,7 +234,8 @@
                             @endforeach
                         </select>
                         @if ($order->transaction->image)
-                            <a class="btn btn-success w-100 mb-75" target="_blank" href="{{ $order->transaction->imageurl }}">صورة
+                            <a class="btn btn-success w-100 mb-75" target="_blank"
+                                href="{{ $order->transaction->imageurl }}">صورة
                                 ايصال الدفع</a>
                         @endif
                         {{-- <a class="btn btn-outline-secondary w-100 mb-75" href="{{route('print',['type'=>'open','id'=>$order->id])}}"
@@ -253,7 +254,7 @@
 
             Swal.fire({
                 title: event.detail.message,
-                icon: 'info',
+                icon: event.detail.type,
                 customClass: {
                     confirmButton: 'btn btn-danger'
                 },

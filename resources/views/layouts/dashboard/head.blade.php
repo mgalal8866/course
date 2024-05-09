@@ -2,7 +2,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0,minimal-ui">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>@yield(env('APP_NAME') . 'title', env('APP_NAME'))</title>
+    <title>{{ env('APP_NAME') }}  - @yield('title', env('APP_NAME'))</title>
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('asset/images/favicon.ico') }}">
 
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900;1000&display=swap"
