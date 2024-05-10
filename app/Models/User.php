@@ -77,6 +77,10 @@ class User extends Authenticatable  implements JWTSubject
     {
         return $this->image?path('','trainer') . $this->image: path('','').'no-imag.png';
     }
+    public function getNameAttribute()
+    {
+        return ($this->first_name ?? '')  . ' ' .  ($this->middle_name ?? ''). ' ' .  ($this->last_name ?? '');
+    }
     public function getJWTCustomClaims()
     {
         return [];
