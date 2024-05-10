@@ -153,11 +153,7 @@ Route::middleware(['jwt.verify', 'cors'])->group(function () {
     Route::get('/convert-points', [CollectPointsController::class, 'convert_points']);
     Route::get('/checkcoupon', [CouponController::class, 'checkcoupon']);
 });
-Route::controller(CourseController::class)->group(function () {
-    Route::get('/course/subscribe/{id}', 'getcoursebyidsubscripe2')->name('getcoursebyid');
-    Route::get('/calculating-progress-rate', 'get_calc_prog2');
-    // Route::get('/calculating-progress-rate2', 'get_calc_prog2');
-});
+
 Route::get('/cc', function (Request $request) {
 
     $apiToken = 'BElaIrqq5MSOviLKCXb8J3vXR9FyPxxtAEIK9KAP0037ed33';

@@ -70,7 +70,7 @@ class CourseController extends Controller
                 $qq->where('course_id', $id);
             });
         })->get();
-return $data;
+// return $data;
         $data = ['data' => $data];
         if (Count($data['data']) != 0) {
 
