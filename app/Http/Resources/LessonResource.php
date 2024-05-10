@@ -22,7 +22,7 @@ class LessonResource extends JsonResource
         return [
             'lesson_id'        => $this->id,
             'lesson_name'      => $this->name??'',
-            'this'      => $this??'',
+            
             // 'lesson_link'      => ( $this->pivot->publish_at != null ) ? $nowDate->gt($otherDate) : $this->link_video??'',
             'lesson_link'      => ( $this->pivot->publish_at != null ) ? (($nowDate->gt($this->pivot->publish_at))? $this->link_video : '') :'',
             'lesson_publish_at'=>  ( $this->pivot->publish_at != null ) ? (($nowDate->gt($this->pivot->publish_at))? $this->pivot->publish_at :    Carbon::createFromFormat('Y-m-d H:i:s', $this->pivot->publish_at)->format('d/m/Y') ) . '  -  ' . 'تاريخ العرض '  :'',
