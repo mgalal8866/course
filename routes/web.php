@@ -1,5 +1,7 @@
 <?php
 
+
+use Goutte\Client;
 use Livewire\Livewire;
 use App\Models\Courses;
 use App\Models\Setting;
@@ -17,6 +19,7 @@ use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Artisan;
 use App\Livewire\Dashboard\Stage\Stages;
 use App\Livewire\Dashboard\Blog\ViewBlog;
+use Symfony\Component\DomCrawler\Crawler;
 use App\Livewire\Dashboard\Setting\Slider;
 use Stevebauman\Location\Facades\Location;
 use App\Livewire\Dashboard\Books\ViewBooks;
@@ -32,22 +35,21 @@ use App\Livewire\Dashboard\Trainers\Trainers;
 use App\Livewire\Dashboard\Courses\EditCourse;
 use App\Livewire\Dashboard\Order\DetailsOrder;
 use App\Livewire\Dashboard\Courses\ViewCourses;
+use App\Livewire\Dashboard\ContactUs\ViewContact;
 use App\Livewire\Dashboard\FreeCourse\FreeCourse;
 use App\Livewire\Dashboard\Blog\Category\CategoryBlog;
+use App\Livewire\Dashboard\Payments\ViewPaymentsMethod;
 use App\Livewire\Dashboard\Books\Category\CategoryBooks;
-use App\Livewire\Dashboard\ContactUs\ViewContact;
+use App\Livewire\Dashboard\Notification\ViewNotification;
 use App\Livewire\Dashboard\Grades\Category\CategoryGrades;
 use App\Livewire\Dashboard\Trainers\Specialist\Specialist;
 use App\Livewire\Dashboard\Courses\Category\CategoryCourse;
 use App\Livewire\Dashboard\StudySchedule\ViewStudySchedule;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+
 use App\Livewire\Dashboard\Setting\Setting as SettingSetting;
-use App\Livewire\Dashboard\Payments\ViewPaymentsMethod;
 use App\Livewire\Dashboard\Quizzes\QuizCategory\ViewQuizCategory;
 use App\Livewire\Dashboard\FreeCourse\Category\CategoryFreeCourse;
-use App\Livewire\Dashboard\Notification\ViewNotification;
-use Goutte\Client;
-use Symfony\Component\DomCrawler\Crawler;
 
 
 // use Browser;
@@ -79,22 +81,51 @@ Route::get('/cache', function (Request $request) {
     return Artisan::output();
 });
 Route::get('/script', function (Request $request) {
-    $client = new Client();
 
+//     $client = new Client();
+//     // $client->getClient()->setDefaultOption('config/curl/'.CURLOPT_SSL_VERIFYHOST, FALSE);
+//     // $client->getClient()->setDefaultOption('config/curl/'.CURLOPT_SSL_VERIFYPEER, FALSE);
+//     $crawler = $client->request('GET', 'https://albaraah.sa/login/');
+//     // select the form and fill in some values
+//     $form = $crawler->selectButton('wp-submit')->form();
+//     // dd($form);
+//     $form['log'] = '563517768';
+//     $form['pwd'] = 'Zxcv@1234@Zxcv';
+
+//     // submit that form
+//     $crawler = $client->submit($form);
+//     // echo $crawler->html();
+
+//   $crawler->filter('.container')->each(function ($container) use (&$data) {
+
+//     dd($container);
+
+//     });
+    $client = new Client();
     $website = $client->request('GET', $request->url);
     // $website = $client->request('GET', 'https://albaraah.sa/courses/%D9%82%D8%AF%D8%B1%D8%A7%D8%AA-%D9%85%D8%AD%D9%88%D8%B3%D8%A8-219-%D8%B7%D9%84%D8%A7%D8%A8');
-    $companies = $website->filter('.container')->each(function ($node) use (&$data) {
-        $node->children()->each(function ($child) use (&$data) {
-            $child->filter('.image-content')->each(function ($child2) use (&$data) {
-                $child2->children()->each(function ($child) use (&$data) {
+    $website->filter('.container')->each(function ($container) use (&$data) {
+        $container->children()->each(function ($container_child) use (&$data) {
+            $container_child->filter('.image-content')->each(function ($image_conten) use (&$data) {
+                $image_conten->children()->each(function ($child) use (&$data) {
                     $data['image'] = $child->attr('src');
                 });
             });
-            $child->filter('.content')->each(function ($child2) use (&$data) {
-                $data['title'] = $child2->children()->first()->text();
-                $data['category_name'] = $child2->children('a   ')->first()->text();
+            $container_child->filter('.content')->each(function ($content) use (&$data) {
+                $data['title']         = $content->children()->first()->text();
+                $data['category_name'] = $content->children('a')->first()->text();
+                $price             = $content->children('.data-price')->children('.price')->children('h6')->text();
+                $priceprint        = ($content->children('.data-price')->children('.price')->eq(1)->children('h6')->text())??'';
+                $data['price']     = preg_replace('/[^0-9]/', '',$price );
+                $data['price_text']  = $content->children('.data-price')->children('.price')->eq(0)->children('p')->text()??'';
+                $data['price_print']     = preg_replace('/[^0-9]/', '',$priceprint ??'');
+                $data['price_print_text']  = $content->children('.data-price')->children('.price')->eq(1)->children('p')->text();
+                $data['currency']  = trim(preg_replace('/[0-9]+/', '', $price)); // Removes numbers
+                $data['validity']  = $content->children('.mt-2')->children('.col-md-6')->eq(1)->children('div')->text();
+                $data['duration']  =  $content->children('.mt-2')->children('.col-md-6')->eq(0)->children('div')->text();
+                $data['short_description']  =  $content->children('div')->eq(2)->text();
             });
-            $child->filter('.tab-content')->each(function ($tabs) use (&$data) {
+            $container_child->filter('.tab-content')->each(function ($tabs) use (&$data) {
                 $tabs->children()->each(function ($child) use (&$data) {
                     if ($child->attr('id') == 'pills-home') {
                         $data['features'] = $child->html();
@@ -109,7 +140,6 @@ Route::get('/script', function (Request $request) {
             });
         });
     });
-
     return $data;
     return  'not found';
 });

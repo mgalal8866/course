@@ -83,7 +83,7 @@ Route::controller(FreeCourseController::class)->group(function () {
     Route::get('/free/course/bycategory/{id?}', 'get_free_course_by_category');
     Route::get('/free/course/{id?}', 'get_free_course_by_id');
 });
-
+ 
 Route::controller(CountriesController::class)->group(function () {
     Route::get('/countries', 'get_countries');
     Route::get('/test', 'get_test');
