@@ -23,6 +23,7 @@
         "stevebauman/location": "^7.1",
         "tymon/jwt-auth": "^2.0",
         "vimeo/laravel": "^5.8",
+        "weidner/goutte": "^2.3",
         "wire-elements/modal": "^2.0"
     },
     "require-dev": {

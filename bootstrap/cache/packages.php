@@ -159,6 +159,17 @@
       'Vimeo' => 'Vimeo\\Laravel\\Facades\\Vimeo',
     ),
   ),
+  'weidner/goutte' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Weidner\\Goutte\\GoutteServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'Goutte' => 'Weidner\\Goutte\\GoutteFacade',
+    ),
+  ),
   'wire-elements/modal' => 
   array (
     'providers' => 

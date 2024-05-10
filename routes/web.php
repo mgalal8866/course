@@ -46,6 +46,9 @@ use App\Livewire\Dashboard\Payments\ViewPaymentsMethod;
 use App\Livewire\Dashboard\Quizzes\QuizCategory\ViewQuizCategory;
 use App\Livewire\Dashboard\FreeCourse\Category\CategoryFreeCourse;
 use App\Livewire\Dashboard\Notification\ViewNotification;
+use Goutte\Client;
+use Symfony\Component\DomCrawler\Crawler;
+
 
 // use Browser;
 
@@ -74,6 +77,77 @@ Route::get('/cache', function (Request $request) {
     Artisan::call('view:cache');
     Artisan::call('route:trans:cache');
     return Artisan::output();
+});
+Route::get('/script', function (Request $request) {
+    $client = new Client();
+
+    $website = $client->request('GET', 'https://albaraah.sa/courses/%D9%82%D8%AF%D8%B1%D8%A7%D8%AA-%D9%85%D8%AD%D9%88%D8%B3%D8%A8-219-%D8%B7%D9%84%D8%A7%D8%A8');
+
+    // $companies = $website->filter('.container')->each(function ($node) use (&$data) {
+    //     $node->children()->each(function ($child) use (&$data) {
+    //         $child->filter('.image-content')->each(function ($child2) use (&$data) {
+    //             $child2->children()->each(function ($child3) use (&$data) {
+    //                 $data['image'] = $child3; // Assuming you want the HTML content of .image-content
+    //             });
+    //         });
+    //     });
+    // });
+
+    $companies = $website->filter('.container')->each(function ($node) use (&$data) {
+        $node->children()->each(function ($child) use (&$data) {
+
+            $child->filter('.image-content')->each(function ($child2) use (&$data) {
+                $child2->children()->each(function ($child) use (&$data) {
+
+                    $data['image'] = $child->attr('src');
+                });
+            });
+            $child->filter('.content')->each(function ($child2) use (&$data) {
+                $data['title'] = $child2->children()->first()->text();
+                $data['category_name'] = $child2->children('a   ')->first()->text();
+
+            });
+            $child->filter('.tab-content')->each(function ($tabs) use (&$data) {
+                $tabs->children()->each(function ($child) use (&$data) {
+                    if ($child->attr('id') == 'pills-home') {
+                        $data['features'] = $child->html();
+                    }
+                    if ($child->attr('id') == 'pills-profile') {
+                        $data['conditions'] = $child->html();
+                    }
+                    if ($child->attr('id') == 'pills-brief') {
+                        $data['description'] = $child->html();
+                    }
+                });
+            });
+        });
+    });
+
+    return $data;
+
+    return $data;
+    // $companies = $website->filter('.image-content')->each(function ($node) use (&$data) {
+    //     $node->children()->each(function ($child) use (&$data) {
+    //     $data['image'] =$child->attr('src');
+    //     $data['image'] =$child->attr('src');
+    // });
+    // $companies = $website->filter('.tab-content')->each(function ($node) use (&$data) {
+    //     $node->children()->each(function ($child) use (&$data) {
+    //         if ($child->attr('id') == 'pills-home') {
+    //             $data['features'] = $child->html();
+    //         }
+    //         if ($child->attr('id') == 'pills-profile') {
+    //             $data['conditions'] = $child->html();
+    //         }
+    //         if ($child->attr('id') == 'pills-brief') {
+    //             $data['description'] = $child->html();
+    //         }
+    //     });
+    // });
+
+    return $data;
+
+    return  'not found';
 });
 Route::get('/ncc', function (Request $request) {
 
@@ -132,9 +206,9 @@ Route::get('/image1', function () {
     //     array_push($response, "");
     // }
 
-   $convertedArray  = array_values($response);
-   $includedSymbols = json_encode($convertedArray);
-    dd($includedSymbols );
+    $convertedArray  = array_values($response);
+    $includedSymbols = json_encode($convertedArray);
+    dd($includedSymbols);
 
     // "["GBPJPY","GBPNZD","EURJPY"]" // routes\web.php:137
     ###############################################################
