@@ -81,7 +81,8 @@ Route::get('/cache', function (Request $request) {
 Route::get('/script', function (Request $request) {
     $client = new Client();
 
-    $website = $client->request('GET', 'https://albaraah.sa/courses/%D9%82%D8%AF%D8%B1%D8%A7%D8%AA-%D9%85%D8%AD%D9%88%D8%B3%D8%A8-219-%D8%B7%D9%84%D8%A7%D8%A8');
+    $website = $client->request('GET', $request->url);
+    // $website = $client->request('GET', 'https://albaraah.sa/courses/%D9%82%D8%AF%D8%B1%D8%A7%D8%AA-%D9%85%D8%AD%D9%88%D8%B3%D8%A8-219-%D8%B7%D9%84%D8%A7%D8%A8');
 
     // $companies = $website->filter('.container')->each(function ($node) use (&$data) {
     //     $node->children()->each(function ($child) use (&$data) {
