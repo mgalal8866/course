@@ -56,6 +56,7 @@ class CourseController extends Controller
                 })->with(['lessons' => function ($qe) use ($id) {
                     $qe->wherePivot('course_id',$id);
                 }]);
+                
             }, 'childrens.lessons',
             'childrens.courses.comments',
             'childrens.courses.coursetrainers',
