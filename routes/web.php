@@ -82,28 +82,14 @@ Route::get('/cache', function (Request $request) {
 });
 Route::get('/script', function (Request $request) {
 
-//     $client = new Client();
-//     // $client->getClient()->setDefaultOption('config/curl/'.CURLOPT_SSL_VERIFYHOST, FALSE);
-//     // $client->getClient()->setDefaultOption('config/curl/'.CURLOPT_SSL_VERIFYPEER, FALSE);
-//     $crawler = $client->request('GET', 'https://albaraah.sa/login/');
-//     // select the form and fill in some values
-//     $form = $crawler->selectButton('wp-submit')->form();
-//     // dd($form);
-//     $form['log'] = '563517768';
-//     $form['pwd'] = 'Zxcv@1234@Zxcv';
-
-//     // submit that form
-//     $crawler = $client->submit($form);
-//     // echo $crawler->html();
-
-//   $crawler->filter('.container')->each(function ($container) use (&$data) {
-
-//     dd($container);
-
-//     });
-    $client = new Client();
-    $website = $client->request('GET', $request->url);
+    //     $client = new Client();
+    //     // $client->getClient()->setDefaultOption('config/curl/'.CURLOPT_SSL_VERIFYHOST, FALSE);
+    //     // $client->getClient()->setDefaultOption('config/curl/'.CURLOPT_SSL_VERIFYPEER, FALSE);
     // $website = $client->request('GET', 'https://albaraah.sa/courses/%D9%82%D8%AF%D8%B1%D8%A7%D8%AA-%D9%85%D8%AD%D9%88%D8%B3%D8%A8-219-%D8%B7%D9%84%D8%A7%D8%A8');
+    //
+    $client = new Client();
+
+    $website = $client->request('GET', $request->url);
     $website->filter('.container')->each(function ($container) use (&$data) {
         $container->children()->each(function ($container_child) use (&$data) {
             $container_child->filter('.image-content')->each(function ($image_conten) use (&$data) {
@@ -115,11 +101,11 @@ Route::get('/script', function (Request $request) {
                 $data['title']         = $content->children()->first()->text();
                 $data['category_name'] = $content->children('a')->first()->text();
                 $price             = $content->children('.data-price')->children('.price')->children('h6')->text();
-                $priceprint        = ($content->children('.data-price')->children('.price')->eq(1)->children('h6')->text())??'';
-                $data['price']     = preg_replace('/[^0-9]/', '',$price );
-                $data['price_text']  = $content->children('.data-price')->children('.price')->eq(0)->children('p')->text()??'';
-                $data['price_print']     = preg_replace('/[^0-9]/', '',$priceprint ??'');
-                $data['price_print_text']  = $content->children('.data-price')->children('.price')->eq(1)->children('p')->text();
+                $data['price']     = preg_replace('/[^0-9]/', '', $price);
+                $data['price_text']  = $content->children('.data-price')->children('.price')->eq(0)->children('p')->text() ?? '';
+                // $priceprint        = ($content->children('.data-price')->children('.price')->eq(1)->children('h6')->text())??'';
+                // $data['price_print']     = preg_replace('/[^0-9]/', '',$priceprint ??'');
+                // $data['price_print_text']  = $content->children('.data-price')->children('.price')->eq(1)->children('p')->text();
                 $data['currency']  = trim(preg_replace('/[0-9]+/', '', $price)); // Removes numbers
                 $data['validity']  = $content->children('.mt-2')->children('.col-md-6')->eq(1)->children('div')->text();
                 $data['duration']  =  $content->children('.mt-2')->children('.col-md-6')->eq(0)->children('div')->text();
@@ -136,6 +122,52 @@ Route::get('/script', function (Request $request) {
                     if ($child->attr('id') == 'pills-brief') {
                         $data['description'] = $child->html();
                     }
+                });
+            });
+        });
+    });
+
+    $crawler = $client->request('GET', 'https://albaraah.sa/login/');
+    $form = $crawler->selectButton('wp-submit')->form();
+    $form['log'] = '563517768';
+    $form['pwd'] = 'Zxcv@1234@Zxcv';
+    $client->submit($form);
+    $website_login = $client->request('GET', $request->url);
+
+    $website_login->filter('.courseViewBox')->each(function ($courseViewBox) use (&$data) {
+        $courseViewBox->filter('.courseDetails')->each(function ($courseDetails) use (&$data) {
+            $data['target'] = $courseDetails->filter('#courseAccordion')->filter('#collapseOne')->filter('.mb-4')->text();
+            $courseDetails->filter('#courseAccordion')->filter('#collapseTwo')->filter('.mb-4')->children('ul')->children('li')->each(function ($collapsetwo, $index) use (&$data) {
+                $data['triners'][$index]['telegram'] = $collapsetwo->children('a')->attr('href');
+                $data['triners'][$index]['name'] = $collapsetwo->children('a')->text();
+            });
+            $courseDetails->filter('.detailsBlock')->each(function ($detailsBlock, $index) use (&$data) {
+                $data['files'][$index]['link'] = $detailsBlock->filter('a')->attr('href');
+                $data['files'][$index]['name'] = $detailsBlock->filter('a')->text();
+            });
+        });
+        $courseViewBox->filter('.courseListBody')->each(function ($detailsBlock, $index) use (&$data) {
+            $detailsBlock->children('.listItem')->each(function ($listItem, $index) use (&$data) {
+                $data['stage'][$index]['name'] = $listItem->children('.listItemHead')->text();
+                $listItem->each(function ($listItemHead, $index1) use (&$data, $index, $listItem) {
+
+                    // $listItemHead->children('.lessonCategory')->each(function ($lessonCategory, $index1) use (&$data, $index, $listItem) {
+                    //     $data['stage'][$index]['chiled'][$index1]['name']  = $lessonCategory->text();
+
+                    //     $listItem->filter('.listLesson')->each(function ($listLesson, $index2) use (&$data, $index,$index1) {
+                    //         $data['stage'][$index]['chiled'][$index1]['Lesson'][$index2]['name'] =  $listLesson->text();
+                    //         $data['stage'][$index]['chiled'][$index1]['Lesson'][$index2]['link'] =  $listLesson->filter('a')->attr('href');
+                    //     });
+                    // });
+                    $listItemHead->children('.listItemBody')->each(function ($lessonCategory, $index1) use (&$data, $index, $listItem) {
+// dump($lessonCategory->html());
+                        $data['stage'][$index]['chiled'][$index1]['name']  = $lessonCategory->text();
+                        // $data['stage'][$index]['chiled'][$index1]['Lesson'] =  [$listLesson->text()];
+                        $lessonCategory->children('.listLesson')->each(function ($listLesson, $index2) use (&$data, $index,$index1) {
+                            $data['stage'][$index]['chiled'][$index1]['Lesson'][$index2]['name'] =  $listLesson->text();
+                            $data['stage'][$index]['chiled'][$index1]['Lesson'][$index2]['link'] =  $listLesson->filter('a')->attr('href');
+                        });
+                    });
                 });
             });
         });
