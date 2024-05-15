@@ -2,12 +2,14 @@
 
 
 use Goutte\Client;
+use App\Models\User;
 use Livewire\Livewire;
 use App\Models\Courses;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 use Vimeo\Laravel\VimeoManager;
 use App\Livewire\Dashboard\Test;
+use App\Livewire\ScripingCourse;
 use App\Models\QuizResultHeader;
 use Vimeo\Laravel\Facades\Vimeo;
 use App\Models\QuizResultDetails;
@@ -44,9 +46,9 @@ use App\Livewire\Dashboard\Notification\ViewNotification;
 use App\Livewire\Dashboard\Grades\Category\CategoryGrades;
 use App\Livewire\Dashboard\Trainers\Specialist\Specialist;
 use App\Livewire\Dashboard\Courses\Category\CategoryCourse;
+
 use App\Livewire\Dashboard\StudySchedule\ViewStudySchedule;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
-
 use App\Livewire\Dashboard\Setting\Setting as SettingSetting;
 use App\Livewire\Dashboard\Quizzes\QuizCategory\ViewQuizCategory;
 use App\Livewire\Dashboard\FreeCourse\Category\CategoryFreeCourse;
@@ -65,10 +67,13 @@ use App\Livewire\Dashboard\FreeCourse\Category\CategoryFreeCourse;
 |
 */
 
+Route::get('/', function (Request $request) {
+   return  view('soon');
+});
 Route::get('/clear', function (Request $request) {
-    QuizResultHeader::truncate();
-    QuizResultDetails::truncate();
-    return 'Done';
+    // QuizResultHeader::truncate();
+    // QuizResultDetails::truncate();
+    // return 'Done';
     // Artisan::call('optimize');
     // return Artisan::output();
 });
@@ -96,7 +101,7 @@ Route::get('/script', function (Request $request) {
     //     // $client->getClient()->setDefaultOption('config/curl/'.CURLOPT_SSL_VERIFYHOST, FALSE);
     //     // $client->getClient()->setDefaultOption('config/curl/'.CURLOPT_SSL_VERIFYPEER, FALSE);
     // $website = $client->request('GET', 'https://albaraah.sa/courses/%D9%82%D8%AF%D8%B1%D8%A7%D8%AA-%D9%85%D8%AD%D9%88%D8%B3%D8%A8-219-%D8%B7%D9%84%D8%A7%D8%A8');
-    //
+
     $client = new Client();
 
     $website = $client->request('GET', $request->url);
@@ -124,15 +129,14 @@ Route::get('/script', function (Request $request) {
             $container_child->filter('.tab-content')->each(function ($tabs) use (&$data) {
                 $tabs->children()->each(function ($child) use (&$data) {
                     if ($child->attr('id') == 'pills-home') {
-                        $data['features'] =str_replace("\n", '',   $child->html());
+                        $data['features'] = str_replace("\n", '',   $child->html());
                     }
                     if ($child->attr('id') == 'pills-profile') {
                         $data['conditions'] = str_replace("\n", '',  $child->html());
                     }
                     if ($child->attr('id') == 'pills-brief') {
 
-                        $data['description'] =    str_replace("\n", '',  $child->html()) ;
-
+                        $data['description'] =    str_replace("\n", '',  $child->html());
                     }
                 });
             });
@@ -607,6 +611,7 @@ Route::group(
         });
 
         Route::get('/vimeo', Filemanger::class);
+        Route::get('/scrip/course', ScripingCourse::class)->name('scripcourse');
         Route::get('/new/course', NewCourse::class)->name('newcourse');
         Route::get('/edit/course/{id?}', EditCourse::class)->name('editcourse');
         Route::get('/course', ViewCourses::class)->name('course');

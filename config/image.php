@@ -15,7 +15,7 @@ return [
     |
     */
 
-    // 'driver' => 'gd'
-    'driver' => env('imagick','imagick')
+    'driver' => 'gd'
+    // 'driver' => env('imagick','imagick')
 
 ];
