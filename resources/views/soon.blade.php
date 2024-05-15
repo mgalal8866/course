@@ -28,7 +28,7 @@
         <!--starts logo div -->
 
         <div class="logo">
-            <div class="container"> <a href="#."><img class="logo" style="height:40%;" src="{{ asset('files/logo.svg') }} "
+            <div class="container"> <a href="#."><img class="logo" style="height:40%;" src="{{ asset('landing/logo.svg')) }} "
                         alt="ALYUSR logo" /></a> </div>
             <div class="clear"></div>
         </div>
@@ -61,7 +61,7 @@
                 </ul>
                 <div class="lightnotify mid">
                     <h1>...منصة اليسر للدورات التدريبية  - انتظرونا قريبا </h1>
-                    
+
                 </div>
                 <div class="clear"></div>
                 {{-- <div class="lightsocial">
