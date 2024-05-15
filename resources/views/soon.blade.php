@@ -28,7 +28,7 @@
         <!--starts logo div -->
 
         <div class="logo">
-            <div class="container"> <a href="#."><img class="logo" style="height:40%;" src="{{ asset('landing/logo.svg')) }} "
+            <div class="container"> <a href="#."><img class="logo" style="height:40%;" src="{{ asset('landing/logo.svg') }} "
                         alt="ALYUSR logo" /></a> </div>
             <div class="clear"></div>
         </div>
