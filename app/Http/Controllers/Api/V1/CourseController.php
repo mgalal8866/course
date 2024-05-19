@@ -167,7 +167,7 @@ class CourseController extends Controller
                     $count_quiz = (count($questions['main'][count($questions['main']) - 1]['quiz']) * 100);
                     $final_total_degree = +collect($questions['main'][count($questions['main']) - 1]['quiz'])->sum('degree');
                     $final_count_quiz = +  (count($questions['main'][count($questions['main']) - 1]['quiz']) * 100);
-                    $questions['main'][count($questions) - 1]['result'] = [
+                    $questions['main'][count($questions['main']) - 1]['result'] = [
                         'rate' => ($total_degree != 0) ? (($total_degree / $count_quiz) * 100) : 0
                     ];
                 }
