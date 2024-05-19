@@ -51,24 +51,3 @@
     </div>
 
 </div>
-{{-- @props([
-    'imagenew' => null,
-    'tlabel' => null,
-    'id' => null,
-])
-<label class="form-label" for="{{ $imagenew }}">{{ $tlabel ?? __('tran.image') }} : </label>
-
-<div wire:ignore x-data="{ uploading: false, progress: 0 }" x-on:livewire-upload-start="uploading = true" x-on:livewire-upload-finish="uploading = false"
-    x-on:livewire-upload-error="uploading = false" x-on:livewire-upload-progress="progress = $event.detail.progress">
-<div wire:ignore>
-
-    <input class="form-control" {{ $attributes }}  id="{{ $id }}" type="file" />
-</div>
-
-    <div x-show="uploading" class="progress progress-sm mt-2 rounded">
-        <div class="progress-bar bg-success  progress-bar-striped" role="progressbar" aria-valuenow="40"
-            aria-valuemin="0" aria-valuemax="100" x-bind:style="`width: ${progress}%`">
-            <span class="sr-only">40% Complete (success)</span>
-        </div>
-    </div>
-</div> --}}

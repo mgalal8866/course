@@ -27,12 +27,34 @@ class NewCourse extends Component
     use WithFileUploads, ImageProcessing;
 
     protected $listeners = ['funquestion' => 'funquestion', 'edit' => 'edit', 'refreshDropdown', 'currentPage' => 'currentPage'];
-    public $edit = false, $short_description, $id, $header, $currentPage = 1, $pages = 4, $conditions, $target, $howtostart,
+    public $edit = false, $short_description, $id, $header, $currentPage = 3, $pages = 4, $conditions, $target, $howtostart,
         $telegram, $telegramgrup, $nextcourse, $course_gender, $schedule, $free_tatorul, $nextcoursesbycat,
         $name, $description, $validity = 'تبقى الدورة بكامل محتوياتها ثلاثة أشهر بحساب المتدرب.', $category_id, $price, $pricewith = 1, $startdate, $enddate, $time, $features, $triner = [], $limit_stud, $duration_course = 'شهر ونصف',
         $image_course, $file_work, $file_explanatory, $file_aggregates, $file_supplementary, $file_free, $file_test,
         $langcourse = false, $status = true, $inputnum = false, $lessons, $stages, $answer_the_question, $calc_rate;
     public $questions =[], $total_scores, $degree_success, $testname, $testtime, $sections_guide;
+    public $showParentModal = false;
+    public $showChildModal = false;
+
+    public function openParentModal()
+    {
+        $this->showParentModal = true;
+    }
+
+    public function closeParentModal()
+    {
+        $this->showParentModal = false;
+    }
+
+    public function openChildModal()
+    {
+        $this->showChildModal = true;
+    }
+
+    public function closeChildModal()
+    {
+        $this->showChildModal = false;
+    }
     public function cancelq( $id)
     {
         if(count($this->questions) > 0){
@@ -147,7 +169,7 @@ class NewCourse extends Component
     public function updatedQuestions($value, $nested)
     {
           $nestedData = explode(".", $nested);
-        // dd( $nestedData  );
+        // dd( $nested  );
 
     }
     public function addquestions()
@@ -158,11 +180,11 @@ class NewCourse extends Component
                 'testdescription' => '',
                 'degree' => '',
                 'correct' => '',
-                'answers' => collect([['answer' => '']])
+                'answers' => collect([['answer' => ''],['answer' => ''],['answer' => ''],['answer' => '']])
 
             ]])]);
         }else{
-            $this->questions->push(['question' => '', 'testdescription' => '', 'degree' => '', 'correct' => '','answers' => collect([['answer' => '']])]);
+            $this->questions->push(['question' => '', 'testdescription' => '', 'degree' => '', 'correct' => '','answers' => collect([['answer' => ''],['answer' => ''],['answer' => ''],['answer' => '']])]);
         }
         // dd( $this->questions);
         $this->dispatch('funquestion',key: ($this->questions->keys()->last()-1));

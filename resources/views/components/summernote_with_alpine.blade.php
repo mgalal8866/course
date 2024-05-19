@@ -2,6 +2,31 @@
     'id' => '',
     'value' => '',
 ])
+<div x-data="{ content: @entangle('content') }" x-init="initSummernote()">
+    <textarea x-ref="editor" x-model="content"></textarea>
+</div>
+
+<script>
+    function initSummernote() {
+        return {
+            initSummernote() {
+                $(this.$refs.editor).summernote({
+                    height: 300, // Set the height of the editor
+                    callbacks: {
+                        onChange: (contents, $editable) => {
+                            this.content = contents;
+                        }
+                    }
+                });
+
+                this.$watch('content', value => {
+                    $(this.$refs.editor).summernote('code', value);
+                });
+            }
+        };
+    }
+</script>
+
 <div wire:ignore>
 
     <textarea {{ $attributes->wire('model') }} class="form-control" id="{{ $id }}"></textarea>

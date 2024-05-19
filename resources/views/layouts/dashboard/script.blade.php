@@ -6,7 +6,7 @@
 <script src="{{ asset('asset/js/core/app.js') }}"></script>
 <script src="{{ asset('app-assets/js/pickers/flatpickr/flatpickr.min.js') }}"></script>
 
-
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.js"></script>
 @stack('alpine-plugins')
 
 <script>
@@ -29,6 +29,7 @@
             window.location.hash = "";
     }
 </script>
+
 @yield('js')
 @stack('jslive')
 

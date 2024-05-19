@@ -29,42 +29,12 @@
 
                         <div class="col-12">
                             <label class="form-label" for="">وصف السؤال{{ $key9 }}</label>
-                            {{-- <div >
-                                <div x-data x-ref="editor" x-init="
-                                    const toolbarOptions = [
-                                        ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-                                        ['blockquote', 'code-block'],
-                                        ['link', 'image', 'video', 'formula'],
 
-                                        [{ 'list': 'ordered'}, { 'list': 'bullet' }, { 'list': 'check' }],
-                                        [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
-                                        [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
-                                        [{ 'direction': 'rtl' }],                         // text direction
 
-                                        [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-                                        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+                            {{-- <x-text-editor :editorheight="'25rem'" class="w-full"
+                                wire:model.live="questions.{{ $key9 }}.testdescription"></x-text-editor> --}}
+                                <textarea class="form-control"  wire:model.live="questions.{{ $key9 }}.testdescription"  id="questions.{{ $key9 }}.testdescription" style="height: 100px"></textarea>
 
-                                        [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-                                        [{ 'font': [] }],
-                                        [{ 'align': [] }],
-
-                                        ['clean']                                         // remove formatting button
-                                    ];
-                                    const quill = new Quill($refs.editor, {
-                                        modules: {
-                                            toolbar: toolbarOptions
-                                        },
-                                        theme: 'snow'
-                                    });
-                                    quill.on('text-change', () => {
-                                        $wire.set('questions.{{ $key9 }}.testdescription', quill.root.innerHTML)
-                                    });
-                                ">{!! $questions[$key9]['testdescription'] !!}</div>
-                            </div> --}}
-
-                            {{-- <x-qeditor :editorheight="'25rem'" class="w-full"  wire:model.live="questions.{{ $key9 }}.testdescription"></x-qeditor> --}}
-                            <x-text-editor :editorheight="'25rem'" class="w-full"
-                                wire:model.live="questions.{{ $key9 }}.testdescription"></x-text-editor>
                             {{-- <x-summernote2 wire:model.live="questions.{{ $key9 }}.testdescription"  id="testdescription{{ $key9 }}" /> --}}
                             @error('questions' . $key9 . 'testdescription')
                                 <span class="error" style="color: red">{{ $message }}</span>
@@ -74,8 +44,8 @@
 
                             <label class="form-label" for=""><i
                                     class="fas fa-question"></i>السؤال{{ $key9 }}</label>
-                            <x-text-editor :editorheight="'25rem'" class="w-full"
-                                wire:model.live="questions.{{ $key9 }}.question"></x-text-editor>
+                                    <textarea class="form-control"  wire:model.live="questions.{{ $key9 }}.question"  id="questions.{{ $key9 }}.question" style="height: 100px"></textarea>
+
                             {{-- <x-summernote2 wire:model.live="questions.{{ $key9 }}.question" id="question{{ $key9 }}" /> --}}
                             @error('questions' . $key9 . 'question')
                                 <span class="error" style="color: red">{{ $message }}</span>
@@ -89,7 +59,7 @@
                             </div>
                         </div>
                         @foreach ($questions[$key9]['answers'] as $key1 => $value1)
-                            {{ $questions[$key9]['answers'] }}
+                            {{-- {{ $questions[$key9]['answers'] }} --}}
                             <div class="card shadow-none bg-transparent border-success">
                                 <div class="card-header">
                                     <div class="form-check form-check-success">
@@ -110,8 +80,9 @@
 
                                     <div class="col-12">
                                         <label class="form-label" for="">- {{ $key1 }}</label>
-                                        <x-text-editor :editorheight="'25rem'" class="w-full"
-                                            wire:model.live="questions.{{ $key9 }}.answers.{{ $key1 }}.answer"></x-text-editor>
+                                        <textarea class="form-control"  wire:model.live="questions.{{ $key9 }}.answers.{{ $key1 }}.answer"  id="questions.{{ $key9 }}.answers.{{ $key1 }}.answer" style="height: 100px"></textarea>
+
+
                                         @error('questions' . $key9 . 'answers.' . $key1 . '.answer')
                                             <span class="error" style="color: red">{{ $message }}</span>
                                         @enderror

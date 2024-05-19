@@ -106,23 +106,26 @@ Route::controller(HomeController::class)->group(function () {
 });
 
 Route::get('/get_payment', [PaymentsController::class, 'get_payment']);
-Route::controller(CourseController::class)->group(function () {
 
-    Route::get('/calculating-progress-rate2', 'get_calc_prog2');
+Route::controller(CourseController::class)->group(function () {
+    Route::get('/course/subscribe/{id}', 'getcoursebyidsubscripe2')->name('getcoursebyid');
+    Route::get('/calculating-progress-rate', 'get_calc_prog2');
+    // Route::get('/calculating-progress-rate2', 'get_calc_prog2');
 });
 Route::middleware(['jwt.verify', 'cors'])->group(function () {
     Route::controller(NotificationsController::class)->group(function () {
         Route::get('/notifications', 'get_notifications');
         Route::get('/read/notifications', 'read_notifications');
     });
+
     Route::controller(CartController::class)->group(function () {
         Route::get('/cart/add/book', 'addtocart');
         Route::get('/cart/delete/book', 'deletefromcart');
         Route::get('/cart/get', 'getcart');
     });
     Route::controller(CourseController::class)->group(function () {
-        Route::get('/course/subscribe/{id}', 'getcoursebyidsubscripe2')->name('getcoursebyid');
-        Route::get('/calculating-progress-rate', 'get_calc_prog2');
+        // Route::get('/course/subscribe/{id}', 'getcoursebyidsubscripe2')->name('getcoursebyid');
+        // Route::get('/calculating-progress-rate', 'get_calc_prog2');
         // Route::get('/calculating-progress-rate2', 'get_calc_prog2');
     });
     Route::controller(OrderController::class)->group(function () {
