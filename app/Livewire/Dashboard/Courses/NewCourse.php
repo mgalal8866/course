@@ -36,25 +36,8 @@ class NewCourse extends Component
     public $showParentModal = false;
     public $showChildModal = false;
 
-    public function openParentModal()
-    {
-        $this->showParentModal = true;
-    }
 
-    public function closeParentModal()
-    {
-        $this->showParentModal = false;
-    }
 
-    public function openChildModal()
-    {
-        $this->showChildModal = true;
-    }
-
-    public function closeChildModal()
-    {
-        $this->showChildModal = false;
-    }
     public function cancelq( $id)
     {
         if(count($this->questions) > 0){
@@ -169,7 +152,7 @@ class NewCourse extends Component
     public function updatedQuestions($value, $nested)
     {
           $nestedData = explode(".", $nested);
-        // dd( $nested  );
+        // dd( $nestedData  );
 
     }
     public function addquestions()

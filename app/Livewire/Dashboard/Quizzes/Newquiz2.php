@@ -4,8 +4,10 @@ namespace App\Livewire\Dashboard\Quizzes;
 
 
 use App\Models\Quizes;
+use App\Models\Stages;
 use Livewire\Component;
 use App\Models\CategoryExams;
+use App\Models\Courses;
 use Livewire\WithFileUploads;
 use App\Models\Quiz_questions;
 use App\Traits\ImageProcessing;
@@ -16,7 +18,7 @@ class Newquiz2 extends Component
 {
     use WithFileUploads, ImageProcessing;
     protected $listeners = ['edit' => 'edit'];
-    public$redirect_mark,$redirect_to_up,$redirect_to_down, $typecategory,$image, $questions, $category = [], $testname, $testcategory, $testtime, $degree_success, $total_scores;
+    public $course_id, $courses,$stage_child_id , $stages_id ,$stage_child = [], $stages = [], $redirect_mark, $redirect_to_up, $redirect_to_down, $typecategory, $image, $questions, $category = [], $testname, $testcategory, $testtime, $degree_success, $total_scores;
     private   $rules = [
         // 'testname'=> 'required' ,
         // 'testcategory'=> 'required' ,
@@ -24,49 +26,47 @@ class Newquiz2 extends Component
         // 'degree_success'=> 'required' ,
         // 'total_scores'=> 'required',
         // 'questions' => 'required',
-        'questions.*.question'          => 'required',
-        'questions.*.degree'            => 'required',
-        'questions.*.answers'           => 'required',
-        'questions.*.answers.*.answer'  => 'required',
-        'questions.*.answers.*.correct' => 'required'
+        // 'questions.*.question'          => 'required',
+        // 'questions.*.degree'            => 'required',
+        // 'questions.*.answers'           => 'required',
+        // 'questions.*.answers.*.answer'  => 'required',
+        // 'questions.*.correct' => 'required'
 
     ];
     public function edit($id = null)
     {
-    $this->dispatch('openmodel');
-}
+        $this->dispatch('openmodel');
+    }
     public function updatedTypecategory($value)
     {
+        if ($value != 3) {
 
-        $this->category  = CategoryExams::where('typecategory', $value)->get();
+            $this->category  = CategoryExams::where('typecategory', $value)->get();
+        } else {
+            $this->stages = Stages::parent()->get();
+            $this->courses = Courses::get();
+        }
     }
+    public function updatedStagesId($value)
+    {
+
+        $this->stage_child = Stages::where('parent_id',$value)->get();
+    }
+
     public function mount()
     {
-        $this->fill(['questions' => collect([[
-            'question' => '',
-            'description'=>'',
-            'degree' => '',
-            'answers' => collect([['answer' => '', 'correct' => '']])
 
-        ]])]);
+        $q =  session()->get('questions');
+        if ($q != null) {
+            $this->questions = $q;
+        } else {
+            $this->questions = [];
+            // session()->put('questions',$this->questions);
+
+        }
     }
-    public function addquestions()
-    {
-        $this->questions->push(['question' => '','description'=>'', 'degree' => '', 'answers' => collect([['answer' => '', 'correct' => '']])]);
-    }
-    public function removequestions($key)
-    {
-        if ($this->questions->count() != 1)
-            $this->questions->pull($key);
-    }
-    public function addanswerquestions($key)
-    {
-        $this->questions[$key]['answers']->push(['answer' => '', 'correct' => '']);
-    }
-    public function  removeanswerquestions($key, $key1)
-    {
-        $this->questions[$key]['answers']->pull($key1);
-    }
+
+
     public function save()
     {
         $this->validate($this->rules);
@@ -79,12 +79,12 @@ class Newquiz2 extends Component
                 'pass_marks' => $this->degree_success,
                 'pass_marks' => $this->degree_success,
                 'total_marks'  => $this->total_scores,
-                'redirect_to_down'  => $this->redirect_to_down??null,
-                'redirect_to_up'  => $this->redirect_to_up??null,
-                'redirect_mark'  => $this->redirect_mark??null,
+                'redirect_to_down'  => $this->redirect_to_down ?? null,
+                'redirect_to_up'  => $this->redirect_to_up ?? null,
+                'redirect_mark'  => $this->redirect_mark ?? null,
             ]);
             if ($this->image) {
-                $dataX = $this->saveImageAndThumbnail($this->image, false, null,null,'Quize');
+                $dataX = $this->saveImageAndThumbnail($this->image, false, null, null, 'Quize');
                 $quiz->image =  $dataX['image'];
                 $quiz->save();
             }
