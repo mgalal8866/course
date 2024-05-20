@@ -1,3 +1,4 @@
+ @extends('layouts.dashboard.app')
 <div wire:ignore.self>
     @push('csslive')
         <link rel="stylesheet" type="text/css" href="{{ asset('asset/vendors/css/forms/wizard/bs-stepper.min.css') }}">
@@ -137,28 +138,23 @@
                                 </div>
                                 <div class="mb-1 col-md-4">
                                     <label class="form-label" for="username">{{ __('tran.startdate') }}</label>
-                                    <x-daterange wire:model='startdate' id="startdate" required />
-                                    {{-- <div class="input-group input-group-merge  col-md-4">
-                                        <span class="input-group-text"><i class="fas fa-calendar"></i></span>
-                                    </div> --}}
+                                    {{-- <x-daterange wire:model='startdate' id="startdate" required /> --}}
+
                                     @error('startdate')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="mb-1 col-md-4">
                                     <label class="form-label" for="username">{{ __('tran.enddate') }}</label>
-                                    <x-daterange wire:model='enddate' id="enddate" required />
-                                    {{-- <div class="input-group input-group-merge">
-                                        <span class="input-group-text"><i class="fas fa-calendar"></i></span>
-                                    </div> --}}
+                                    {{-- <x-daterange wire:model='enddate' id="enddate" required /> --}}
+
                                     @error('enddate')
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="mb-1 col-md-4" wire:ignore>
                                     <label class="form-label" for="username">{{ __('tran.time') }}</label>
-                                    <x-time class="form-control flatpickr-time text-start" wire:model='time'
-                                        id="time" required />
+                                    {{-- <x-time class="form-control flatpickr-time text-start" wire:model='time' id="time" required /> --}}
                                     {{-- <div class="input-group input-group-merge">
                                         <span class="input-group-text"><i class="fas fa-clock"></i></span>
                                          <input type="text" class="form-control" wire:model='time' required />

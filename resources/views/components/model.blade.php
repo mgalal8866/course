@@ -121,13 +121,15 @@
                         </div>
 
                         <div class="col-12 text-center mt-2 pt-50">
+                            {{-- <a class="btn btn-primary" wire:click="$dispatch('edit')">اضافة سؤال</a> --}}
+
                             <button type="button" class="btn btn-outline-success" wire:click='addquestions()'>
                                 اضافه سؤال
                             </button>
-                            {{-- <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
-                                data-bs-target="#forcoursemodel" wire:click='addquestions()'>
+                            <button type="button" class="btn btn-primary"data-bs-toggle="modal"
+                                data-bs-target="#editUser"  >
                                 اضافه سؤال
-                            </button> --}}
+                            </button>
                             {{-- <a  class="btn btn-primary" wire:click="addquestions()">1اضافة سؤال</a> --}}
                             {{-- <a  class="btn btn-primary" wire:click="$dispatch('funquestion')">1اضافة سؤال</a> --}}
 
@@ -146,3 +148,40 @@
     </div>
 
 </div>
+@push('jslive')
+<script>
+    window.addEventListener('swal', event => {
+        Swal.fire({
+            title: event.detail.message,
+            icon: 'info',
+            customClass: {
+                confirmButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        });
+    })
+    window.addEventListener('openmodel', event => {
+
+        $('#editUser').modal("show");
+
+    });
+    window.addEventListener('closemodel', event => {
+
+        $('#editUser').modal("hide");
+
+    });
+
+    window.addEventListener('funquestion', event => {
+
+        // $('#newquestion' + event.detail.key).modal("show");
+        $('#forcoursemodel').modal("show");
+
+    });
+    window.addEventListener('closenewquestion', event => {
+
+        // $('#newquestion-' + event.detail.key).modal("hide");
+        $('#forcoursemodel').modal("hide");
+
+    });
+</script>
+@endpush

@@ -29,7 +29,7 @@
      <div class="main-menu-content" wire:ignore>
          <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
              <li class=" nav-item ">
-                 <a class="d-flex align-items-center" href="">
+                 <a class="d-flex align-items-center" href="/dashboard">
                      <i data-feather="home"></i>
                      <span class="menu-title text-truncate">{{ __('tran.dashboard') }}</span>
                  </a>

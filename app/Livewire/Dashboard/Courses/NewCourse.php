@@ -27,7 +27,7 @@ class NewCourse extends Component
     use WithFileUploads, ImageProcessing;
 
     protected $listeners = ['funquestion' => 'funquestion', 'edit' => 'edit', 'refreshDropdown', 'currentPage' => 'currentPage'];
-    public $edit = false, $short_description, $id, $header, $currentPage = 1, $pages = 4, $conditions, $target, $howtostart,
+    public  $edit = false, $short_description, $id, $header, $currentPage = 1, $pages = 4, $conditions, $target, $howtostart,
         $telegram, $telegramgrup, $nextcourse, $course_gender, $schedule, $free_tatorul, $nextcoursesbycat,
         $name, $description, $validity = 'تبقى الدورة بكامل محتوياتها ثلاثة أشهر بحساب المتدرب.', $category_id, $price, $pricewith = 1, $startdate, $enddate, $time, $features, $triner = [], $limit_stud, $duration_course = 'شهر ونصف',
         $image_course, $file_work, $file_explanatory, $file_aggregates, $file_supplementary, $file_free, $file_test,
@@ -37,6 +37,11 @@ class NewCourse extends Component
     public $showChildModal = false;
 
 
+    public function edit($id = null)
+    {
+
+        $this->dispatch('openmodeleditUser');
+    }
 
     public function cancelq( $id)
     {
@@ -49,6 +54,9 @@ class NewCourse extends Component
 
     public function mount()
     {
+        if( request()->query('step', null)!= null){
+            $this->currentPage  = request()->query('step', null);
+        }
 
         $this->stages = Stages::parentonly()->orderBy('parent_id', 'DESC')->get();
         $this->fill(['lessons' => collect([['stage_id' => null, 'img' => null, 'name' => '', 'link' => '', 'is_lesson' => 1, 'publish_at' => null]])]);

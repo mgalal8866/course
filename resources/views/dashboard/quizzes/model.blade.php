@@ -10,6 +10,7 @@
     @endpush
 
     <div wire:ignore.self class="modal fade" id="editUser" tabindex="-1" aria-hidden="true">
+
         <div class="modal-dialog   modal-lg modal-dialog-scrollable modal-edit-user">
             <div class="modal-content">
                 <div class="modal-header bg-transparent">
@@ -24,7 +25,7 @@
                         <div class="col-4">
                             <label class="form-label" for="">درجه السؤال</label>
                             <input class="form-control" wire:model="questions.0.degree" type="number" step="0.1"  />
-                            @error('questions.0.mark')
+                            @error('questions.0.degree')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
@@ -80,7 +81,9 @@
                         @endforeach
 
                         <div class="col-12 text-center mt-2 pt-50">
-                            <button type="submit" class="btn btn-primary me-1">{{ __('tran.save') }}</button>
+                            <button type="submit" class="btn btn-primary me-1"  data-bs-dismiss="modal"
+                            aria-label="Close">{{ __('tran.save') }}</button>
+                            
                             <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal"
                                 aria-label="Close">
                                 {{ __('tran.cancel') }}

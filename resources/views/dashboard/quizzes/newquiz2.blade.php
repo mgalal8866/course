@@ -11,9 +11,9 @@
                 <div class="row">
                     @if ($typecategory != 3)
                         <div class="mb-2 col-md-12">
-                            <div class="mb-2 col-md-8">
-                                <x-imageupload style="text-wrap: balance;" wire:model='image' :height='200'
-                                    :width='200' :imagenew="$image" :tlabel="__('tran.image')" />
+                            <div class="mb-2 col-md-2">
+                                <x-imageupload style="text-wrap: balance;" wire:model='image' :height='150'
+                                    :width='150' :imagenew="$image" :tlabel="__('tran.image')" />
                                 @error('image')
                                     <span class="error" style="color: red">{{ $message }}</span>
                                 @enderror
@@ -130,16 +130,16 @@
                     </div>
                     <div class="col-12 col-md-1">
                         <label class="form-label" for="degree_success">{{ __('tran.degree_success') }}</label>
-                        <input type="number" step="0.1" class="form-control" wire:model="degree_success"
-                            id="degree_success" required />
-                        @error('degree_success')
+                        <input type="number" step="0.1" class="form-control" wire:model="degree"
+                            id="degree" required />
+                        @error('degree')
                             <span class="error" style="color: red">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="col-12 col-md-1">
                         <label class="form-label" for="total_scores">{{ __('tran.total_scores') }}</label>
                         <input type="number" step="0.1" class="form-control" wire:model="total_scores"
-                            id="total_scores" />
+                            id="total_scores" required/>
                         @error('total_scores')
                             <span class="error" style="color: red">{{ $message }}</span>
                         @enderror
@@ -219,4 +219,3 @@
         </div>
     </div>
 </div>
- 

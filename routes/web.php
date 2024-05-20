@@ -6,7 +6,9 @@ use App\Models\User;
 use Livewire\Livewire;
 use App\Models\Courses;
 use App\Models\Setting;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Models\CategoryFCourse;
 use Vimeo\Laravel\VimeoManager;
 use App\Livewire\Dashboard\Test;
 use App\Livewire\ScripingCourse;
@@ -44,9 +46,9 @@ use App\Livewire\Dashboard\Payments\ViewPaymentsMethod;
 use App\Livewire\Dashboard\Books\Category\CategoryBooks;
 use App\Livewire\Dashboard\Notification\ViewNotification;
 use App\Livewire\Dashboard\Grades\Category\CategoryGrades;
+
 use App\Livewire\Dashboard\Trainers\Specialist\Specialist;
 use App\Livewire\Dashboard\Courses\Category\CategoryCourse;
-
 use App\Livewire\Dashboard\StudySchedule\ViewStudySchedule;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Livewire\Dashboard\Setting\Setting as SettingSetting;
@@ -613,6 +615,13 @@ Route::group(
         Route::get('/vimeo', Filemanger::class);
         Route::get('/scrip/course', ScripingCourse::class)->name('scripcourse');
         Route::get('/new/course', NewCourse::class)->name('newcourse');
+        Route::get('/new/course2',function(){
+            $currentPage = 1 ;
+            $category = Category::get();
+            $triners = User::whereType('1')->get();
+            $categoryfreecourse = CategoryFCourse::whereHas('freecourse')->get();
+            return view('dashboard.new-course',compact(['currentPage','category', 'triners', 'categoryfreecourse']));
+        })->name('newcourse');
         Route::get('/edit/course/{id?}', EditCourse::class)->name('editcourse');
         Route::get('/course', ViewCourses::class)->name('course');
         Route::get('/free-course', FreeCourse::class)->name('freecourse');

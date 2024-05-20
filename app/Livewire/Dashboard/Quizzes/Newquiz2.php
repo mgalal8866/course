@@ -122,9 +122,10 @@ class Newquiz2 extends Component
             }
             DB::commit();
             $this->dispatch('swal', message: 'تم انشاء  الاختبار بنجاح');
-
+            $this->reset();
+            session()->forget('questions');
+            $this->dispatch('fetchdata');
             // $this->resetValidation();
-            // $this->reset();
             // return true;
         } catch (\Exception $e) {
             $this->dispatch('swal', message: $e->getMessage());
