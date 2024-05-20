@@ -36,11 +36,6 @@ class Model extends Component
     public function updatedQuestions($value, $nested)
     {
           $nestedData = explode(".", $nested);
-          if($nestedData[1] == 'stages'){
-            $this->stage_child = Stages::where('parent_id',$value)->get();
-          }
-
-
     }
     public function  removeanswerquestions($key, $key1)
     {
@@ -69,12 +64,12 @@ class Model extends Component
         } else {
             session()->put('questions', $this->questions);
         }
-
+        $this->dispatch('fetchdata');
         session()->flash("success", "Your appointment sent successfully!");
     }
     public function render()
     {
-        $stages = Stages::parent()->get();
-        return view('dashboard.quizzes.model', compact('stages'));
+
+        return view('dashboard.quizzes.model' );
     }
 }

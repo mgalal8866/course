@@ -378,8 +378,11 @@
                                             wire:model.lazy='lessons.{{ $key }}.is_lesson'>
 
                                             @foreach (\App\Enum\LessonStatu::cases() as $q)
-                                                <option value="{{ $q->value }}">
-                                                    {{ __('tran.typelesson-' . $q->name) }} </option>
+                                            @if ($q->value != 0)
+
+                                            <option value="{{ $q->value }}">
+                                                {{ __('tran.typelesson-' . $q->name) }} </option>
+                                            @endif
                                             @endforeach
                                         </select>
                                         {{-- <input class="form-check-input"

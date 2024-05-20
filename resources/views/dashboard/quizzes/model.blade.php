@@ -17,34 +17,10 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body pb-5 px-sm-5 pt-50">
-                    <div class="text-center mb-2">
+                    {{-- <div class="text-center mb-2">
                         <h1 class="mb-1">00</h1>
-                    </div>
+                    </div> --}}
                     <form id="editUserForm" class="row gy-1 pt-75" wire:submit.prevent="save">
-                        <div class="col-4">
-                            <label class="form-label" for="">ألمرحلة</label>
-                            <select class="form-select" wire:model.live='questions.0.stages' required>
-                                <option value=""> اختيارالقسم</option>
-                                @foreach ($stages as $c)
-                                    <option value="{{ $c->id }}">{{ $c->name }}</option>
-                                @endforeach
-                            </select>
-                            @error('questions.0.stages')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <div class="col-4">
-                            <label class="form-label" for="">القسم</label>
-                            <select class="form-select" wire:model='questions.0.stage_child' required>
-                                <option value=""> اختيارالقسم</option>
-                                @foreach ($stage_child as $c)
-                                    <option value="{{ $c->id }}">{{ $c->name }}</option>
-                                @endforeach
-                            </select>
-                            @error('questions.0.stage_child')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
                         <div class="col-4">
                             <label class="form-label" for="">درجه السؤال</label>
                             <input class="form-control" wire:model="questions.0.degree" type="number" step="0.1"  />
