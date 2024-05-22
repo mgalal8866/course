@@ -3,6 +3,7 @@
 
 use Goutte\Client;
 use App\Models\User;
+use App\Models\Stages as mstages;
 use Livewire\Livewire;
 use App\Models\Courses;
 use App\Models\Setting;
@@ -70,7 +71,7 @@ use App\Livewire\Dashboard\FreeCourse\Category\CategoryFreeCourse;
 */
 
 Route::get('/', function (Request $request) {
-   return  view('soon');
+    return  view('soon');
 });
 Route::get('/clear', function (Request $request) {
     // QuizResultHeader::truncate();
@@ -615,13 +616,32 @@ Route::group(
         Route::get('/vimeo', Filemanger::class);
         Route::get('/scrip/course', ScripingCourse::class)->name('scripcourse');
         Route::get('/new/course', NewCourse::class)->name('newcourse');
-        Route::get('/new/course2',function(){
-            $currentPage = 1 ;
+        Route::get('/new/course2', function () {
+            $currentPage = 3;
+            $stage = mstages::parent()->get();
             $category = Category::get();
             $triners = User::whereType('1')->get();
             $categoryfreecourse = CategoryFCourse::whereHas('freecourse')->get();
-            return view('dashboard.new-course',compact(['currentPage','category', 'triners', 'categoryfreecourse']));
-        })->name('newcourse');
+            return view('dashboard.new-course', compact(['stage','currentPage', 'category', 'triners', 'categoryfreecourse']));
+        })->name('newcourse2');
+
+
+        Route::get('/page', function (request $r) {
+
+            if($r->id == null){
+                $stage = mstages::parent()->get();
+            }else{
+                $stage = mstages::where('parent_id',$r->id )->get();
+            };
+            return response()->json($stage , 200);
+        })->name('page');
+
+        Route::post('/formsub', function (request $r) {
+
+
+            return response()->json($r->all() , 200);
+        })->name('pageq');
+
         Route::get('/edit/course/{id?}', EditCourse::class)->name('editcourse');
         Route::get('/course', ViewCourses::class)->name('course');
         Route::get('/free-course', FreeCourse::class)->name('freecourse');

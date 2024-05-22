@@ -14,7 +14,7 @@
     <link href="https://cdn.jsdelivr.net/npm/quill@2.0.1/dist/quill.snow.css" rel="stylesheet" />
 
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.1/dist/quill.js"></script>
-    
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.css" />
     @if (LaravelLocalization::getCurrentLocaleDirection() == 'rtl')
         <link rel="stylesheet" type="text/css" href="{{ asset('asset/css-rtl/bootstrap.min.css') }}">
