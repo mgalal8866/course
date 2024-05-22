@@ -69,7 +69,7 @@
                  <div class="bs-stepper-content">
 
                      {{-- <form enctype="multipart/form-data"> --}}
-                  
+
 
                      {{-- <div class="main">
                          <div class="mb-1 row">
@@ -129,7 +129,7 @@
              const fetchCategories = async () => {
                  try {
                      const response = await fetch(
-                     'http://course.test/ar/dashboard/page?id='); // Replace with your API endpoint
+                     'https://alyusr.academy/ar/dashboard/page?id='); // Replace with your API endpoint
                      const categories = await response.json();
                      return categories;
                  } catch (error) {
@@ -142,7 +142,7 @@
              const fetchSubcategories = async (categoryId) => {
                  try {
                      const response = await fetch(
-                     `http://course.test/ar/dashboard/page?id=${categoryId}`); // Replace with your API endpoint
+                     `https://alyusr.academy/ar/dashboard/page?id=${categoryId}`); // Replace with your API endpoint
                      const subcategories = await response.json();
                      return subcategories;
                  } catch (error) {
@@ -170,7 +170,7 @@
 
                  const form = document.createElement('form');
                  form.action =
-                 'http://course.test/ar/dashboard/formsub'; // Replace with your form submission endpoint
+                 'https://alyusr.academy/ar/dashboard/formsub'; // Replace with your form submission endpoint
                  form.method = 'POST';
 
                  // Add CSRF token input
