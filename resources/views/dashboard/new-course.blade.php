@@ -124,8 +124,8 @@
          document.addEventListener('DOMContentLoaded', () => {
              const mainContainer = document.getElementById('mainContainer');
              const addCategoryBtn = document.getElementById('addCategoryBtn');
-             const baseurl = 'http://course.test';
-             //  const baseurl = 'https://alyusr.academy';
+            //  const baseurl = 'http://course.test';
+              const baseurl = 'https://alyusr.academy';
 
              // Fetch categories from API
              const fetchCategories = async () => {
