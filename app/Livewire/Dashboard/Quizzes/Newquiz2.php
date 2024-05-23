@@ -11,9 +11,9 @@ use Livewire\Component;
 use App\Models\CategoryExams;
 use App\Models\CourseStages;
 use Livewire\WithFileUploads;
-use App\Models\Quiz_questions;
 use App\Traits\ImageProcessing;
 use Illuminate\Support\Facades\DB;
+use App\Models\Quiz_questions;
 use App\Models\Quiz_question_answers;
 
 class Newquiz2 extends Component

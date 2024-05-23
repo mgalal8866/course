@@ -3,7 +3,6 @@
 
 use Goutte\Client;
 use App\Models\User;
-use App\Models\Stages as mstages;
 use Livewire\Livewire;
 use App\Models\Courses;
 use App\Models\Setting;
@@ -16,15 +15,18 @@ use App\Livewire\ScripingCourse;
 use App\Models\QuizResultHeader;
 use Vimeo\Laravel\Facades\Vimeo;
 use App\Models\QuizResultDetails;
+use App\Models\Stages as mstages;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Session;
 use App\Livewire\Dashboard\Stage\Stages;
 use App\Livewire\Dashboard\Blog\ViewBlog;
 use Symfony\Component\DomCrawler\Crawler;
+
 use App\Livewire\Dashboard\Setting\Slider;
 use Stevebauman\Location\Facades\Location;
 use App\Livewire\Dashboard\Books\ViewBooks;
@@ -32,6 +34,7 @@ use App\Livewire\Dashboard\Quizzes\Newquiz;
 use App\Livewire\Dashboard\Order\ViewOrders;
 use App\Livewire\Dashboard\Quizzes\Newquiz2;
 use App\Livewire\Dashboard\Vimeo\Filemanger;
+use App\Http\Controllers\NewCourseController;
 use App\Livewire\Dashboard\Courses\NewCourse;
 use App\Livewire\Dashboard\Grades\ViewGrades;
 use App\Livewire\Dashboard\Quizzes\ViewQuizz;
@@ -44,10 +47,10 @@ use App\Livewire\Dashboard\ContactUs\ViewContact;
 use App\Livewire\Dashboard\FreeCourse\FreeCourse;
 use App\Livewire\Dashboard\Blog\Category\CategoryBlog;
 use App\Livewire\Dashboard\Payments\ViewPaymentsMethod;
+
 use App\Livewire\Dashboard\Books\Category\CategoryBooks;
 use App\Livewire\Dashboard\Notification\ViewNotification;
 use App\Livewire\Dashboard\Grades\Category\CategoryGrades;
-
 use App\Livewire\Dashboard\Trainers\Specialist\Specialist;
 use App\Livewire\Dashboard\Courses\Category\CategoryCourse;
 use App\Livewire\Dashboard\StudySchedule\ViewStudySchedule;
@@ -616,29 +619,12 @@ Route::group(
         Route::get('/vimeo', Filemanger::class);
         Route::get('/scrip/course', ScripingCourse::class)->name('scripcourse');
         Route::get('/new/course', NewCourse::class)->name('newcourse');
-        Route::get('/new/course2', function () {
-            $currentPage = 3;
-            $stage = mstages::parent()->get();
-            $category = Category::get();
-            $triners = User::whereType('1')->get();
-            $categoryfreecourse = CategoryFCourse::whereHas('freecourse')->get();
-            return view('dashboard.new-course', compact(['stage','currentPage', 'category', 'triners', 'categoryfreecourse']));
-        })->name('newcourse2');
 
 
-        Route::get('/page', function (request $r) {
-
-            if($r->id == null){
-                $stage = mstages::parent()->get();
-            }else{
-                $stage = mstages::where('parent_id',$r->id )->get();
-            };
-            return response()->json($stage , 200);
-        })->name('page');
-
+        Route::get('/new/course/step/2',[ NewCourseController::class,'index'])->name('newcourse2');
+        Route::post('/ajax/next/page',[ NewCourseController::class,'next_page'])->name('next_page');
+        Route::get('/ajax/getcategory/{id?}',[ NewCourseController::class,'getcategory'])->name('getcategory');
         Route::post('/formsub', function (request $r) {
-
-
             return response()->json($r->all() , 200);
         })->name('pageq');
 

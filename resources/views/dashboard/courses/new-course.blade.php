@@ -356,133 +356,6 @@
                                 </div>
 
                             </div>
-                        </div>
-                    @elseif ($currentPage == 3)
-                        <div id="address-step" class="content {{ $currentPage == 3 ? 'active' : '' }} ">
-                            <div class="content-header">
-                                <button wire:click='addlesson()' type="button"
-                                    class="btn btn-primary d-inline-flex align-items-center justify-content-center rounded-circle
-                                bg-red-600 hover:bg-red-800 text-white shadow-lg hover-shadow-xl
-                                transition duration-150 ease-in-out focus:bg-red-700 outline-none focus-outline-none"
-                                    style="height: 3rem; width: 2rem; ">
-                                    <i class="fas fa-plus-circle fa-lg"></i>
-                                </button>
-                                <h5 class="mb-0">{{ __('tran.lessons') }}</h5>
-                                {{-- <small class="text-muted">{{ $pages[3]['subheading'] }}</small> --}}
-                            </div>
-
-                            @foreach ($lessons as $key => $value)
-                                <div class="mb-1 row">
-                                    <div class="col-md-2 form-check form-check-inline ">
-                                        <select class="form-select" id="lessons.{{ $key }}.is_lesson"
-                                            wire:model.lazy='lessons.{{ $key }}.is_lesson'>
-
-                                            @foreach (\App\Enum\LessonStatu::cases() as $q)
-                                            {{-- @if ($q->value != 0) --}}
-
-                                            <option value="{{ $q->value }}">
-                                                {{ __('tran.typelesson-' . $q->name) }} </option>
-                                            {{-- @endif --}}
-                                            @endforeach
-                                        </select>
-                                        {{-- <input class="form-check-input"
-                                            wire:model.lazy='lessons.{{ $key }}.is_lesson'type="checkbox"
-                                            id="inlineCheckbox1" /> --}}
-                                        {{-- <label class="form-check-label"
-                                            for="inlineCheckbox1">{{ $lessons[$key]['is_lesson'] ==1 ? 'شرح' :($lessons[$key]['is_lesson'] ==0 ? 'تدريب': 'بث مباشر') }}</label> --}}
-                                        @error('lessons.' . $key . '.is_lesson')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                    <div class="col-md-3">
-                                        <select class="form-select" wire:model='lessons.{{ $key }}.stage_id'
-                                            required>
-                                            <option value=""> اختار المرحلة</option>
-                                            @foreach ($stages as $item)
-                                                <option value="{{ $item->id }}">
-                                                    {{ $item->name . ($item->parent_id == null ? ' مرحلة رئيسية' : ' مرحلة فرعية من  ( ' . $item->_parent->name . ' )') }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        @error('lessons.' . $key . '.stage_id')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                    <div class="col-md-2">
-                                        <x-daterange wire:model='lessons.{{ $key }}.publish_at'
-                                            id="lessons.{{ $key }}.publish_at" />
-                                        @error('lessons.' . $key . '.publish_at')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                    @if ($lessons[$key]['is_lesson'] != false)
-                                        <div class="col">
-                                            <input class="form-control" wire:model="lessons.{{ $key }}.name"
-                                                placeholder="{{ $lessons[$key]['is_lesson'] == 1 ? 'اسم الشرح' : ($lessons[$key]['is_lesson'] == 0 ? 'اسم تدريب' : 'اسم بث مباشر') }}"
-                                                type="text" />
-                                            @error('lessons.' . $key . '.name')
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                        <div class="col">
-
-                                            <input class="form-control" wire:model="lessons.{{ $key }}.link"
-                                                type="text"
-                                                placeholder="{{ $lessons[$key]['is_lesson'] == 1 ? 'رابط الشرح' : ($lessons[$key]['is_lesson'] == 0 ? 'رابط تدريب' : 'رابط بث مباشر') }}" />
-
-                                            @error('lessons.' . $key . '.link')
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    @else
-                                        <div class="col">
-                                            <input class="form-control" wire:model="lessons.{{ $key }}.name"
-                                                placeholder="{{ $lessons[$key]['is_lesson'] != false ? 'اسم شرح' : ' اسم تدريب' }}"
-                                                type="text" />
-                                            @error('lessons.' . $key . '.name')
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                        <div class="col">
-                                            @if ($lessons[$key]['link'] != null)
-                                                <p>تم اختيار التدريب </p>
-                                            @else
-
-                                                <x-model :questions='$questions' :keys='$key' />
-                                                {{-- <x-forcoursemodel  :questions='$questions' /> --}}
-
-                                                    @livewire('dashboard.quizzes.model')
-
-                                                <button type="button" class="btn btn-outline-success"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#fullscreenModal-{{ $key }}">
-                                                    اضافه تدريب
-                                                </button>
-                                            @endif
-                                        </div>
-                                    @endif
-
-                                    <div class="col-1">
-                                        @if ($key != 0)
-                                            <button wire:click='removelesson({{ $key }})' type="button"
-                                                class="btn btn-sm btn-danger d-inline-flex align-items-center justify-content-center rounded-circle
-                                        bg-red-600 hover:bg-red-800 text-white shadow-lg hover-shadow-xl
-                                        transition duration-150 ease-in-out focus:bg-red-700 outline-none focus-outline-none"
-                                                style="height: 2rem; width: 2rem; ">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
-                                        @endif
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    @elseif ($currentPage == 4)
-                        <div id="social-links" class="content {{ $currentPage == 4 ? 'active' : '' }} "
-                            role="tabpanel" aria-labelledby="social-links-trigger">
-                            <div class="content-header">
-                                <h5 class="mb-0">{{ __('tran.setcourse') }}</h5>
-                                {{-- <small class="text-muted">{{ $pages[4]['subheading'] }}</small> --}}
-                            </div>
                             <div class="row">
                                 <div class="mb-1 col-md-3">
                                     <x-check wire:model='langcourse' id="langcourse" left="En" right="Ar"
@@ -537,6 +410,8 @@
                                 </div>
                             </div>
                         </div>
+
+
                     @endif
 
                     <div class="d-flex justify-content-between">
@@ -547,10 +422,10 @@
                                 class="fas fa-arrow-{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' ? 'right' : 'left' }}  align-middle ms-sm-25 ms-0"></i>
                             <span class="align-middle d-sm-inline-block d-none">{{ __('tran.previous') }}</span>
                         </button>
-                        {{ $currentPage }}
-                        @if ($currentPage === 4)
+
+                        @if ($currentPage === 2)
                             <button wire:loading.attr="disabled" type="submit" class="btn btn-success btn-submit">
-                                {{ __('tran.submit') }}</button>
+                              انشاء الدورة واستكمال اضافه الدروس والتدريب</button>
                         @else
                             <button wire:loading.attr="disabled" class="btn btn-primary btn-next"
                                 wire:click.prevent="goToNextPage">

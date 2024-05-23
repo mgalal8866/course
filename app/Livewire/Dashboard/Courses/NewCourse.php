@@ -27,7 +27,7 @@ class NewCourse extends Component
     use WithFileUploads, ImageProcessing;
 
     protected $listeners = ['funquestion' => 'funquestion', 'edit' => 'edit', 'refreshDropdown', 'currentPage' => 'currentPage'];
-    public  $edit = false, $short_description, $id, $header, $currentPage = 1, $pages = 4, $conditions, $target, $howtostart,
+    public  $edit = false, $short_description, $id, $header, $currentPage = 1, $pages = 2, $conditions, $target, $howtostart,
         $telegram, $telegramgrup, $nextcourse, $course_gender, $schedule, $free_tatorul, $nextcoursesbycat,
         $name, $description, $validity = 'تبقى الدورة بكامل محتوياتها ثلاثة أشهر بحساب المتدرب.', $category_id, $price, $pricewith = 1, $startdate, $enddate, $time, $features, $triner = [], $limit_stud, $duration_course = 'شهر ونصف',
         $image_course, $file_work, $file_explanatory, $file_aggregates, $file_supplementary, $file_free, $file_test,
@@ -43,14 +43,7 @@ class NewCourse extends Component
         $this->dispatch('openmodeleditUser');
     }
 
-    public function cancelq( $id)
-    {
-        if(count($this->questions) > 0){
 
-            $this->questions->pull($id);
-        }
-
-    }
 
     public function mount()
     {
@@ -59,8 +52,7 @@ class NewCourse extends Component
         }
 
         $this->stages = Stages::parentonly()->orderBy('parent_id', 'DESC')->get();
-        $this->fill(['lessons' => collect([['stage_id' => null, 'img' => null, 'name' => '', 'link' => '', 'is_lesson' => 1, 'publish_at' => null]])]);
-    }
+         }
     public function updated($propertyName)
     {
         // dd($this->file_work);
@@ -137,12 +129,7 @@ class NewCourse extends Component
             'file_free' => '',
             'file_test' => ''
         ],
-        3 => [
-            'lessons.*.name' => 'required',
-            'lessons.*.link' => 'required',
-            'lessons.*.stage_id' => 'required',
-            'lessons.*.publish_at' => 'required',
-        ],
+
 
     ];
     private  $validtionRules2 = [
@@ -155,115 +142,14 @@ class NewCourse extends Component
     ];
     //############### End validtion ###############
 
-    //############## Start Questions ################
 
-    public function updatedQuestions($value, $nested)
-    {
-          $nestedData = explode(".", $nested);
-        // dd( $nestedData  );
-
-    }
-    public function addquestions()
-    {
-        if(empty($this->questions)){
-            $this->fill(['questions' => collect([[
-                'question' => '',
-                'testdescription' => '',
-                'degree' => '',
-                'correct' => '',
-                'answers' => collect([['answer' => ''],['answer' => ''],['answer' => ''],['answer' => '']])
-
-            ]])]);
-        }else{
-            $this->questions->push(['question' => '', 'testdescription' => '', 'degree' => '', 'correct' => '','answers' => collect([['answer' => ''],['answer' => ''],['answer' => ''],['answer' => '']])]);
-        }
-        // dd( $this->questions);
-        $this->dispatch('funquestion',key: ($this->questions->keys()->last()-1));
-    }
-    public function removequestions($key)
-    {
-        if ($this->questions->count() != 1)
-            $this->questions->pull($key);
-    }
-    public function addanswerquestions($key)
-    {
-        $this->questions[$key]['answers']->push(['answer' => '']);
-    }
-    public function  removeanswerquestions($key, $key1)
-    {
-        $this->questions[$key]['answers']->pull($key1);
-    }
-
-    public function  savequti($key)
-    {
-        $this->validate($this->validtionRules2);
-
-        DB::beginTransaction();
-        try {
-            $quiz = Quizes::create([
-                'name'          => $this->testname ?? null,
-                'category_id'   => $this->testcategory ?? null,
-                'time'          => $this->testtime ?? null,
-                'pass_marks'    => $this->degree_success ?? null,
-                'total_marks'   => $this->total_scores ?? null,
-            ]);
-            foreach ($this->questions as $i) {
-                $question =   Quiz_questions::create([
-                    'quiz_id'  => $quiz->id,
-                    'description' => $i['testdescription'],
-                    'question' => $i['question'],
-                    'mark'   => $i['degree'],
-                ]);
-                foreach ($i['answers'] as $index2 =>$ii) {
-                    Quiz_question_answers::create([
-                        'question_id' => $question->id,
-                        'answer'     => $ii['answer'],
-                        'correct'    =>  ($index2 ==$i['correct']) ? 1 : 0,
-                    ]);
-                }
-            }
-            $d = $quiz->id;
-            $this->dispatch('closemodel', key: $key);
-            $this->dispatch('swal', message: 'تم انشاء التدريب بنجاح');
-            DB::commit();
-            $this->editw($key, $d);
-        } catch (\Exception $e) {
-            dd($e->getMessage());
-            DB::rollback();
-        }
-    }
-    //############## End Questions ################
 
     //################ Start Lesson ################
     public function updatedCategoryId($value)
     {
         $this->nextcoursesbycat = Courses::whereCategoryId($value)->get();
     }
-    public function addlesson()
-    {
-        $this->lessons->push(['stage_id' => null, 'img' => null, 'name' => '', 'link' => '', 'is_lesson' => 1, 'publish_at' => null]);
-    }
-    public function removelesson($key)
-    {
-        if ($this->lessons->count() != 1)
-            $this->lessons->pull($key);
-    }
-    public function editw($key, $val)
-    {
-        // if (isset($this->lessons[$key])) {
-        //     $this->lessons[$key]['link'] = $val;
-        // }
-        $this->lessons = $this->lessons->map(function ($object, $k) use ($val, $key) {
 
-            if ($k == $key) {
-                $object['link'] = $val;
-                return $object;
-            }
-            return $object;
-        });
-
-        // dd($this->lessons);
-    }
     //################ End Lesson ################
 
     //############## End Questions ##############
@@ -363,18 +249,11 @@ class NewCourse extends Component
             foreach ($this->triner as $i) {
                 $CFC->coursetrainers()->create(['trainer_id' => $i]);
             }
-            foreach ($this->lessons as $i) {
-                if ($i['is_lesson'] == 0) {
-                    Quizes::updated(['id' => $i['link']], ['course_id' => $CFC->id]);
-                }
 
-                $lesson = Lessons::create(['name' => $i['name'], 'link_video' => $i['link'], 'is_lesson' => $i['is_lesson'], 'publish_at' => $i['publish_at']]);
-                $CFC->stages()->attach($i['stage_id'], ['course_id' => $CFC->id, 'lesson_id' => $lesson->id]);
-            }
             DB::commit();
             $this->dispatch('swal', message: 'تم انشاء الدورة بنجاح');
 
-            return  redirect()->route('course');
+            return  redirect()->route('newcourse2');
             // $this->resetValidation();
             // $this->reset();
             // return true;
@@ -387,28 +266,6 @@ class NewCourse extends Component
     }
     //############## End Course ##################
 
-
-    // public function mount()
-    // {
-    //     $this->fill(['questions' => collect([[
-    //         'question' => '',
-    //         'degree' => '',
-    //         'answers' => collect([['answer' => '']])
-
-    //     ]])]);
-    // }
-    // public function  removeanswerquestions($key, $key1)
-    // {
-    //     $this->questions[0]['answers']->pull($key1);
-    // }
-    // public function addquestions()
-    // {
-    //     $this->questions->push(['question' => '', 'degree' => '', 'answers' => collect([['answer' => '']])]);
-    // }
-    // public function addanswerquestions($key)
-    // {
-    //     $this->questions[0]['answers']->push(['answer' => '']);
-    // }
 
     public function render()
     {

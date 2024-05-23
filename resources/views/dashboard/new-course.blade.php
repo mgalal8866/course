@@ -2,7 +2,7 @@
  @section('content')
 
 
-     <div wire:ignore.self>
+     <div>
          @push('csslive')
              <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -17,7 +17,9 @@
          <section class="horizontal-wizard">
              <div class="bs-stepper horizontal-wizard-example">
                  <div class="bs-stepper-header" role="tablist">
-                     <div class="step {{ $currentPage == 1 ? 'active' : 'crossed' }}" wire:click.prevent="goToPage('1')">
+
+
+                     <div class="step  ">
                          <button type="button" class="step-trigger">
                              <span class="bs-stepper-box">1</span>
                              <span class="bs-stepper-label">
@@ -30,7 +32,7 @@
                          <i
                              class="fas fa-chevron-{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' ? 'left' : 'right' }} font-medium-2"></i>
                      </div>
-                     <div class="step {{ $currentPage == 2 ? 'active' : 'crossed' }}">
+                     <div class="step ">
                          <button type="button" class="step-trigger">
                              <span class="bs-stepper-box">2</span>
                              <span class="bs-stepper-label">
@@ -39,77 +41,73 @@
                              </span>
                          </button>
                      </div>
+
                      <div class="line">
                          <i
                              class="fas fa-chevron-{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' ? 'left' : 'right' }} font-medium-2"></i>
                      </div>
-                     <div class="step {{ $currentPage == 3 ? 'active' : 'crossed' }}">
+                     <div class="step ">
                          <button type="button" class="step-trigger">
                              <span class="bs-stepper-box">3</span>
-                             <span class="bs-stepper-label">
-                                 <span class="bs-stepper-title">{{ __('tran.lessons') }}</span>
-                                 {{-- <span class="bs-stepper-subtitle">{{ $pages[3]['subheading'] }}</span> --}}
-                             </span>
-                         </button>
-                     </div>
-                     <div class="line">
-                         <i
-                             class="fas fa-chevron-{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' ? 'left' : 'right' }} font-medium-2"></i>
-                     </div>
-                     <div class="step  {{ $currentPage == 4 ? 'active' : 'crossed' }}">
-                         <button type="button" class="step-trigger">
-                             <span class="bs-stepper-box">4</span>
                              <span class="bs-stepper-label">
                                  <span class="bs-stepper-title">{{ __('tran.setcourse') }}</span>
                                  {{-- <span class="bs-stepper-subtitle">{{ $pages[4]['subheading'] }}</span> --}}
                              </span>
                          </button>
                      </div>
+                     <div class="line">
+                         <i
+                             class="fas fa-chevron-{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' ? 'left' : 'right' }} font-medium-2"></i>
+                     </div>
+                     <div class="step   active ">
+                         <button type="button" class="step-trigger">
+                             <span class="bs-stepper-box">4</span>
+                             <span class="bs-stepper-label">
+                                 <span class="bs-stepper-title">{{ __('tran.lessons') }}</span>
+                                 {{-- <span class="bs-stepper-subtitle">{{ $pages[3]['subheading'] }}</span> --}}
+                             </span>
+                         </button>
+                     </div>
                  </div>
+
                  <div class="bs-stepper-content">
 
-                     {{-- <form enctype="multipart/form-data"> --}}
+
+                     <div id="address-step" class="content  active   ">
+                         <div class="content-header">
 
 
-                     {{-- <div class="main">
-                         <div class="mb-1 row">
-                             <div class="col-md-2 form-check form-check-inline ">
-                                 <select class="form-select" id="mainstages">
-                                     @foreach ($stage as $q)
-                                         <option value="{{ $q->id }}"> {{ $q->name }} </option>
-                                     @endforeach
-                                 </select>
+                             <button id="addCategoryBtn" class="btn btn-warning sm mb-4 mt-2">اضافة مرحلة رئيسية</button>
+
+                             <div id="mainContainer">
 
                              </div>
+                             {{-- <small class="text-muted">{{ $pages[3]['subheading'] }}</small> --}}
                          </div>
-                     </div> --}}
-                     <div id="mainContainer">
-                         <button id="addCategoryBtn" class="btn btn-warning mb-4 mt-2">اضافة مرحلة رئيسية</button>
+
                      </div>
 
 
-                     <div class="d-flex justify-content-between">
-                         <button wire:loading.attr="disabled"
-                             class="btn {{ $currentPage > 1 ? 'btn-primary' : 'btn-outline-secondary' }} btn-prev"
-                             {{ $currentPage == 1 ? 'disabled' : '' }} wire:click.prevent="goToPerviousPage">
-                             <i
-                                 class="fas fa-arrow-{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' ? 'right' : 'left' }}  align-middle ms-sm-25 ms-0"></i>
-                             <span class="align-middle d-sm-inline-block d-none">{{ __('tran.previous') }}</span>
-                         </button>
-                         {{ $currentPage }}
-                         @if ($currentPage === 4)
-                             <button type="submit" class="btn btn-success btn-submit">
-                                 {{ __('tran.submit') }}</button>
-                         @else
-                             <button class="goToNextPage btn btn-primary btn-next">
-                                 <span class="align-middle d-sm-inline-block d-none">{{ __('tran.next') }}</span>
-                                 <i
-                                     class="fas fa-arrow-{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' ? 'left' : 'right' }} align-middle me-sm-25 me-0"></i>
-                             </button>
-                         @endif
-                     </div>
-                     {{-- </form> --}}
+
                  </div>
+
+
+                 <div class="modal fade" id="trainingModal" tabindex="-1" aria-labelledby="trainingModalLabel"
+                     aria-hidden="true">
+                     <div class="modal-dialog   modal-lg modal-dialog-scrollable modal-edit-user">
+                         <div class="modal-content">
+                             <div class="modal-header bg-transparent">
+                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                             </div>
+                             <div class="modal-body ">
+                                 @livewire('new-scourse')
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+
+                 {{-- </form> --}}
+
              </div>
          </section>
      </div>
@@ -122,15 +120,18 @@
  @push('jslive')
      <script>
          document.addEventListener('DOMContentLoaded', () => {
+             const baseurl = '{{ url('/') }}'; // Update with your base URL
+
+
              const mainContainer = document.getElementById('mainContainer');
              const addCategoryBtn = document.getElementById('addCategoryBtn');
-            //  const baseurl = 'http://course.test';
-              const baseurl = 'https://alyusr.academy';
+             //  const baseurl = 'http://course.test';
+             //   const baseurl = 'https://alyusr.academy';
 
              // Fetch categories from API
              const fetchCategories = async () => {
                  try {
-                     const response = await fetch(baseurl + '/ar/dashboard/page?id=');
+                     const response = await fetch(baseurl + '/ar/dashboard/ajax/getcategory?id=');
                      return await response.json();
                  } catch (error) {
                      console.error('Error fetching categories:', error);
@@ -141,7 +142,8 @@
              // Fetch subcategories from API based on selected category
              const fetchSubcategories = async (categoryId) => {
                  try {
-                     const response = await fetch(baseurl + '/ar/dashboard/page?id=' + categoryId);
+                     const response = await fetch(baseurl + '/ar/dashboard/ajax/getcategory?id=' +
+                         categoryId);
                      return await response.json();
                  } catch (error) {
                      console.error('Error fetching subcategories:', error);
@@ -167,7 +169,8 @@
              form.method = 'POST';
 
              // Add CSRF token input
-             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute(
+                 'content');
              const csrfInput = document.createElement('input');
              csrfInput.type = 'hidden';
              csrfInput.name = '_token';
@@ -192,7 +195,8 @@
                  const categoryIndex = dynamicInputsContainer.children.length;
 
                  const categoryContainer = document.createElement('div');
-                 categoryContainer.classList.add('container', 'mb-3', 'p-3', 'border', 'border-primary',
+                 categoryContainer.classList.add('container', 'mb-3', 'p-3', 'border',
+                     'border-primary',
                      'rounded');
 
                  const categoryRow = document.createElement('div');
@@ -216,7 +220,6 @@
                  addSubcategoryBtn.type = 'button';
 
                  subcategoryContainer.appendChild(addSubcategoryBtn);
-
                  categoryContainer.appendChild(categoryRow);
                  categoryContainer.appendChild(subcategoryContainer);
                  dynamicInputsContainer.appendChild(categoryContainer);
@@ -226,13 +229,15 @@
 
                  addSubcategoryBtn.addEventListener('click', () => {
                      const subcategoryIndex = subcategoryContainer.children.length -
-                         1; // Excluding the add button
+                         1;
+                     // Excluding the add button
 
                      const subcategoryWrapper = document.createElement('div');
                      subcategoryWrapper.classList.add('row', 'mb-1');
 
                      const subcategoryCol1 = document.createElement('div');
-                     subcategoryCol1.classList.add('col-md-4', 'd-flex', 'align-items-center');
+                     subcategoryCol1.classList.add('col-md-4', 'd-flex',
+                         'align-items-center');
 
                      const subcategorySelect = document.createElement('select');
                      subcategorySelect.classList.add('form-select', 'mb-1');
@@ -241,12 +246,14 @@
 
                      subcategoryCol1.appendChild(subcategorySelect);
 
-                     const subcategoryInputsContainer = document.createElement('div');
+                     const subcategoryInputsContainer = document.createElement(
+                         'div');
                      subcategoryInputsContainer.classList.add('container');
 
                      fetchSubcategories(categorySelect.value).then(subcategories => {
                          subcategories.forEach(subcat => {
-                             const option = document.createElement('option');
+                             const option = document.createElement(
+                                 'option');
                              option.value = subcat.id;
                              option.textContent = subcat.name;
                              subcategorySelect.appendChild(option);
@@ -259,54 +266,66 @@
                          subcategorySelect.name =
                              `categories[${categoryIndex}][subcategories][${subcategoryIndex}][subcategory_id]`;
                          if (selectedCategory) {
-                             const subcategories = await fetchSubcategories(
-                                 selectedCategory);
+                             const subcategories =
+                                 await fetchSubcategories(
+                                     selectedCategory);
                              subcategories.forEach(subcat => {
-                                 const option = document.createElement('option');
+                                 const option = document
+                                     .createElement('option');
                                  option.value = subcat.id;
-                                 option.textContent = subcat.name;
-                                 subcategorySelect.appendChild(option);
+                                 option.textContent = subcat
+                                     .name;
+                                 subcategorySelect.appendChild(
+                                     option);
                              });
                          }
                      });
-                     subcategoryWrapper.appendChild(
-                         subcategoryCol1);
-                     subcategoryWrapper.appendChild(
-                         subcategoryInputsContainer);
+                     subcategoryWrapper.appendChild(subcategoryCol1);
+                     subcategoryWrapper.appendChild(subcategoryInputsContainer);
 
                      const addMoreInputsBtn = document.createElement('button');
-                     addMoreInputsBtn.textContent =
-                         'اضافة شرح/تدريب/بث مباشر';
-                     addMoreInputsBtn.classList.add('btn',
-                         'btn-primary', 'mb-1');
+                     addMoreInputsBtn.textContent = 'اضافة شرح/تدريب/بث مباشر';
+                     addMoreInputsBtn.classList.add('btn', 'btn-primary', 'mb-1');
                      addMoreInputsBtn.type = 'button';
 
                      subcategoryWrapper.appendChild(addMoreInputsBtn);
-                     subcategoryContainer
-                         .insertBefore(subcategoryWrapper, addSubcategoryBtn);
+                     subcategoryContainer.insertBefore(subcategoryWrapper,
+                         addSubcategoryBtn);
 
                      addMoreInputsBtn.addEventListener('click', () => {
-                         const inputIndex = subcategoryInputsContainer.children.length;
+                         const inputIndex = subcategoryInputsContainer
+                             .children.length;
 
                          const inputWrapper = document.createElement('div');
                          inputWrapper.classList.add('row', 'mb-3');
 
                          const inputCol0 = document.createElement('div');
-                         inputCol0.classList.add('col-md-1');
+                         inputCol0.classList.add('col-md-2');
 
                          const input0 = document.createElement('select');
                          input0.classList.add('form-select', 'mb-1');
                          input0.name =
                              `categories[${categoryIndex}][subcategories][${subcategoryIndex}][inputs][${inputIndex}][type]`;
                          input0.innerHTML =
-                             '<option value="1">شرح</option>' +
+                             '<option value="1" selected>شرح</option>' +
                              '<option value="2">بث مباشر</option>' +
                              '<option value="0">تدريب</option>';
-
+                         input0.required = true
                          inputCol0.appendChild(input0);
 
+                         const inputDateCol = document.createElement('div');
+                         inputDateCol.classList.add('col-md-2');
+
+                         const inputDate = document.createElement('input');
+                         inputDate.type = 'date';
+                         inputDate.classList.add('form-control', 'mb-1');
+                         inputDate.required = true
+                         inputDate.name =
+                             `categories[${categoryIndex}][subcategories][${subcategoryIndex}][inputs][${inputIndex}][date]`;
+                         inputDateCol.appendChild(inputDate);
+
                          const inputCol1 = document.createElement('div');
-                         inputCol1.classList.add('col-md-5');
+                         inputCol1.classList.add('col-md-3');
 
                          const input1 = document.createElement('input');
                          input1.type = 'text';
@@ -317,7 +336,7 @@
                          inputCol1.appendChild(input1);
 
                          const inputCol2 = document.createElement('div');
-                         inputCol2.classList.add('col-md-5');
+                         inputCol2.classList.add('col-md-3');
 
                          const input2 = document.createElement('input');
                          input2.type = 'text';
@@ -325,6 +344,7 @@
                          input2.name =
                              `categories[${categoryIndex}][subcategories][${subcategoryIndex}][inputs][${inputIndex}][link]`;
                          input2.placeholder = 'رابط الشرح';
+                         input2.required = true
                          inputCol2.appendChild(input2);
 
                          const btnCol = document.createElement('div');
@@ -333,7 +353,8 @@
 
                          const removeBtn = document.createElement('button');
                          removeBtn.textContent = 'Remove';
-                         removeBtn.classList.add('btn', 'btn-danger', 'mb-1');
+                         removeBtn.classList.add('btn', 'btn-danger',
+                             'mb-1');
                          removeBtn.type =
                              'button'; // Ensure it doesn't trigger form submission
                          removeBtn.addEventListener('click', () => {
@@ -345,9 +366,47 @@
                          inputWrapper.appendChild(inputCol0);
                          inputWrapper.appendChild(inputCol1);
                          inputWrapper.appendChild(inputCol2);
+                         inputWrapper.appendChild(inputDateCol);
                          inputWrapper.appendChild(btnCol);
 
-                         subcategoryInputsContainer.appendChild(inputWrapper);
+                         subcategoryInputsContainer.appendChild(
+                             inputWrapper);
+                         input0.addEventListener('change', () => {
+                             if (input0.value === '0') {
+                                 const modalBtn = document
+                                     .createElement('button');
+                                 modalBtn.textContent =
+                                     'أضافة تدريب';
+                                 modalBtn.classList.add('btn',
+                                     'btn-info', 'mb-1');
+                                 modalBtn.type = 'button';
+                                 modalBtn.setAttribute(
+                                     'data-bs-toggle', 'modal');
+                                 modalBtn.setAttribute(
+                                     'data-bs-target',
+                                     '#trainingModal');
+                                 modalBtn.setAttribute('wire:click',
+                                     `setTrainingId(${inputIndex})`
+                                 ); // Livewire directive to set training ID
+
+                                 inputCol2.innerHTML = '';
+                                 inputCol2.classList = 'col-md-2';
+                                 inputCol2.appendChild(modalBtn);
+                             } else {
+                                 const input2 = document
+                                     .createElement('input');
+                                 input2.type = 'text';
+                                 input2.classList.add('form-control',
+                                     'mb-1');
+                                 input2.name =
+                                     `categories[${categoryIndex}][subcategories][${subcategoryIndex}][inputs][${inputIndex}][url]`;
+                                 input2.placeholder = 'رابط الشرح';
+                                 input2.required = true
+                                 inputCol2.innerHTML = '';
+                                 inputCol2.classList = 'col-md-3';
+                                 inputCol2.appendChild(input2);
+                             }
+                         });
                      });
                  });
              });
