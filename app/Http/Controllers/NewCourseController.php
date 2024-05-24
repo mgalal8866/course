@@ -46,6 +46,12 @@ class NewCourseController extends Controller
     }
     public function save_course(Request $request)
     {
+
+        // $validator = Validator::make($request->all(), $this->validtionRules[1]);
+        // if ($validator->fails()) {
+        //     return response()->json(['errors' => $validator->errors()], 422);
+        // }
+
         $course_id = $request->inputcourse_id;
 
         foreach ($request['categories'] as $category ) {
@@ -60,7 +66,7 @@ class NewCourseController extends Controller
                 }
             }
         }
- 
+
           return  'success';
         // return  redirect()->route('newcourse');
     }
@@ -77,40 +83,19 @@ class NewCourseController extends Controller
     }
     private  $validtionRules = [
         1 => [
-            'name'            => 'required',
-            'category_id'     => 'required|exists:categories,id',
-            'price'           => 'required',
-            'pricewith'           => 'required',
-            'startdate'       => 'required|date_format:Y/m/d',
-            'enddate'         => 'required|date_format:Y/m/d',
-            'time'            => 'required',
-            'features'        => 'required',
-            'howtostart'        => 'required',
-            'target'        => 'required',
-            'conditions'        => 'required',
-            'short_description'        => 'required',
-            'description'        => 'required',
-            'triner'          => 'required',
-            'limit_stud'      => 'required|integer',
-            'validity' => 'required',
-            'duration_course' => 'required',
+             'categories' => 'required|array|min:1',
+            'categories.*.category_id' => 'required|exists:categories,id',
+            'categories.*.subcategories' => 'required|array|min:1',
+            'categories.*.subcategories.*.subcategory_id' => 'required|exists:subcategories,id',
+            'categories.*.subcategories.*.inputs' => 'required|array|min:1',
+            'categories.*.subcategories.*.inputs.*.type' => 'required|in:1,2,0',
+            'categories.*.subcategories.*.inputs.*.date' => 'required|date',
+            'categories.*.subcategories.*.inputs.*.name' => 'required|string|max:255',
+            'categories.*.subcategories.*.inputs.*.link' => 'required|url',
+
         ],
-        2 => [
-            'image_course' => 'required',
-            'schedule' => 'required',
-            'file_work' => '',
-            'file_explanatory' => '',
-            'file_aggregates' => '',
-            'file_supplementary' => '',
-            'file_free' => '',
-            'file_test' => ''
-        ],
-        3 => [
-            'lessons.*.name' => 'required',
-            'lessons.*.link' => 'required',
-            'lessons.*.stage_id' => 'required',
-            'lessons.*.publish_at' => 'required',
-        ],
+
+
 
     ];
     public function validateStep(Request $request, $step)

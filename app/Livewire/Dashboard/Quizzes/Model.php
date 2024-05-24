@@ -58,7 +58,7 @@ class Model extends Component
     }
     public function save()
     {
-      
+
         $q =  session()->get('questions');
         if ($q != null) {
             $q->push($this->questions[0]);

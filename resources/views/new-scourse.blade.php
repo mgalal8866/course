@@ -19,7 +19,7 @@
                         @enderror
                     </div>
 
-                    <div class="col-12 col-md-1">
+                    <div class="col-12 col-md-2">
                         <label class="form-label" for="testtime">{{ __('tran.testtime') }}</label>
                         <input type="number" step="0.1" class="form-control" wire:model="testtime"
                             id="testtime" />
@@ -27,7 +27,7 @@
                             <span class="error" style="color: red">{{ $message }}</span>
                         @enderror
                     </div>
-                    <div class="col-12 col-md-1">
+                    <div class="col-12 col-md-2">
                         <label class="form-label" for="degree_success">{{ __('tran.degree_success') }}</label>
                         <input type="number" step="0.1" class="form-control" wire:model="degree_success"
                             id="degree_success" required />
@@ -35,7 +35,7 @@
                             <span class="error" style="color: red">{{ $message }}</span>
                         @enderror
                     </div>
-                    <div class="col-12 col-md-1">
+                    <div class="col-12 col-md-2">
                         <label class="form-label" for="total_scores">{{ __('tran.total_scores') }}</label>
                         <input type="number" step="0.1" class="form-control" wire:model="total_scores"
                             id="total_scores" required />
@@ -103,7 +103,11 @@
                 </div>
                 <div class="col-12 text-center mt-2 pt-50">
 
-                    <button type="submit" class="btn btn-success me-1">{{ __('tran.save') }}</button>
+                    <button
+                        @empty($questions)
+                    disabled
+                    @endempty
+                        type="submit" class="btn btn-success me-1">{{ __('tran.save') }}</button>
 
                 </div>
             </form>

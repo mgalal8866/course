@@ -83,7 +83,7 @@
 
                  <div class="modal fade" id="trainingModal" tabindex="-1" aria-labelledby="trainingModalLabel"
                      aria-hidden="true">
-                     <div class="modal-dialog   modal-lg modal-dialog-scrollable modal-edit-user">
+                     <div class="modal-dialog   modal-fullscreen    modal-dialog-scrollable modal-edit-user">
                          <div class="modal-content">
                              <div class="modal-header bg-transparent">
                                  <button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -116,328 +116,323 @@
          });
      </script>
      <script>
-         document.addEventListener('DOMContentLoaded', () => {
-             const baseurl = '{{ url('/') }}'; // Update with your base URL
-             sessionStorage.setItem('course_id', '{{ $course_id ?? 0 }}');
-             let course_id = sessionStorage.getItem('course_id');
+        document.addEventListener('DOMContentLoaded', () => {
+    const baseurl = '{{ url('/') }}'; // Update with your base URL
+    if (localStorage.getItem("course_id") === null) {
+        localStorage.setItem('course_id', '{{ $course_id ?? 0 }}');
+    }
+    let course_id = localStorage.getItem('course_id');
 
+    const mainContainer = document.getElementById('mainContainer');
+    const addCategoryBtn = document.getElementById('addCategoryBtn');
 
+    // Fetch categories from API
+    const fetchCategories = async () => {
+        try {
+            const response = await fetch(baseurl + '/ar/dashboard/ajax/getcategory?id=');
+            return await response.json();
+        } catch (error) {
+            console.error('Error fetching categories:', error);
+            return [];
+        }
+    };
 
-             const mainContainer = document.getElementById('mainContainer');
-             const addCategoryBtn = document.getElementById('addCategoryBtn');
-             //  const baseurl = 'http://course.test';
-             //   const baseurl = 'https://alyusr.academy';
+    // Fetch subcategories from API based on selected category
+    const fetchSubcategories = async (categoryId) => {
+        try {
+            const response = await fetch(baseurl + '/ar/dashboard/ajax/getcategory?id=' + categoryId);
+            return await response.json();
+        } catch (error) {
+            console.error('Error fetching subcategories:', error);
+            return [];
+        }
+    };
 
-             // Fetch categories from API
-             const fetchCategories = async () => {
-                 try {
-                     const response = await fetch(baseurl + '/ar/dashboard/ajax/getcategory?id=');
-                     return await response.json();
-                 } catch (error) {
-                     console.error('Error fetching categories:', error);
-                     return [];
-                 }
-             };
+    // Populate categories in the dropdown
+    const populateCategories = async (categorySelect) => {
+        const categories = await fetchCategories();
+        categorySelect.innerHTML = `<option value="">Select Category</option>`;
+        categories.forEach(category => {
+            const option = document.createElement('option');
+            option.value = category.id;
+            option.textContent = category.name;
+            categorySelect.appendChild(option);
+        });
+    };
 
-             // Fetch subcategories from API based on selected category
-             const fetchSubcategories = async (categoryId) => {
-                 try {
-                     const response = await fetch(baseurl + '/ar/dashboard/ajax/getcategory?id=' +
-                         categoryId);
-                     return await response.json();
-                 } catch (error) {
-                     console.error('Error fetching subcategories:', error);
-                     return [];
-                 }
-             };
+    // Function to handle validation errors
+    const handleValidationErrors = (errors) => {
+        Object.keys(errors).forEach((key) => {
+            console.log(key);
+            const input = document.querySelector(`[name="${key}"]`);
+            if (input) {
+                const errorMessage = document.createElement('div');
+                errorMessage.classList.add('text-danger', 'mt-1');
+                errorMessage.textContent = errors[key][0];
+                input.insertAdjacentElement('afterend', errorMessage);
+            }
+        });
+    };
 
-             // Populate categories in the dropdown
-             const populateCategories = async (categorySelect) => {
-                 const categories = await fetchCategories();
-                 categorySelect.innerHTML = `<option value="">Select Category</option>`;
-                 categories.forEach(category => {
-                     const option = document.createElement('option');
-                     option.value = category.id;
-                     option.textContent = category.name;
-                     categorySelect.appendChild(option);
-                 });
-             };
+    // Clear previous validation errors
+    const clearValidationErrors = () => {
+        const errorMessages = document.querySelectorAll('.text-danger');
+        errorMessages.forEach((message) => message.remove());
+    };
 
-             // Create the main form element
-             const form = document.createElement('form');
-             form.action = baseurl + '/ar/dashboard/formsub';
-             form.method = 'POST';
+    // Create the main form element
+    const form = document.createElement('form');
+    form.action = baseurl + '/ar/dashboard/formsub';
+    form.method = 'POST';
 
-             // Add CSRF token input
-             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute(
-                 'content');
-             const csrfInput = document.createElement('input');
-             csrfInput.type = 'hidden';
-             csrfInput.name = '_token';
-             csrfInput.value = csrfToken;
-             form.appendChild(csrfInput);
+    // Add CSRF token input
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    const csrfInput = document.createElement('input');
+    csrfInput.type = 'hidden';
+    csrfInput.name = '_token';
+    csrfInput.value = csrfToken;
+    form.appendChild(csrfInput);
 
-             const inputcourse_id = document.createElement('input');
-             inputcourse_id.type = 'hidden';
-             inputcourse_id.name = 'inputcourse_id';
-             inputcourse_id.value = course_id;
-             form.appendChild(inputcourse_id);
+    const inputcourse_id = document.createElement('input');
+    inputcourse_id.type = 'hidden';
+    inputcourse_id.name = 'inputcourse_id';
+    inputcourse_id.value = course_id;
+    form.appendChild(inputcourse_id);
 
-             // Container for dynamic inputs
-             const dynamicInputsContainer = document.createElement('div');
-             dynamicInputsContainer.classList.add('container');
-             form.appendChild(dynamicInputsContainer);
-             mainContainer.appendChild(form);
+    // Container for dynamic inputs
+    const dynamicInputsContainer = document.createElement('div');
+    dynamicInputsContainer.classList.add('container');
+    form.appendChild(dynamicInputsContainer);
+    mainContainer.appendChild(form);
 
-             const submitBtn = document.createElement('button');
-             submitBtn.textContent = 'Submit';
-             submitBtn.classList.add('btn', 'btn-primary', 'mt-3');
-             submitBtn.type = 'submit';
-             form.appendChild(submitBtn);
+    const submitBtn = document.createElement('button');
+    submitBtn.textContent = 'Submit';
+    submitBtn.classList.add('btn', 'btn-primary', 'mt-3');
+    submitBtn.type = 'submit';
+    form.appendChild(submitBtn);
 
+    // Event listener to add category and subcategory inputs
+    addCategoryBtn.addEventListener('click', () => {
+        const categoryIndex = dynamicInputsContainer.children.length;
 
-             // Event listener to add category and subcategory inputs
-             addCategoryBtn.addEventListener('click', () => {
-                 const categoryIndex = dynamicInputsContainer.children.length;
+        const categoryContainer = document.createElement('div');
+        categoryContainer.classList.add('container', 'mb-3', 'p-3', 'border', 'border-primary', 'rounded');
 
-                 const categoryContainer = document.createElement('div');
-                 categoryContainer.classList.add('container', 'mb-3', 'p-3', 'border',
-                     'border-primary',
-                     'rounded');
+        const categoryRow = document.createElement('div');
+        categoryRow.classList.add('row', 'mb-1');
 
-                 const categoryRow = document.createElement('div');
-                 categoryRow.classList.add('row', 'mb-1');
+        const col = document.createElement('div');
+        col.classList.add('col-md-6');
 
-                 const col = document.createElement('div');
-                 col.classList.add('col-md-6');
+        const categorySelect = document.createElement('select');
+        categorySelect.classList.add('form-select', 'mb-1');
+        categorySelect.name = `categories[${categoryIndex}][category_id]`;
+        categorySelect.required = true;
+        col.appendChild(categorySelect);
+        categoryRow.appendChild(col);
 
-                 const categorySelect = document.createElement('select');
-                 categorySelect.classList.add('form-select', 'mb-1');
-                 categorySelect.name = `categories[${categoryIndex}][category_id]`;
-                 categorySelect.required = true
-                 col.appendChild(categorySelect);
-                 categoryRow.appendChild(col);
+        const col2 = document.createElement('div');
+        col2.classList.add('col-md-1');
 
-                 const col2 = document.createElement('div');
-                 col2.classList.add('col-md-1');
+        const removeCategoryBtn = document.createElement('button');
+        removeCategoryBtn.textContent = 'حذف المرحلة الرئيسية';
+        removeCategoryBtn.classList.add('btn', 'btn-danger', 'btn-sm', 'mb-1');
+        removeCategoryBtn.type = 'button';
+        removeCategoryBtn.addEventListener('click', () => {
+            categoryContainer.remove();
+        });
+        col2.appendChild(removeCategoryBtn);
+        categoryRow.appendChild(col2);
 
-                 const removeCategoryBtn = document.createElement('button');
-                 removeCategoryBtn.textContent = 'حذف المرحلة الرئيسية';
-                 removeCategoryBtn.classList.add('btn', 'btn-danger', 'btn-sm', 'mb-1');
-                 removeCategoryBtn.type = 'button';
-                 removeCategoryBtn.addEventListener('click', () => {
-                     categoryContainer.remove();
-                 });
-                 col2.appendChild(removeCategoryBtn);
-                 categoryRow.appendChild(col2);
+        const subcategoryContainer = document.createElement('div');
+        subcategoryContainer.classList.add('container', 'mb-3');
 
-                 const subcategoryContainer = document.createElement('div');
-                 subcategoryContainer.classList.add('container', 'mb-3');
+        const addSubcategoryBtn = document.createElement('button');
+        addSubcategoryBtn.textContent = 'اضافة قسم فرعى';
+        addSubcategoryBtn.classList.add('btn', 'btn-secondary', 'mb-1');
+        addSubcategoryBtn.type = 'button';
 
-                 const addSubcategoryBtn = document.createElement('button');
-                 addSubcategoryBtn.textContent = 'اضافة قسم فرعى';
-                 addSubcategoryBtn.classList.add('btn', 'btn-secondary', 'mb-1');
-                 addSubcategoryBtn.type = 'button';
+        subcategoryContainer.appendChild(addSubcategoryBtn);
+        categoryContainer.appendChild(categoryRow);
+        categoryContainer.appendChild(subcategoryContainer);
+        dynamicInputsContainer.appendChild(categoryContainer);
 
-                 subcategoryContainer.appendChild(addSubcategoryBtn);
-                 categoryContainer.appendChild(categoryRow);
-                 categoryContainer.appendChild(subcategoryContainer);
-                 dynamicInputsContainer.appendChild(categoryContainer);
+        // Populate categories when the category select is added
+        populateCategories(categorySelect);
 
-                 // Populate categories when the category select is added
-                 populateCategories(categorySelect);
+        addSubcategoryBtn.addEventListener('click', () => {
+            const subcategoryIndex = subcategoryContainer.children.length - 1; // Excluding the add button
 
-                 addSubcategoryBtn.addEventListener('click', () => {
-                     const subcategoryIndex = subcategoryContainer.children.length -
-                         1; // Excluding the add button
+            const subcategoryWrapper = document.createElement('div');
+            subcategoryWrapper.classList.add('row', 'mb-1');
 
-                     const subcategoryWrapper = document.createElement('div');
-                     subcategoryWrapper.classList.add('row', 'mb-1');
+            const subcategoryCol1 = document.createElement('div');
+            subcategoryCol1.classList.add('col-md-4', 'd-flex', 'align-items-center');
 
-                     const subcategoryCol1 = document.createElement('div');
-                     subcategoryCol1.classList.add('col-md-4', 'd-flex',
-                         'align-items-center');
+            const subcategoryCol2 = document.createElement('div');
+            subcategoryCol2.classList.add('col-md-1');
 
-                     const subcategoryCol2 = document.createElement('div');
-                     subcategoryCol2.classList.add('col-md-1')
+            const subcategorySelect = document.createElement('select');
+            subcategorySelect.required = true;
+            subcategorySelect.classList.add('form-select', 'mb-1');
+            subcategorySelect.name = `categories[${categoryIndex}][subcategories][${subcategoryIndex}][subcategory_id]`;
 
-                     const subcategorySelect = document.createElement('select');
-                     subcategorySelect.required = true
-                     subcategorySelect.classList.add('form-select', 'mb-1');
-                     subcategorySelect.name =
-                         `categories[${categoryIndex}][subcategories][${subcategoryIndex}][subcategory_id]`;
+            subcategoryCol1.appendChild(subcategorySelect);
 
-                     subcategoryCol1.appendChild(subcategorySelect);
+            const removeSubcategoryBtn = document.createElement('button');
+            removeSubcategoryBtn.textContent = 'حذف القسم الفرعى';
+            removeSubcategoryBtn.classList.add('btn', 'btn-danger', 'btn-sm', 'mb-1');
+            removeSubcategoryBtn.type = 'button';
+            removeSubcategoryBtn.addEventListener('click', () => {
+                subcategoryWrapper.remove();
+            });
+            subcategoryCol2.appendChild(removeSubcategoryBtn);
 
+            const subcategoryInputsContainer = document.createElement('div');
+            subcategoryInputsContainer.classList.add('container');
 
-                     const removeSubcategoryBtn = document.createElement('button');
-                     removeSubcategoryBtn.textContent = 'حذف القسم الفرعى';
-                     removeSubcategoryBtn.classList.add('btn', 'btn-danger', 'btn-sm', 'mb-1');
-                     removeSubcategoryBtn.type = 'button';
-                     removeSubcategoryBtn.addEventListener('click', () => {
-                         subcategoryWrapper.remove();
-                     });
-                     subcategoryCol2.appendChild(removeSubcategoryBtn);
+            fetchSubcategories(categorySelect.value).then(subcategories => {
+                subcategories.forEach(subcat => {
+                    const option = document.createElement('option');
+                    option.value = subcat.id;
+                    option.textContent = subcat.name;
+                    subcategorySelect.appendChild(option);
+                });
+            });
+            categorySelect.addEventListener('change', async () => {
+                const selectedCategory = categorySelect.value;
+                subcategorySelect.innerHTML = `<option value="">Select Subcategory</option>`;
 
+                subcategorySelect.name = `categories[${categoryIndex}][subcategories][${subcategoryIndex}][subcategory_id]`;
+                if (selectedCategory) {
+                    const subcategories = await fetchSubcategories(selectedCategory);
+                    subcategories.forEach(subcat => {
+                        const option = document.createElement('option');
+                        option.value = subcat.id;
+                        option.textContent = subcat.name;
+                        subcategorySelect.appendChild(option);
+                    });
+                }
+            });
+            subcategoryWrapper.appendChild(subcategoryCol1);
+            subcategoryWrapper.appendChild(subcategoryCol2);
+            subcategoryWrapper.appendChild(subcategoryInputsContainer);
 
-                     const subcategoryInputsContainer = document.createElement(
-                         'div');
-                     subcategoryInputsContainer.classList.add('container');
+            const addMoreInputsBtn = document.createElement('button');
+            addMoreInputsBtn.textContent = 'اضافة شرح/تدريب/بث مباشر';
+            addMoreInputsBtn.classList.add('btn', 'btn-primary', 'mb-1');
+            addMoreInputsBtn.type = 'button';
 
-                     fetchSubcategories(categorySelect.value).then(subcategories => {
-                         subcategories.forEach(subcat => {
-                             const option = document.createElement(
-                                 'option');
-                             option.value = subcat.id;
-                             option.textContent = subcat.name;
-                             subcategorySelect.appendChild(option);
-                         });
-                     });
-                     categorySelect.addEventListener('change', async () => {
-                         const selectedCategory = categorySelect.value;
-                         subcategorySelect.innerHTML =
-                             `<option value="">Select Subcategory</option>`;
+            subcategoryWrapper.appendChild(addMoreInputsBtn);
+            subcategoryContainer.insertBefore(subcategoryWrapper, addSubcategoryBtn);
 
-                         subcategorySelect.name =
-                             `categories[${categoryIndex}][subcategories][${subcategoryIndex}][subcategory_id]`;
-                         if (selectedCategory) {
-                             const subcategories =
-                                 await fetchSubcategories(
-                                     selectedCategory);
-                             subcategories.forEach(subcat => {
-                                 const option = document
-                                     .createElement('option');
-                                 option.value = subcat.id;
-                                 option.textContent = subcat
-                                     .name;
-                                 subcategorySelect.appendChild(
-                                     option);
-                             });
-                         }
-                     });
-                     subcategoryWrapper.appendChild(subcategoryCol1);
-                     subcategoryWrapper.appendChild(subcategoryCol2);
-                     subcategoryWrapper.appendChild(subcategoryInputsContainer);
+            addMoreInputsBtn.addEventListener('click', () => {
+                const inputIndex = subcategoryInputsContainer.children.length;
 
-                     const addMoreInputsBtn = document.createElement('button');
-                     addMoreInputsBtn.textContent = 'اضافة شرح/تدريب/بث مباشر';
-                     addMoreInputsBtn.classList.add('btn', 'btn-primary', 'mb-1');
-                     addMoreInputsBtn.type = 'button';
+                const inputWrapper = document.createElement('div');
+                inputWrapper.classList.add('row', 'mb-3');
 
-                     subcategoryWrapper.appendChild(addMoreInputsBtn);
-                     subcategoryContainer.insertBefore(subcategoryWrapper,
-                         addSubcategoryBtn);
+                const inputCol0 = document.createElement('div');
+                inputCol0.classList.add('col-md-2');
 
-                     addMoreInputsBtn.addEventListener('click', () => {
-                         const inputIndex = subcategoryInputsContainer
-                             .children.length;
+                const input0Container = document.createElement('div');
+                const input0 = document.createElement('select');
+                input0.classList.add('form-select', 'mb-1');
+                input0.name = `categories[${categoryIndex}][subcategories][${subcategoryIndex}][inputs][${inputIndex}][type]`;
+                input0.innerHTML = '<option value="1" selected>شرح</option>' + '<option value="2">بث مباشر</option>' + '<option value="0">تدريب</option>';
+                input0.required = true;
+                input0Container.appendChild(input0);
+                inputCol0.appendChild(input0Container);
 
-                         const inputWrapper = document.createElement('div');
-                         inputWrapper.classList.add('row', 'mb-3');
+                const inputDateCol = document.createElement('div');
+                inputDateCol.classList.add('col-md-2');
 
-                         const inputCol0 = document.createElement('div');
-                         inputCol0.classList.add('col-md-2');
+                const inputDateContainer = document.createElement('div');
+                const inputDate = document.createElement('input');
+                inputDate.type = 'date';
+                inputDate.classList.add('form-control', 'mb-1');
+                inputDate.name = `categories[${categoryIndex}][subcategories][${subcategoryIndex}][inputs][${inputIndex}][date]`;
+                inputDateContainer.appendChild(inputDate);
+                inputDateCol.appendChild(inputDateContainer);
 
-                         const input0 = document.createElement('select');
-                         input0.classList.add('form-select', 'mb-1');
-                         input0.name =
-                             `categories[${categoryIndex}][subcategories][${subcategoryIndex}][inputs][${inputIndex}][type]`;
-                         input0.innerHTML =
-                             '<option value="1" selected>شرح</option>' +
-                             '<option value="2">بث مباشر</option>' +
-                             '<option value="0">تدريب</option>';
-                         input0.required = true
-                         inputCol0.appendChild(input0);
+                const inputCol1 = document.createElement('div');
+                inputCol1.classList.add('col-md-3');
 
-                         const inputDateCol = document.createElement('div');
-                         inputDateCol.classList.add('col-md-2');
+                const input1Container = document.createElement('div');
+                const input1 = document.createElement('input');
+                input1.type = 'text';
+                input1.classList.add('form-control', 'mb-1');
+                input1.name = `categories[${categoryIndex}][subcategories][${subcategoryIndex}][inputs][${inputIndex}][name]`;
+                input1.placeholder = 'اسم الشرح';
+                input1.required = true;
+                input1Container.appendChild(input1);
+                inputCol1.appendChild(input1Container);
 
-                         const inputDate = document.createElement('input');
-                         inputDate.type = 'date';
-                         inputDate.classList.add('form-control', 'mb-1');
-                         inputDate.required = true
-                         inputDate.name =
-                             `categories[${categoryIndex}][subcategories][${subcategoryIndex}][inputs][${inputIndex}][date]`;
-                         inputDateCol.appendChild(inputDate);
+                const inputCol2 = document.createElement('div');
+                inputCol2.classList.add('col-md-3');
 
-                         const inputCol1 = document.createElement('div');
-                         inputCol1.classList.add('col-md-3');
+                const input2Container = document.createElement('div');
+                const input2 = document.createElement('input');
+                input2.type = 'text';
+                input2.classList.add('form-control', 'mb-1');
+                input2.name = `categories[${categoryIndex}][subcategories][${subcategoryIndex}][inputs][${inputIndex}][link]`;
+                input2.placeholder = 'رابط الشرح';
+                input2.required = true;
+                input2Container.appendChild(input2);
+                inputCol2.appendChild(input2Container);
 
-                         const input1 = document.createElement('input');
-                         input1.type = 'text';
-                         input1.classList.add('form-control', 'mb-1');
-                         input1.required = true
-                         input1.name =
-                             `categories[${categoryIndex}][subcategories][${subcategoryIndex}][inputs][${inputIndex}][name]`;
-                         input1.placeholder = 'اسم الشرح';
-                         inputCol1.appendChild(input1);
+                const btnCol = document.createElement('div');
+                btnCol.classList.add('col-md-1', 'd-flex', 'align-items-center');
 
-                         const inputCol2 = document.createElement('div');
-                         inputCol2.classList.add('col-md-3');
-                         const btnCol2 = document.createElement('div');
+                const removeBtn = document.createElement('button');
+                removeBtn.textContent = 'Remove';
+                removeBtn.classList.add('btn', 'btn-danger', 'mb-1');
+                removeBtn.type = 'button'; // Ensure it doesn't trigger form submission
+                removeBtn.addEventListener('click', () => {
+                    inputWrapper.remove();
+                });
 
+                btnCol.appendChild(removeBtn);
+                inputWrapper.appendChild(inputCol0);
+                inputWrapper.appendChild(inputCol1);
+                inputWrapper.appendChild(inputCol2);
+                inputWrapper.appendChild(inputDateCol);
+                inputWrapper.appendChild(btnCol);
+                subcategoryInputsContainer.appendChild(inputWrapper);
+            });
+        });
+    });
 
-                         const input2 = document.createElement('input');
-                         input2.type = 'text';
-                         input2.classList.add('form-control', 'mb-1');
-                         input2.name =
-                             `categories[${categoryIndex}][subcategories][${subcategoryIndex}][inputs][${inputIndex}][link]`;
-                         input2.placeholder = 'رابط الشرح';
-                         input2.required = true
-                         inputCol2.appendChild(btnCol2);
-                         inputCol2.appendChild(input2);
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault(); // Prevent default form submission
 
-                         const btnCol = document.createElement('div');
-                         btnCol.classList.add('col-md-1', 'd-flex', 'align-items-center');
+        clearValidationErrors(); // Clear previous validation errors
 
-                         const removeBtn = document.createElement('button');
-                         removeBtn.textContent = 'Remove';
-                         removeBtn.classList.add('btn', 'btn-danger', 'mb-1');
-                         removeBtn.type =
-                             'button'; // Ensure it doesn't trigger form submission
-                         removeBtn.addEventListener('click', () => {
-                             inputWrapper.remove();
-                         });
+        const formData = new FormData(form);
+        try {
+            const response = await fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json',
+                    'X-CSRF-TOKEN': csrfToken
+                }
+            });
 
-                         input0.addEventListener('change', () => {
-                             if (input0.value === '0') {
-                                 const modalBtn = document.createElement('button');
-                                 modalBtn.textContent = 'أضافة تدريب';
-                                 modalBtn.classList.add('btn', 'btn-info', 'mb-1');
-                                 modalBtn.type = 'button';
-                                 modalBtn.setAttribute('data-bs-toggle', 'modal');
-                                 modalBtn.setAttribute('data-bs-target',
-                                     '#trainingModal');
+            if (!response.ok) {
+                const data = await response.json();
+                if (data.errors) {
+                    handleValidationErrors(data.errors);
+                }
+            } else {
+                // Handle successful form submission (optional)
+                console.log('Form submitted successfully');
+            }
+        } catch (error) {
+            console.error('Error submitting form:', error);
+        }
+    });
+});
 
-                                 modalBtn.addEventListener('click', () => {
-                                     Livewire.dispatch('setTrainingId', {
-                                         name: `categories[${categoryIndex}][subcategories][${subcategoryIndex}][inputs][${inputIndex}][link]`
-                                     }); // Triggering Livewire action
-                                 });
-                                 btnCol2.innerHTML = '';
-                                 btnCol2.appendChild(modalBtn);
-                                 input2.style.display = 'none';
-
-                             } else {
-                                 btnCol2.innerHTML = '';
-                                 input2.style.display = '';
-
-                             }
-
-
-                         });
-
-
-                         btnCol.appendChild(removeBtn);
-                         inputWrapper.appendChild(inputCol0);
-                         inputWrapper.appendChild(inputCol1);
-                         inputWrapper.appendChild(inputCol2);
-                         inputWrapper.appendChild(inputDateCol);
-                         inputWrapper.appendChild(btnCol);
-                         subcategoryInputsContainer.appendChild(inputWrapper);
-                     });
-                 });
-             });
-         });
      </script>
  @endpush

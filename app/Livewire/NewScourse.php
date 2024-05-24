@@ -91,7 +91,6 @@ class NewScourse extends Component
 
             if ($this->typecategory == 3) {
                 $lesson = Lessons::create(['name' => $this->testname, 'link_video' => $quiz->id, 'is_lesson' => 0, 'publish_at' => now()]);
-
                 CourseStages::create(['stage_id' => $this->stage_child_id, 'course_id' => $this->course_id, 'lesson_id' => $lesson->id]);
             }
 
