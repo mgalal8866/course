@@ -36,25 +36,13 @@
                          <button type="button" class="step-trigger">
                              <span class="bs-stepper-box">2</span>
                              <span class="bs-stepper-label">
-                                 <span class="bs-stepper-title">{{ __('tran.attached') }}</span>
+                                 <span class="bs-stepper-title">{{ __('tran.attached') }} & {{ __('tran.setcourse') }}</span>
                                  {{-- <span class="bs-stepper-subtitle">{{ $pages[2]['subheading'] }}</span> --}}
                              </span>
                          </button>
                      </div>
 
-                     <div class="line">
-                         <i
-                             class="fas fa-chevron-{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' ? 'left' : 'right' }} font-medium-2"></i>
-                     </div>
-                     <div class="step ">
-                         <button type="button" class="step-trigger">
-                             <span class="bs-stepper-box">3</span>
-                             <span class="bs-stepper-label">
-                                 <span class="bs-stepper-title">{{ __('tran.setcourse') }}</span>
-                                 {{-- <span class="bs-stepper-subtitle">{{ $pages[4]['subheading'] }}</span> --}}
-                             </span>
-                         </button>
-                     </div>
+
                      <div class="line">
                          <i
                              class="fas fa-chevron-{{ LaravelLocalization::getCurrentLocaleDirection() == 'rtl' ? 'left' : 'right' }} font-medium-2"></i>
@@ -132,7 +120,7 @@
              sessionStorage.setItem('course_id', '{{$course_id??0 }}');
              let course_id = sessionStorage.getItem('course_id');
 
-           
+
 
              const mainContainer = document.getElementById('mainContainer');
              const addCategoryBtn = document.getElementById('addCategoryBtn');
