@@ -77,9 +77,9 @@ Route::get('/', function (Request $request) {
     return  view('soon');
 });
 Route::get('/clear', function (Request $request) {
-    // QuizResultHeader::truncate();
-    // QuizResultDetails::truncate();
-    // return 'Done';
+    QuizResultHeader::truncate();
+    QuizResultDetails::truncate();
+    return 'Done';
     // Artisan::call('optimize');
     // return Artisan::output();
 });
