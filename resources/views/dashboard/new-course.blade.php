@@ -116,6 +116,7 @@
          });
      </script>
      <script>
+     
          document.addEventListener('DOMContentLoaded', () => {
              const baseurl = '{{ url('/') }}'; // Update with your base URL
              if (localStorage.getItem("course_id") === null) {
