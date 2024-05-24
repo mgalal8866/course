@@ -120,19 +120,9 @@
  @endpush
  @push('jslive')
      <script>
-         window.addEventListener('setquizid', event => {
-             const inputName = event.detail.name;
-             const inputElement = document.querySelector(`input[name="${inputName}"]`);
-             inputElement.value = event.detail.quizid;
-         });
-     </script>
-     <script>
          document.addEventListener('DOMContentLoaded', () => {
              const baseurl = '{{ url('/') }}'; // Update with your base URL
-             sessionStorage.setItem('course_id', '{{$course_id??0 }}');
-             let course_id = sessionStorage.getItem('course_id');
 
-           
 
              const mainContainer = document.getElementById('mainContainer');
              const addCategoryBtn = document.getElementById('addCategoryBtn');
@@ -187,12 +177,6 @@
              csrfInput.name = '_token';
              csrfInput.value = csrfToken;
              form.appendChild(csrfInput);
-
-             const inputcourse_id = document.createElement('input');
-             inputcourse_id.type = 'hidden';
-             inputcourse_id.name = 'inputcourse_id';
-             inputcourse_id.value = course_id;
-             form.appendChild(inputcourse_id);
 
              // Container for dynamic inputs
              const dynamicInputsContainer = document.createElement('div');
@@ -354,17 +338,13 @@
 
                          const inputCol2 = document.createElement('div');
                          inputCol2.classList.add('col-md-3');
-                         const btnCol2 = document.createElement('div');
-
 
                          const input2 = document.createElement('input');
                          input2.type = 'text';
                          input2.classList.add('form-control', 'mb-1');
-                         input2.name =
-                             `categories[${categoryIndex}][subcategories][${subcategoryIndex}][inputs][${inputIndex}][link]`;
+                         input2.name = `categories[${categoryIndex}][subcategories][${subcategoryIndex}][inputs][${inputIndex}][link]`;
                          input2.placeholder = 'رابط الشرح';
                          input2.required = true
-                         inputCol2.appendChild(btnCol2);
                          inputCol2.appendChild(input2);
 
                          const btnCol = document.createElement('div');
@@ -374,38 +354,11 @@
                          removeBtn.textContent = 'Remove';
                          removeBtn.classList.add('btn', 'btn-danger', 'mb-1');
                          removeBtn.type =
-                             'button'; // Ensure it doesn't trigger form submission
+                         'button'; // Ensure it doesn't trigger form submission
                          removeBtn.addEventListener('click', () => {
                              inputWrapper.remove();
                          });
 
-                         input0.addEventListener('change', () => {
-                             if (input0.value === '0') {
-                                 const modalBtn = document.createElement('button');
-                                 modalBtn.textContent = 'أضافة تدريب';
-                                 modalBtn.classList.add('btn', 'btn-info', 'mb-1');
-                                 modalBtn.type = 'button';
-                                 modalBtn.setAttribute('data-bs-toggle', 'modal');
-                                 modalBtn.setAttribute('data-bs-target',
-                                     '#trainingModal');
-
-                                 modalBtn.addEventListener('click', () => {
-                                     Livewire.dispatch('setTrainingId', {
-                                         name: `categories[${categoryIndex}][subcategories][${subcategoryIndex}][inputs][${inputIndex}][link]`
-                                     }); // Triggering Livewire action
-                                 });
-                                 btnCol2.innerHTML = '';
-                                 btnCol2.appendChild(modalBtn);
-                                 input2.style.display = 'none';
-
-                             } else {
-                                 btnCol2.innerHTML = '';
-                                 input2.style.display = '';
-
-                             }
-
-
-                         });
 
 
                          btnCol.appendChild(removeBtn);
@@ -415,6 +368,31 @@
                          inputWrapper.appendChild(inputDateCol);
                          inputWrapper.appendChild(btnCol);
                          subcategoryInputsContainer.appendChild(inputWrapper);
+                         input0.addEventListener('change', () => {
+                             if (input0.value === '0') {
+                                 const modalBtn = document.createElement('button');
+                                 modalBtn.textContent = 'أضافة تدريب';
+                                 modalBtn.classList.add('btn', 'btn-info', 'mb-1');
+                                 modalBtn.type = 'button';
+                                 modalBtn.setAttribute('data-bs-toggle', 'modal');
+                                 modalBtn.setAttribute('data-bs-target',
+                                     '#trainingModal');
+                                 modalBtn.setAttribute('wire:click',
+                                     `setTrainingId(${inputIndex})`
+                                     ); // Livewire directive to set training ID
+
+                                input2.style.display = 'none';
+                                 inputCol2.appendChild(modalBtn);
+
+                                } else {
+                                 input2.style.display = '';
+
+                             }
+
+
+                         });
+
+
                      });
                  });
              });

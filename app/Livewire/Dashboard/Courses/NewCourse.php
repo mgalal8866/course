@@ -253,7 +253,7 @@ class NewCourse extends Component
             DB::commit();
             $this->dispatch('swal', message: 'تم انشاء الدورة بنجاح');
 
-            return  redirect()->route('newcourse2');
+            return  redirect()->route('newcourse2')->with('course_id',  $CFC->id);
             // $this->resetValidation();
             // $this->reset();
             // return true;

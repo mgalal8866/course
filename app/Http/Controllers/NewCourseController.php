@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Quizes;
+use App\Models\Stages;
+use App\Models\Lessons;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\CategoryFCourse;
 use App\Http\Controllers\Controller;
-use App\Models\Stages;
+use App\Models\CourseStages;
 use Illuminate\Support\Facades\Validator;
 
 class NewCourseController extends Controller
@@ -38,8 +41,28 @@ class NewCourseController extends Controller
         $category = Category::get();
         $triners = User::whereType('1')->get();
         $categoryfreecourse = CategoryFCourse::whereHas('freecourse')->get();
+        $course_id = $request->session()->get('course_id');
+        return view('dashboard.new-course', compact(['course_id','stage', 'currentPage', 'category', 'triners', 'categoryfreecourse']));
+    }
+    public function save_course(Request $request)
+    {
+        $course_id = $request->inputcourse_id;
 
-        return view('dashboard.new-course', compact(['stage', 'currentPage', 'category', 'triners', 'categoryfreecourse']));
+        foreach ($request['categories'] as $category ) {
+            foreach ($category['subcategories'] as $subcategories) {
+                foreach ($subcategories['inputs'] as $inputs) {
+
+                    if ($inputs['type'] == 0) {
+                        Quizes::updated(['id' => $inputs['link']], ['course_id' => $course_id]);
+                    }
+                    $lesson = Lessons::create(['name' => $inputs['name'], 'link_video' => $inputs['link'], 'is_lesson' => $inputs['type'], 'publish_at' => $inputs['date']]);
+                    CourseStages::create(['course_id' => $course_id, 'lesson_id' => $lesson->id,'stage_id'=>$subcategories['subcategory_id'], 'publish_at' => $inputs['date']]);
+                }
+            }
+        }
+ 
+          return  'success';
+        // return  redirect()->route('newcourse');
     }
     public function setCurrentStep(Request $request)
     {

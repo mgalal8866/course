@@ -624,9 +624,7 @@ Route::group(
         Route::get('/new/course/step/2',[ NewCourseController::class,'index'])->name('newcourse2');
         Route::post('/ajax/next/page',[ NewCourseController::class,'next_page'])->name('next_page');
         Route::get('/ajax/getcategory/{id?}',[ NewCourseController::class,'getcategory'])->name('getcategory');
-        Route::post('/formsub', function (request $r) {
-            return response()->json($r->all() , 200);
-        })->name('pageq');
+        Route::post('/formsub', [ NewCourseController::class,'save_course'])->name('save_course');
 
         Route::get('/edit/course/{id?}', EditCourse::class)->name('editcourse');
         Route::get('/course', ViewCourses::class)->name('course');

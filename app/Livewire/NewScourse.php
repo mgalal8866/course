@@ -24,16 +24,17 @@ class NewScourse extends Component
 
 
     protected $listeners = ['edit' => 'edit', 'fetchdata' => 'fetchdata','setTrainingId'];
-    public $course_id, $courses, $stage_child_id, $stages_id, $stage_child = [], $stages = [], $redirect_mark, $redirect_to_up, $redirect_to_down, $typecategory, $image,
+    public $nameinput,$course_id, $courses, $stage_child_id, $stages_id, $stage_child = [], $stages = [], $redirect_mark, $redirect_to_up, $redirect_to_down, $typecategory, $image,
         $questions = [],
         $category = [], $testname, $testcategory, $testtime, $degree_success, $total_scores;
 
-        public function setTrainingId($id)
+        public function setTrainingId($name)
         {
-            dd( $id);
+            $this->nameinput =$name;
         }
     public function render()
     {
+
         return view('new-scourse');
     }
     public function edit($id = null)
@@ -57,6 +58,7 @@ class NewScourse extends Component
 
     public function mount()
     {
+
         $this->fetchdata();
     }
     public function fetchdata()
@@ -115,6 +117,7 @@ class NewScourse extends Component
                 }
             }
             DB::commit();
+            $this->dispatch('setquizid',  quizid:  $quiz->id,name:$this->nameinput);
             $this->dispatch('swal', message: 'تم انشاء  الاختبار بنجاح');
             $this->reset();
             session()->forget('questions');
