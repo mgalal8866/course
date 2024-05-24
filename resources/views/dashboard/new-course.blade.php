@@ -36,7 +36,8 @@
                          <button type="button" class="step-trigger">
                              <span class="bs-stepper-box">2</span>
                              <span class="bs-stepper-label">
-                                 <span class="bs-stepper-title">{{ __('tran.attached') }} & {{ __('tran.setcourse') }}</span>
+                                 <span class="bs-stepper-title">{{ __('tran.attached') }} &
+                                     {{ __('tran.setcourse') }}</span>
                                  {{-- <span class="bs-stepper-subtitle">{{ $pages[2]['subheading'] }}</span> --}}
                              </span>
                          </button>
@@ -117,7 +118,7 @@
      <script>
          document.addEventListener('DOMContentLoaded', () => {
              const baseurl = '{{ url('/') }}'; // Update with your base URL
-             sessionStorage.setItem('course_id', '{{$course_id??0 }}');
+             sessionStorage.setItem('course_id', '{{ $course_id ?? 0 }}');
              let course_id = sessionStorage.getItem('course_id');
 
 
@@ -217,6 +218,19 @@
                  col.appendChild(categorySelect);
                  categoryRow.appendChild(col);
 
+                 const col2 = document.createElement('div');
+                 col2.classList.add('col-md-1');
+
+                 const removeCategoryBtn = document.createElement('button');
+                 removeCategoryBtn.textContent = 'حذف المرحلة الرئيسية';
+                 removeCategoryBtn.classList.add('btn', 'btn-danger', 'btn-sm', 'mb-1');
+                 removeCategoryBtn.type = 'button';
+                 removeCategoryBtn.addEventListener('click', () => {
+                     categoryContainer.remove();
+                 });
+                 col2.appendChild(removeCategoryBtn);
+                 categoryRow.appendChild(col2);
+
                  const subcategoryContainer = document.createElement('div');
                  subcategoryContainer.classList.add('container', 'mb-3');
 
@@ -235,8 +249,7 @@
 
                  addSubcategoryBtn.addEventListener('click', () => {
                      const subcategoryIndex = subcategoryContainer.children.length -
-                         1;
-                     // Excluding the add button
+                         1; // Excluding the add button
 
                      const subcategoryWrapper = document.createElement('div');
                      subcategoryWrapper.classList.add('row', 'mb-1');
@@ -245,6 +258,9 @@
                      subcategoryCol1.classList.add('col-md-4', 'd-flex',
                          'align-items-center');
 
+                     const subcategoryCol2 = document.createElement('div');
+                     subcategoryCol2.classList.add('col-md-1')
+
                      const subcategorySelect = document.createElement('select');
                      subcategorySelect.required = true
                      subcategorySelect.classList.add('form-select', 'mb-1');
@@ -252,6 +268,17 @@
                          `categories[${categoryIndex}][subcategories][${subcategoryIndex}][subcategory_id]`;
 
                      subcategoryCol1.appendChild(subcategorySelect);
+
+
+                     const removeSubcategoryBtn = document.createElement('button');
+                     removeSubcategoryBtn.textContent = 'حذف القسم الفرعى';
+                     removeSubcategoryBtn.classList.add('btn', 'btn-danger', 'btn-sm', 'mb-1');
+                     removeSubcategoryBtn.type = 'button';
+                     removeSubcategoryBtn.addEventListener('click', () => {
+                         subcategoryWrapper.remove();
+                     });
+                     subcategoryCol2.appendChild(removeSubcategoryBtn);
+
 
                      const subcategoryInputsContainer = document.createElement(
                          'div');
@@ -289,6 +316,7 @@
                          }
                      });
                      subcategoryWrapper.appendChild(subcategoryCol1);
+                     subcategoryWrapper.appendChild(subcategoryCol2);
                      subcategoryWrapper.appendChild(subcategoryInputsContainer);
 
                      const addMoreInputsBtn = document.createElement('button');
