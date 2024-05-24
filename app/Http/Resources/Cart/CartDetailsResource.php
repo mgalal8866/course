@@ -17,7 +17,7 @@ class CartDetailsResource extends JsonResource
     {
 
         return [
-            'cart_id' => $this->id ?? '',
+            'cart_id'       => $this->id ?? '',
             'product_id'    => $this->is_book ==1 ?$this->book->id :$this->course->id,
             'name'          => $this->is_book == 1 ?$this->book->book_name :$this->course->name ?? '',
             'image'         => $this->is_book == 1 ?$this->book->imageurl  :$this->course->imageurl ,
