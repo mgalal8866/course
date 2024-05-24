@@ -15,6 +15,8 @@ class CartResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+if(Auth::guard('student')->check()){
+
 
         $wallet        = Auth::guard('student')->user()->wallet;
         $subtotal      = $this->cart_details->sum('subtotal') ?? '0.00';
@@ -44,5 +46,9 @@ class CartResource extends JsonResource
             'remaining_amount_of_balance'  => $pay =='0' ? number_format(($wallet-$total),2): '0.00',
             'cart_details'  => CartDetailsResource::collection($this->cart_details??[]),
         ];
+    }else{
+
+        return [ ];
+    }
     }
 }
