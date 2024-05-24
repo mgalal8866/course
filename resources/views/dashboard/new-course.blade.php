@@ -213,6 +213,7 @@
                  const categorySelect = document.createElement('select');
                  categorySelect.classList.add('form-select', 'mb-1');
                  categorySelect.name = `categories[${categoryIndex}][category_id]`;
+                 categorySelect.required = true
                  col.appendChild(categorySelect);
                  categoryRow.appendChild(col);
 
@@ -245,6 +246,7 @@
                          'align-items-center');
 
                      const subcategorySelect = document.createElement('select');
+                     subcategorySelect.required = true
                      subcategorySelect.classList.add('form-select', 'mb-1');
                      subcategorySelect.name =
                          `categories[${categoryIndex}][subcategories][${subcategoryIndex}][subcategory_id]`;
@@ -268,6 +270,7 @@
                          const selectedCategory = categorySelect.value;
                          subcategorySelect.innerHTML =
                              `<option value="">Select Subcategory</option>`;
+
                          subcategorySelect.name =
                              `categories[${categoryIndex}][subcategories][${subcategoryIndex}][subcategory_id]`;
                          if (selectedCategory) {
@@ -335,6 +338,7 @@
                          const input1 = document.createElement('input');
                          input1.type = 'text';
                          input1.classList.add('form-control', 'mb-1');
+                         input1.required = true
                          input1.name =
                              `categories[${categoryIndex}][subcategories][${subcategoryIndex}][inputs][${inputIndex}][name]`;
                          input1.placeholder = 'اسم الشرح';
