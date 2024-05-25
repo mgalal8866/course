@@ -81,11 +81,11 @@
                          </a>
                      </li>
                      <li>
-                         <a class="d-flex align-items-center" href="{{route('newcourse2')}}">
+                         {{-- <a class="d-flex align-items-center" href="{{route('newcourse2')}}">
                              <i data-feather="circle"></i>
                              <span class="menu-item text-truncate">DEMO - {{ __('tran.newcourse') }}</span>
                          </a>
-                     </li>
+                     </li> --}}
                      <li>
                          <a class="d-flex align-items-center" href="{{route('course')}}">
                              <i data-feather="circle"></i>
