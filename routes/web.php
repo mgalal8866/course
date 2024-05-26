@@ -255,166 +255,68 @@ Route::get('/ncc', function (Request $request) {
     Artisan::call('optimize:clear');
     return Artisan::output();
 });
-Route::get('/image1', function () {
-    $accountid = "68eefd3c-a07b-4fdd-bb20-5102a75c3be7";
-    $token = "eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1NmIzYjEwNzI0M2ViNjlhMDMxNjExZDVjNTI5MjBiZSIsInBlcm1pc3Npb25zIjpbXSwiYWNjZXNzUnVsZXMiOlt7ImlkIjoidHJhZGluZy1hY2NvdW50LW1hbmFnZW1lbnQtYXBpIiwibWV0aG9kcyI6WyJ0cmFkaW5nLWFjY291bnQtbWFuYWdlbWVudC1hcGk6cmVzdDpwdWJsaWM6KjoqIl0sInJvbGVzIjpbInJlYWRlciIsIndyaXRlciJdLCJyZXNvdXJjZXMiOlsiKjokVVNFUl9JRCQ6KiJdfSx7ImlkIjoibWV0YWFwaS1yZXN0LWFwaSIsIm1ldGhvZHMiOlsibWV0YWFwaS1hcGk6cmVzdDpwdWJsaWM6KjoqIl0sInJvbGVzIjpbInJlYWRlciIsIndyaXRlciJdLCJyZXNvdXJjZXMiOlsiKjokVVNFUl9JRCQ6KiJdfSx7ImlkIjoibWV0YWFwaS1ycGMtYXBpIiwibWV0aG9kcyI6WyJtZXRhYXBpLWFwaTp3czpwdWJsaWM6KjoqIl0sInJvbGVzIjpbInJlYWRlciIsIndyaXRlciJdLCJyZXNvdXJjZXMiOlsiKjokVVNFUl9JRCQ6KiJdfSx7ImlkIjoibWV0YWFwaS1yZWFsLXRpbWUtc3RyZWFtaW5nLWFwaSIsIm1ldGhvZHMiOlsibWV0YWFwaS1hcGk6d3M6cHVibGljOio6KiJdLCJyb2xlcyI6WyJyZWFkZXIiLCJ3cml0ZXIiXSwicmVzb3VyY2VzIjpbIio6JFVTRVJfSUQkOioiXX0seyJpZCI6Im1ldGFzdGF0cy1hcGkiLCJtZXRob2RzIjpbIm1ldGFzdGF0cy1hcGk6cmVzdDpwdWJsaWM6KjoqIl0sInJvbGVzIjpbInJlYWRlciJdLCJyZXNvdXJjZXMiOlsiKjokVVNFUl9JRCQ6KiJdfSx7ImlkIjoicmlzay1tYW5hZ2VtZW50LWFwaSIsIm1ldGhvZHMiOlsicmlzay1tYW5hZ2VtZW50LWFwaTpyZXN0OnB1YmxpYzoqOioiXSwicm9sZXMiOlsicmVhZGVyIiwid3JpdGVyIl0sInJlc291cmNlcyI6WyIqOiRVU0VSX0lEJDoqIl19LHsiaWQiOiJjb3B5ZmFjdG9yeS1hcGkiLCJtZXRob2RzIjpbImNvcHlmYWN0b3J5LWFwaTpyZXN0OnB1YmxpYzoqOioiXSwicm9sZXMiOlsicmVhZGVyIiwid3JpdGVyIl0sInJlc291cmNlcyI6WyIqOiRVU0VSX0lEJDoqIl19LHsiaWQiOiJtdC1tYW5hZ2VyLWFwaSIsIm1ldGhvZHMiOlsibXQtbWFuYWdlci1hcGk6cmVzdDpkZWFsaW5nOio6KiIsIm10LW1hbmFnZXItYXBpOnJlc3Q6cHVibGljOio6KiJdLCJyb2xlcyI6WyJyZWFkZXIiLCJ3cml0ZXIiXSwicmVzb3VyY2VzIjpbIio6JFVTRVJfSUQkOioiXX0seyJpZCI6ImJpbGxpbmctYXBpIiwibWV0aG9kcyI6WyJiaWxsaW5nLWFwaTpyZXN0OnB1YmxpYzoqOioiXSwicm9sZXMiOlsicmVhZGVyIl0sInJlc291cmNlcyI6WyIqOiRVU0VSX0lEJDoqIl19XSwidG9rZW5JZCI6IjIwMjEwMjEzIiwiaW1wZXJzb25hdGVkIjpmYWxzZSwicmVhbFVzZXJJZCI6IjU2YjNiMTA3MjQzZWI2OWEwMzE2MTFkNWM1MjkyMGJlIiwiaWF0IjoxNzEzMTA3ODE0fQ.k-JcNtL8nZKbJEVw8LgcN5dH1BHAc__UJZQAjQCsYCzG0R-J07DOHiwuJrkh03rV010TRV4bARyEZ1NEEIdMFfaESKgb2G1LikTSRt_ITQ_UJR4ZmUd2nyRd3Gcl8tCJDt-IG9F9aZ0FXPOvxO7znzIIgeLJXTowQJZpP870RtbckmUxEM3VGABqBiDYYavBLf8SaSX4DIDIuU9QKZuL7S98ZRbk9XPbnAiOUrdguYAT7fqsROzl9rE93HuuhIQW1hYByQLuxjN_xw7RsqbkMmMQyrezvgwk5ohJexrNO_RxqgBpihd1_oTaJodJ8wjrbv_2OsPXSOZjQ9eztn1bmpY1rA68jFqpYtG51zYrSY9_E09t8h-uojHUsZS53aA_jibLoztJS-pO8pa8cyWfizsErS8w2Nor6T7PB0Z1Co515BsKNUH_hfTf2hvk3BxWty-c6WuCWXgXVSJT0qyBBmtmqGoL_bFJQ_LPX7hZMDrI_tkBEqEKakAW7HIZntmxGR3kRv47OvctZKYxjizVJh-JoOLPbmG8wwB6zLArWP14N73OJc8EZWfJZe7TOjDtXjhUTGuHsO0BH0WjKqM-6MESEASxhV8bega5KpFIgxhtMO-eFy19-9ozqs5kksfnYxelC6E8Qr3HxPn6IwnmJJ13HJOcMUj-HGGXQZh4BlU";
 
-    function funcurl($api, $requset, $token = null, $fields = '')
-    {
-        $curl = curl_init();
-        $headers = [
-            "Content-Type: application/json",
-            "Accept: application/json",
-        ];
-        if ($token != null) {
-            $headers[] = "auth-token: $token";
-        }
-        $options = [
-            CURLOPT_URL => $api,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => $requset,
-            CURLOPT_HTTPHEADER => $headers,
-        ];
+Route::get('/test', function (Request $request) {
+    $p1 =   public_path('files' . DIRECTORY_SEPARATOR . 'courses' . DIRECTORY_SEPARATOR . '533e4944-29a0-4be7-b81c-9b48c54e4b64' . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'Fyol1715638937.jpg');
 
-        if ($fields != null) {
-            $options[CURLOPT_POSTFIELDS] = $fields;
-        }
-
-        curl_setopt_array($curl, $options);
-        $response = curl_exec($curl);
-        curl_close($curl);
-        return $response;
-    }
-
-    $response = funcurl(
-        "https://copyfactory-api-v1.new-york.agiliumtrade.ai/users/current/configuration/subscribers/$accountid",
-        "GET",
-        $token,
-        null
-    );
-
-    $response =   json_decode($response, true);
-    $response =  $response['subscriptions'][0]['symbolFilter']['included'];
-    // $d = "EURJPY";
-    // $response          = array_diff($response,  [". $d ."]);
-    // if (count($response) == 0) {
-    //     array_push($response, "");
-    // }
-
-    $convertedArray  = array_values($response);
-    $includedSymbols = json_encode($convertedArray);
-    dd($includedSymbols);
-
-    // "["GBPJPY","GBPNZD","EURJPY"]" // routes\web.php:137
-    ###############################################################
-    ########################### SUBSCRIPE AND ADD SYMPOLY #########################
-    ###############################################################
-    $post_string =    '{
-                "name": "",
-            "copyStopLoss": true,  "copyTakeProfit": true,
-                "subscriptions": [
-                {      "strategyId": "CkFW",
-                        "reduceCorrelations": "by-strategy",
-                "symbolFilter": {
-                     "included": ["GBPJPY","GBPNZD","EURJPY"]
-                    },      "copyStopLoss": true,
-                    "copyTakeProfit": true
-                }
-                ]
-            }';
-    // $response =   json_decode( $post_string,true);
-    // dd($response);
-    $curl = curl_init();
-
-    curl_setopt_array($curl, [
-        CURLOPT_URL => "https://copyfactory-api-v1.new-york.agiliumtrade.ai/users/current/configuration/subscribers/" . $accountid,
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => "",
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 0,
-        CURLOPT_FOLLOWLOCATION => true,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => "PUT",
-        CURLOPT_POSTFIELDS => $post_string,
-        CURLOPT_HTTPHEADER => [
-            "auth-token:" . $token . "",
-            "Content-Type: application/json",
-            "Accept: application/json",
-        ],
-    ]);
-    $response = curl_exec($curl);
-    var_dump($response);
-    // ###############################################################
-    // ########################### SUBSCRIPE #########################
-    // ###############################################################
+    // $p1 = public_path('\files\courses\533e4944-29a0-4be7-b81c-9b48c54e4b64\images\Fyol1715638937.jpg');
+    $p2 = public_path('\files\ranout.png');
 
 
-    // ###############################################################
-    // ########################### ADD USER  #########################
-    // ###############################################################
-    // $post_string =
-    //     '{
-    // "symbol": "EURUSD",
-    // "magic": 1200,
-    // "quoteStreamingIntervalInSeconds": 2.5,
-    // "tags": [
-    //     "string"
-    // ],
-    // "metadata": {},
-    // "reliability": "high",
-    // "resourceSlots": 1,
-    // "copyFactoryResourceSlots": 1,
-    // "region": "new-york",
-    // "name": "Mohamed2",
-    // "manualTrades": false,
-    // "copyFactoryRoles": [
-    //     "SUBSCRIBER"
-    // ],
-    // "slippage": 0,
-    // "login": "12657413",
-    // "password": "jsbc87",
-    // "server":  "ICMarketsSC-Demo01",
-    // "platform": "mt4",
-    // "type": "cloud-g2",
-    // "application": "MetaApi",
-    // "baseCurrency": "USD",
-    // "riskManagementApiEnabled": false,
-    // "metastatsHourlyTarificationEnabled": true
-    // }';
-    // //substr($_REQUEST["appMode"],0,5)=="AppCT")
-
-    // $curl = curl_init();
-    // $token = "eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1NmIzYjEwNzI0M2ViNjlhMDMxNjExZDVjNTI5MjBiZSIsInBlcm1pc3Npb25zIjpbXSwiYWNjZXNzUnVsZXMiOlt7ImlkIjoidHJhZGluZy1hY2NvdW50LW1hbmFnZW1lbnQtYXBpIiwibWV0aG9kcyI6WyJ0cmFkaW5nLWFjY291bnQtbWFuYWdlbWVudC1hcGk6cmVzdDpwdWJsaWM6KjoqIl0sInJvbGVzIjpbInJlYWRlciIsIndyaXRlciJdLCJyZXNvdXJjZXMiOlsiKjokVVNFUl9JRCQ6KiJdfSx7ImlkIjoibWV0YWFwaS1yZXN0LWFwaSIsIm1ldGhvZHMiOlsibWV0YWFwaS1hcGk6cmVzdDpwdWJsaWM6KjoqIl0sInJvbGVzIjpbInJlYWRlciIsIndyaXRlciJdLCJyZXNvdXJjZXMiOlsiKjokVVNFUl9JRCQ6KiJdfSx7ImlkIjoibWV0YWFwaS1ycGMtYXBpIiwibWV0aG9kcyI6WyJtZXRhYXBpLWFwaTp3czpwdWJsaWM6KjoqIl0sInJvbGVzIjpbInJlYWRlciIsIndyaXRlciJdLCJyZXNvdXJjZXMiOlsiKjokVVNFUl9JRCQ6KiJdfSx7ImlkIjoibWV0YWFwaS1yZWFsLXRpbWUtc3RyZWFtaW5nLWFwaSIsIm1ldGhvZHMiOlsibWV0YWFwaS1hcGk6d3M6cHVibGljOio6KiJdLCJyb2xlcyI6WyJyZWFkZXIiLCJ3cml0ZXIiXSwicmVzb3VyY2VzIjpbIio6JFVTRVJfSUQkOioiXX0seyJpZCI6Im1ldGFzdGF0cy1hcGkiLCJtZXRob2RzIjpbIm1ldGFzdGF0cy1hcGk6cmVzdDpwdWJsaWM6KjoqIl0sInJvbGVzIjpbInJlYWRlciJdLCJyZXNvdXJjZXMiOlsiKjokVVNFUl9JRCQ6KiJdfSx7ImlkIjoicmlzay1tYW5hZ2VtZW50LWFwaSIsIm1ldGhvZHMiOlsicmlzay1tYW5hZ2VtZW50LWFwaTpyZXN0OnB1YmxpYzoqOioiXSwicm9sZXMiOlsicmVhZGVyIiwid3JpdGVyIl0sInJlc291cmNlcyI6WyIqOiRVU0VSX0lEJDoqIl19LHsiaWQiOiJjb3B5ZmFjdG9yeS1hcGkiLCJtZXRob2RzIjpbImNvcHlmYWN0b3J5LWFwaTpyZXN0OnB1YmxpYzoqOioiXSwicm9sZXMiOlsicmVhZGVyIiwid3JpdGVyIl0sInJlc291cmNlcyI6WyIqOiRVU0VSX0lEJDoqIl19LHsiaWQiOiJtdC1tYW5hZ2VyLWFwaSIsIm1ldGhvZHMiOlsibXQtbWFuYWdlci1hcGk6cmVzdDpkZWFsaW5nOio6KiIsIm10LW1hbmFnZXItYXBpOnJlc3Q6cHVibGljOio6KiJdLCJyb2xlcyI6WyJyZWFkZXIiLCJ3cml0ZXIiXSwicmVzb3VyY2VzIjpbIio6JFVTRVJfSUQkOioiXX0seyJpZCI6ImJpbGxpbmctYXBpIiwibWV0aG9kcyI6WyJiaWxsaW5nLWFwaTpyZXN0OnB1YmxpYzoqOioiXSwicm9sZXMiOlsicmVhZGVyIl0sInJlc291cmNlcyI6WyIqOiRVU0VSX0lEJDoqIl19XSwidG9rZW5JZCI6IjIwMjEwMjEzIiwiaW1wZXJzb25hdGVkIjpmYWxzZSwicmVhbFVzZXJJZCI6IjU2YjNiMTA3MjQzZWI2OWEwMzE2MTFkNWM1MjkyMGJlIiwiaWF0IjoxNzEzMTA3ODE0fQ.k-JcNtL8nZKbJEVw8LgcN5dH1BHAc__UJZQAjQCsYCzG0R-J07DOHiwuJrkh03rV010TRV4bARyEZ1NEEIdMFfaESKgb2G1LikTSRt_ITQ_UJR4ZmUd2nyRd3Gcl8tCJDt-IG9F9aZ0FXPOvxO7znzIIgeLJXTowQJZpP870RtbckmUxEM3VGABqBiDYYavBLf8SaSX4DIDIuU9QKZuL7S98ZRbk9XPbnAiOUrdguYAT7fqsROzl9rE93HuuhIQW1hYByQLuxjN_xw7RsqbkMmMQyrezvgwk5ohJexrNO_RxqgBpihd1_oTaJodJ8wjrbv_2OsPXSOZjQ9eztn1bmpY1rA68jFqpYtG51zYrSY9_E09t8h-uojHUsZS53aA_jibLoztJS-pO8pa8cyWfizsErS8w2Nor6T7PB0Z1Co515BsKNUH_hfTf2hvk3BxWty-c6WuCWXgXVSJT0qyBBmtmqGoL_bFJQ_LPX7hZMDrI_tkBEqEKakAW7HIZntmxGR3kRv47OvctZKYxjizVJh-JoOLPbmG8wwB6zLArWP14N73OJc8EZWfJZe7TOjDtXjhUTGuHsO0BH0WjKqM-6MESEASxhV8bega5KpFIgxhtMO-eFy19-9ozqs5kksfnYxelC6E8Qr3HxPn6IwnmJJ13HJOcMUj-HGGXQZh4BlU";
-    // curl_setopt_array($curl, [
-    //     CURLOPT_URL => "https://mt-provisioning-api-v1.agiliumtrade.agiliumtrade.ai/users/current/accounts",
-    //     CURLOPT_RETURNTRANSFER => true,
-    //     CURLOPT_ENCODING => "",
-    //     CURLOPT_MAXREDIRS => 10,
-    //     CURLOPT_TIMEOUT => 0,
-    //     CURLOPT_FOLLOWLOCATION => true,
-    //     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-    //     CURLOPT_CUSTOMREQUEST => "POST",
-    //     CURLOPT_POSTFIELDS => $post_string,
-    //     CURLOPT_HTTPHEADER => [
-    //         "auth-token:" . $token . "",
-    //         "Content-Type: application/json",
+    // $gg = Setting::where('key', 'api_token_chat')->value('value');
+    // $url = 'https://api.openai.com/v1/chat/completions';
+    // $response = Http::withHeaders([
+    //     'Content-Type' => "application/json",
+    //     'Authorization' => "Bearer " . $gg,
+    // ])->post($url, [
+    //     'model' => "gpt-3.5-turbo",
+    //     'messages' => [
+    //         ['role' => 'system', 'content' => 'You are a helpful assistant.'],
+    //         // ['role' => 'user', 'content' => 'this is blog post title:'.PHP_EOL.'help pepole'.PHP_EOL. 'Improve it for SEO and provide 6 alterntive titles to lang arabic'],
+    //         ['role' => 'user', 'content' => 'Translate the following English text to arabic: "' . $request->text . '"'],
     //     ],
+    //     'temperature' => 0,
+    //     'max_tokens' => 3900,
     // ]);
-
-    // $response = curl_exec($curl);
-    // return ($response);
-    // ###############################################################
-    // ########################### ADD USER  #########################
-    // ###############################################################
+    // $rr =  $response->json();
+    // // $ar =    array_slice(preg_split('/\r\n|\r|\n/', $rr['choices'][0]['message']['content']), -5, 5);
+    // // dd ($rr['choices'][0]['message']['content']);
+    // dd($rr);
 
 
 
+    // // Session::put('token', 'asdasdasd');
+    // // Cache::Forever('token', 'asdasdasd');
+    // // return app('getSettings');
 
+    // // return   Browser::browserName() .' - '.Browser::platformName() .' - '.$request->ip() .' - ' .   json_decode( json_encode(Location::get($request->ip())), true);
+    // return    json_decode(json_encode(Location::get($request->ip())), true);
+
+    $watermark = Image::make($p2);
+    // $watermark->rotate(45);
+
+    $watermark->resize(300, 300);
+    $image = Image::make($p1);
+    // $image->blur(18);
+    $image->greyscale();
+
+    $imageWidth = $image->width();
+    $imageHeight = $image->height();
+    $positionX = ($imageWidth - $watermark->width()) / 2;
+    $positionY = ($imageHeight - $watermark->height()) / 2;
+    $image->insert($watermark, 'center',  number_format($positionX),  number_format($positionY));
+    // $image->insert($watermark, 'center');
+    // return $image->response('jpg');
+    $filename = 'processed_image.jpg'; // You can generate a unique filename if needed
+    $path = 'files/' . $filename;
+
+    // Save the image to the public storage
+    $image->save(public_path($path));
+
+    // Generate the URL to the saved image
+    $imageUrl = url($path);
+
+    return $imageUrl;
 });
 
 Route::group(
@@ -541,90 +443,17 @@ Route::group(
         });
         Route::get('/test1', Test::class);
         // Route::get('/test1', NewCourse::class)->name('newcourse');
-        Route::get('/test/{text?}', function (Request $request) {
-            $gg = Setting::where('key', 'api_token_chat')->value('value');
-            $url = 'https://api.openai.com/v1/chat/completions';
 
-            $response = Http::withHeaders([
-                'Content-Type' => "application/json",
-                'Authorization' => "Bearer " . $gg,
-            ])->post($url, [
-
-                'model' => "gpt-3.5-turbo",
-                'messages' => [
-                    ['role' => 'system', 'content' => 'You are a helpful assistant.'],
-                    // ['role' => 'user', 'content' => 'this is blog post title:'.PHP_EOL.'help pepole'.PHP_EOL. 'Improve it for SEO and provide 6 alterntive titles to lang arabic'],
-                    ['role' => 'user', 'content' => 'Translate the following English text to arabic: "' . $request->text . '"'],
-                ],
-                'temperature' => 0,
-                'max_tokens' => 3900,
-            ]);
-            $rr =  $response->json();
-            // $ar =    array_slice(preg_split('/\r\n|\r|\n/', $rr['choices'][0]['message']['content']), -5, 5);
-            // dd ($rr['choices'][0]['message']['content']);
-            dd($rr);
-
-
-
-            // Session::put('token', 'asdasdasd');
-            // Cache::Forever('token', 'asdasdasd');
-            // return app('getSettings');
-
-            // return   Browser::browserName() .' - '.Browser::platformName() .' - '.$request->ip() .' - ' .   json_decode( json_encode(Location::get($request->ip())), true);
-            return    json_decode(json_encode(Location::get($request->ip())), true);
-
-
-            $p1 = asset('files/1.jpg');
-            $p1 = public_path('\files\1.jpg');
-            $p2 = public_path('\files\watermark.png');
-
-            $watermark = Image::make($p2);
-            $watermark->rotate(45);
-
-            $image = Image::make($p1);
-            // $image->blur(18);
-            $image->greyscale();
-
-            // $imageWidth = $image->width();
-            // $imageHeight = $image->height();
-            // $positionX = ($imageWidth - $watermark->width()) / 2;
-            // $positionY = ($imageHeight - $watermark->height()) / 2;
-            // // $image->insert($p2, 'center',  number_format($positionX),  number_format($positionY));
-            $image->insert($watermark, 'center');
-            return $image->response('jpg');
-        });
-        Route::get('/image', function () {
-
-            // $p1 = asset('files/1.jpg');
-            $p1 = public_path('\files\1.jpg');
-            // $p2 = public_path('\files\watermark.png');
-            $p2 = public_path('\files\stamp.png');
-
-            $watermark = Image::make($p2);
-            $watermark->rotate(10);
-
-            $image = Image::make($p1);
-            // $image->blur(18);
-            // $image->greyscale();
-
-            // $imageWidth = $image->width();
-            // $imageHeight = $image->height();
-            // $positionX = ($imageWidth - $watermark->width()) / 2;
-            // $positionY = ($imageHeight - $watermark->height()) / 2;
-            // // $image->insert($p2, 'center',  number_format($positionX),  number_format($positionY));
-            $image->insert($watermark, 'center');
-            return $image->response('jpg');
-        });
 
         Route::get('/vimeo', Filemanger::class);
         Route::get('/scrip/course', ScripingCourse::class)->name('scripcourse');
         Route::get('/new/course', NewCourse::class)->name('newcourse');
 
 
-        Route::get('/new/course/step/2',[ NewCourseController::class,'index'])->name('newcourse2');
-        Route::post('/ajax/next/page',[ NewCourseController::class,'next_page'])->name('next_page');
-        Route::get('/ajax/getcategory/{id?}',[ NewCourseController::class,'getcategory'])->name('getcategory');
-        Route::post('/formsub', [ NewCourseController::class,'save_course'])->name('save_course');
+        Route::get('/new/course/step/2', [NewCourseController::class, 'index'])->name('newcourse2');
+        Route::post('/ajax/next/page', [NewCourseController::class, 'next_page'])->name('next_page');
+        Route::get('/ajax/getcategory/{id?}', [NewCourseController::class, 'getcategory'])->name('getcategory');
+        Route::post('/formsub', [NewCourseController::class, 'save_course'])->name('save_course');
 
         Route::get('/edit/course/{id?}', EditCourse::class)->name('editcourse');
         Route::get('/course', ViewCourses::class)->name('course');

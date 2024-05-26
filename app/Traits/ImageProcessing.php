@@ -25,7 +25,7 @@ trait ImageProcessing
     {
         if ($mime == 'image/png')
             $extension = '.png';
-        elseif($mime == 'image/jpeg')
+        elseif ($mime == 'image/jpeg')
             $extension = '.jpg';
         elseif ($mime == 'image/gif')
             $extension = '.gif';
@@ -49,7 +49,7 @@ trait ImageProcessing
 
         return $imgpath;
     }
-    public function aspect4resize($image, $width, $height, $course_id, $folder ,$folder2=null)
+    public function aspect4resize($image, $width, $height, $course_id, $folder, $folder2 = null)
     {
         $img = Image::make($image);
         $extension = $this->get_mime($img->mime());
@@ -88,7 +88,7 @@ trait ImageProcessing
         $dataX = array();
         if ($height != null && $width != null) {
 
-            $dataX['image'] = $this->aspect4resize($Thefile,  $width , $height, $course_id, $folder, $folder2);
+            $dataX['image'] = $this->aspect4resize($Thefile,  $width, $height, $course_id, $folder, $folder2);
         } else {
             $dataX['image'] = $this->saveImage($Thefile, $course_id, $folder, $folder2);
         }
@@ -111,12 +111,31 @@ trait ImageProcessing
             }
         }
     }
-
-
-    public function uploadfile($file, $course_id=null, $folder=null, $folder2=null)
+    public function uploadfile($file, $course_id = null, $folder = null, $folder2 = null)
+    {
+    }
+    public function watermark($p1, $p2,$savepath)
     {
 
+        $watermark = Image::make($p2);
 
+        $watermark->resize(300, 300);
+        $image = Image::make($p1);
+        $image->greyscale();
+
+        $imageWidth = $image->width();
+        $imageHeight = $image->height();
+        $positionX = ($imageWidth - $watermark->width()) / 2;
+        $positionY = ($imageHeight - $watermark->height()) / 2;
+        $image->insert($watermark, 'center',  number_format($positionX),  number_format($positionY));
+
+        // Save the image to the public storage
+        $image->save($savepath);
+
+        // Generate the URL to the saved image
+        $imageUrl = url($savepath);
+
+        return $imageUrl;
     }
     public function applyWatermark($imgewatermark, $imageorginal)
     {

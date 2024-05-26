@@ -29,7 +29,7 @@ class DBCourseRepository implements CourseRepositoryinterface
         // return Cache::remember('course_category_' . $category_id, 60, function () use ($category_id) {
             $perPage = $this->request->input('per_page', 20);
             return $this->model->gender()->whereCategoryId($category_id)->with('courseenrolled')
-                ->select(['id', 'name', 'image', 'short_description', 'created_at'])->paginate($perPage);
+                ->select(['id', 'name', 'image', 'statu','short_description', 'created_at'])->paginate($perPage);
         // });
     }
     public function getcoursebyid($id)

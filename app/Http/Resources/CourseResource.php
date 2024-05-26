@@ -20,11 +20,11 @@ class CourseResource extends JsonResource
             'name'              => $this->name??'',
             'image'             => $this->imageurl??'',
             'short_description' => $this->short_description??'',
-            'status'            => $this->status??'1',
+
+            'status'            => $this->statu  , //عدد المقاعد
             'subscripe'        => $this->isEnrolledInCourse($this->id)?'true':'false',
-            'status'            => $this->statu ?? '', //عدد المقاعد
             'created_at'        => $this->created_at->format('d/m/Y')
-            
+
             //1=الدوره شغاله
             //2=نفذت المقاعده
             //3=انتهت الدورة
