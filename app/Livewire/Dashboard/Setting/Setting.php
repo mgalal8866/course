@@ -19,11 +19,11 @@ class Setting extends Component
             $sett =  ModelsSetting::where('key', $key)
                 ->update(['value' => $value]);
             if (array_key_exists($key, $this->data2) ) {
-                dd($this->data2 );
+                // dd($this->data2 );
                 if($this->data2[$key]['image'] != null){
 
                     $dataX = $this->saveImageAndThumbnail($this->data2[$key]['image'], false, null, null, 'home');
-                    dd($dataX['image'],$this->data2[$key]['image'],$key );
+                    // dd($dataX['image'],$this->data2[$key]['image'],$key );
                     $sett->update(['value' => $dataX['image']]);
                 }
             }
@@ -71,7 +71,7 @@ class Setting extends Component
         $this->data['section6_setting'] = getsetting('section6_setting', ['section6_status', 'section6_title', 'section6_sub_title']);
         $this->data['section7_setting'] = getsetting('section7_setting', ['section7_status', 'section7_title', 'section7_sub_title']);
         $this->data['section8_setting'] = getsetting('section8_setting', ['section8_status', 'section8_title', 'section8_sub_title']);
-dd( $this->data);
+
         return view('dashboard.setting.setting');
     }
 }
