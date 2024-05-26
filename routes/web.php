@@ -91,164 +91,7 @@ Route::get('/cache', function (Request $request) {
     Artisan::call('route:trans:cache');
     return Artisan::output();
 });
-Route::get('/script', function (Request $request) {
-    function vurl($url)
-    {
-        $parsedUrl = parse_url($url);
-        if (isset($parsedUrl['host']) && $parsedUrl['host'] === 'player.vimeo.com' && isset($parsedUrl['path'])) {
-            preg_match('/\/video\/(\d+)/', $parsedUrl['path'], $matches);
-            if (isset($matches[1])) {
-                $videoId = $matches[1];
-                return "https://vimeo.com/{$videoId}";
-            }
-        }
-    }
-    //     $client = new Client();
-    //     // $client->getClient()->setDefaultOption('config/curl/'.CURLOPT_SSL_VERIFYHOST, FALSE);
-    //     // $client->getClient()->setDefaultOption('config/curl/'.CURLOPT_SSL_VERIFYPEER, FALSE);
-    // $website = $client->request('GET', 'https://albaraah.sa/courses/%D9%82%D8%AF%D8%B1%D8%A7%D8%AA-%D9%85%D8%AD%D9%88%D8%B3%D8%A8-219-%D8%B7%D9%84%D8%A7%D8%A8');
 
-    $client = new Client();
-
-    $website = $client->request('GET', $request->url);
-    $website->filter('.container')->each(function ($container) use (&$data) {
-        $container->children()->each(function ($container_child) use (&$data) {
-            $container_child->filter('.image-content')->each(function ($image_conten) use (&$data) {
-                $image_conten->children()->each(function ($child) use (&$data) {
-                    $data['image'] = $child->attr('src');
-                });
-            });
-            $container_child->filter('.content')->each(function ($content) use (&$data) {
-                $data['title']         = $content->children()->first()->text();
-                $data['category_name'] = $content->children('a')->first()->text();
-                $price             = $content->children('.data-price')->children('.price')->children('h6')->text();
-                $data['price']     = preg_replace('/[^0-9]/', '', $price);
-                $data['price_text']  = $content->children('.data-price')->children('.price')->eq(0)->children('p')->text() ?? '';
-                // $priceprint        = ($content->children('.data-price')->children('.price')->eq(1)->children('h6')->text())??'';
-                // $data['price_print']     = preg_replace('/[^0-9]/', '',$priceprint ??'');
-                // $data['price_print_text']  = $content->children('.data-price')->children('.price')->eq(1)->children('p')->text();
-                $data['currency']  = trim(preg_replace('/[0-9]+/', '', $price)); // Removes numbers
-                $data['validity']  = $content->children('.mt-2')->children('.col-md-6')->eq(1)->children('div')->text();
-                $data['duration']  =  $content->children('.mt-2')->children('.col-md-6')->eq(0)->children('div')->text();
-                $data['short_description']  =  $content->children('div')->eq(2)->text();
-            });
-            $container_child->filter('.tab-content')->each(function ($tabs) use (&$data) {
-                $tabs->children()->each(function ($child) use (&$data) {
-                    if ($child->attr('id') == 'pills-home') {
-                        $data['features'] = str_replace("\n", '',   $child->html());
-                    }
-                    if ($child->attr('id') == 'pills-profile') {
-                        $data['conditions'] = str_replace("\n", '',  $child->html());
-                    }
-                    if ($child->attr('id') == 'pills-brief') {
-
-                        $data['description'] =    str_replace("\n", '',  $child->html());
-                    }
-                });
-            });
-        });
-    });
-
-    // $crawler = $client->request('GET', 'https://albaraah.sa/login/');
-    // $form = $crawler->selectButton('wp-submit')->form();
-    // $form['log'] = '563517768';
-    // $form['pwd'] = 'Zxcv@1234@Zxcv';
-    // $client->submit($form);
-    // $website_login = $client->request('GET', $request->url);
-    // $url = $request->url;
-    // $website_login->filter('.courseViewBox')->each(function ($courseViewBox) use (&$data, &$url, &$client) {
-    //     $courseViewBox->filter('.courseDetails')->each(function ($courseDetails) use (&$data) {
-    //         $data['target'] = $courseDetails->filter('#courseAccordion')->filter('#collapseOne')->filter('.mb-4')->text();
-    //         $courseDetails->filter('#courseAccordion')->filter('#collapseTwo')->filter('.mb-4')->children('ul')->children('li')->each(function ($collapsetwo, $index) use (&$data) {
-    //             $data['triners'][$index]['telegram'] = $collapsetwo->children('a')->attr('href');
-    //             $data['triners'][$index]['name'] = $collapsetwo->children('a')->text();
-    //         });
-    //         $courseDetails->filter('.detailsBlock')->each(function ($detailsBlock, $index) use (&$data) {
-    //             $data['files'][$index]['link'] = $detailsBlock->filter('a')->attr('href');
-    //             $data['files'][$index]['name'] = $detailsBlock->filter('a')->text();
-    //         });
-    //     });
-    //     $courseViewBox->filter('.courseListBody')->each(function ($detailsBlock, $index) use (&$data, &$url, &$client) {
-    //         $detailsBlock->children('.listItem')->each(function ($listItem, $index) use (&$data, &$url,  &$client) {
-    //             $name = $listItem->children('.listItemHead')->text();
-    //             $data['stage'][$index]['name'] = $name;
-    //             $currentCategory = null;
-
-    //             $listItem->children('.listItemBody')->each(function ($listItemBody) use (&$data, $index, &$currentCategory, &$url,  &$client) {
-    //                 $classes = $listItemBody->attr('class');
-    //                 if (strpos($classes, 'lessonCategory') !== false) {
-    //                     $currentCategory = $listItemBody->text();
-    //                     $data['stage'][$index]['chiled'][$currentCategory] = [];
-    //                 } elseif ($currentCategory) {
-    //                     // Only process if we have a current category
-    //                     $listItemBody->filter('.listLesson')->each(function ($listLesson, $index2) use (&$data, $index, &$currentCategory, $listItemBody, &$url, &$client) {
-    //                         $lessonName = trim($listLesson->text());
-    //                         $lessonLink = $listLesson->filter('a.specialclass')->attr('href');
-    //                         $classes = $listItemBody->attr('class');
-    //                         $website_login = $client->request('GET', $url . $lessonLink);
-    //                         if (strpos($classes, 'is_test_class') !== false) {
-    //                             $testName = trim($listItemBody->filter('a.specialclass')->eq(1)->text());
-    //                             $testLink = $listItemBody->filter('a.specialclass')->eq(1)->attr('href');
-    //                             // dd($url . $testLink);
-
-
-    //                             $data['stage'][$index]['chiled'][$currentCategory][] = ['is_lesson' => 0, 'name' => $testName, 'link' => $testLink,'link_v' =>  ''];
-    //                             $data['stage'][$index]['chiled'][$currentCategory][] = ['is_lesson' => 1, 'name' => $lessonName, 'link' => $lessonLink ,'link_v' =>  $website_login->filter('iframe')->eq(1)->attr('src')];
-    //                         } else {
-
-    //                             $data['stage'][$index]['chiled'][$currentCategory][] = ['is_lesson' => 1, 'name' => $lessonName, 'link' => $lessonLink, 'link_v' =>  $website_login->filter('iframe')->eq(1)->attr('src')];
-    //                         }
-    //                     });
-    //                 }
-    //             });
-    //         });
-    //     });
-
-    //     // $listItem->each(function ($listItemHead, $index1) use (&$data, $index, $listItem) {
-    //     //     $listItemHead->children('.lessonCategory')->each(function ($lessonCategory, $index1) use (&$data, $index, $listItem, $listItemHead) {
-    //     //         $data['stage'][$index]['chiled'][$index1]['name']  = $lessonCategory->text();
-
-
-    //     //         $classes = $listItem->attr('class');
-
-    //     //         // Check if the class attribute contains 'lessonCategory'
-    //     //         if (strpos($classes, 'lessonCategory') !== false) {
-
-    //     //             dump($lessonCategory->text());
-    //     //         }
-
-    //     //         $listItem->filter('.listLesson')->each(function ($listLesson, $index2) use (&$data, $index, $index1, $listItem, $listItemHead, $lessonCategory) {
-    //     //             // $x  = $listLesson->nextAll()->filter('.lessonCategory')->first();
-
-    //     //             $data['stage'][$index]['chiled'][$index1]['Lesson'][$index2]['name'] = $lessonCategory->text() . '  -  ' . $listLesson->text();
-    //     //             // $data['stage'][$index]['chiled'][$index1]['Lesson'][$index2]['name'] =  $listLesson->text();
-    //     //             // $data['stage'][$index]['chiled'][$index1]['Lesson'][$index2]['link'] =  $listLesson->filter('a')->attr('href');
-
-    //     //         });
-
-
-
-    //     //         // $listItem->filter('.listLesson')->each(function ($listLesson, $index2) use (&$data, $index,$index1) {
-    //     //         //     $data['stage'][$index]['chiled'][$index1]['Lesson'][$index2]['name'] =  $listLesson->text();
-    //     //         //     $data['stage'][$index]['chiled'][$index1]['Lesson'][$index2]['link'] =  $listLesson->filter('a')->attr('href');
-    //     //         // });
-    //     //     });
-    //     //     // $listItemHead->children('.listItemBody')->each(function ($lessonCategory, $index1) use (&$data, $index, $listItem) {
-    //     //     //     // dump($lessonCategory->html());
-    //     //     //     $data['stage'][$index]['chiled'][$index1]['name']  = $lessonCategory->text();
-    //     //     //     // $data['stage'][$index]['chiled'][$index1]['Lesson'] =  [$listLesson->text()];
-    //     //     //     $lessonCategory->children('.listLesson')->each(function ($listLesson, $index2) use (&$data, $index, $index1) {
-    //     //     //         $data['stage'][$index]['chiled'][$index1]['Lesson'][$index2]['name'] =  $listLesson->text();
-    //     //     //         $data['stage'][$index]['chiled'][$index1]['Lesson'][$index2]['link'] =  $listLesson->filter('a')->attr('href');
-    //     //     //     });
-    //     //     // });
-    //     // });
-
-
-    // });
-    return $data;
-    return  'not found';
-});
 Route::get('/ncc', function (Request $request) {
 
     Artisan::call('view:clear');
@@ -257,12 +100,6 @@ Route::get('/ncc', function (Request $request) {
 });
 
 Route::get('/test', function (Request $request) {
-    $p1 =   public_path('files' . DIRECTORY_SEPARATOR . 'courses' . DIRECTORY_SEPARATOR . '533e4944-29a0-4be7-b81c-9b48c54e4b64' . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'Fyol1715638937.jpg');
-
-    // $p1 = public_path('\files\courses\533e4944-29a0-4be7-b81c-9b48c54e4b64\images\Fyol1715638937.jpg');
-    $p2 = public_path('\files\ranout.png');
-
-
     // $gg = Setting::where('key', 'api_token_chat')->value('value');
     // $url = 'https://api.openai.com/v1/chat/completions';
     // $response = Http::withHeaders([
@@ -283,8 +120,6 @@ Route::get('/test', function (Request $request) {
     // // dd ($rr['choices'][0]['message']['content']);
     // dd($rr);
 
-
-
     // // Session::put('token', 'asdasdasd');
     // // Cache::Forever('token', 'asdasdasd');
     // // return app('getSettings');
@@ -292,31 +127,7 @@ Route::get('/test', function (Request $request) {
     // // return   Browser::browserName() .' - '.Browser::platformName() .' - '.$request->ip() .' - ' .   json_decode( json_encode(Location::get($request->ip())), true);
     // return    json_decode(json_encode(Location::get($request->ip())), true);
 
-    $watermark = Image::make($p2);
-    // $watermark->rotate(45);
 
-    $watermark->resize(300, 300);
-    $image = Image::make($p1);
-    // $image->blur(18);
-    $image->greyscale();
-
-    $imageWidth = $image->width();
-    $imageHeight = $image->height();
-    $positionX = ($imageWidth - $watermark->width()) / 2;
-    $positionY = ($imageHeight - $watermark->height()) / 2;
-    $image->insert($watermark, 'center',  number_format($positionX),  number_format($positionY));
-    // $image->insert($watermark, 'center');
-    // return $image->response('jpg');
-    $filename = 'processed_image.jpg'; // You can generate a unique filename if needed
-    $path = 'files/' . $filename;
-
-    // Save the image to the public storage
-    $image->save(public_path($path));
-
-    // Generate the URL to the saved image
-    $imageUrl = url($path);
-
-    return $imageUrl;
 });
 
 Route::group(

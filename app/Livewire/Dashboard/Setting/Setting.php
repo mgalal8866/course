@@ -71,7 +71,7 @@ class Setting extends Component
         $this->data['section6_setting'] = getsetting('section6_setting', ['section6_status', 'section6_title', 'section6_sub_title']);
         $this->data['section7_setting'] = getsetting('section7_setting', ['section7_status', 'section7_title', 'section7_sub_title']);
         $this->data['section8_setting'] = getsetting('section8_setting', ['section8_status', 'section8_title', 'section8_sub_title']);
-
+dd( $this->data);
         return view('dashboard.setting.setting');
     }
 }
