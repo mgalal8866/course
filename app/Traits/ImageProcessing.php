@@ -119,7 +119,7 @@ trait ImageProcessing
 
         $watermark = Image::make($p2);
 
-        $watermark->resize(300, 300);
+        $watermark->resize(500, 500);
         $image = Image::make($p1);
         $image->greyscale();
 
@@ -127,7 +127,7 @@ trait ImageProcessing
         $imageHeight = $image->height();
         $positionX = ($imageWidth - $watermark->width()) / 2;
         $positionY = ($imageHeight - $watermark->height()) / 2;
-        $image->insert($watermark, 'center',  number_format($positionX),  number_format($positionY));
+        $image->insert($watermark, 'bottom-left');
 
         // Save the image to the public storage
         $image->save($savepath);
