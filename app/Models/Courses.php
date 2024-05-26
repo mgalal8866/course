@@ -47,7 +47,6 @@ class Courses extends Model
 
     public function stages()
     {
-
         return $this->belongsToMany(Stages::class, 'course_stages', 'course_id', 'stage_id')->withPivot('publish_at')->withTimestamps();
     }
     public function stagesparent()

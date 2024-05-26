@@ -31,9 +31,9 @@ class Notification extends Model
     public function getRedirectAttribute()
     {
         if ($this->type->value == 1) {
-           return $this->course->name;
+           return $this->course->name??'';
         } elseif ($this->type->value == 2) {
-            return $this->book->book_name;
+            return $this->book->book_name??'';
         } elseif ($this->type->value == 3) {
             // return $this->order->name;
         } elseif ($this->type->value == 0) {
