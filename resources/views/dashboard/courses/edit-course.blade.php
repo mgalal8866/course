@@ -453,7 +453,7 @@
                             <div class="card">
 
                                 <div class="card-body">
-                                    @empty($lessons)
+                                     @empty($lessons)
 
 
                                     @foreach ($lessons as $key => $value)

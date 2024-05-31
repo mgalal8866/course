@@ -27,7 +27,7 @@ class EditCourse extends Component
         $telegram, $telegramgrup, $nextcourse, $course_gender, $schedule, $free_tatorul, $nextcoursesbycat,
         $name, $description, $validity = 'تبقى الدورة بكامل محتوياتها ثلاثة أشهر بحساب المتدرب.', $country_id, $category_id, $price, $pricewith, $startdate, $enddate, $time, $features, $triner = [], $limit_stud, $duration_course = 'شهر ونصف',
         $image_course, $file_work, $file_explanatory, $file_aggregates, $file_supplementary, $file_free, $file_test,
-        $langcourse, $status, $inputnum, $lessons, $stages;
+        $langcourse, $status, $inputnum, $lessons =[], $stages;
     public function mount($id = null)
     {
         $this->fill(['questions' => collect([[
