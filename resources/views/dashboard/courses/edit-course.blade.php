@@ -453,7 +453,7 @@
                             <div class="card">
 
                                 <div class="card-body">
-                                     @empty($lessons)
+                                     @if(count($lessons) > 0)
 
 
                                     @foreach ($lessons as $key => $value)
@@ -554,7 +554,7 @@
                                             </div>
                                         </div>
                                     @endforeach
-                                    @endempty
+                                    @endif
                                 </div>
                             </div>
                         </div>
