@@ -14,9 +14,17 @@ class ViewQuizz extends Component
         })->latest()->get();
     }
     public function changeselecttab($val)  {
-        $this->quiz = Quizes::whereHas('category', function($q) use($val) {
-            $q->where('typecategory', $val);
-        })->latest()->get();
+        $this->selecttab =$val;
+       $query =  Quizes::query();
+        if($val == 3 ){
+            $this->quiz =   $query->with('course')->where('category_id',null)->latest()->get();
+        }else{
+            $this->quiz =     $query->whereHas('category', function($q) use($val) {
+                $q->where('typecategory', $val);
+            })->latest()->get();
+
+        } ;
+
     }
     public function activetoggle($id)
     {

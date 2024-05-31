@@ -444,116 +444,115 @@
                                     <span class="text-warning">{{ __('tran.lessons') }}</span>
                                 </button>
                             </div>
-                            <div class="button-group p-1">
+                            {{-- <div class="button-group p-1">
                                 <button class="btn btn-success btn-sm">اضافة دروس</button>
-                            </div>
+                            </div> --}}
                         </h2>
                         <div id="accordionMarginOne4" class="accordion-collapse collapse"
                             aria-labelledby="headingMarginOne4" data-bs-parent="#accordionMargin" wire:ignore.self>
                             <div class="card">
 
                                 <div class="card-body">
-                                     @if(count($lessons) > 0)
+                                    @if (count($lessons) > 0)
+                                        @foreach ($lessons as $key => $value)
+                                            <div class="mb-1 row">
+                                                <div class="col-md-2 form-check form-check-inline ">
+                                                    <select class="form-select"
+                                                        id="lessons.{{ $key }}.is_lesson"
+                                                        wire:model.lazy='lessons.{{ $key }}.is_lesson'>
 
+                                                        @foreach (\App\Enum\LessonStatu::cases() as $q)
+                                                            <option value="{{ $q->value }}">
+                                                                {{ __('tran.typelesson-' . $q->name) }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
 
-                                    @foreach ($lessons as $key => $value)
-                                        <div class="mb-1 row">
-                                            <div class="col-md-2 form-check form-check-inline ">
-                                                <select class="form-select"
-                                                    id="lessons.{{ $key }}.is_lesson"
-                                                    wire:model.lazy='lessons.{{ $key }}.is_lesson'>
-
-                                                    @foreach (\App\Enum\LessonStatu::cases() as $q)
-                                                        <option value="{{ $q->value }}">
-                                                            {{ __('tran.typelesson-' . $q->name) }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-
-                                                @error('lessons.' . $key . '.is_lesson')
-                                                    <span class="text-danger">{{ $message }}</span>
-                                                @enderror
-                                            </div>
-                                            <div class="col-md-3">
-                                                <select class="form-select"
-                                                    wire:model='lessons.{{ $key }}.stage_id' required>
-                                                    <option value=""> اختار المرحلة</option>
-                                                    @foreach ($stages as $item)
-                                                        <option value="{{ $item->id }}">
-                                                            {{ $item->name . ($item->parent_id == null ? ' مرحلة رئيسية' : ' مرحلة فرعية من  ( ' . $item->_parent->name . ' )') }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                                @error('lessons.' . $key . '.stage_id')
-                                                    <span class="text-danger">{{ $message }}</span>
-                                                @enderror
-                                            </div>
-                                            <div class="col-md-2">
-                                                <x-daterange wire:model='lessons.{{ $key }}.publish_at'
-                                                    id="lessons.{{ $key }}.publish_at" />
-                                                @error('lessons.' . $key . '.publish_at')
-                                                    <span class="text-danger">{{ $message }}</span>
-                                                @enderror
-                                            </div>
-                                            @if ($lessons[$key]['is_lesson'] != false)
-                                                <div class="col">
-                                                    <input class="form-control"
-                                                        wire:model="lessons.{{ $key }}.name"
-                                                        placeholder="{{ $lessons[$key]['is_lesson'] == 1 ? 'اسم الشرح' : ($lessons[$key]['is_lesson'] == 0 ? 'اسم تدريب' : 'اسم بث مباشر') }}"
-                                                        type="text" />
-                                                    @error('lessons.' . $key . '.name')
+                                                    @error('lessons.' . $key . '.is_lesson')
                                                         <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
-                                                <div class="col">
-
-                                                    <input class="form-control"
-                                                        wire:model="lessons.{{ $key }}.link" type="text"
-                                                        placeholder="{{ $lessons[$key]['is_lesson'] == 1 ? 'رابط الشرح' : ($lessons[$key]['is_lesson'] == 0 ? 'رابط تدريب' : 'رابط بث مباشر') }}" />
-
-                                                    @error('lessons.' . $key . '.link')
+                                                <div class="col-md-3">
+                                                    <select class="form-select"
+                                                        wire:model='lessons.{{ $key }}.stage_id' required>
+                                                        <option value=""> اختار المرحلة</option>
+                                                        @foreach ($stages as $item)
+                                                            <option value="{{ $item->id }}">
+                                                                {{ $item->name . ($item->parent_id == null ? ' مرحلة رئيسية' : ' مرحلة فرعية من  ( ' . $item->_parent->name . ' )') }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('lessons.' . $key . '.stage_id')
                                                         <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
-                                            @else
-                                                <div class="col">
-                                                    <input class="form-control"
-                                                        wire:model="lessons.{{ $key }}.name"
-                                                        placeholder="{{ $lessons[$key]['is_lesson'] != false ? 'اسم شرح' : ' اسم تدريب' }}"
-                                                        type="text" />
-                                                    @error('lessons.' . $key . '.name')
+                                                <div class="col-md-2">
+                                                    <x-daterange wire:model='lessons.{{ $key }}.publish_at'
+                                                        id="lessons.{{ $key }}.publish_at" />
+                                                    @error('lessons.' . $key . '.publish_at')
                                                         <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
-                                                <div class="col">
-                                                    @if ($lessons[$key]['link'] != null)
-                                                        <p>تم اختيار التدريب </p>
-                                                    @else
-                                                        <x-model wire:model='questions' :questions='$questions'
-                                                            :keys='$key' />
-                                                        <button type="button" class="btn btn-outline-success"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#fullscreenModal-{{ $key }}">
-                                                            اضافه تدريب
+                                                @if ($lessons[$key]['is_lesson'] != false)
+                                                    <div class="col">
+                                                        <input class="form-control"
+                                                            wire:model="lessons.{{ $key }}.name"
+                                                            placeholder="{{ $lessons[$key]['is_lesson'] == 1 ? 'اسم الشرح' : ($lessons[$key]['is_lesson'] == 0 ? 'اسم تدريب' : 'اسم بث مباشر') }}"
+                                                            type="text" />
+                                                        @error('lessons.' . $key . '.name')
+                                                            <span class="text-danger">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="col">
+
+                                                        <input class="form-control"
+                                                            wire:model="lessons.{{ $key }}.link"
+                                                            type="text"
+                                                            placeholder="{{ $lessons[$key]['is_lesson'] == 1 ? 'رابط الشرح' : ($lessons[$key]['is_lesson'] == 0 ? 'رابط تدريب' : 'رابط بث مباشر') }}" />
+
+                                                        @error('lessons.' . $key . '.link')
+                                                            <span class="text-danger">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                @else
+                                                    <div class="col">
+                                                        <input class="form-control"
+                                                            wire:model="lessons.{{ $key }}.name"
+                                                            placeholder="{{ $lessons[$key]['is_lesson'] != false ? 'اسم شرح' : ' اسم تدريب' }}"
+                                                            type="text" />
+                                                        @error('lessons.' . $key . '.name')
+                                                            <span class="text-danger">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="col">
+                                                        @if ($lessons[$key]['link'] != null)
+                                                            <p>تم اختيار التدريب </p>
+                                                        @else
+                                                            <x-model wire:model='questions' :questions='$questions'
+                                                                :keys='$key' />
+                                                            <button type="button" class="btn btn-outline-success"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#fullscreenModal-{{ $key }}">
+                                                                اضافه تدريب
+                                                            </button>
+                                                        @endif
+                                                    </div>
+                                                @endif
+
+                                                <div class="col-1">
+                                                    @if ($key != 0)
+                                                        <button wire:click='removelesson({{ $key }})'
+                                                            type="button"
+                                                            class="btn btn-sm btn-danger d-inline-flex align-items-center justify-content-center rounded-circle
+                                        bg-red-600 hover:bg-red-800 text-white shadow-lg hover-shadow-xl
+                                        transition duration-150 ease-in-out focus:bg-red-700 outline-none focus-outline-none"
+                                                            style="height: 2rem; width: 2rem; ">
+                                                            <i class="fas fa-trash-alt"></i>
                                                         </button>
                                                     @endif
                                                 </div>
-                                            @endif
-
-                                            <div class="col-1">
-                                                @if ($key != 0)
-                                                    <button wire:click='removelesson({{ $key }})'
-                                                        type="button"
-                                                        class="btn btn-sm btn-danger d-inline-flex align-items-center justify-content-center rounded-circle
-                                        bg-red-600 hover:bg-red-800 text-white shadow-lg hover-shadow-xl
-                                        transition duration-150 ease-in-out focus:bg-red-700 outline-none focus-outline-none"
-                                                        style="height: 2rem; width: 2rem; ">
-                                                        <i class="fas fa-trash-alt"></i>
-                                                    </button>
-                                                @endif
                                             </div>
-                                        </div>
-                                    @endforeach
+                                        @endforeach
                                     @endif
                                 </div>
                             </div>
