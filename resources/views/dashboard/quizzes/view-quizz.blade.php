@@ -43,7 +43,7 @@
                                                 <td>
                                                     @if ($selecttab == 3)
                                                         <span
-                                                            class="fw-bold">{{ $item->course ?? 'N/A س' }}</span>
+                                                            class="fw-bold">{{ $item->course->name ?? 'N/A' }}</span>
                                                     @else
                                                         <span
                                                             class="fw-bold">{{ $item->category->name ?? 'N/A' }}</span>
