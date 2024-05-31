@@ -34,13 +34,7 @@ class RouteServiceProvider extends ServiceProvider
             ->prefix( LaravelLocalization::setLocale() . '/dashboard')
                 ->middleware(['web','localeSessionRedirect', 'localizationRedirect', 'localeViewPath']);
         });
-        // Livewire::setScriptRoute(function ($handle) {
-        //      return Route::get('/vendor/livewire/livewire.js', $handle)
-        //      ->middleware(['web','localeSessionRedirect', 'localizationRedirect', 'localeViewPath'])
-        //      ->prefix( LaravelLocalization::setLocale() . '/dashboard/');
-
-
-        //       });
+     
 
 
 

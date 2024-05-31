@@ -16,6 +16,7 @@ use App\Models\QuizResultHeader;
 use Vimeo\Laravel\Facades\Vimeo;
 use App\Models\QuizResultDetails;
 use App\Models\Stages as mstages;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
@@ -25,8 +26,8 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Session;
 use App\Livewire\Dashboard\Stage\Stages;
 use App\Livewire\Dashboard\Blog\ViewBlog;
-use Symfony\Component\DomCrawler\Crawler;
 
+use Symfony\Component\DomCrawler\Crawler;
 use App\Livewire\Dashboard\Setting\Slider;
 use Stevebauman\Location\Facades\Location;
 use App\Livewire\Dashboard\Books\ViewBooks;
@@ -46,8 +47,8 @@ use App\Livewire\Dashboard\Courses\ViewCourses;
 use App\Livewire\Dashboard\ContactUs\ViewContact;
 use App\Livewire\Dashboard\FreeCourse\FreeCourse;
 use App\Livewire\Dashboard\Blog\Category\CategoryBlog;
-use App\Livewire\Dashboard\Payments\ViewPaymentsMethod;
 
+use App\Livewire\Dashboard\Payments\ViewPaymentsMethod;
 use App\Livewire\Dashboard\Books\Category\CategoryBooks;
 use App\Livewire\Dashboard\Notification\ViewNotification;
 use App\Livewire\Dashboard\Grades\Category\CategoryGrades;
@@ -58,20 +59,13 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Livewire\Dashboard\Setting\Setting as SettingSetting;
 use App\Livewire\Dashboard\Quizzes\QuizCategory\ViewQuizCategory;
 use App\Livewire\Dashboard\FreeCourse\Category\CategoryFreeCourse;
+use App\Models\Admin;
 
 
-// use Browser;
+// Auth::routes();
+Route::middleware('guest:admin')->group(function () {
+});
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
 Route::get('/', function (Request $request) {
     return  view('soon');
@@ -100,6 +94,7 @@ Route::get('/ncc', function (Request $request) {
 });
 
 Route::get('/test', function (Request $request) {
+   return Admin::create(['username'=>'admin@admin.com','password'=>'admin']);
     // $gg = Setting::where('key', 'api_token_chat')->value('value');
     // $url = 'https://api.openai.com/v1/chat/completions';
     // $response = Http::withHeaders([
@@ -133,7 +128,7 @@ Route::get('/test', function (Request $request) {
 Route::group(
     [
         'prefix' => LaravelLocalization::setLocale() . '/dashboard',
-        'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
+        'middleware' => ['auth:admin','localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
     ],
     function () {
         // Livewire::setUpdateRoute(function ($handle) {
@@ -295,3 +290,7 @@ Route::group(
         Route::get('/studyschedule', ViewStudySchedule::class)->name('studyschedule');
     }
 );
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

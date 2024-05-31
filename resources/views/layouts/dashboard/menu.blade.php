@@ -44,7 +44,8 @@
                      <li>
                          <a class="d-flex align-items-center" href="{{ route('freecourse') }}">
                              <i data-feather="circle"></i>
-                             <span class="menu-item text-truncate">{{__('tran.view') . ' '.  __('tran.freecourse') }}</span>
+                             <span
+                                 class="menu-item text-truncate">{{ __('tran.view') . ' ' . __('tran.freecourse') }}</span>
                          </a>
                      </li>
                      <li>
@@ -57,16 +58,16 @@
              </li>
              <li class=" nav-item">
                  <a class="d-flex align-items-center" href="#">
-                    <i class="fas fa-school"></i>
+                     <i class="fas fa-school"></i>
                      <span class="menu-title text-truncate">{{ __('tran.courses') }}</span>
                  </a>
                  <ul class="menu-content">
-                        <li>
-                            <a class="d-flex align-items-center" href="{{ route('stage') }}">
-                                <i data-feather="circle"></i>
-                                <span class="menu-item text-truncate">{{ __('tran.viewstages') }}</span>
-                            </a>
-                        </li>
+                     <li>
+                         <a class="d-flex align-items-center" href="{{ route('stage') }}">
+                             <i data-feather="circle"></i>
+                             <span class="menu-item text-truncate">{{ __('tran.viewstages') }}</span>
+                         </a>
+                     </li>
 
                      <li>
                          <a class="d-flex align-items-center" href="{{ route('category') }}">
@@ -75,7 +76,7 @@
                          </a>
                      </li>
                      <li>
-                         <a class="d-flex align-items-center" href="{{route('newcourse')}}">
+                         <a class="d-flex align-items-center" href="{{ route('newcourse') }}">
                              <i data-feather="circle"></i>
                              <span class="menu-item text-truncate">{{ __('tran.newcourse') }}</span>
                          </a>
@@ -87,7 +88,7 @@
                          </a>
                      </li> --}}
                      <li>
-                         <a class="d-flex align-items-center" href="{{route('course')}}">
+                         <a class="d-flex align-items-center" href="{{ route('course') }}">
                              <i data-feather="circle"></i>
                              <span class="menu-item text-truncate">{{ __('tran.viewcourse') }}</span>
                          </a>
@@ -96,22 +97,22 @@
              </li>
              <li class=" nav-item">
                  <a class="d-flex align-items-center" href="#">
-                    <i class="fas fa-book-open"></i>
+                     <i class="fas fa-book-open"></i>
                      <span class="menu-title text-truncate">{{ __('tran.books') }}</span>
                  </a>
                  <ul class="menu-content">
-                    <li>
-                        <a class="d-flex align-items-center" href="{{ route('categorybooks') }}">
-                            <i data-feather="circle"></i>
-                            <span class="menu-item text-truncate">{{ __('tran.categorybooks') }}</span>
-                        </a>
-                    </li>
-                        <li>
-                            <a class="d-flex align-items-center" href="{{ route('viewbooks') }}">
-                                <i data-feather="circle"></i>
-                                <span class="menu-item text-truncate">{{ __('tran.viewbooks') }}</span>
-                            </a>
-                        </li>
+                     <li>
+                         <a class="d-flex align-items-center" href="{{ route('categorybooks') }}">
+                             <i data-feather="circle"></i>
+                             <span class="menu-item text-truncate">{{ __('tran.categorybooks') }}</span>
+                         </a>
+                     </li>
+                     <li>
+                         <a class="d-flex align-items-center" href="{{ route('viewbooks') }}">
+                             <i data-feather="circle"></i>
+                             <span class="menu-item text-truncate">{{ __('tran.viewbooks') }}</span>
+                         </a>
+                     </li>
 
 
 
@@ -147,13 +148,13 @@
                      </li>
 
                      <li>
-                         <a class="d-flex align-items-center" href="{{route('newquiz')}}">
+                         <a class="d-flex align-items-center" href="{{ route('newquiz') }}">
                              <i data-feather="circle"></i>
                              <span class="menu-item text-truncate">{{ __('tran.newquiz') }}</span>
                          </a>
                      </li>
                      <li>
-                         <a class="d-flex align-items-center" href="{{route('viewquiz')}}">
+                         <a class="d-flex align-items-center" href="{{ route('viewquiz') }}">
                              <i data-feather="circle"></i>
                              <span class="menu-item text-truncate">{{ __('tran.viewquiz') }}</span>
                          </a>
@@ -173,7 +174,7 @@
                          </a>
                      </li>
                      <li>
-                         <a class="d-flex align-items-center" href="{{route('categorygrades')}}">
+                         <a class="d-flex align-items-center" href="{{ route('categorygrades') }}">
                              <i data-feather="circle"></i>
                              <span class="menu-item text-truncate">{{ __('tran.categorygrades') }}</span>
                          </a>
@@ -183,7 +184,7 @@
              </li>
              <li class=" nav-item">
                  <a class="d-flex align-items-center" href="#">
-                    <i class="fas fa-calendar-alt"></i>
+                     <i class="fas fa-calendar-alt"></i>
                      <span class="menu-title text-truncate">{{ __('tran.studyschedule') }}</span>
                  </a>
                  <ul class="menu-content">
@@ -203,17 +204,19 @@
                  </a>
                  <ul class="menu-content">
                      <li>
-                        <a class="d-flex align-items-center" href="{{route('trainers')}}">
-                            <i data-feather="circle"></i>
-                            <span class="menu-item text-truncate">{{  __('tran.view')  . ' '. __('tran.trainers')  }}</span>
-                        </a>
-                    </li>
+                         <a class="d-flex align-items-center" href="{{ route('trainers') }}">
+                             <i data-feather="circle"></i>
+                             <span
+                                 class="menu-item text-truncate">{{ __('tran.view') . ' ' . __('tran.trainers') }}</span>
+                         </a>
+                     </li>
                      <li>
-                        <a class="d-flex align-items-center" href="{{route('specialist')}}">
-                            <i data-feather="circle"></i>
-                            <span class="menu-item text-truncate">{{  __('tran.view')  . ' '. __('tran.specialist')  }}</span>
-                        </a>
-                    </li>
+                         <a class="d-flex align-items-center" href="{{ route('specialist') }}">
+                             <i data-feather="circle"></i>
+                             <span
+                                 class="menu-item text-truncate">{{ __('tran.view') . ' ' . __('tran.specialist') }}</span>
+                         </a>
+                     </li>
                      {{-- <li>
                         <a class="d-flex align-items-center" href="{{route('categoryfree')}}">
                             <i data-feather="circle"></i>
@@ -229,11 +232,12 @@
                  </a>
                  <ul class="menu-content">
                      <li>
-                        <a class="d-flex align-items-center" href="{{route('trainees')}}">
-                            <i data-feather="circle"></i>
-                            <span class="menu-item text-truncate">{{ __('tran.view') .' '. __('tran.trainees') }}</span>
-                        </a>
-                    </li>
+                         <a class="d-flex align-items-center" href="{{ route('trainees') }}">
+                             <i data-feather="circle"></i>
+                             <span
+                                 class="menu-item text-truncate">{{ __('tran.view') . ' ' . __('tran.trainees') }}</span>
+                         </a>
+                     </li>
                      {{-- <li>
                         <a class="d-flex align-items-center" href="{{route('categoryfree')}}">
                             <i data-feather="circle"></i>
@@ -244,16 +248,17 @@
              </li>
              <li class=" nav-item">
                  <a class="d-flex align-items-center" href="#">
-                    <i class="fas fa-shopping-cart"></i>
+                     <i class="fas fa-shopping-cart"></i>
                      <span class="menu-title text-truncate">{{ __('tran.orders') }}</span>
                  </a>
                  <ul class="menu-content">
                      <li>
-                        <a class="d-flex align-items-center" href="{{route('order')}}">
-                            <i data-feather="circle"></i>
-                            <span class="menu-item text-truncate">{{ __('tran.view') .' '. __('tran.orders') }}</span>
-                        </a>
-                    </li>
+                         <a class="d-flex align-items-center" href="{{ route('order') }}">
+                             <i data-feather="circle"></i>
+                             <span
+                                 class="menu-item text-truncate">{{ __('tran.view') . ' ' . __('tran.orders') }}</span>
+                         </a>
+                     </li>
                      {{-- <li>
                         <a class="d-flex align-items-center" href="{{route('categoryfree')}}">
                             <i data-feather="circle"></i>
@@ -263,93 +268,111 @@
                  </ul>
              </li>
              <li class=" nav-item">
-                <a class="d-flex align-items-center" href="#">
-                    <i class="fab fa-blogger"></i>
-                    <span class="menu-title text-truncate">{{ __('tran.blog') }}</span>
-                </a>
-                <ul class="menu-content">
-                    <li>
-                       <a class="d-flex align-items-center" href="{{route('blog')}}">
-                           <i data-feather="circle"></i>
-                           <span class="menu-item text-truncate">{{ __('tran.view') .' '. __('tran.blog') }}</span>
-                       </a>
-                   </li>
-                    <li>
-                       <a class="d-flex align-items-center" href="{{route('category-blog')}}">
-                           <i data-feather="circle"></i>
-                           <span class="menu-item text-truncate">{{ __('tran.category-blog')  }}</span>
-                       </a>
-                   </li>
+                 <a class="d-flex align-items-center" href="#">
+                     <i class="fab fa-blogger"></i>
+                     <span class="menu-title text-truncate">{{ __('tran.blog') }}</span>
+                 </a>
+                 <ul class="menu-content">
+                     <li>
+                         <a class="d-flex align-items-center" href="{{ route('blog') }}">
+                             <i data-feather="circle"></i>
+                             <span
+                                 class="menu-item text-truncate">{{ __('tran.view') . ' ' . __('tran.blog') }}</span>
+                         </a>
+                     </li>
+                     <li>
+                         <a class="d-flex align-items-center" href="{{ route('category-blog') }}">
+                             <i data-feather="circle"></i>
+                             <span class="menu-item text-truncate">{{ __('tran.category-blog') }}</span>
+                         </a>
+                     </li>
 
-                </ul>
-            </li>
+                 </ul>
+             </li>
              <li class=" nav-item">
-                <a class="d-flex align-items-center" href="#">
-                   <i class="far fa-credit-card"></i>
-                    <span class="menu-title text-truncate">{{ __('tran.payment_method') }}</span>
-                </a>
-                <ul class="menu-content">
-                    <li>
-                       <a class="d-flex align-items-center" href="{{ route('payment-method') }}">
-                           <i data-feather="circle"></i>
-                           <span class="menu-item text-truncate">{{ __('tran.view') .' '. __('tran.payment_method') }}</span>
-                       </a>
-                   </li>
+                 <a class="d-flex align-items-center" href="#">
+                     <i class="far fa-credit-card"></i>
+                     <span class="menu-title text-truncate">{{ __('tran.payment_method') }}</span>
+                 </a>
+                 <ul class="menu-content">
+                     <li>
+                         <a class="d-flex align-items-center" href="{{ route('payment-method') }}">
+                             <i data-feather="circle"></i>
+                             <span
+                                 class="menu-item text-truncate">{{ __('tran.view') . ' ' . __('tran.payment_method') }}</span>
+                         </a>
+                     </li>
 
-                </ul>
-            </li>
+                 </ul>
+             </li>
              <li class=" nav-item">
-                <a class="d-flex align-items-center" href="#">
-                    <i class="fas fa-envelope-open-text"></i>
-                    <span class="menu-title text-truncate">{{ __('tran.contactus') }}</span>
-                </a>
-                <ul class="menu-content">
-                    <li>
-                       <a class="d-flex align-items-center" href="{{ route('contactus') }}">
-                           <i data-feather="circle"></i>
-                           <span class="menu-item text-truncate">{{ __('tran.view') .' '. __('tran.contactus') }}</span>
-                       </a>
-                   </li>
+                 <a class="d-flex align-items-center" href="#">
+                     <i class="fas fa-envelope-open-text"></i>
+                     <span class="menu-title text-truncate">{{ __('tran.contactus') }}</span>
+                 </a>
+                 <ul class="menu-content">
+                     <li>
+                         <a class="d-flex align-items-center" href="{{ route('contactus') }}">
+                             <i data-feather="circle"></i>
+                             <span
+                                 class="menu-item text-truncate">{{ __('tran.view') . ' ' . __('tran.contactus') }}</span>
+                         </a>
+                     </li>
 
-                </ul>
-            </li>
+                 </ul>
+             </li>
              <li class=" nav-item">
-                <a class="d-flex align-items-center" href="#">
-                    <i class="fas fa-bell"></i>
-                    <span class="menu-title text-truncate">{{ __('tran.notifications') }}</span>
-                </a>
-                <ul class="menu-content">
-                    <li>
-                       <a class="d-flex align-items-center" href="{{ route('notification') }}">
-                           <i data-feather="circle"></i>
-                           <span class="menu-item text-truncate">{{ __('tran.view') .' '. __('tran.notifications') }}</span>
-                       </a>
-                   </li>
+                 <a class="d-flex align-items-center" href="#">
+                     <i class="fas fa-bell"></i>
+                     <span class="menu-title text-truncate">{{ __('tran.notifications') }}</span>
+                 </a>
+                 <ul class="menu-content">
+                     <li>
+                         <a class="d-flex align-items-center" href="{{ route('notification') }}">
+                             <i data-feather="circle"></i>
+                             <span
+                                 class="menu-item text-truncate">{{ __('tran.view') . ' ' . __('tran.notifications') }}</span>
+                         </a>
+                     </li>
 
-                </ul>
-            </li>
+                 </ul>
+             </li>
              <li class=" nav-item">
-                <a class="d-flex align-items-center" href="#">
-                    <i class="fas fa-cog"></i>
-                    <span class="menu-title text-truncate">{{ __('tran.setting') }}</span>
-                </a>
-                <ul class="menu-content">
-                    <li>
-                       <a class="d-flex align-items-center" href="{{route('setting')}}">
-                           {{-- <i data-feather="circle"></i> --}}
-                           <i class="fas fa-tools"></i>
-                           <span class="menu-item text-truncate">{{ __('tran.homesetting') }}</span>
-                       </a>
-                   </li>
-                    <li>
-                       <a class="d-flex align-items-center" href="{{route('slider')}}">
-                        <i class="fas fa-sliders-h"></i>
-                           <span class="menu-item text-truncate">{{ __('tran.slider') }}</span>
-                       </a>
-                   </li>
+                 <a class="d-flex align-items-center" href="#">
+                     <i class="fas fa-cog"></i>
+                     <span class="menu-title text-truncate">{{ __('tran.setting') }}</span>
+                 </a>
+                 <ul class="menu-content">
+                     <li>
+                         <a class="d-flex align-items-center" href="{{ route('setting') }}">
+                             {{-- <i data-feather="circle"></i> --}}
+                             <i class="fas fa-tools"></i>
+                             <span class="menu-item text-truncate">{{ __('tran.homesetting') }}</span>
+                         </a>
+                     </li>
+                     <li>
+                         <a class="d-flex align-items-center" href="{{ route('slider') }}">
+                             <i class="fas fa-sliders-h"></i>
+                             <span class="menu-item text-truncate">{{ __('tran.slider') }}</span>
+                         </a>
+                     </li>
 
-                </ul>
-            </li>
+                 </ul>
+             </li>
+             <li class=" nav-item">
+                 {{-- <a class="log-out-btn" href="{{ route('logout') }}">
+
+                     <i class="fas fa-cog"></i>
+                     <span class="menu-title text-truncate">{{ __('tran.signout') }}</span>
+                 </a> --}}
+                 <a class="log-out-btn" href="{{ route('logout') }}" onclick="event.preventDefault();
+                document.getElementById('logout-form').submit();">
+                     <i class="me-50" data-feather="power"></i> {{ __('tran.logout') }}</a>
+                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                     @csrf
+                 </form>
+
+             </li>
          </ul>
      </div>
  </div>

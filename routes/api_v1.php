@@ -58,14 +58,14 @@ Route::post('/content_us', [ContentUsController::class, 'send_contentus']);
 Route::get('/fqa', [FqaController::class, 'get_fqa']);
 
 Route::controller(UsersController::class)->group(function () {
-    Route::any('/login',  'login')->name('login'); //post
+    Route::any('/login',  'login'); //post
     Route::any('/sendotp',  'sendotp'); //post
     Route::any('/signup',  'signup'); //post
     Route::any('/forgotpassword',  'forgotpassword'); //post
     Route::any('/verificationcode',  'verificationcode'); //post
     Route::any('/change-password',  'change_password'); //post
     Route::any('/resend-code',  'resend_code'); //post
-    Route::get('/verificationcode/{code?}', 'verificationcode')->name('signup');
+    Route::get('/verificationcode/{code?}', 'verificationcode');
     Route::get('/teamwork',  'get_teamwork');
 });
 

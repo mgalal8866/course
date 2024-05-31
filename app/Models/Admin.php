@@ -9,7 +9,13 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Admin extends Authenticatable
 {
-    use HasFactory,  HasRoles;
+    use HasApiTokens, HasFactory,   HasRoles ;
+
+    protected $guarded = [];
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+    ];
     public function getJWTIdentifier()
     {
         return $this->getKey();
