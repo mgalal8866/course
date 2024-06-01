@@ -45,7 +45,19 @@ function path($course_id, $folder)
 //     $setting = Setting::find($key);
 //     return $setting ? $setting->value : $default;
 // }
-
+if (!function_exists('copyAndRenameFolder')) {
+    function copyAndRenameFolder($source, $destination)
+    {
+        // Check if the source directory exists
+        if (File::exists($source)) {
+            // Copy the directory
+            File::copyDirectory($source, $destination);
+            echo "Directory copied successfully!";
+        } else {
+            echo "Source directory does not exist.";
+        }
+    }
+}
 if (!function_exists('getSetting')) {
     function getSetting()
     {

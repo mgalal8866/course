@@ -13,8 +13,6 @@ use Illuminate\Support\Facades\DB;
 
 class ViewCourses extends Component
 {
-
-
     public function dup($id)
     {
         DB::beginTransaction();
@@ -26,21 +24,22 @@ class ViewCourses extends Component
             $newCourses->save();
             foreach ($Courses->stages as $stages) {
                 foreach ($stages->lessons as $lesson) {
-                       $lessonold =  $lesson;
+                    $lessonold =  $lesson;
                 }
                 $newlesson =      $lessonold->replicate();
                 $newlesson->created_at = Carbon::now();
                 $newlesson->save();
                 $newCourses->stages()->attach($stages->id, ['course_id' =>  $newCourses->id, 'lesson_id' => $newlesson->id,  'publish_at' => Carbon::now(), 'created_at' => Carbon::now()]);
             }
+            copyAndRenameFolder(public_path('files' . DIRECTORY_SEPARATOR . 'courses' . DIRECTORY_SEPARATOR .   $Courses->id), public_path('files' . DIRECTORY_SEPARATOR . 'courses' . DIRECTORY_SEPARATOR .   $newCourses->id));
             DB::commit();
             $this->dispatch('swal', message: 'تم نسخ الدورة بنجاح');
         } catch (\Exception $e) {
             dd($e->getMessage());
             DB::rollback();
-            // return false;
         }
     }
+    
     public function render()
     {
         $courses = Courses::get();

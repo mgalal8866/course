@@ -59,12 +59,11 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Livewire\Dashboard\Setting\Setting as SettingSetting;
 use App\Livewire\Dashboard\Quizzes\QuizCategory\ViewQuizCategory;
 use App\Livewire\Dashboard\FreeCourse\Category\CategoryFreeCourse;
+use App\Livewire\Dashboard\Quizzes\ViewQuestions;
 use App\Models\Admin;
 
 
-// Auth::routes();
-Route::middleware('guest:admin')->group(function () {
-});
+
 
 
 Route::get('/', function (Request $request) {
@@ -251,6 +250,7 @@ Route::group(
         // Route::get('/test1', NewCourse::class)->name('newcourse');
 
 
+        Route::get('/qution/{id?}', ViewQuestions::class);
         Route::get('/vimeo', Filemanger::class);
         Route::get('/scrip/course', ScripingCourse::class)->name('scripcourse');
         Route::get('/new/course', NewCourse::class)->name('newcourse');
@@ -293,4 +293,3 @@ Route::group(
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -64,6 +64,7 @@ trait ImageProcessing
 
         return $imgpath;
     }
+    
     public function aspect4height($image, $width, $height)
     {
         $img = Image::make($image);
@@ -83,6 +84,7 @@ trait ImageProcessing
         $img->save(storage_path('app/imagesfp') . '/' . $imgpath);
         return $imgpath;
     }
+
     public function saveImageAndThumbnail($Thefile, $thumb = false, $course_id = '23123', $folder = 'course', $folder2 = null, $height = null, $width = null)
     {
         $dataX = array();
@@ -101,6 +103,7 @@ trait ImageProcessing
 
         return $dataX;
     }
+
     public function deleteImage($filePath)
     {
         if ($filePath) {
@@ -111,9 +114,11 @@ trait ImageProcessing
             }
         }
     }
+
     public function uploadfile($file, $course_id = null, $folder = null, $folder2 = null)
     {
     }
+
     public function watermark($p1, $p2,$savepath)
     {
 
@@ -137,6 +142,7 @@ trait ImageProcessing
 
         return $imageUrl;
     }
+
     public function applyWatermark($imgewatermark, $imageorginal)
     {
         // $p1 = public_path('\files\1.jpg');
