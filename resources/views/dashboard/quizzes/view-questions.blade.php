@@ -47,8 +47,8 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
                             <h5 class="card-title">{!! $item->question !!}</h5>
-                            {{-- <button class="btn btn-info mb-1" type="button" data-bs-toggle="modal" data-bs-target="#trainingModal"> نعديل</button> --}}
-                            <button class="btn btn-warning btn-sm">تعديل</button>
+                             {{-- <button class="btn btn-warning btn-sm" type="button" data-bs-toggle="modal"  data-bs-id="{{ $item->id }}" data-bs-target="#editUser"> نعديل</button> --}}
+                             <button class="btn btn-warning btn-sm" type="button" onclick="Livewire.dispatch('edit',{id:'{{$item->id}}'}, { component: 'edit_header_quiz-user'})"> نعديل</button>
                         </div>
                         <p class="card-text">{!! $item->description !!}</p>
                         <h6 class="card-subtitle mt-1">درجة السؤال : <span class="badge bg-info"> {{ $item->mark }}</span>
@@ -74,7 +74,7 @@
 
 
     </div>
-
+    @livewire('dashboard.quizzes.edit-header-quiz')
     <div class="modal fade" id="trainingModal" tabindex="-1" aria-labelledby="trainingModalLabel"
     aria-hidden="true">
     <div class="modal-dialog   modal-fullscreen    modal-dialog-scrollable modal-edit-user">
@@ -89,9 +89,31 @@
         </div>
     </div>
 </div>
-<script>
 
-</script>
+@push('jslive')
+    <script>
+         window.addEventListener('swal', event => {
+                Swal.fire({
+                    title: event.detail.message,
+                    icon: 'info',
+                    customClass: {
+                        confirmButton: 'btn btn-danger'
+                    },
+                    buttonsStyling: false
+                });
+            })
+        window.addEventListener('openmodel', event => {
+            // console.log('www');
+            $('#editUser').modal("show");
+
+        });
+            window.addEventListener('closemodel', event => {
+            // console.log('www');
+            $('#editUser').modal("hide");
+
+        });
+    </script>
+@endpush
 
 @endsection
 
