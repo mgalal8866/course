@@ -8,7 +8,7 @@
                     <div class="row">
                         <div class="d-flex justify-content-between align-items-center">
                             <h3 class="card-title">{{ $quiz->name }}</h3>
-                            <button class="btn btn-warning btn-sm">تعديل</button>
+
                         </div>
                     </div>
                     <div class="row">
@@ -47,8 +47,14 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
                             <h5 class="card-title">{!! $item->question !!}</h5>
-                             {{-- <button class="btn btn-warning btn-sm" type="button" data-bs-toggle="modal"  data-bs-id="{{ $item->id }}" data-bs-target="#editUser"> نعديل</button> --}}
-                             <button class="btn btn-warning btn-sm" type="button" onclick="Livewire.dispatch('edit',{id:'{{$item->id}}'}, { component: 'edit_header_quiz-user'})"> نعديل</button>
+                            <div class="input-group " style="width:auto; ">
+
+                                    <a class="btn btn-outline-warning btn-sm btnmodal" href="javascript:void(0)"
+                                        data-id="{{ $item->id }}"> نعديل</a>
+                                    <a class="btn btn-outline-danger btn-sm btndelete" href="javascript:void(0)"
+                                        data-id="{{ $item->id }}"> حذف</a>
+
+                            </div>
                         </div>
                         <p class="card-text">{!! $item->description !!}</p>
                         <h6 class="card-subtitle mt-1">درجة السؤال : <span class="badge bg-info"> {{ $item->mark }}</span>
@@ -72,48 +78,36 @@
             </div>
         @endif
 
-
+        <div id="modalPlaceholder"></div>
     </div>
-    @livewire('dashboard.quizzes.edit-header-quiz')
-    <div class="modal fade" id="trainingModal" tabindex="-1" aria-labelledby="trainingModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog   modal-fullscreen    modal-dialog-scrollable modal-edit-user">
-        <div class="modal-content">
-            <div class="modal-header bg-transparent">
-                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                    aria-label="Close"></button>
-            </div>
-            <div class="modal-body ">
-                @livewire('dashboard.quizzes.edit-questions', ['questionId' => ''])
-            </div>
-        </div>
-    </div>
-</div>
 
-@push('jslive')
-    <script>
-         window.addEventListener('swal', event => {
-                Swal.fire({
-                    title: event.detail.message,
-                    icon: 'info',
-                    customClass: {
-                        confirmButton: 'btn btn-danger'
-                    },
-                    buttonsStyling: false
+
+    @push('jslive')
+        <script>
+            $('body').on('click', '.btnmodal', function(event) {
+                var id = $(this).data('id');
+
+                $.ajax({
+                    url: '{{ route('get-modal') }}' + '/' + id,
+                    method: 'GET',
+                    success: function(response) {
+                        $('#modalPlaceholder').html(response);
+                        $('#editUser').modal('show');
+                    }
                 });
-            })
-        window.addEventListener('openmodel', event => {
-            // console.log('www');
-            $('#editUser').modal("show");
+            });
+            $('body').on('click', '.btndelete', function(event) {
+                var id = $(this).data('id');
 
-        });
-            window.addEventListener('closemodel', event => {
-            // console.log('www');
-            $('#editUser').modal("hide");
-
-        });
-    </script>
-@endpush
+                $.ajax({
+                    url: '{{ route('deletequestion') }}' + '/' + id,
+                    method: 'GET',
+                    success: function(response) {
+                        location.reload();
+                    }
+                });
+            });
+        </script>
+    @endpush
 
 @endsection
-

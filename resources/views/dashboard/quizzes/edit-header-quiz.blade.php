@@ -63,6 +63,10 @@
 
 @push('jslive')
     <script>
+
+
+
+
          window.addEventListener('swal', event => {
                 Swal.fire({
                     title: event.detail.message,

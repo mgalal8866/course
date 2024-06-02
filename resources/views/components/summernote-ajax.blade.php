@@ -8,13 +8,7 @@
     <textarea   class="form-control" id="{{ $id }}"></textarea>
 </div>
 
-{{-- @push('csslive')
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.css" />
-@endpush
-
-@push('jslive')
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.js"></script>
-@endpush --}}
+ 
 @push('jslive')
     <script type="text/javascript">
         document.addEventListener('livewire:initialized', () => {

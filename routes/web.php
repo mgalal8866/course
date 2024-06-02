@@ -252,6 +252,10 @@ Route::group(
 
 
         Route::get('/question/{id?}', [QizeController::class,'getquestion'])->name('viewquestion');
+        Route::get('/question/delete/{id?}', [QizeController::class,'deletequestion'])->name('deletequestion');
+        Route::get('/question/model/{id?}', [QizeController::class,'getModal'])->name('get-modal');
+        Route::post('/save-modal-data', [QizeController::class, 'saveModalData'])->name('save-modal-data');
+
         Route::get('/vimeo', Filemanger::class);
         Route::get('/scrip/course', ScripingCourse::class)->name('scripcourse');
         Route::get('/new/course', NewCourse::class)->name('newcourse');
