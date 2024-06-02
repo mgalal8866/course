@@ -75,9 +75,7 @@
                                                     <a wire:click="delete('{{ $item->id }}')"><i
                                                             class="fas fa-trash-alt fa-lg "
                                                             style="color: #ff0000;"></i></i></a>
-                                                    <a wire:clicactk="activetoggle('{{ $item->id }}')"> <i
-                                                            class="fas {{ $item->active == 1 ? 'fas fa-eye' : 'fa-eye-slash' }} fa-lg "
-                                                            style="{{ $item->ive == 1 ? 'color: #1caa0f;' : '' }}"></i></a>
+                                                    <a href="{{ route('viewquestion',['id'=> $item->id]) }}" class="btn btn-sm btn-primary"> عرض  </a>
                                                 </td>
                                             </tr>
                                             @empty

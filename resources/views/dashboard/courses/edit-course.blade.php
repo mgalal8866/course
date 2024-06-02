@@ -444,9 +444,9 @@
                                     <span class="text-warning">{{ __('tran.lessons') }}</span>
                                 </button>
                             </div>
-                            {{-- <div class="button-group p-1">
+                            <div wire:click="addlesson()" class="button-group p-1">
                                 <button class="btn btn-success btn-sm">اضافة دروس</button>
-                            </div> --}}
+                            </div>
                         </h2>
                         <div id="accordionMarginOne4" class="accordion-collapse collapse"
                             aria-labelledby="headingMarginOne4" data-bs-parent="#accordionMargin" wire:ignore.self>
@@ -526,21 +526,23 @@
                                                     </div>
                                                     <div class="col">
                                                         @if ($lessons[$key]['link'] != null)
-                                                            <p>تم اختيار التدريب </p>
-                                                        @else
+
+                                                            <a target="_blank" class="btn btn-warning btn-sm"  href="{{ route('viewquestion') .'/'. $lessons[$key]['link']}}">تعديل التدريب</a>
+                                                        {{-- @else
                                                             <x-model wire:model='questions' :questions='$questions'
                                                                 :keys='$key' />
                                                             <button type="button" class="btn btn-outline-success"
                                                                 data-bs-toggle="modal"
                                                                 data-bs-target="#fullscreenModal-{{ $key }}">
                                                                 اضافه تدريب
-                                                            </button>
+                                                            </button> --}}
                                                         @endif
                                                     </div>
                                                 @endif
 
                                                 <div class="col-1">
-                                                    @if ($key != 0)
+                                                    {{-- <button  wire:click='removelesson({{ $key }})' class="btn btn-danger text-white" x-data={}
+                                                    x-on:click="window.livewire.emitTo('delete-modal-component','showModal', 'App\\Models\\DummyUser', {{$lessons[$key]['link'] }}, 'Delete User', 'Are you sure you want to delete user')"><i class="fa fa-trash-alt"></i></button> --}}
                                                         <button wire:click='removelesson({{ $key }})'
                                                             type="button"
                                                             class="btn btn-sm btn-danger d-inline-flex align-items-center justify-content-center rounded-circle
@@ -549,7 +551,7 @@
                                                             style="height: 2rem; width: 2rem; ">
                                                             <i class="fas fa-trash-alt"></i>
                                                         </button>
-                                                    @endif
+
                                                 </div>
                                             </div>
                                         @endforeach

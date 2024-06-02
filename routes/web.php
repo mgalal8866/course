@@ -36,6 +36,7 @@ use App\Livewire\Dashboard\Order\ViewOrders;
 use App\Livewire\Dashboard\Quizzes\Newquiz2;
 use App\Livewire\Dashboard\Vimeo\Filemanger;
 use App\Http\Controllers\NewCourseController;
+use App\Http\Controllers\QizeController;
 use App\Livewire\Dashboard\Courses\NewCourse;
 use App\Livewire\Dashboard\Grades\ViewGrades;
 use App\Livewire\Dashboard\Quizzes\ViewQuizz;
@@ -250,7 +251,7 @@ Route::group(
         // Route::get('/test1', NewCourse::class)->name('newcourse');
 
 
-        Route::get('/qution/{id?}', ViewQuestions::class);
+        Route::get('/question/{id?}', [QizeController::class,'getquestion'])->name('viewquestion');
         Route::get('/vimeo', Filemanger::class);
         Route::get('/scrip/course', ScripingCourse::class)->name('scripcourse');
         Route::get('/new/course', NewCourse::class)->name('newcourse');

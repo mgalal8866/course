@@ -108,6 +108,15 @@
      <link rel="stylesheet" type="text/css" href="{{ asset('asset/vendors/css/forms/select/select2.min.css') }}">
  @endpush
  @push('jslive')
+
+    <script>
+          window.addEventListener('beforeunload', function (e) {
+            e.preventDefault();
+            e.returnValue = '';
+        });
+
+    </script>
+
      <script>
          window.addEventListener('setquizid', event => {
              const inputName = event.detail.name;
@@ -116,7 +125,7 @@
          });
      </script>
      <script>
-     
+
          document.addEventListener('DOMContentLoaded', () => {
              const baseurl = '{{ url('/') }}'; // Update with your base URL
              if (localStorage.getItem("course_id") === null) {

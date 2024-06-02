@@ -97,8 +97,11 @@ class EditCourse extends Component
        }
        public function removequestions($key)
        {
-           if ($this->questions->count() != 1)
+           if ($this->questions->count() != 1){
                $this->questions->pull($key);
+           }
+
+
        }
        public function addanswerquestions($key)
        {
@@ -155,8 +158,12 @@ class EditCourse extends Component
     }
     public function removelesson($key)
     {
-        if ($this->lessons->count() != 1)
+
+        if ($this->lessons->count() != 1){
+            CourseStages::where(['stage_id'=>$this->lessons[$key]['stage_id'],'lesson_id'=>$this->lessons[$key]['lessons_id']])->delete();
+            Lessons::where(['id'=>$this->lessons[$key]['lessons_id']])->delete();
             $this->lessons->pull($key);
+        }
     }
     public function goToNextPage()
     {
