@@ -59,6 +59,7 @@ use App\Livewire\Dashboard\Notification\ViewNotification;
 use App\Livewire\Dashboard\Grades\Category\CategoryGrades;
 use App\Livewire\Dashboard\Trainers\Specialist\Specialist;
 use App\Livewire\Dashboard\Courses\Category\CategoryCourse;
+use App\Livewire\Dashboard\Dashboard;
 use App\Livewire\Dashboard\StudySchedule\ViewStudySchedule;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Livewire\Dashboard\Setting\Setting as SettingSetting;
@@ -137,10 +138,7 @@ Route::group(
         // Livewire::setUpdateRoute(function ($handle) {
         //         return Route::post('/livewire/update', $handle);
         //     });
-        Route::get('/', function () {
-
-            return view('layouts.dashboard.app');
-        });
+        Route::get('/',  Dashboard::class);
         Route::get('/test21', function (Request $request) {
 
             $pageCount = 5; // عدد صفحات الكتاب
