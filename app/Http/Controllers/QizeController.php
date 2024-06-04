@@ -21,13 +21,14 @@ class QizeController extends Controller
 
     public function getquestion(Request $request)
     {
-        $quiz = Quizes::where('id', $request->id )->with(['question','question.answer'])->first();
+        $quiz = Quizes::where('id', $request->id)->with(['question', 'question.answer'])->first();
         return view('dashboard.quizzes.view-questions', compact(['quiz']));
     }
     public function getModal($id)
     {
 
         $question =  Quiz_questions::with('answer')->find($id);
+        $question =   (count($question) >0) ??[];
         return view('dashboard.quizzes.edit-header-ajax', compact('question'));
     }
     public function deletequestion($id)
@@ -57,5 +58,4 @@ class QizeController extends Controller
 
         return response()->json(['success' => true, 'message' => 'Data saved successfully']);
     }
-
 }

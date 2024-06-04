@@ -19,7 +19,7 @@
                                 <span class="error" style="color: red">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="col-12 col-md-12">
+                        <div class="col-12 col-md-6">
                             <label class="form-label"
                                 for="modalEditUserFirstName">{{ __('tran.country') }}</label>
                             <select class="form-select" wire:model='country_id' required>
@@ -32,7 +32,7 @@
                                 <span class="error" style="color: red">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="col-12 col-md-12">
+                        <div class="col-12 col-md-6">
                             <label class="form-label"
                                 for="modalEditUserFirstName">{{ __('tran.category') }}</label>
                             <select class="form-select" wire:model='category_id' required>
@@ -45,11 +45,17 @@
                                 <span class="error" style="color: red">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="col-12 col-md-12">
+                        <div class="col-12 col-md-6">
                             <label class="form-label" for="modalEditUserFirstName">{{ __('tran.title') }}</label>
-                            <input type="text" class="form-control" wire:model="title"
-                                data-msg="Please enter your fisssssssrst name" required />
+                            <input type="text" class="form-control" wire:model="title" required />
                             @error('title')
+                                <span class="error" style="color: red">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label class="form-label" for="modalEditUserFirstName">{{ __('tran.writer') }}</label>
+                            <input type="text" class="form-control" wire:model="writer" required />
+                            @error('writer')
                                 <span class="error" style="color: red">{{ $message }}</span>
                             @enderror
                         </div>

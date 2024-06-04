@@ -16,10 +16,11 @@ class NewBlog extends Component
     protected $listeners = ['edit' => 'edit'];
 
 
-    public $imageold,$title, $active=1,$image, $article,$edit = false, $id, $header,$category_id,$country_id;
+    public $writer, $imageold,$title, $active=1,$image, $article,$edit = false, $id, $header,$category_id,$country_id;
     protected $rules = [
         'title'       => 'required',
         'article'     => 'required',
+        'writer'     => 'required',
         // 'image'       => 'required',
     ];
 
@@ -33,6 +34,7 @@ class NewBlog extends Component
             $this->id = $tra->id;
             $this->title = $tra->title;
             $this->article = $tra->article;
+            $this->writer = $tra->writer;
             $this->imageold = $tra->imageurl;
             $this->country_id = $tra->country_id;
             $this->category_id = $tra->category_id;
@@ -56,6 +58,7 @@ class NewBlog extends Component
             'title'  => $this->title,
             'category_id'  => $this->category_id,
             'country_id'  => $this->country_id,
+            'writer'  => $this->writer,
             'article'=> '',
             'views'=> '0',
             'active' => $this->active??1,

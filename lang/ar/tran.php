@@ -12,6 +12,7 @@ return [
     'newcategory'     => 'اضافة قسم',
     'editcategory'    => 'تعديل قسم',
     'cancel'          => 'الغاء',
+    'writer'          => 'كاتب ',
     'user'            => 'مستخدم',
     'middle_name'     => 'الاسم الاوسط',
     'first_name'      => 'الاسم الاول',

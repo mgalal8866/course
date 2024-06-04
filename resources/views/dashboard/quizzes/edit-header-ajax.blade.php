@@ -11,7 +11,8 @@
                 <form id="editUserForm" class="row gy-1 pt-75">
                     <div class="form-group">
                         <label for="degree">درجه السؤال</label>
-                        <input id="degree" type='number' name="degree" class="form-control" value="{{$question->mark }}"></input>
+                        <input id="degree" type='number' name="degree" class="form-control"
+                            value="{{ $question->mark }}"></input>
                     </div>
                     <div class="form-group">
                         <label for="question">السؤال </label>
@@ -23,14 +24,16 @@
                     </div>
                     @foreach ($question->answer as $index => $item)
                         <div class="form-group">
-                            <label for="answer">الاجابة {{ $index +1 }}</label>
+                            <label for="answer">الاجابة {{ $index + 1 }}</label>
 
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">
                                         <div class="form-check form-check-success">
-                                            <input class="form-check-input" type="radio" name="correct"  value="{{ $index }}"  @if ($item->correct == 1) checked @endif   />
-                                            <label class="form-check-label"  >الاجابه الصحيحة</label>
+                                            <input class="form-check-input" type="radio" name="correct"
+                                                value="{{ $index }}"
+                                                @if ($item->correct == 1) checked @endif />
+                                            <label class="form-check-label">الاجابه الصحيحة</label>
                                         </div>
 
                                     </div>
@@ -77,7 +80,7 @@
                 success: function(response) {
 
                     $('#editUser').modal('hide');
-   location.reload();   
+                    location.reload();
                 },
                 error: function(xhr) {
                     // Handle error

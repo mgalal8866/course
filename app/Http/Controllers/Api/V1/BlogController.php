@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ApiBlogResource;
+use App\Http\Resources\BlogResource;
 use App\Repositoryinterface\BlogRepositoryinterface;
 
 class BlogController extends Controller
@@ -27,9 +28,9 @@ class BlogController extends Controller
     {
         $get_blog = $this->blogRepositry->get_blog_by_id();
         if( $get_blog != null){
-            $get_blog->tags= [["name"=>"ترفيهي"],["name"=>"FB"]];
+            $get_blog->tags= [];
             $get_blog->save();
-          return Resp(new ApiBlogResource($get_blog), 'success', 200, true);
+          return Resp(new BlogResource($get_blog), 'success', 200, true);
         }else{
           return Resp('','No Blog','404');
         }

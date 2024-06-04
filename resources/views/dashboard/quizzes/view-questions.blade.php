@@ -8,7 +8,8 @@
                     <div class="row">
                         <div class="d-flex justify-content-between align-items-center">
                             <h3 class="card-title">{{ $quiz->name }}</h3>
-
+                            <a class="btn btn-outline-warning btn-sm btnmodal" href="javascript:void(0)"
+                            data-id="">اضافه سؤال</a>
                         </div>
                     </div>
                     <div class="row">
@@ -98,14 +99,14 @@
             });
             $('body').on('click', '.btndelete', function(event) {
                 var id = $(this).data('id');
-
+                if (confirm('Are you sure you want to delete this item?')) {
                 $.ajax({
                     url: '{{ route('deletequestion') }}' + '/' + id,
                     method: 'GET',
                     success: function(response) {
                         location.reload();
                     }
-                });
+                });}
             });
         </script>
     @endpush

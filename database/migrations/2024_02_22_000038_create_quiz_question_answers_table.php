@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('quiz_question_answers', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('question_id');
-            $table->string('answer');
+            $table->longText('answer');
             $table->boolean('is_correct')->default(0);
             $table->softDeletes();
             $table->timestamps();

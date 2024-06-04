@@ -528,14 +528,14 @@
                                                         @if ($lessons[$key]['link'] != null)
 
                                                             <a target="_blank" class="btn btn-warning btn-sm"  href="{{ route('viewquestion') .'/'. $lessons[$key]['link']}}">تعديل التدريب</a>
-                                                        {{-- @else
+                                                        @else
                                                             <x-model wire:model='questions' :questions='$questions'
                                                                 :keys='$key' />
                                                             <button type="button" class="btn btn-outline-success"
                                                                 data-bs-toggle="modal"
                                                                 data-bs-target="#fullscreenModal-{{ $key }}">
                                                                 اضافه تدريب
-                                                            </button> --}}
+                                                            </button>
                                                         @endif
                                                     </div>
                                                 @endif

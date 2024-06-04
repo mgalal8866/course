@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->bigInteger('views')->nullable();
             $table->text('short')->nullable();
-            $table->text('article')->nullable();
+            $table->longText('article')->nullable();
+            $table->string('writer')->nullable();
             $table->json('tags')->nullable();
             $table->string('author_name')->nullable();
             $table->string('author_image')->nullable();
