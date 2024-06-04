@@ -72,7 +72,7 @@
                                         </span>
                                     </td>
                                     <td>
-                                        <a wire:click="$dispatch('edit',{id:'{{ $item->id }}'})"><i
+                                        <a href="{{ route('editblog',['id'=> $item->id]) }}"><i
                                                 class="fas fa-edit fa-lg" style="color: #c2881e;"></i></a>
                                         <a wire:click="delete('{{ $item->id }}')"><i
                                                 class="fas fa-trash-alt fa-lg " style="color: #ff0000;"></i></a>

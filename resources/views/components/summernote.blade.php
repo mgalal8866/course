@@ -1,6 +1,7 @@
 @props([
     'id' => '',
     'value' => '',
+
 ])
 <div wire:ignore>
     <textarea {{ $attributes->wire('model') }} class="form-control" id="{{ $id }}"> </textarea>
@@ -31,7 +32,7 @@
                     }
                 }
             });
-            // $(selector).summernote('pasteHTML', '{!! $value !!}');
+          
         }
     </script>
 @endpush

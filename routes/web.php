@@ -3,6 +3,7 @@
 
 use Goutte\Client;
 use App\Models\User;
+use App\Models\Admin;
 use Livewire\Livewire;
 use App\Models\Courses;
 use App\Models\Setting;
@@ -24,9 +25,11 @@ use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Session;
-use App\Livewire\Dashboard\Stage\Stages;
-use App\Livewire\Dashboard\Blog\ViewBlog;
+use App\Http\Controllers\QizeController;
 
+use App\Livewire\Dashboard\Stage\Stages;
+use App\Livewire\Dashboard\Blog\EditBlog;
+use App\Livewire\Dashboard\Blog\ViewBlog;
 use Symfony\Component\DomCrawler\Crawler;
 use App\Livewire\Dashboard\Setting\Slider;
 use Stevebauman\Location\Facades\Location;
@@ -36,7 +39,6 @@ use App\Livewire\Dashboard\Order\ViewOrders;
 use App\Livewire\Dashboard\Quizzes\Newquiz2;
 use App\Livewire\Dashboard\Vimeo\Filemanger;
 use App\Http\Controllers\NewCourseController;
-use App\Http\Controllers\QizeController;
 use App\Livewire\Dashboard\Courses\NewCourse;
 use App\Livewire\Dashboard\Grades\ViewGrades;
 use App\Livewire\Dashboard\Quizzes\ViewQuizz;
@@ -46,9 +48,10 @@ use App\Livewire\Dashboard\Courses\EditCourse;
 use App\Livewire\Dashboard\Order\DetailsOrder;
 use App\Livewire\Dashboard\Courses\ViewCourses;
 use App\Livewire\Dashboard\ContactUs\ViewContact;
-use App\Livewire\Dashboard\FreeCourse\FreeCourse;
-use App\Livewire\Dashboard\Blog\Category\CategoryBlog;
 
+use App\Livewire\Dashboard\FreeCourse\FreeCourse;
+use App\Livewire\Dashboard\Quizzes\ViewQuestions;
+use App\Livewire\Dashboard\Blog\Category\CategoryBlog;
 use App\Livewire\Dashboard\Payments\ViewPaymentsMethod;
 use App\Livewire\Dashboard\Books\Category\CategoryBooks;
 use App\Livewire\Dashboard\Notification\ViewNotification;
@@ -60,8 +63,6 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Livewire\Dashboard\Setting\Setting as SettingSetting;
 use App\Livewire\Dashboard\Quizzes\QuizCategory\ViewQuizCategory;
 use App\Livewire\Dashboard\FreeCourse\Category\CategoryFreeCourse;
-use App\Livewire\Dashboard\Quizzes\ViewQuestions;
-use App\Models\Admin;
 
 
 
@@ -251,9 +252,10 @@ Route::group(
         // Route::get('/test1', NewCourse::class)->name('newcourse');
 
 
+
         Route::get('/question/{id?}', [QizeController::class,'getquestion'])->name('viewquestion');
         Route::get('/question/delete/{id?}', [QizeController::class,'deletequestion'])->name('deletequestion');
-        Route::get('/question/model/{id?}', [QizeController::class,'getModal'])->name('get-modal');
+        Route::get('/question/model/{id?}/{quiz?}', [QizeController::class,'getModal'])->name('get-modal');
         Route::post('/save-modal-data', [QizeController::class, 'saveModalData'])->name('save-modal-data');
 
         Route::get('/vimeo', Filemanger::class);
@@ -281,6 +283,7 @@ Route::group(
         Route::get('/contact-us', ViewContact::class)->name('contactus');
         Route::get('/specialist', Specialist::class)->name('specialist');
         Route::get('/blog', ViewBlog::class)->name('blog');
+        Route::get('/blog/edit/{id?}', EditBlog::class)->name('editblog');
         Route::get('/category/blog', CategoryBlog::class)->name('category-blog');
         Route::get('/payment-method', ViewPaymentsMethod::class)->name('payment-method');
         Route::get('/setting', SettingSetting::class)->name('setting');

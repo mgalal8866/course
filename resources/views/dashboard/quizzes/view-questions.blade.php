@@ -8,8 +8,8 @@
                     <div class="row">
                         <div class="d-flex justify-content-between align-items-center">
                             <h3 class="card-title">{{ $quiz->name }}</h3>
-                            <a class="btn btn-outline-warning btn-sm btnmodal" href="javascript:void(0)"
-                            data-id="">اضافه سؤال</a>
+                            <a class="btn btn-outline-warning btn-sm btnmodal" href="javascript:void(0)" data-id="0"  data-quiz="{{ $quiz->id }}">اضافه
+                                سؤال</a>
                         </div>
                     </div>
                     <div class="row">
@@ -50,10 +50,11 @@
                             <h5 class="card-title">{!! $item->question !!}</h5>
                             <div class="input-group " style="width:auto; ">
 
-                                    <a class="btn btn-outline-warning btn-sm btnmodal" href="javascript:void(0)"
-                                        data-id="{{ $item->id }}"> نعديل</a>
-                                    <a class="btn btn-outline-danger btn-sm btndelete" href="javascript:void(0)"
-                                        data-id="{{ $item->id }}"> حذف</a>
+                                <a class="btn btn-outline-warning btn-sm btnmodal" href="javascript:void(0)"
+                                    data-id="{{ $item->id }}" data-quiz="{{ $quiz->id }}">تعديل</a>
+
+                                <a class="btn btn-outline-danger btn-sm btndelete" href="javascript:void(0)"
+                                    data-id="{{ $item->id }}"> حذف</a>
 
                             </div>
                         </div>
@@ -87,9 +88,10 @@
         <script>
             $('body').on('click', '.btnmodal', function(event) {
                 var id = $(this).data('id');
+                var quiz = $(this).data('quiz');
 
                 $.ajax({
-                    url: '{{ route('get-modal') }}' + '/' + id,
+                    url: '{{ route('get-modal') }}' + '/' + id + '/' + quiz,
                     method: 'GET',
                     success: function(response) {
                         $('#modalPlaceholder').html(response);
@@ -100,13 +102,14 @@
             $('body').on('click', '.btndelete', function(event) {
                 var id = $(this).data('id');
                 if (confirm('Are you sure you want to delete this item?')) {
-                $.ajax({
-                    url: '{{ route('deletequestion') }}' + '/' + id,
-                    method: 'GET',
-                    success: function(response) {
-                        location.reload();
-                    }
-                });}
+                    $.ajax({
+                        url: '{{ route('deletequestion') }}' + '/' + id,
+                        method: 'GET',
+                        success: function(response) {
+                            location.reload();
+                        }
+                    });
+                }
             });
         </script>
     @endpush

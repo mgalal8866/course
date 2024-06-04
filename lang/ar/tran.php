@@ -11,6 +11,7 @@ return [
     'action'          => 'العمليات',
     'newcategory'     => 'اضافة قسم',
     'editcategory'    => 'تعديل قسم',
+    'article'           => 'المقال',
     'cancel'          => 'الغاء',
     'writer'          => 'كاتب ',
     'user'            => 'مستخدم',

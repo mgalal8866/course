@@ -24,12 +24,13 @@ class QizeController extends Controller
         $quiz = Quizes::where('id', $request->id)->with(['question', 'question.answer'])->first();
         return view('dashboard.quizzes.view-questions', compact(['quiz']));
     }
-    public function getModal($id)
+    public function getModal($id,$quiz)
     {
 
         $question =  Quiz_questions::with('answer')->find($id);
-        $question =   (count($question) >0) ??[];
-        return view('dashboard.quizzes.edit-header-ajax', compact('question'));
+        $question = $question == null ? [] : $question;
+
+        return view('dashboard.quizzes.edit-header-ajax', compact('question','quiz'));
     }
     public function deletequestion($id)
     {
@@ -39,23 +40,46 @@ class QizeController extends Controller
     }
     public function saveModalData(Request $request)
     {
-        $question = Quiz_questions::find($request->input('id'));
-        $question->question = $request->input('question');
-        $question->description = $request->input('description');
-        $question->mark = $request->input('degree');
-        $question->save();
+        if ($request->input('id') == 0) {
 
-        $answers = $request->input('answer');
-        $answerIds = $request->input('answer_id');
-        $correctIndex = $request->input('correct');
+            $data['question'] = $request->input('question');
+            $data['description'] = $request->input('description');
+            $data['mark'] = $request->input('degree');
+            $data['quiz_id'] = $request->input('quiz_id');
+            $q =  Quiz_questions::create($data);
 
-        foreach ($answers as $index => $answerText) {
-            $answer = Quiz_question_answers::find($answerIds[$index]);
-            $answer->answer = $answerText;
-            $answer->correct = ($index == $correctIndex) ? 1 : 0;
-            $answer->save();
+          $answers = $request->input('answer');
+            $answerIds = $request->input('answer_id');
+            $correctIndex = $request->input('correct');
+
+
+            foreach ($answers as $index => $answerText) {
+                $answer['answer'] = $answerText;
+                $answer['correct'] = ($index == $correctIndex) ? 1 : 0;
+                $answer['question_id'] =  $q->id;
+                Quiz_question_answers::create($answer);
+               
+            }
+        } else {
+
+
+            $question = Quiz_questions::find($request->input('id'));
+            $question->question = $request->input('question');
+            $question->description = $request->input('description');
+            $question->mark = $request->input('degree');
+            $question->save();
+
+            $answers = $request->input('answer');
+            $answerIds = $request->input('answer_id');
+            $correctIndex = $request->input('correct');
+
+            foreach ($answers as $index => $answerText) {
+                $answer = Quiz_question_answers::find($answerIds[$index]);
+                $answer->answer = $answerText;
+                $answer->correct = ($index == $correctIndex) ? 1 : 0;
+                $answer->save();
+            }
         }
-
         return response()->json(['success' => true, 'message' => 'Data saved successfully']);
     }
 }
