@@ -19,7 +19,7 @@ class BlogController extends Controller
     {
         $get_blog = $this->blogRepositry->get_blog_by_category();
         if( $get_blog != null){
-          return Resp(ApiBlogResource::collection($get_blog), 'success', 200, true);
+          return Resp(BlogResource::collection($get_blog), 'success', 200, true);
         }else{
           return Resp('','No Blog','404');
         }
@@ -30,7 +30,7 @@ class BlogController extends Controller
         if( $get_blog != null){
             $get_blog->tags= [];
             $get_blog->save();
-          return Resp(new BlogResource($get_blog), 'success', 200, true);
+          return Resp(new ApiBlogResource($get_blog), 'success', 200, true);
         }else{
           return Resp('','No Blog','404');
         }
