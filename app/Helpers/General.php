@@ -48,9 +48,9 @@ function path($course_id, $folder)
 // }
 if (!function_exists('replaceimageeditor')) {
     function replaceimageeditor($html){
-        $dom = new \DOMDocument();
+        $dom = new \DOMDocument('1.0', 'UTF-8');
         libxml_use_internal_errors(true);
-        $dom->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $dom->loadHTML('<?xml encoding="UTF-8">' .$html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
         libxml_clear_errors();
         $imageFiles = $dom->getElementsByTagName('img');
         foreach ($imageFiles as $image) {
