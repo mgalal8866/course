@@ -28,6 +28,7 @@ use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\QizeController;
 
 use App\Livewire\Dashboard\Stage\Stages;
+use App\Http\Controllers\ImageController;
 use App\Livewire\Dashboard\Blog\EditBlog;
 use App\Livewire\Dashboard\Blog\ViewBlog;
 use Symfony\Component\DomCrawler\Crawler;
@@ -47,8 +48,8 @@ use App\Livewire\Dashboard\Trainers\Trainers;
 use App\Livewire\Dashboard\Courses\EditCourse;
 use App\Livewire\Dashboard\Order\DetailsOrder;
 use App\Livewire\Dashboard\Courses\ViewCourses;
-use App\Livewire\Dashboard\ContactUs\ViewContact;
 
+use App\Livewire\Dashboard\ContactUs\ViewContact;
 use App\Livewire\Dashboard\FreeCourse\FreeCourse;
 use App\Livewire\Dashboard\Quizzes\ViewQuestions;
 use App\Livewire\Dashboard\Blog\Category\CategoryBlog;
@@ -67,6 +68,7 @@ use App\Livewire\Dashboard\FreeCourse\Category\CategoryFreeCourse;
 
 
 
+Route::post('/upload-image', [ImageController::class, 'uploadImage']);
 
 Route::get('/', function (Request $request) {
     return  view('soon');

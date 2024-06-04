@@ -23,7 +23,7 @@
                         <textarea id="description" name="description" class="form-control summernote">{!! $question->description ?? '' !!}</textarea>
                     </div>
                     <input type="hidden" name="quiz_id" value="{{ $quiz }}">
-                    @if (!empty($question)  )
+                    @if (!empty($question))
                         @foreach ($question->answer as $index => $item)
                             <div class="form-group">
                                 <label for="answer">الاجابة {{ $index + 1 }}</label>
@@ -137,7 +137,8 @@
 <script>
     $(document).ready(function() {
         $('.summernote').summernote({
-            height: 150
+            height: 150,
+            
         });
 
         $('#editUserForm').on('submit', function(event) {
