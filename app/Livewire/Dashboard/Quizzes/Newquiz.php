@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 
 class Newquiz extends Component
 {
-    public $typecategory, $questions,$category=[], $testname, $testcategory, $testtime, $degree_success, $total_scores;
+    public $typecategory, $questions, $category = [], $testname, $testcategory, $testtime, $degree_success, $total_scores;
     private   $rules = [
         // 'testname'=> 'required' ,
         // 'testcategory'=> 'required' ,
@@ -42,7 +42,7 @@ class Newquiz extends Component
     }
     public function addquestions()
     {
-        $this->questions->push(['question' => '','description'=>'', 'degree' => '', 'answers' => collect([['answer' => '', 'correct' => '']])]);
+        $this->questions->push(['question' => '', 'description' => '', 'degree' => '', 'answers' => collect([['answer' => '', 'correct' => '']])]);
     }
     public function removequestions($key)
     {
@@ -64,6 +64,7 @@ class Newquiz extends Component
         $this->validate($this->rules);
         DB::beginTransaction();
         try {
+
             $quiz = Quizes::create([
                 'name'          => $this->testname,
                 'category_id'   => $this->testcategory,
@@ -72,16 +73,27 @@ class Newquiz extends Component
                 'total_marks'  => $this->total_scores,
             ]);
             foreach ($this->questions as $i) {
+                if ($i['question'] != '') {
+                    $qu =   replaceimageeditor($i['question']);
+                }
+                if ($i['description'] != '') {
+                    $des =   replaceimageeditor($i['description']);
+                }
                 $question =   Quiz_questions::create([
                     'quiz_id'  => $quiz->id,
-                    'question' => $i['question'],
-                    'description' => $i['description'],
+                    'question' => $qu??$i['question'],
+                    'description' => $des??$i['description'],
                     'mark'   => $i['degree'],
                 ]);
                 foreach ($i['answers'] as $ii) {
+                    if ($ii['answer'] != '') {
+
+                        $ans =   replaceimageeditor($ii['answer']);
+                    }
                     Quiz_question_answers::create([
                         'question_id' => $question->id,
-                        'answer'     => $ii['answer'],
+
+                        'answer'     =>   $ans??$ii['answer'],
                         'correct'    => $ii['correct'] == true ? 1 : 0,
                     ]);
                 }

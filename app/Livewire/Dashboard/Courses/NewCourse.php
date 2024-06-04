@@ -22,6 +22,7 @@ use App\Traits\ImageProcessing;
 use Illuminate\Support\Facades\DB;
 use App\Models\Quiz_question_answers;
 use function Livewire\Volt\state;
+
 class NewCourse extends Component
 {
     use WithFileUploads, ImageProcessing;
@@ -32,7 +33,7 @@ class NewCourse extends Component
         $name, $description, $validity = 'تبقى الدورة بكامل محتوياتها ثلاثة أشهر بحساب المتدرب.', $category_id, $price, $pricewith = 1, $startdate, $enddate, $time, $features, $triner = [], $limit_stud, $duration_course = 'شهر ونصف',
         $image_course, $file_work, $file_explanatory, $file_aggregates, $file_supplementary, $file_free, $file_test,
         $langcourse = false, $status = true, $inputnum = false, $lessons, $stages, $answer_the_question, $calc_rate;
-    public $questions =[], $total_scores, $degree_success, $testname, $testtime, $sections_guide;
+    public $questions = [], $total_scores, $degree_success, $testname, $testtime, $sections_guide;
     public $showParentModal = false;
     public $showChildModal = false;
 
@@ -47,12 +48,12 @@ class NewCourse extends Component
 
     public function mount()
     {
-        if( request()->query('step', null)!= null){
+        if (request()->query('step', null) != null) {
             $this->currentPage  = request()->query('step', null);
         }
 
         $this->stages = Stages::parentonly()->orderBy('parent_id', 'DESC')->get();
-         }
+    }
     public function updated($propertyName)
     {
         // dd($this->file_work);
@@ -177,13 +178,35 @@ class NewCourse extends Component
         try {
             $rules = collect($this->validtionRules)->collect()->toArray();
             // $this->validate($rules);
+            if ($this->howtostart != '') {
+                $howtostart = replaceimageeditor($this->howtostart);
+            }
+            if ($this->features != '') {
+                $features = replaceimageeditor($this->features);
+            }
+            if ($this->conditions != '') {
+                $conditions = replaceimageeditor($this->conditions);
+            }
+            if ($this->description != '') {
+                $description = replaceimageeditor($this->description);
+            }
+            if ($this->target != '') {
+                $target = replaceimageeditor($this->target);
+            }
+            if ($this->answer_the_question != '') {
+                $answer_the_question = replaceimageeditor($this->answer_the_question);
+            }
+            if ($this->sections_guide != '') {
+                $sections_guide = replaceimageeditor($this->sections_guide);
+            }
+
             $CFC = Courses::updateOrCreate(['id' => $this->id], [
                 'name'         => $this->name,
                 'duration'     => $this->duration_course ?? null,
                 'validity'     => $this->validity ?? null,
                 'course_gender'     => $this->course_gender ?? null,
                 'short_description'  => $this->short_description ?? null,
-                'description'  => $this->description ?? null,
+                'description'  => $description ?? null,
                 'category_id'  => $this->category_id ?? null,
                 'price'        => $this->price ?? null,
                 'pricewith'    => $this->pricewith ?? null,
@@ -191,11 +214,11 @@ class NewCourse extends Component
                 'end_date'     => $this->enddate ?? null,
                 'time'         => $this->time ?? null,
                 'max_drainees' => $this->limit_stud ?? null,
-                'conditions'   => $this->conditions ?? null,
-                'features'    => $this->features ?? null,
-                'sections_guide'    => $this->sections_guide ?? null,
-                'how_start'    => $this->howtostart ?? null,
-                'target'       => $this->target ?? null,
+                'conditions'   => $conditions ?? null,
+                'features'    => $features ?? null,
+                'sections_guide'    => $sections_guide ?? null,
+                'how_start'    => $howtostart?? null,
+                'target'       => $target ?? null,
                 'telegramgrup' => $this->telegramgrup ?? null,
                 'telegram'     => $this->telegram ?? null,
                 'next_cource'  => $this->nextcourse ?? null,
@@ -204,7 +227,7 @@ class NewCourse extends Component
                 'statu'        => ($this->status = true) ? 1 : 0,
                 'inputnum'     => ($this->inputnum = true) ? 1 : 0,
                 'file_free'    => $this->file_free ?? null,
-                'answer_the_question'    => $this->answer_the_question ?? null,
+                'answer_the_question'    => $answer_the_question?? null,
 
             ]);
             if ($this->calc_rate) {

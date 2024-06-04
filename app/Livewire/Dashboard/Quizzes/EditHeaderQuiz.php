@@ -12,7 +12,7 @@ class EditHeaderQuiz extends Component
     public function edit($id = null)
     {
       $r=   Quiz_questions::find($id);
-      $this->question = $r->question ??'sss';
+      $this->question = $r->question ??'';
         // $this->dispatch('openmodel');
     }
     public function kk($id = null)

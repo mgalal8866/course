@@ -40,10 +40,17 @@ class QizeController extends Controller
     }
     public function saveModalData(Request $request)
     {
+        if ($request->input('question') != '') {
+            $qu =   replaceimageeditor($request->input('question'));
+        }
+        if ( $request->input('description') != '') {
+            $de =   replaceimageeditor($request->input('description'));
+
+        }
         if ($request->input('id') == 0) {
 
-            $data['question'] = $request->input('question');
-            $data['description'] = $request->input('description');
+            $data['question'] =  $qu ??$request->input('question');
+            $data['description'] = $de ??$request->input('description');
             $data['mark'] = $request->input('degree');
             $data['quiz_id'] = $request->input('quiz_id');
             $q =  Quiz_questions::create($data);
@@ -54,18 +61,22 @@ class QizeController extends Controller
 
 
             foreach ($answers as $index => $answerText) {
-                $answer['answer'] = $answerText;
+                if ($answerText != '') {
+                    $ans =   replaceimageeditor($answerText);
+                }
+                $answer['answer'] = $ans??$answerText;
                 $answer['correct'] = ($index == $correctIndex) ? 1 : 0;
                 $answer['question_id'] =  $q->id;
                 Quiz_question_answers::create($answer);
-               
+
             }
         } else {
 
+        
 
             $question = Quiz_questions::find($request->input('id'));
-            $question->question = $request->input('question');
-            $question->description = $request->input('description');
+            $question->question = $qu??$request->input('question');
+            $question->description = $de?? $request->input('description');
             $question->mark = $request->input('degree');
             $question->save();
 
@@ -74,8 +85,12 @@ class QizeController extends Controller
             $correctIndex = $request->input('correct');
 
             foreach ($answers as $index => $answerText) {
+                if ($answerText != '') {
+                    $ans =   replaceimageeditor($answerText);
+                }
                 $answer = Quiz_question_answers::find($answerIds[$index]);
-                $answer->answer = $answerText;
+
+                $answer->answer = $ans??$answerText;
                 $answer->correct = ($index == $correctIndex) ? 1 : 0;
                 $answer->save();
             }

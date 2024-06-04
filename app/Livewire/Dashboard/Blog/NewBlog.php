@@ -2,13 +2,16 @@
 
 namespace App\Livewire\Dashboard\Blog;
 
+use DOMDocument;
 use App\Models\Blog;
-use App\Models\CategoryBlog;
 use App\Models\Country;
 use Livewire\Component;
 use App\Models\Specialist;
+use Illuminate\Support\Str;
+use App\Models\CategoryBlog;
 use Livewire\WithFileUploads;
 use App\Traits\ImageProcessing;
+use Illuminate\Support\Facades\File;
 
 class NewBlog extends Component
 {
@@ -16,7 +19,7 @@ class NewBlog extends Component
     protected $listeners = ['edit' => 'edit'];
 
 
-    public $writer, $imageold,$title, $active=1,$image, $article,$edit = false, $id, $header,$category_id,$country_id;
+    public $writer, $imageold, $title, $active = 1, $image, $article, $edit = false, $id, $header, $category_id, $country_id;
     protected $rules = [
         'title'       => 'required',
         'article'     => 'required',
@@ -27,7 +30,7 @@ class NewBlog extends Component
     public function edit($id = null)
     {
 
-         $this->reset();
+        $this->reset();
         if ($id != null) {
 
             $tra = Blog::find($id);
@@ -39,7 +42,7 @@ class NewBlog extends Component
             $this->country_id = $tra->country_id;
             $this->category_id = $tra->category_id;
 
-            $this->active = $tra->active==1?true:false;
+            $this->active = $tra->active == 1 ? true : false;
             $this->edit = true;
             $this->header = __('tran.edit') . ' ' . __('tran.blog');
         } else {
@@ -53,40 +56,39 @@ class NewBlog extends Component
     {
         $this->validate();
 
+        $article = replaceimageeditor($this->article);
 
         $blog = Blog::updateOrCreate(['id' => $this->id], [
             'title'  => $this->title,
             'category_id'  => $this->category_id,
             'country_id'  => $this->country_id,
             'writer'  => $this->writer,
-            'article'=> '',
-            'views'=> '0',
-            'active' => $this->active??1,
+            'article' => '',
+            'views' => '0',
+            'active' => $this->active ?? 1,
         ]);
         if ($this->image) {
-            if( $blog->image != null){
-
+            if ($blog->image != null) {
             }
             $dataX =  $this->saveImageAndThumbnail($this->image, false, $blog->id, 'blog');
             $blog->image =  $dataX['image'];
         }
-        $blog->article =    $this->article;
+        $blog->article =   $article;
         $blog->save();
         if ($this->id != null) {
-            $this->dispatch('swal', message: 'تم التعديل بنجاح' );
-        }else{
-            $this->dispatch('swal', message: 'تم الاضافه بنجاح' );
+            $this->dispatch('swal', message: 'تم التعديل بنجاح');
+        } else {
+            $this->dispatch('swal', message: 'تم الاضافه بنجاح');
         }
 
         $this->dispatch('closemodel');
         $this->dispatch('blog_course_refresh');
-
     }
     public function render()
     {
         $spec  = Specialist::latest()->get();
         $country  = Country::latest()->get();
         $categoryblog  = CategoryBlog::latest()->get();
-        return view('dashboard.blog.new-blog', compact(['spec', 'country','categoryblog']));
+        return view('dashboard.blog.new-blog', compact(['spec', 'country', 'categoryblog']));
     }
 }

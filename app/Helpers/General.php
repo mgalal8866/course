@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Setting;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Cache;
 
@@ -45,6 +46,32 @@ function path($course_id, $folder)
 //     $setting = Setting::find($key);
 //     return $setting ? $setting->value : $default;
 // }
+if (!function_exists('replaceimageeditor')) {
+    function replaceimageeditor($html){
+        $dom = new \DOMDocument();
+        libxml_use_internal_errors(true);
+        $dom->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        libxml_clear_errors();
+        $imageFiles = $dom->getElementsByTagName('img');
+        foreach ($imageFiles as $image) {
+            $data = $image->getAttribute('src');
+            if (strpos($data, 'data:image') === 0) {
+                list($type, $data) = explode(';', $data);
+                list(, $data) = explode(',', $data);
+                $path = public_path('files/blog/editor');
+                if (!File::exists($path)) {
+                    mkdir($path, 0777, true);
+                }
+                $data = str_replace(' ', '+', $data);
+                $imageName = Str::random(10) . '.png';
+                File::put($path . '/' . $imageName, base64_decode($data));
+                $image->removeAttribute('src');
+                $image->setAttribute('src', asset('files/blog/editor/' . $imageName));
+            }
+        }
+        return $dom->saveHTML();
+}
+}
 if (!function_exists('copyAndRenameFolder')) {
     function copyAndRenameFolder($source, $destination)
     {

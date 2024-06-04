@@ -264,6 +264,28 @@ class EditCourse extends Component
     public function save()
     {
         DB::beginTransaction();
+        if ($this->howtostart != '') {
+            $howtostart = replaceimageeditor($this->howtostart);
+        }
+        if ($this->features != '') {
+            $features = replaceimageeditor($this->features);
+        }
+        if ($this->conditions != '') {
+            $conditions = replaceimageeditor($this->conditions);
+        }
+        if ($this->description != '') {
+            $description = replaceimageeditor($this->description);
+        }
+        if ($this->target != '') {
+            $target = replaceimageeditor($this->target);
+        }
+        if ($this->answer_the_question != '') {
+            $answer_the_question = replaceimageeditor($this->answer_the_question);
+        }
+        if ($this->sections_guide != '') {
+            $sections_guide = replaceimageeditor($this->sections_guide);
+        }
+
         try {
             $rules = collect($this->validtionRules)->collect()->toArray();
             // $this->validate($rules);
@@ -273,7 +295,7 @@ class EditCourse extends Component
                 'validity'     => $this->validity ?? null,
                 'course_gender'     => $this->course_gender ?? null,
                 'short_description'  => $this->short_description ?? null,
-                'description'  => $this->description ?? null,
+                'description'  => $description ?? null,
                 'category_id'  => $this->category_id ?? null,
                 'price'        => $this->price ?? null,
                 'pricewith'    => $this->pricewith ?? null,
@@ -281,11 +303,11 @@ class EditCourse extends Component
                 'end_date'     => $this->enddate ?? null,
                 'time'         => $this->time ?? null,
                 'max_drainees' => $this->limit_stud ?? null,
-                'conditions'   => $this->conditions ?? null,
-                'features'    => $this->features ?? null,
-                'sections_guide'    => $this->sections_guide ?? null,
-                'how_start'    => $this->howtostart ?? null,
-                'target'       => $this->target ?? null,
+                'conditions'   => $conditions ?? null,
+                'features'    => $features ?? null,
+                'sections_guide'    => $sections_guide ?? null,
+                'how_start'    => $howtostart?? null,
+                'target'       => $target ?? null,
                 'telegramgrup' => $this->telegramgrup ?? null,
                 'telegram'     => $this->telegram ?? null,
                 'next_cource'  => $this->nextcourse ?? null,
@@ -294,7 +316,7 @@ class EditCourse extends Component
                 'statu'        => ($this->status = true) ? 1 : 0,
                 'inputnum'     => ($this->inputnum = true) ? 1 : 0,
                 'file_free'    => $this->file_free ?? null,
-                'answer_the_question'    => $this->answer_the_question ?? null,
+                'answer_the_question'    => $answer_the_question?? null,
 
             ]);
             if ($this->calc_rate) {

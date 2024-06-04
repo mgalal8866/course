@@ -106,16 +106,26 @@ class Newquiz2 extends Component
             }
 
             foreach ($this->questions as $i) {
+                if ($i['question'] != '') {
+                    $qu =   replaceimageeditor($i['question']);
+                }
+                if ($i['description'] != '') {
+                    $des =   replaceimageeditor($i['description']);
+                }
                 $question =   Quiz_questions::create([
                     'quiz_id'  => $quiz->id,
-                    'description' => $i['description'],
-                    'question' => $i['question'],
+                    'description' => $des ?? $i['description'],
+                    'question' =>  $qu ?? $i['question'],
                     'mark'   => $i['degree'],
                 ]);
                 foreach ($i['answers'] as $index2 => $ii) {
+                    if ($ii['answer'] != '') {
+
+                        $ans =   replaceimageeditor($ii['answer']);
+                    }
                     Quiz_question_answers::create([
                         'question_id' => $question->id,
-                        'answer'     => $ii['answer'],
+                        'answer'     =>  $ans ?? $ii['answer'],
                         'correct'    => ($index2 == $i['correct']) ? 1 : 0,
                     ]);
                 }
