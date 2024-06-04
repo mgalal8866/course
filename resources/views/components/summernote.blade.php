@@ -28,6 +28,28 @@
                         } else {
                             @this.set('{{ $attributes->wire('model')->value() }}', contents);
                         }
+                    },
+                    onImageUpload: function(files) {
+                        var data = new FormData();
+                        data.append("file", files[0]);
+                        $.ajax({
+                            url: '/upload-image', // Point to your image upload route
+                            method: 'POST',
+                            data: data,
+                            processData: false,
+                            contentType: false,
+                            headers: {
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                            },
+                            success: function(response) {
+
+
+                                $(selector).summernote('insertImage', response.url);
+                            },
+                            error: function(jqXHR, textStatus, errorThrown) {
+                                console.log(textStatus + " " + errorThrown);
+                            }
+                        });
                     }
                 }
             });

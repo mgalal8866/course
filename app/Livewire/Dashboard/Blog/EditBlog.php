@@ -65,8 +65,8 @@ class EditBlog extends Component
             $blog->image =  $dataX['image'];
         }
 
-        $article = replaceimageeditor($this->article);
-        $blog->article =    $article;
+
+        $blog->article =    $this->article;
         $blog->save();
         if ($this->id != null) {
             $this->dispatch('swal', message: 'تم التعديل بنجاح');

@@ -64,7 +64,7 @@
                             <div class="col-12 col-md-12" wire:ignore>
                                 <label class="form-label" for="modalEditUserFirstName">{{ __('tran.article') }}</label>
                                 <textarea wire:model='article' class="form-control" id="article">{{$article}}</textarea>
-                               
+
                                 @error('article')
                                     <span class="error" style="color: red">{{ $message }}</span>
                                 @enderror
@@ -125,11 +125,33 @@
                 callbacks: {
                     onChange: function(contents, $editable) {
                         @this.set('article', contents);
-                        if ($(selector).summernote('isEmpty')) {
+                        if ($('#article').summernote('isEmpty')) {
                             @this.set('article', '');
                         } else {
                             @this.set('article', contents);
                         }
+                    },
+                    onImageUpload: function(files) {
+                        var data = new FormData();
+                        data.append("file", files[0]);
+                        $.ajax({
+                            url: '/upload-image', // Point to your image upload route
+                            method: 'POST',
+                            data: data,
+                            processData: false,
+                            contentType: false,
+                            headers: {
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                            },
+                            success: function(response) {
+
+
+                                $('#article').summernote('insertImage', response.url);
+                            },
+                            error: function(jqXHR, textStatus, errorThrown) {
+                                console.log(textStatus + " " + errorThrown);
+                            }
+                        });
                     }
                 }
             });

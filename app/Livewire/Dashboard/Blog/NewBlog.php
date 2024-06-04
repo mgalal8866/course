@@ -56,7 +56,6 @@ class NewBlog extends Component
     {
         $this->validate();
 
-        $article = replaceimageeditor($this->article);
 
         $blog = Blog::updateOrCreate(['id' => $this->id], [
             'title'  => $this->title,
@@ -73,7 +72,8 @@ class NewBlog extends Component
             $dataX =  $this->saveImageAndThumbnail($this->image, false, $blog->id, 'blog');
             $blog->image =  $dataX['image'];
         }
-        $blog->article =   $article;
+
+        $blog->article =    $this->article;
         $blog->save();
         if ($this->id != null) {
             $this->dispatch('swal', message: 'تم التعديل بنجاح');
