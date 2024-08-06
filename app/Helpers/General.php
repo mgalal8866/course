@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Cache;
 
 function getsetting($cache, array $value)
 {
-    // Cache::forget($cache);
+    Cache::forget($cache);
     $settings = Cache::rememberForever($cache, function () use ($value) {
         return Setting::whereIn('key', $value)->get();
     });
