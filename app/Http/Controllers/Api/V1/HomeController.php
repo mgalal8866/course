@@ -42,6 +42,15 @@ class HomeController extends Controller
         Cache::forget('fqa');
         Cache::forget('aboutus');
         Cache::forget('blog');
+        Cache::forget('footer_setting');
+        Cache::forget('section1_setting');
+        Cache::forget('section2_setting');
+        Cache::forget('section3_setting');
+        Cache::forget('section4_setting');
+        Cache::forget('section5_setting');
+        Cache::forget('section6_setting');
+        Cache::forget('section7_setting');
+        Cache::forget('section8_setting');
 
         $data['footer'] = getsetting('footer_setting', [
             'phone', 'address', 'mail',
