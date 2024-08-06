@@ -86,7 +86,8 @@ class HomeController extends Controller
         $data['fqa'] = $fqa;
         $data['blog'] = $blog;
         $data['aboutus'] = $aboutus;
-        $data['category'] = CategoryCourseResource::collection(Category::whereHas('courses')->withCount('courses')->get());;
+        $data['category'] = CategoryCourseResource::collection(Category::withCount('courses')->get());;
+        // $data['category'] = CategoryCourseResource::collection(Category::whereHas('courses')->withCount('courses')->get());;
         // $data['slider']   = $slider;
 
         return Resp(new HomeResource($data), 'success');
