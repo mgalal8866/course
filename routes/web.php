@@ -17,16 +17,18 @@ use App\Models\QuizResultHeader;
 use Vimeo\Laravel\Facades\Vimeo;
 use App\Models\QuizResultDetails;
 use App\Models\Stages as mstages;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use App\Livewire\Dashboard\Dashboard;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Artisan;
+
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\QizeController;
-
 use App\Livewire\Dashboard\Stage\Stages;
 use App\Http\Controllers\ImageController;
 use App\Livewire\Dashboard\Blog\EditBlog;
@@ -46,9 +48,9 @@ use App\Livewire\Dashboard\Quizzes\ViewQuizz;
 use App\Livewire\Dashboard\Trainees\Trainees;
 use App\Livewire\Dashboard\Trainers\Trainers;
 use App\Livewire\Dashboard\Courses\EditCourse;
+
 use App\Livewire\Dashboard\Order\DetailsOrder;
 use App\Livewire\Dashboard\Courses\ViewCourses;
-
 use App\Livewire\Dashboard\ContactUs\ViewContact;
 use App\Livewire\Dashboard\FreeCourse\FreeCourse;
 use App\Livewire\Dashboard\Quizzes\ViewQuestions;
@@ -59,14 +61,11 @@ use App\Livewire\Dashboard\Notification\ViewNotification;
 use App\Livewire\Dashboard\Grades\Category\CategoryGrades;
 use App\Livewire\Dashboard\Trainers\Specialist\Specialist;
 use App\Livewire\Dashboard\Courses\Category\CategoryCourse;
-use App\Livewire\Dashboard\Dashboard;
 use App\Livewire\Dashboard\StudySchedule\ViewStudySchedule;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Livewire\Dashboard\Setting\Setting as SettingSetting;
 use App\Livewire\Dashboard\Quizzes\QuizCategory\ViewQuizCategory;
 use App\Livewire\Dashboard\FreeCourse\Category\CategoryFreeCourse;
-
-
 
 
 Route::post('/upload-image', [ImageController::class, 'uploadImage']);
@@ -95,6 +94,55 @@ Route::get('/ncc', function (Request $request) {
     Artisan::call('view:clear');
     Artisan::call('optimize:clear');
     return Artisan::output();
+});
+Route::get('/webhook', function (Request $request) {
+
+    Log::error( $request->all());
+});
+
+Route::get('/reeees', function (Request $request) {
+
+
+    $response = Http::withHeaders([
+        'Content-Type' => 'application/json',
+        'Authorization' => 'Bearer d83a5d07aaeb8442dcbe259e6dae80a3f2e21a3a581e1a5acd',
+    ])->post('https://staging.fawaterk.com/api/v2/invoiceInitPay', [
+        'payment_method_id' => 2,
+        'cartTotal' => '50',
+        'currency' => 'EGP',
+        'invoice_number' => '123',
+        'customer' => [
+            'first_name' => 'mohammad',
+            'last_name' => 'hamza',
+            'email' => 'test@fawaterk.com',
+            'phone' => '01024346011',
+            'address' => 'test address',
+        ],
+        'redirectionUrls' => [
+            'successUrl' => 'https://api.alyusr.academy/Cart/ConfirmPayment?status=success',
+            'failUrl' => 'https://api.alyusr.academy/Cart/ConfirmPayment?status=fail',
+            'pendingUrl' => 'https://api.alyusr.academy/Cart/ConfirmPayment?status=pending',
+        ],
+        'cartItems' => [
+            [
+                'name' => 'this is test oop 112252',
+                'price' => '25',
+                'quantity' => '1',
+            ],
+            [
+                'name' => 'this is test oop 112252',
+                'price' => '25',
+                'quantity' => '1',
+            ],
+        ],
+    ]);
+
+    // To get the response body
+    $responseBody = $response->body();
+
+    // To get the response data as an array (if the response is JSON)
+    return   $response->json();
+
 });
 
 Route::get('/test', function (Request $request) {

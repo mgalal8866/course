@@ -526,8 +526,9 @@
                                                     </div>
                                                     <div class="col">
                                                         @if ($lessons[$key]['link'] != null)
-
-                                                            <a target="_blank" class="btn btn-warning btn-sm"  href="{{ route('viewquestion') .'/'. $lessons[$key]['link']}}">تعديل التدريب</a>
+                                                            <a target="_blank" class="btn btn-warning btn-sm"
+                                                                href="{{ route('viewquestion') . '/' . $lessons[$key]['link'] }}">تعديل
+                                                                التدريب</a>
                                                         @else
                                                             <x-model wire:model='questions' :questions='$questions'
                                                                 :keys='$key' />
@@ -543,14 +544,14 @@
                                                 <div class="col-1">
                                                     {{-- <button  wire:click='removelesson({{ $key }})' class="btn btn-danger text-white" x-data={}
                                                     x-on:click="window.livewire.emitTo('delete-modal-component','showModal', 'App\\Models\\DummyUser', {{$lessons[$key]['link'] }}, 'Delete User', 'Are you sure you want to delete user')"><i class="fa fa-trash-alt"></i></button> --}}
-                                                        <button wire:click='removelesson({{ $key }})'
-                                                            type="button"
-                                                            class="btn btn-sm btn-danger d-inline-flex align-items-center justify-content-center rounded-circle
+                                                    <button wire:click='removelesson({{ $key }})'
+                                                        type="button"
+                                                        class="btn btn-sm btn-danger d-inline-flex align-items-center justify-content-center rounded-circle
                                         bg-red-600 hover:bg-red-800 text-white shadow-lg hover-shadow-xl
                                         transition duration-150 ease-in-out focus:bg-red-700 outline-none focus-outline-none"
-                                                            style="height: 2rem; width: 2rem; ">
-                                                            <i class="fas fa-trash-alt"></i>
-                                                        </button>
+                                                        style="height: 2rem; width: 2rem; ">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </button>
 
                                                 </div>
                                             </div>

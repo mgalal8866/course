@@ -20,12 +20,12 @@ class OrderController extends Controller
     public function please_order()
     {
 
-        $please_order = $this->orderRepositry->please_order();
-        if( $please_order == true){
-          return Resp('', 'success', 200, true);
-        }else{
-          return Resp('','error','404');
-        }
+        return $this->orderRepositry->please_order();
+        // $please_order = $this->orderRepositry->please_order();
+        // if( $please_order == true){
+        // }else{
+        //   return Resp('','error','404');
+        // }
     }
     public function get_myorders()
     {

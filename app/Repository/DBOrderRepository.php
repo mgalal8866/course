@@ -2,22 +2,23 @@
 
 namespace App\Repository;
 
-use App\Enum\PaymentStatus;
 use Carbon\Carbon;
 use App\Models\Cart;
-use App\Models\Orders;
 use App\Models\User;
+use App\Models\Orders;
 use App\Models\UserCoupon;
+use App\Enum\PaymentStatus;
 
 use Illuminate\Http\Request;
 use App\Models\OrdersDetails;
 use App\Traits\ImageProcessing;
 use App\Models\PaymentTransaction;
-use App\Repositoryinterface\CollectPointsRepositoryinterface;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use App\Repositoryinterface\OrderRepositoryinterface;
 use PhpOffice\PhpSpreadsheet\Calculation\Financial\Coupons;
+use App\Repositoryinterface\CollectPointsRepositoryinterface;
 
 class DBOrderRepository implements OrderRepositoryinterface
 {
@@ -32,11 +33,54 @@ class DBOrderRepository implements OrderRepositoryinterface
         $this->detailsorder = $detailsorder;
         $this->request = $request;
     }
+    public function pay($payment_id, $carttotl, $invoice_number, $customer, $cartItems)
+    {
+        $cart = [];
+        foreach ($cartItems as $item) {
+            $cart[] = [
+                'name'   => $item->is_book == 1 ? $item->book->book_name : $item->course->name ?? '',
+                'price' => $item->total,
+                'quantity' => $item->qty
+            ];
+        }
+
+        $response = Http::withHeaders([
+            'Content-Type' => 'application/json',
+            'Authorization' => 'Bearer d83a5d07aaeb8442dcbe259e6dae80a3f2e21a3a581e1a5acd',
+        ])->post('https://staging.fawaterk.com/api/v2/invoiceInitPay', [
+            'payment_method_id' => $payment_id,
+            'cartTotal' => $carttotl,
+            'currency'  => 'EGP',
+            'invoice_number' => $invoice_number,
+            'customer' => [
+                'first_name' => $customer['first_name'],
+                'last_name'  => $customer['last_name'] ?? 'lastname',
+                'email'      => $customer['email'] ?? $customer['first_name'] . '@meail.com',
+                'phone'      => $customer['phone'],
+                'address'    => 'no_address',
+            ],
+            'redirectionUrls' => [
+                'successUrl' => 'https://dev.fawaterk.com/success',
+                'failUrl' => 'https://dev.fawaterk.com/fail',
+                'pendingUrl' => 'https://dev.fawaterk.com/pending',
+            ],
+            'cartItems' => $cart,
+        ]);
+
+        // To get the response body
+        // $responseBody = $response->body();
+
+        // To get the response data as an array (if the response is JSON)
+        return Resp($response->json(), 'success', 200, true);
+
+
+    }
     public function please_order()
     {
 
         try {
             DB::beginTransaction();
+
             $blance     = Auth::guard('student')->user()->wallet;
             $payment_id = $this->request->input('payment_id');
             $type       = $this->request->input('type');
@@ -51,37 +95,22 @@ class DBOrderRepository implements OrderRepositoryinterface
                 }]);
             }, 'coupon'])->first();
 
-            $tansaction =  PaymentTransaction::create(
-                [
-                    'payment_id'    => $payment_id,
-                    'user_id'       => Auth::guard('student')->user()->id,
-                    'payment_type'  => $type,
-                    'price'         => $cart->cart_details->sum('total'),
-                    'response'      => $response,
-                    'image'         => null,
-                    'statu'         => PaymentStatus::Pending,
-                ]
-            );
 
-            if ($image) {
-                $dataX = $this->saveImageAndThumbnail($image, false, $tansaction->id, 'transaction');
-                $tansaction->image =  $dataX['image'];
-                $tansaction->save();
-            }
-            if($payment_id==0){
+            if ($payment_id == 0) {
                 $user =   User::find(Auth::guard('student')->user()->id);
-                $user->update(['wallet'=> (Auth::guard('student')->user()->wallet - $cart->cart_details->sum('total'))]);
-
-              }
+                $user->update(['wallet' => (Auth::guard('student')->user()->wallet - $cart->cart_details->sum('total'))]);
+            }
             $order =  $this->order->create([
                 'date'           => now(),
                 'user_id'        => Auth::guard('student')->user()->id,
                 'code'           => $cart->coupon_id ?? null,
-                'transaction_id' => $tansaction->id,
+                'transaction_id' => null,
                 'subtotal'       => $cart->cart_details->sum('subtotal'),
                 'discount'       => $cart->cart_details->sum('discount'),
                 'total'          => $cart->cart_details->sum('total'),
             ]);
+
+
             foreach ($cart->cart_details as $item) {
                 $details = $this->detailsorder->create([
                     'order_id' => $order->id,
@@ -99,17 +128,43 @@ class DBOrderRepository implements OrderRepositoryinterface
                     $this->collect->collect_points($item->coupon_id, $details->id);
                 }
             }
+            if ($type  == 1) {
 
-            $cart=  Cart::whereUserId(Auth::guard('student')->user()->id)->first();
-            $cart->cart_details()->delete();
-            $cart->delete();
-            DB::commit();
+
+                $tansaction =  PaymentTransaction::create(
+                    [
+                        'payment_id'    => $payment_id,
+                        'user_id'       => Auth::guard('student')->user()->id,
+                        'payment_type'  => $type,
+                        'price'         => $cart->cart_details->sum('total'),
+                        'response'      => $response,
+                        'image'         => null,
+                        'statu'         => PaymentStatus::Pending,
+                    ]
+                );
+                if ($image) {
+                    $dataX = $this->saveImageAndThumbnail($image, false, $tansaction->id, 'transaction');
+                    $tansaction->image =  $dataX['image'];
+                    $tansaction->save();
+                }
+                $cart =  Cart::whereUserId(Auth::guard('student')->user()->id)->first();
+                $cart->cart_details()->delete();
+                $cart->delete();
+                DB::commit();
+                return    Resp('جارى مراجعه الدفع', 'success', 200, true);
+            } elseif ($type  == 2) {
+                $this->pay($payment_id, $cart->cart_details->sum('total'), $order->id, Auth::guard('student')->user(), $details);
+
+            }
+
+
+
 
             return true;
         } catch (\Exception $e) {
             DB::rollback();
-            $qq= $e->getMessage();
-            dd($qq);
+            return  Resp($e->getMessage(), 'error', 400, false);
+
         }
     }
 

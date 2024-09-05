@@ -4,24 +4,22 @@ namespace App\Livewire\Dashboard\Courses;
 
 
 use App\Models\User;
-use App\Models\Quizes;
+
 use App\Models\Stages;
 use App\Models\Courses;
 use App\Models\Lessons;
-use App\Models\Trainer;
+
 use Livewire\Component;
 use App\Models\Category;
-use App\Models\FreeCourse;
-use Livewire\Attributes\On;
+
 use App\Models\CourseStages;
 use Livewire\WithFileUploads;
-use App\Models\CourseTrainers;
-use App\Models\Quiz_questions;
+
 use App\Models\CategoryFCourse;
 use App\Traits\ImageProcessing;
 use Illuminate\Support\Facades\DB;
-use App\Models\Quiz_question_answers;
-use function Livewire\Volt\state;
+use Illuminate\Support\Collection;
+
 
 class NewCourse extends Component
 {
@@ -32,8 +30,10 @@ class NewCourse extends Component
         $telegram, $telegramgrup, $nextcourse, $course_gender, $schedule, $free_tatorul, $nextcoursesbycat,
         $name, $description, $validity = 'تبقى الدورة بكامل محتوياتها ثلاثة أشهر بحساب المتدرب.', $category_id, $price, $pricewith = 1, $startdate, $enddate, $time, $features, $triner = [], $limit_stud, $duration_course = 'شهر ونصف',
         $image_course, $file_work, $file_explanatory, $file_aggregates, $file_supplementary, $file_free, $file_test,
-        $langcourse = false, $status = true, $inputnum = false, $lessons, $stages, $answer_the_question, $calc_rate;
+        $langcourse = false, $status = true, $inputnum = false, $stages, $answer_the_question, $calc_rate;
     public $questions = [], $total_scores, $degree_success, $testname, $testtime, $sections_guide;
+    public Collection $lessons;
+
     public $showParentModal = false;
     public $showChildModal = false;
 
@@ -48,6 +48,7 @@ class NewCourse extends Component
 
     public function mount()
     {
+        $this->lessons = collect();
         if (request()->query('step', null) != null) {
             $this->currentPage  = request()->query('step', null);
         }
@@ -174,6 +175,11 @@ class NewCourse extends Component
     //############### Start Course ###############
     public function save()
     {
+        // dd( $this->edit , $this->short_description, $this->id, $this->header, $this->currentPage = 1, $this->pages = 2, $this->conditions, $this->target, $this->howtostart,
+        // $this->telegram, $this->telegramgrup, $this->nextcourse, $this->course_gender, $this->schedule, $this->free_tatorul, $this->nextcoursesbycat,
+        // $this->name, $this->description, $this->validity = 'تبقى الدورة بكامل محتوياتها ثلاثة أشهر بحساب المتدرب.', $this->category_id, $this->price, $this->pricewith = 1, $this->startdate, $this->enddate, $this->time, $this->features, $this->triner = [], $this->limit_stud, $this->duration_course = 'شهر ونصف',
+        // $this->image_course, $this->file_work, $this->file_explanatory, $this->file_aggregates, $this->file_supplementary, $this->file_free, $this->file_test,
+        // $this->langcourse = false, $this->status = true, $this->inputnum = false, $this->stages, $this->answer_the_question, $this->calc_rate, $this->questions = [], $this->total_scores, $this->degree_success, $this->testname, $this->testtime, $this->sections_guide);
         DB::beginTransaction();
         try {
             $rules = collect($this->validtionRules)->collect()->toArray();
@@ -289,7 +295,33 @@ class NewCourse extends Component
     }
     //############## End Course ##################
 
+    public function updateTaskOrder($orderedIds)
+    {
+        $this->lessons = collect($orderedIds)->map(function ($id) {
+            return collect($this->lessons)->firstWhere('id', $id);
+        })->toArray();
+    }
 
+    public function addlesson()
+    {
+        if(count($this->lessons)  == 0){
+            $this->fill(['lessons' => collect([['per' => count($this->lessons) +1,'lessons_id' => null,'stage_id' => null, 'img' => null, 'name' => null, 'link' => null, 'is_lesson' => 1, 'publish_at' => null]])]);
+
+        }else{
+
+            $this->lessons->push(['per' => (count($this->lessons) +1),'lessons_id' => null,'stage_id' => null, 'img' => null, 'name' => '', 'link' => '', 'is_lesson' => 1, 'publish_at' => null]);
+        }
+
+    }
+    public function removelesson($key)
+    {
+
+        if ($this->lessons->count() != 1){
+            CourseStages::where(['stage_id'=>$this->lessons[$key]['stage_id'],'lesson_id'=>$this->lessons[$key]['lessons_id']])->delete();
+            Lessons::where(['id'=>$this->lessons[$key]['lessons_id']])->delete();
+            $this->lessons->pull($key);
+        }
+    }
     public function render()
     {
         $category = Category::get();
