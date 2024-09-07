@@ -61,9 +61,9 @@ class DBOrderRepository implements OrderRepositoryinterface
                 'address'    => 'no_address',
             ],
             'redirectionUrls' => [
-                'successUrl' => 'https://dev.fawaterk.com/success',
-                'failUrl' => 'https://dev.fawaterk.com/fail',
-                'pendingUrl' => 'https://dev.fawaterk.com/pending',
+                'successUrl' => 'https://api.alyusr.academy/Cart/ConfirmPayment?status=success',
+                'failUrl' => 'https://api.alyusr.academy/Cart/ConfirmPayment?status=fail',
+                'pendingUrl' => 'https://api.alyusr.academy/Cart/ConfirmPayment?status=pending',
             ],
             'cartItems' => $cart,
         ]);
@@ -161,7 +161,7 @@ class DBOrderRepository implements OrderRepositoryinterface
                 return    Resp('جارى مراجعه الدفع', 'success', 200, true);
             } elseif ($type  == 2) {
 
-               = $this->pay($payment_id, $cart->cart_details->sum('total'), $order->id, Auth::guard('student')->user(), $cart->cart_details);
+                $rr = $this->pay($payment_id, $cart->cart_details->sum('total'), $order->id, Auth::guard('student')->user(), $cart->cart_details);
                 $cart =  Cart::whereUserId(Auth::guard('student')->user()->id)->first();
                 $cart->cart_details()->delete();
                 $cart->delete();
