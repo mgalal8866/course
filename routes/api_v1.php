@@ -70,7 +70,7 @@ Route::controller(UsersController::class)->group(function () {
 });
 Route::get('/payment/callback', function (Request $request) {
 
-    Resp( $request->all(), 'success', 200, true);
+  return  Resp( $request->all(), 'success', 200, true);
 });
 Route::controller(CategoryCourseController::class)->group(function () {
     Route::get('/category_course', 'getcategorycourse')->name('getcategorycourse');
