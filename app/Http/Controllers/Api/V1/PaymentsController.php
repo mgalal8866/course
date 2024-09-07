@@ -15,4 +15,8 @@ class PaymentsController extends Controller
     {
         return PaymentResource::collection(PaymentMethods::get());
     }
+    public function payment_callback(Request $request)
+    {
+        return    Resp( $request->all(), 'success', 200, true);
+    }
 }

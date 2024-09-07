@@ -62,7 +62,7 @@ class DBOrderRepository implements OrderRepositoryinterface
             ],
             'redirectionUrls' => [
                 'successUrl' => 'http://localhost:4200/Cart/PaymentCallback?status=success',
-                'failUrl' => 'http://localhost:4200/Cart/PaymentCallback?status=fail',
+                'failUrl'    =>    'http://localhost:4200/Cart/PaymentCallback?status=fail',
                 'pendingUrl' => 'http://localhost:4200/Cart/PaymentCallback?status=pending',
             ],
             'cartItems' => $cart,

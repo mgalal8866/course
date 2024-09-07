@@ -68,10 +68,8 @@ Route::controller(UsersController::class)->group(function () {
     Route::get('/verificationcode/{code?}', 'verificationcode');
     Route::get('/teamwork',  'get_teamwork');
 });
-Route::get('/payment/callback', function (Request $request) {
-
-  return  Resp( $request->all(), 'success', 200, true);
-});
+Route::get('/fqa', [FqaController::class, 'get_fqa']);
+Route::get('/payment/callback', [PaymentsController::class, 'payment_callback'] );
 Route::controller(CategoryCourseController::class)->group(function () {
     Route::get('/category_course', 'getcategorycourse')->name('getcategorycourse');
     Route::get('/home_category_course', 'gethomecategorycourse')->name('gethomecategorycourse');
