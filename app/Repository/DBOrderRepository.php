@@ -11,6 +11,7 @@ use App\Enum\PaymentStatus;
 
 use Illuminate\Http\Request;
 use App\Models\OrdersDetails;
+use App\Models\PaymentMethods;
 use App\Traits\ImageProcessing;
 use App\Models\PaymentTransaction;
 use Illuminate\Support\Facades\DB;
@@ -35,6 +36,7 @@ class DBOrderRepository implements OrderRepositoryinterface
     }
     public function pay($payment_id, $carttotl, $invoice_number, $customer, $cartItems)
     {
+       $payment =  PaymentMethods::find($payment_id);
         $cart = [];
         foreach ($cartItems as $item) {
 
@@ -49,7 +51,7 @@ class DBOrderRepository implements OrderRepositoryinterface
             'Content-Type' => 'application/json',
             'Authorization' => 'Bearer d83a5d07aaeb8442dcbe259e6dae80a3f2e21a3a581e1a5acd',
         ])->post('https://staging.fawaterk.com/api/v2/invoiceInitPay', [
-            'payment_method_id' => 3,
+            'payment_method_id' =>  $payment->account_number,
             'cartTotal' => $carttotl,
             'currency'  => 'EGP',
             'invoice_number' => $invoice_number,
