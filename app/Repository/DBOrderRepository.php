@@ -37,6 +37,7 @@ class DBOrderRepository implements OrderRepositoryinterface
     {
         $cart = [];
         foreach ($cartItems as $item) {
+
             $cart[] = [
                 'name'   => $item->is_book == 1 ? $item->book->book_name : $item->course->name ?? '',
                 'price' => $item->total,
@@ -97,9 +98,12 @@ class DBOrderRepository implements OrderRepositoryinterface
 
 
             if ($payment_id == 0) {
+
                 $user =   User::find(Auth::guard('student')->user()->id);
                 $user->update(['wallet' => (Auth::guard('student')->user()->wallet - $cart->cart_details->sum('total'))]);
+
             }
+
             $order =  $this->order->create([
                 'date'           => now(),
                 'user_id'        => Auth::guard('student')->user()->id,
@@ -112,7 +116,7 @@ class DBOrderRepository implements OrderRepositoryinterface
 
 
             foreach ($cart->cart_details as $item) {
-                $details = $this->detailsorder->create([
+                      $details = $this->detailsorder->create([
                     'order_id' => $order->id,
                     'product_id' => $item->product_id,
                     'is_book'    => $item->is_book,
@@ -128,6 +132,9 @@ class DBOrderRepository implements OrderRepositoryinterface
                     $this->collect->collect_points($item->coupon_id, $details->id);
                 }
             }
+
+            DB::commit();
+
             if ($type  == 1) {
 
 
@@ -150,10 +157,16 @@ class DBOrderRepository implements OrderRepositoryinterface
                 $cart =  Cart::whereUserId(Auth::guard('student')->user()->id)->first();
                 $cart->cart_details()->delete();
                 $cart->delete();
-                DB::commit();
+
                 return    Resp('جارى مراجعه الدفع', 'success', 200, true);
             } elseif ($type  == 2) {
-                $this->pay($payment_id, $cart->cart_details->sum('total'), $order->id, Auth::guard('student')->user(), $details);
+
+               = $this->pay($payment_id, $cart->cart_details->sum('total'), $order->id, Auth::guard('student')->user(), $cart->cart_details);
+                $cart =  Cart::whereUserId(Auth::guard('student')->user()->id)->first();
+                $cart->cart_details()->delete();
+                $cart->delete();
+                return $rr ;
+
 
             }
 
@@ -163,7 +176,7 @@ class DBOrderRepository implements OrderRepositoryinterface
             return true;
         } catch (\Exception $e) {
             DB::rollback();
-            return  Resp($e->getMessage(), 'error', 400, false);
+            return  Resp( '', 'error ' . $e->getMessage() .$e->getLine() , 400, false);
 
         }
     }
