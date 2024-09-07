@@ -49,7 +49,7 @@ class DBOrderRepository implements OrderRepositoryinterface
             'Content-Type' => 'application/json',
             'Authorization' => 'Bearer d83a5d07aaeb8442dcbe259e6dae80a3f2e21a3a581e1a5acd',
         ])->post('https://staging.fawaterk.com/api/v2/invoiceInitPay', [
-            'payment_method_id' => $payment_id,
+            'payment_method_id' => 2,
             'cartTotal' => $carttotl,
             'currency'  => 'EGP',
             'invoice_number' => $invoice_number,
