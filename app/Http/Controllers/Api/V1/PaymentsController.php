@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\PaymentResource;
 use App\Models\PaymentMethods;
 use App\Repositoryinterface\CourseRepositoryinterface;
+use Illuminate\Support\Facades\Log;
 
 class PaymentsController extends Controller
 {
@@ -17,6 +18,7 @@ class PaymentsController extends Controller
     }
     public function payment_callback(Request $request)
     {
+        Log::error($request->all());
         return    Resp( $request->all(), 'success', 200, true);
     }
 }

@@ -74,6 +74,9 @@ class DBOrderRepository implements OrderRepositoryinterface
         // $responseBody = $response->body();
 
         // To get the response data as an array (if the response is JSON)
+        $transaction = PaymentTransaction::where( 'order_id',$invoice_number)->first();
+        $transaction->response = $response->json();
+        $transaction->save();
         return Resp($response->json(), 'success', 200, true);
 
 
@@ -145,6 +148,7 @@ class DBOrderRepository implements OrderRepositoryinterface
                         'payment_id'    => $payment_id,
                         'user_id'       => Auth::guard('student')->user()->id,
                         'payment_type'  => $type,
+                        'order_id'      => $order->id,
                         'price'         => $cart->cart_details->sum('total'),
                         'response'      => $response,
                         'image'         => null,
