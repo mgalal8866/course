@@ -61,9 +61,9 @@ class DBOrderRepository implements OrderRepositoryinterface
                 'address'    => 'no_address',
             ],
             'redirectionUrls' => [
-                'successUrl' => 'https://api.alyusr.academy/Cart/ConfirmPayment?status=success',
-                'failUrl' => 'https://api.alyusr.academy/Cart/ConfirmPayment?status=fail',
-                'pendingUrl' => 'https://api.alyusr.academy/Cart/ConfirmPayment?status=pending',
+                'successUrl' => 'http://localhost:4200/Cart/PaymentCallback?status=success',
+                'failUrl' => 'http://localhost:4200/Cart/PaymentCallback?status=fail',
+                'pendingUrl' => 'http://localhost:4200/Cart/PaymentCallback?status=pending',
             ],
             'cartItems' => $cart,
         ]);
