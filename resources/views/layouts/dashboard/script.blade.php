@@ -1,7 +1,7 @@
 
 <script src="{{ asset('asset/vendors/js/vendors.min.js') }}"></script>
 <script src="{{ asset('asset/vendors/js/extensions/sweetalert2.all.min.js') }}"></script>
-<script src="{{ asset('asset/vendors/js/extensions/toastr.min.js') }}"></script>
+{{-- <script src="{{ asset('asset/vendors/js/extensions/toastr.min.js') }}"></script> --}}
 <script src="{{ asset('asset/js/core/app-menu.js') }}"></script>
 <script src="{{ asset('asset/js/core/app.js') }}"></script>
 <script src="{{ asset('app-assets/js/pickers/flatpickr/flatpickr.min.js') }}"></script>
@@ -33,4 +33,4 @@
 
 @yield('js')
 @stack('jslive')
-
+ 

@@ -39,10 +39,11 @@ class ViewCourses extends Component
             DB::rollback();
         }
     }
-    
+
     public function render()
     {
         $courses = Courses::get();
+
         return view('dashboard.courses.view-courses', compact('courses'));
     }
 }

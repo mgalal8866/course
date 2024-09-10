@@ -44,7 +44,7 @@
     @endif
     <link rel="stylesheet" type="text/css" href="{{ asset('asset/fonts/font-awesome/css/font-awesome.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('asset/vendors/css/extensions/sweetalert2.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('asset/vendors/css/extensions/toastr.min.css') }}">
+    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('asset/vendors/css/extensions/toastr.min.css') }}"> --}}
     <link rel="stylesheet" type="text/css" href="{{ asset('asset/vendors/css/forms/select/select2.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/cust.css') }}">

@@ -172,8 +172,8 @@ return [
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
-        Vimeo\Laravel\VimeoServiceProvider::class
-
+        Vimeo\Laravel\VimeoServiceProvider::class,
+        Yoeunes\Toastr\ToastrServiceProvider::class
 
     ])->toArray(),
 

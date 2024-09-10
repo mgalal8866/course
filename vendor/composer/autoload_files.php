@@ -26,6 +26,7 @@ return array(
     '09f6b20656683369174dd6fa83b7e5fb' => $vendorDir . '/symfony/polyfill-uuid/bootstrap.php',
     '2cffec82183ee1cea088009cef9a6fc3' => $vendorDir . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
     '04c6c5c2f7095ccf6c481d3e53e1776f' => $vendorDir . '/mustangostang/spyc/Spyc.php',
+    'da91a01b5badbe5394c83814ef5982ea' => $vendorDir . '/php-flasher/flasher/helpers.php',
     '3bd81c9b8fcc150b69d8b63b4d2ccf23' => $vendorDir . '/spatie/flare-client-php/src/helpers.php',
     '265b4faa2b3a9766332744949e83bf97' => $vendorDir . '/laravel/framework/src/Illuminate/Collections/helpers.php',
     'c7a3c339e7e14b60e06a2d7fcce9476b' => $vendorDir . '/laravel/framework/src/Illuminate/Events/functions.php',
@@ -41,5 +42,6 @@ return array(
     'ec07570ca5a812141189b1fa81503674' => $vendorDir . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
     '320163ac6b93aebe3dc25b60a0533d56' => $vendorDir . '/spatie/laravel-ignition/src/helpers.php',
     '377b22b161c09ed6e5152de788ca020a' => $vendorDir . '/spatie/laravel-permission/src/helpers.php',
+    '101b35f72e0ccb1b5ef72aa86bba3ef9' => $vendorDir . '/yoeunes/toastr/src/helpers.php',
     '23f48187324d7c65066cd85a761637e8' => $baseDir . '/app/Helpers/General.php',
 );
