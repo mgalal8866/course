@@ -391,7 +391,7 @@
                                     <span class="text-warning">{{ __('tran.lessons') }}</span>
                                 </button>
                             </div>
-                            <div wire:click="addlesson()" class="button-group p-1">
+                            <div   wire:click.prevent="addlesson()" class="button-group p-1">
                                 <button class="btn btn-success btn-sm">اضافة دروس</button>
                             </div>
                         </h2>
