@@ -14,7 +14,7 @@ class Setting extends Component
 
     public function save($set)
     {
-        dd($this->image1);
+
         foreach ($this->data[$set] as $key => $value) {
             $sett =  ModelsSetting::where('key', $key)
                 ->update(['value' => $value]);
@@ -29,11 +29,13 @@ class Setting extends Component
             }
 
         }
-        dd($this->data[$set]);
+        // dd($this->data[$set]);
         $keys = array_keys($this->data[$set]);
         $sequentialKeys = array_values($keys);
         Cache::forget($set);
         getsetting($set, $sequentialKeys);
+        $this->dispatch('swal', message: 'تم حفظ بنجاح');
+
     }
     public function updatedData($value, $nested)
     {
@@ -71,7 +73,7 @@ class Setting extends Component
         $this->data['section6_setting'] = getsetting('section6_setting', ['section6_status', 'section6_title', 'section6_sub_title']);
         $this->data['section7_setting'] = getsetting('section7_setting', ['section7_status', 'section7_title', 'section7_sub_title']);
         $this->data['section8_setting'] = getsetting('section8_setting', ['section8_status', 'section8_title', 'section8_sub_title']);
-        
+
 
         return view('dashboard.setting.setting');
     }

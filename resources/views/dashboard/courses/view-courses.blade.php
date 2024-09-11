@@ -2,6 +2,20 @@
     <div class="row" id="basic-table">
         <div class="col-12">
             <div class="card outline-success">
+                @if(session('swal_message'))
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                       localStorage.removeItem('course_id');
+                        Swal.fire({
+                            title: '{{ session('swal_message') }}',
+                            customClass: {
+                                confirmButton: 'btn btn-primary'
+                            },
+                            buttonsStyling: false
+                        });
+                    });
+                </script>
+               @endif
                 {{-- <div class="card-header">
                     <h4 class="card-title">{{ __('tran.category') }}</h4>
                     <a  class="btn btn-primary" wire:click="$dispatch('edit')">{{__('tran.newcategory')}}</a>

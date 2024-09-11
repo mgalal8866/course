@@ -360,3 +360,29 @@
         </div>
     </div>
 </div>
+@push('jslive')
+ 
+
+    <script>
+        window.addEventListener('swal', event => {
+            Swal.fire({
+                title: event.detail.message,
+                icon: 'info',
+                customClass: {
+                    confirmButton: 'btn btn-danger'
+                },
+                buttonsStyling: false
+            });
+        })
+        window.addEventListener('openmodel', event => {
+            // console.log('www');
+            $('#editUser').modal("show");
+
+        });
+        window.addEventListener('closemodel', event => {
+            // console.log('www');
+            $('#editUser').modal("hide");
+
+        });
+    </script>
+@endpush

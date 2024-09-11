@@ -43,10 +43,10 @@ class NewCourseController extends Controller
         $categoryfreecourse = CategoryFCourse::whereHas('freecourse')->get();
         $course_id = $request->session()->get('course_id');
 
-        $this->dispatch('swal', message: 'تم انشاء الدورة بنجاح');
 
 
         return view('dashboard.new-course', compact(['course_id','stage', 'currentPage', 'category', 'triners', 'categoryfreecourse']));
+
     }
     public function save_course(Request $request)
     {
@@ -56,22 +56,22 @@ class NewCourseController extends Controller
         //     return response()->json(['errors' => $validator->errors()], 422);
         // }
 
-        // $course_id = $request->inputcourse_id;
+        $course_id = $request->inputcourse_id;
 
-        // foreach ($request['categories'] as $category ) {
-        //     foreach ($category['subcategories'] as $subcategories) {
-        //         foreach ($subcategories['inputs'] as $inputs) {
+        foreach ($request['categories'] as $category ) {
+            foreach ($category['subcategories'] as $subcategories) {
+                foreach ($subcategories['inputs'] as $inputs) {
 
-        //             if ($inputs['type'] == 0) {
-        //                 Quizes::updated(['id' => $inputs['link']], ['course_id' => $course_id]);
-        //             }
-        //             $lesson = Lessons::create(['name' => $inputs['name'], 'link_video' => $inputs['link'], 'is_lesson' => $inputs['type'], 'publish_at' => $inputs['date']]);
-        //             CourseStages::create(['course_id' => $course_id, 'lesson_id' => $lesson->id,'stage_id'=>$subcategories['subcategory_id'], 'publish_at' => $inputs['date']]);
-        //         }
-        //     }
-        // }
-
-        return  redirect()->route('newcourse');
+                    if ($inputs['type'] == 0) {
+                        Quizes::updated(['id' => $inputs['link']], ['course_id' => $course_id]);
+                    }
+                    $lesson = Lessons::create(['name' => $inputs['name'], 'link_video' => $inputs['link'], 'is_lesson' => $inputs['type'], 'publish_at' => $inputs['date']]);
+                    CourseStages::create(['course_id' => $course_id, 'lesson_id' => $lesson->id,'stage_id'=>$subcategories['subcategory_id'], 'publish_at' => $inputs['date']]);
+                }
+            }
+        }
+        session()->flash('swal_message', 'تم اضافه الكورس والدروس بنجاح');
+        return  redirect()->route('course');
     }
     public function setCurrentStep(Request $request)
     {

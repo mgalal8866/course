@@ -1,6 +1,19 @@
  @extends('layouts.dashboard.app')
  @section('content')
-
+ @if(session('swal_message'))
+ <script>
+     document.addEventListener('DOMContentLoaded', function() {
+        localStorage.removeItem('yourKey1');
+         Swal.fire({
+             title: '{{ session('swal_message') }}',
+             customClass: {
+                 confirmButton: 'btn btn-primary'
+             },
+             buttonsStyling: false
+         });
+     });
+ </script>
+@endif
 
      <div>
          @push('csslive')

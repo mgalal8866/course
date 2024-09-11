@@ -65,7 +65,7 @@ class EditCourse extends Component
         $this->enddate               = $course->end_date ?? '';
         $this->time                  = $course->time ?? '';
         $this->features              = $course->features ?? '';
-        $this->triner                = $course->coursetrainers ? $course->coursetrainers->pluck('id')->toArray() : [];
+        $this->triner                = $course->coursetrainers ? $course->coursetrainers->pluck('trainer_id')->toarray() : [];
         $this->limit_stud            = $course->max_drainees;
         $this->duration_course       = $course->duration;
         $this->image_course_old      = $course->imageurl;
@@ -80,8 +80,9 @@ class EditCourse extends Component
         $this->inputnum              = $course->inputnum == 1 ? true : false;
         $this->answer_the_question  = $course->answer_the_question;
         $this->sections_guide  = $course->sections_guide;
-
-        foreach ($course->coursestages as $i => $item) {
+        // $this->triner  = ["8c414fda-1e05-4543-b936-56ee3da96720"] ;
+         
+;        foreach ($course->coursestages as $i => $item) {
             if ($i == 0) {
                 $this->fill(['lessons' => collect([['lessons_id' => $item->lessons->id, 'stage_id' => $item->stage->id, 'img' => null, 'name' => $item->lessons->name, 'link' => $item->lessons->link_video, 'is_lesson' => $item->lessons->is_lesson, 'publish_at' => $item->lessons->publish_at]])]);
             } else {
@@ -151,8 +152,11 @@ class EditCourse extends Component
     //############## End Questions ################
     public function addlesson()
     {
-
+        if (count($this->lessons)  != 0) {
         $this->lessons->push(['lessons_id' => null, 'stage_id' => null, 'img' => null, 'name' => '', 'link' => '', 'is_lesson' => 1, 'publish_at' => null]);
+        }else{
+            $this->fill(['lessons' => collect([['lessons_id' => null, 'stage_id' => null, 'img' =>null, 'name' =>'', 'link' => '', 'is_lesson' => 1, 'publish_at' => '']])]);
+        }
     }
     public function removelesson($key)
     {
@@ -400,7 +404,7 @@ class EditCourse extends Component
         $this->nextcoursesbycat = Courses::whereCategoryId($this->category_id)->get();
         $category = Category::get();
         $country = Country::get();
-        $triners = User::where('type', 1)->get();
+        $triners =  User::whereType(1)->latest()->get();
         $categoryfreecourse = CategoryFCourse::whereActive('1')->whereHas('freecourse')->get();
         return view('dashboard.courses.edit-course', compact(['category', 'triners', 'country', 'categoryfreecourse']));
     }
