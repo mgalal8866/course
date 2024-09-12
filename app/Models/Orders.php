@@ -17,11 +17,11 @@ class Orders extends Model
     }
     public function order_details()
     {
-        return $this->hasMany(OrdersDetails::class,'order_id');
+        return $this->hasMany(OrdersDetails::class,foreignKey: 'order_id');
     }
     public function  transaction ()
     {
-        return $this->belongsTo(PaymentTransaction::class,'transaction_id');
+        return $this->hasOne(PaymentTransaction::class,foreignKey: 'order_id');
     }
     public function  coupon ()
     {

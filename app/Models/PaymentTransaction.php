@@ -31,5 +31,9 @@ class PaymentTransaction extends Model
     {
         return $this->belongsTo(PaymentMethods::class);
     }
+    public function order()
+    {
+        return $this->belongsTo(PaymentTransaction::class,foreignKey: 'order_id');
+    }
 
 }
