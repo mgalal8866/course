@@ -19,8 +19,8 @@ class PaymentsController extends Controller
     }
     public function payment_callback(Request $request)
     {
-        PaymentTransaction::where( 'response->status', $request->status)
-    ->update( ['response->data->invoice_id' => $request->invoice_id]);
+        PaymentTransaction::where( 'response->data->invoice_id', $request->invoice_id)
+    ->update( ['response->status' => $request->status]);
 
         return    Resp( $request->all(), 'success', 200, true);
     }
