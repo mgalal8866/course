@@ -25,7 +25,7 @@ class DetailsOrder extends Component
     }
     public function UpdatedStatus($val)
     {
-       $s =  PaymentTransaction::find($this->order->transaction_id);
+       $s =  PaymentTransaction::where('order_id',$this->order->id)->first();
        $s->statu =$val;
        $s->save();
        $this->dispatch('swal', type:'success',message: 'تم تغير حاله الطلب');
