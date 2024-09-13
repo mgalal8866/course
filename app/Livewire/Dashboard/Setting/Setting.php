@@ -10,7 +10,7 @@ use Livewire\WithFileUploads;
 class Setting extends Component
 {
     use WithFileUploads;
-    public $data, $data2,$image1;
+    public $data, $data2,$image1,$image2;
 
     public function save($set)
     {
@@ -73,8 +73,9 @@ class Setting extends Component
         $this->data['section6_setting'] = getsetting('section6_setting', ['section6_status', 'section6_title', 'section6_sub_title']);
         $this->data['section7_setting'] = getsetting('section7_setting', ['section7_status', 'section7_title', 'section7_sub_title']);
         $this->data['section8_setting'] = getsetting('section8_setting', ['section8_status', 'section8_title', 'section8_sub_title']);
-
-
+        $this->data['section4_setting']['section4_image'] =    path('','home') . $this->data['section4_setting']['section4_image'];
+        // $this->data['section4_setting']['section4_image'] =    path('','home') . $this->data['section4_setting']['section4_image'];
+// dd($this->data['section4_setting']['section4_image']);
         return view('dashboard.setting.setting');
     }
 }

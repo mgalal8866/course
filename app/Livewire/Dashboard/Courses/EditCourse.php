@@ -32,7 +32,9 @@ class EditCourse extends Component
     {
         $this->fill(['questions' => collect([[
             'question' => '',
+            'testdescription' => '',
             'degree' => '',
+            'correct' => '',
             'answers' => collect([['answer' => '', 'correct' => '']])
 
         ]])]);
@@ -81,7 +83,7 @@ class EditCourse extends Component
         $this->answer_the_question  = $course->answer_the_question;
         $this->sections_guide  = $course->sections_guide;
         // $this->triner  = ["8c414fda-1e05-4543-b936-56ee3da96720"] ;
-         
+
 ;        foreach ($course->coursestages as $i => $item) {
             if ($i == 0) {
                 $this->fill(['lessons' => collect([['lessons_id' => $item->lessons->id, 'stage_id' => $item->stage->id, 'img' => null, 'name' => $item->lessons->name, 'link' => $item->lessons->link_video, 'is_lesson' => $item->lessons->is_lesson, 'publish_at' => $item->lessons->publish_at]])]);
@@ -336,7 +338,7 @@ class EditCourse extends Component
 
 
             if ($this->file_work  !=   $CFC->file_work) {
-                dd($this->file_work->getClientOriginalName());
+              
                 $file =  uploadfile($this->file_work, "files/courses/"  . $CFC->id . "/doc");
                 $CFC->file_work = $file;
             }

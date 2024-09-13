@@ -4,8 +4,8 @@
             <h4 class="card-title">Center</h4>
             <a class="btn-success btn" wire:click='reloadesetting'><i class="fas fa-sync"></i></a>
         </div>
-        <div class="card-body">
-            <ul class="nav nav-tabs justify-content-center" wire:ignore role="tablist">
+        <div class="card-body" >
+            <ul class="nav nav-tabs justify-content-center" wire:ignore.self role="tablist">
 
                 <li class="nav-item">
                     <a class="nav-link " id="section1-tab-center" data-bs-toggle="tab" href="#section1-center"
@@ -39,8 +39,8 @@
                 </li>
 
             </ul>
-            <div class="tab-content" >
-                <div class="tab-pane " id="section1-center" aria-labelledby="section1-tab-center" role="tabpanel">
+            <div class="tab-content"  wire:ignore.self >
+                <div class="tab-pane "  wire:ignore.self id="section1-center" aria-labelledby="section1-tab-center" role="tabpanel">
                     <div class="card">
                         <div class="card-header">
                             <h4 class="card-title">{{__('tran.section1')}}</h4>
@@ -91,7 +91,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane active"  id="section2-center" aria-labelledby="section2-tab-center" role="tabpanel">
+                <div class="tab-pane active"   wire:ignore.self id="section2-center" aria-labelledby="section2-tab-center" role="tabpanel">
 
                     <div class="card">
                         <div class="card-header">
@@ -113,11 +113,17 @@
                                         <span class="error" style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class=" col-md-6">
+                                <div class=" col-md-6" >
+                                    {{-- <div class="mb-2 col-md-6"> --}}
 
-                                        <img src="{{ path('','home') .  $data['section2_setting']['section2_image'] }}" id="account-upload-img"
+                                         <x-imageupload wire:model='data.section2_setting.section2_image'  id='dataimage2'  :imageold="$data['section2_setting']['section2_image']" :height='200' :width='200' :imagenew="$image1" :tlabel="__('tran.imagecourse')" />
+                                        {{-- @error('image_course')
+                                        <span class="error" style="color: red">{{ $message }}</span>
+                                        @enderror
+                                    </div> --}}
+                                        {{-- <img src="{{ path('','home') .  $data['section2_setting']['section2_image'] }}" id="account-upload-img"
                                         class="uploadedAvatar rounded me-50" alt="image" height="150" width="150"
-                                        style="display: block;border: 1px solid ;" />
+                                        style="display: block;border: 1px solid ;" />--}}
                                 </div>
                                 <div class="col-6 col-md-6">
                                     <label class="form-label" for="section2_body">{{ __('tran.body') }}</label>
@@ -137,7 +143,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane" id="section3-center" aria-labelledby="section3-tab-center" role="tabpanel">
+                <div class="tab-pane"  wire:ignore.self id="section3-center" aria-labelledby="section3-tab-center" role="tabpanel">
                     <div class="card">
                         <div class="card-header">
                             <h4 class="card-title">{{__('tran.section3')}}</h4>
@@ -170,7 +176,7 @@
                     </div>
 
                 </div>
-                <div class="tab-pane" id="section4-center" aria-labelledby="section4-tab-center" role="tabpanel">
+                <div class="tab-pane"  wire:ignore.self id="section4-center" aria-labelledby="section4-tab-center" role="tabpanel">
                     <div class="card">
                         <div class="card-header">
                             <h4 class="card-title">{{__('tran.section4')}}</h4>
@@ -200,10 +206,11 @@
                                     @enderror
                                 </div>
                                 <div class=" col-md-6">
+                                    <x-imageupload wire:model="data.section4_setting.section4_image"   id='dataimage4'  :imageold="$data['section4_setting']['section4_image']" :height='200' :width='200' :imagenew="$image2" :tlabel="__('tran.imagecourse')" />
 
-                                    <img src="{{ path('','home') .  $data['section4_setting']['section4_image'] }}" id="account-upload-img"
+                                    {{-- <img src="{{ path('','home') .  $data['section4_setting']['section4_image'] }}" id="account-upload-img"
                                     class="uploadedAvatar rounded me-50" alt="image" height="150" width="150"
-                                    style="display: block;border: 1px solid ;" />
+                                    style="display: block;border: 1px solid ;" /> --}}
                             </div>
 
                                 <div class="col-12 text-center mt-2 pt-50">
@@ -216,7 +223,7 @@
                     </div>
 
                 </div>
-                <div class="tab-pane" id="section5-center" aria-labelledby="section5-tab-center" role="tabpanel">
+                <div class="tab-pane"  wire:ignore.self id="section5-center" aria-labelledby="section5-tab-center" role="tabpanel">
                     <div class="card">
                         <div class="card-header">
                             <h4 class="card-title">{{__('tran.section5')}}</h4>
@@ -257,7 +264,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane " id="footer_setting-center" aria-labelledby="footer_setting-tab-center"
+                <div class="tab-pane "  wire:ignore.self  id="footer_setting-center" aria-labelledby="footer_setting-tab-center"
                     role="tabpanel">
                     <div class="card">
                         <div class="card-header">
@@ -361,7 +368,7 @@
     </div>
 </div>
 @push('jslive')
- 
+
 
     <script>
         window.addEventListener('swal', event => {

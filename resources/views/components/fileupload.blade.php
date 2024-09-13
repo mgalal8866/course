@@ -16,7 +16,7 @@
         <label class="btn btn-success" x-show="!name">
             <i class="fas fa-upload"></i>
             <span class="ml-2">Select File</span>
-            <input class="hidden" type="file" {{ $attributes }}  x-on:change="name = $event.target.files[0].name">
+            <input class="hidden" type="file" {{ $attributes }} x-on:change="name = $event.target.files[0].name">
         </label>
         <div class="text-gray-500" x-show="name">
             <span x-show="isUploading">Uploading... Please wait.</span>

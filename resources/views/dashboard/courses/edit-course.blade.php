@@ -1,4 +1,4 @@
-<div wire:ignore.self>
+<div wire:ignore>
     @push('csslive')
     <link rel="stylesheet" type="text/css" href="{{ asset('asset/vendors/css/forms/wizard/bs-stepper.min.css') }}">
     @if (LaravelLocalization::getCurrentLocaleDirection() == 'rtl')
@@ -406,9 +406,13 @@
                                             <select class="form-select" id="lessons.{{ $key }}.is_lesson" wire:model.lazy='lessons.{{ $key }}.is_lesson'>
 
                                                 @foreach (\App\Enum\LessonStatu::cases() as $q)
+                                                @if ($q->name != 'QUIZ')
                                                 <option value="{{ $q->value }}">
-                                                    {{ __('tran.typelesson-' . $q->name) }}
+
+
+                                                    {{ __('tran.typelesson-' . $q->name)   }}
                                                 </option>
+                                                @endif
                                                 @endforeach
                                             </select>
 

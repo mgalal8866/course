@@ -31,6 +31,14 @@
                                 @enderror
                             </div>
 
+                            <div class="col-12 col-md-6">
+                                <label class="form-label" for="testname">{{ __('tran.testname') }}</label>
+                                <input type="text" class="form-control" wire:model="testname" id="testname" />
+                                @error('testname')
+                                    <span class="error" style="color: red">{{ $message }}</span>
+                                @enderror
+                            </div>
+
                             <div class="col-12 col-md-4">
                                 <label class="form-label" for="testtime">{{ __('tran.testtime') }}</label>
                                 <input type="number" class="form-control" wire:model="testtime" id="testtime" />

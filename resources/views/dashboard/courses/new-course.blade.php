@@ -1,4 +1,4 @@
-<div wire:ignore.self>
+<div wire:ignore>
     @push('csslive')
     <link rel="stylesheet" type="text/css" href="{{ asset('asset/vendors/css/forms/wizard/bs-stepper.min.css') }}">
     @if (LaravelLocalization::getCurrentLocaleDirection() == 'rtl')
@@ -45,9 +45,10 @@
                                             <select class="form-select" wire:model='category_id' required>
                                                 <option value=""> اختيارالقسم</option>
                                                 @foreach ($category as $c)
-                                                <option value="{{ $c->id }}">{{ $c->name }}</option>
+                                                <option value="{{ $c->id }}">{{ $c->name  .' 🔸 ' .$c->country->name}}</option>
                                                 @endforeach
                                             </select>
+
                                             @error('category_id')
                                             <span class="error" style="color: red">{{ $message }}</span>
                                             @enderror
@@ -230,13 +231,13 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="mb-2 col-md-6">
-                                            <x-imageupload wire:model='image_course' :height='200' :width='200' :imagenew="$image_course" :tlabel="__('tran.imagecourse')" />
+                                            <x-imageupload wire:model.live='image_course' id="image_course" :height='200' :width='200' :imagenew="$image_course" :tlabel="__('tran.imagecourse')" />
                                             @error('image_course')
                                             <span class="error" style="color: red">{{ $message }}</span>
                                             @enderror
                                         </div>
                                         <div class="mb-2 col-md-6">
-                                            <x-imageupload wire:model='calc_rate' :height='200' :width='200' :imagenew="$calc_rate" :tlabel="__('tran.calc_rate')" />
+                                            <x-imageupload wire:model.live='calc_rate' id="calc_rate" :height='200' :width='200' :imagenew="$calc_rate" :tlabel="__('tran.calc_rate')" />
                                             @error('calc_rate')
                                             <span class="error" style="color: red">{{ $message }}</span>
                                             @enderror
