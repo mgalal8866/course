@@ -32,11 +32,12 @@
                                 <option value="0">كتاب مطبوع</option>
                                 <option value="1">كتاب الكترونى (PDF)</option>
                             </select>
+                            {{ $type }}
                             @error('type')
                                 <span class="error" style="color: red">{{ $message }}</span>
                             @enderror
                         </div>
-                        @if ($type == 0)
+                        @if ($type == 1)
                             <div class="col-12 col-md-12">
                                 <x-fileupload wire:model='link' id='file_test' :tlabel="__('tran.link')"
                                 :namefile="$link != null ? $link->getClientOriginalName() : null" />
