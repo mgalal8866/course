@@ -1,6 +1,6 @@
 <div>
 
-    <div wire:ignore.self class="modal fade" id="editUser" tabindex="-1" aria-hidden="true">
+    <div wire:ignore class="modal fade" id="editUser" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog  modal-dialog-centered modal-edit-user">
             <div class="modal-content">
                 <div class="modal-header bg-transparent">
@@ -32,7 +32,7 @@
                                 <option value="0">كتاب مطبوع</option>
                                 <option value="1">كتاب الكترونى (PDF)</option>
                             </select>
-               
+
                             @error('type')
                                 <span class="error" style="color: red">{{ $message }}</span>
                             @enderror
