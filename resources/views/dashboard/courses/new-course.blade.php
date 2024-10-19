@@ -1,4 +1,4 @@
-<div wire:ignore>
+<div wire:ignore.self>
     @push('csslive')
     <link rel="stylesheet" type="text/css" href="{{ asset('asset/vendors/css/forms/wizard/bs-stepper.min.css') }}">
     @if (LaravelLocalization::getCurrentLocaleDirection() == 'rtl')
