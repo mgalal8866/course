@@ -32,7 +32,7 @@
                                 <option value="0">كتاب مطبوع</option>
                                 <option value="1">كتاب الكترونى (PDF)</option>
                             </select>
-                            {{ $type }}
+               
                             @error('type')
                                 <span class="error" style="color: red">{{ $message }}</span>
                             @enderror
