@@ -16,7 +16,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body pb-5 px-sm-5 pt-50">
-               
+
                     <form id="editUserForm" class="row gy-1 pt-75" wire:submit.prevent="save">
                         <div class="col-4">
                             <label class="form-label" for="">درجه السؤال</label>
@@ -32,10 +32,6 @@
                                 <span class="error" style="color: red">{{ $message }}</span>
                             @enderror
                         </div>
-
-
-
-
                         <div class="col-12 text-center mt-2 pt-50">
                             <button type="submit" class="btn btn-primary me-1" data-bs-dismiss="modal"
                                 aria-label="Close">{{ __('tran.save') }}</button>

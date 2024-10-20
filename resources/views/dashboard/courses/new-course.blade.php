@@ -499,6 +499,7 @@
 <script src="https://cdn.jsdelivr.net/gh/livewire/sortable@v1.x.x/dist/livewire-sortable.js"></script>
 <script>
     document.addEventListener('livewire:initialized', () => {
+        localStorage.removeItem('course_id');
         // console.log();
         var select = $('.select2');
         select.each(function() {

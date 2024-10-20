@@ -12,393 +12,394 @@
             <div class="card-body">
                 <h4 class="card-title"> {{ __('tran.edit') }} > {{ $name }}</h4>
                 <h6 class="card-subtitle text-muted"> </h6>
-                <div class="accordion accordion-margin" id="accordionMargin" data-toggle-hover="true">
+                <div class="accordion accordion-margin" id="accordionMargin" data-toggle-hover="true" wire:ignore>
+                    <div wire:ignore>
+                        <div class="accordion-item" wire:ignore>
+                            <h2 class="accordion-header  d-flex align-items-center justify-content-between" id="headingMarginOne1" wire:ignore>
+                                <div class="d-flex align-items-center">
 
-                    <div class="accordion-item" wire:ignore.self>
-                        <h2 class="accordion-header  d-flex align-items-center justify-content-between" id="headingMarginOne1">
-                            <div class="d-flex align-items-center">
+                                    <buttonwire:ignore class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordionMarginOne1" aria-expanded="false" aria-controls="accordionMarginOne1" wire:ignore>
+                                        <span class="text-warning">{{ __('tran.datacourse') }}</span>
 
-                                <button wire:ignore.self class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordionMarginOne1" aria-expanded="false" aria-controls="accordionMarginOne1">
-                                    <span class="text-warning">{{ __('tran.datacourse') }}</span>
+                                    </buttonwire:ignore>
+                                </div>
 
-                                </button>
-                            </div>
+                            </h2>
+                            <div id="accordionMarginOne1" class="accordion-collapse  collapse" aria-labelledby="headingMarginOne1" data-bs-parent="#accordionMargin" wire:ignore>
+                                <div class="card">
 
-                        </h2>
-                        <div id="accordionMarginOne1" class="accordion-collapse  collapse" aria-labelledby="headingMarginOne1" data-bs-parent="#accordionMargin" wire:ignore.self>
-                            <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="mb-1 col-md-12">
+                                                <label class="form-label" for="username">{{ __('tran.title') . ' ' . __('tran.course') }}</label>
+                                                <input type="text" class="form-control" wire:model='name' required />
+                                                @error('name')
+                                                <span class="error" style="color: red">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-1 col-md-12">
+                                                <label class="form-label" for="short_description">{{ __('tran.short_description') }}</label>
+                                                <textarea type="short_description" class="form-control @error('short_description')  is-invalid @enderror " wire:model='short_description'></textarea>
+                                                {{-- <textarea wire:model='short_description' class="form-control"  id="short_description">{!! $short_description !!}</textarea> --}}
 
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="mb-1 col-md-12">
-                                            <label class="form-label" for="username">{{ __('tran.title') . ' ' . __('tran.course') }}</label>
-                                            <input type="text" class="form-control" wire:model='name' required />
-                                            @error('name')
-                                            <span class="error" style="color: red">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                        <div class="mb-1 col-md-12">
-                                            <label class="form-label" for="short_description">{{ __('tran.short_description') }}</label>
-                                            <textarea type="short_description" class="form-control @error('short_description')  is-invalid @enderror " wire:model='short_description'></textarea>
-                                            {{-- <textarea wire:model='short_description' class="form-control"  id="short_description">{!! $short_description !!}</textarea> --}}
-
-                                            @error('short_description')
-                                            <span class="error" style="color: red">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                        <div class="mb-1 col-md-4">
-                                            <label class="form-label" for="modalEditUserFirstName">{{ __('tran.category') }}</label>
-                                            <select class="form-select" wire:model='category_id' required>
-                                                <option value=""> اختيارالقسم</option>
-                                                @foreach ($category as $c)
-                                                <option value="{{ $c->id }}">{{ $c->name }}</option>
-                                                @endforeach
-                                            </select>
-                                            @error('category_id')
-                                            <span class="error" style="color: red">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-
-                                        <div class="mb-1 col-md-4">
-                                            <label class="form-label" for="modalEditUserFirstName">{{ __('tran.course_gender') }}</label>
-                                            <select class="form-select" wire:model='course_gender' required>
-                                                <option value=""> نوع الدورة</option>
-                                                <option value="0">الكل</option>
-                                                <option value="1">طلاب</option>
-                                                <option value="2">طالبات</option>
-                                            </select>
-                                            @error('course_gender')
-                                            <span class="error" style="color: red">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-
-                                        <div class="mb-1 col-md-4">
-                                            <label class="form-label" for="username">{{ __('tran.price') }}</label>
-                                            <div class="input-group input-group-merge">
-                                                <select class=" form-select" wire:model='pricewith'>
-                                                    <option value="1" selected>PDF شامل كتاب الدورة</option>
-                                                    <option value="2">بدون كتاب الدورة</option>
+                                                @error('short_description')
+                                                <span class="error" style="color: red">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-1 col-md-4">
+                                                <label class="form-label" for="modalEditUserFirstName">{{ __('tran.category') }}</label>
+                                                <select class="form-select" wire:model='category_id' required>
+                                                    <option value=""> اختيارالقسم</option>
+                                                    @foreach ($category as $c)
+                                                    <option value="{{ $c->id }}">{{ $c->name }}</option>
+                                                    @endforeach
                                                 </select>
-                                                <input type="number" step="0.01" class="form-control" wire:model='price' />
+                                                @error('category_id')
+                                                <span class="error" style="color: red">{{ $message }}</span>
+                                                @enderror
                                             </div>
 
-                                            @error('pricewith')
-                                            <span class="error" style="color: red">{{ $message }}</span>
-                                            @enderror
-                                            @error('price')
-                                            <span class="error" style="color: red">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                        <div class="mb-1 col-md-4">
-                                            <label class="form-label" for="username">{{ __('tran.startdate') }}</label>
-                                            <x-daterange wire:model='startdate' id="startdate" required />
-                                            {{-- <div class="input-group input-group-merge  col-md-4">
-                                        <span class="input-group-text"><i class="fas fa-calendar"></i></span>
-                                    </div> --}}
-                                            @error('startdate')
-                                            <span class="error" style="color: red">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                        <div class="mb-1 col-md-4">
-                                            <label class="form-label" for="username">{{ __('tran.enddate') }}</label>
-                                            <x-daterange wire:model='enddate' id="enddate" required />
-                                            {{-- <div class="input-group input-group-merge">
-                                        <span class="input-group-text"><i class="fas fa-calendar"></i></span>
-                                    </div> --}}
-                                            @error('enddate')
-                                            <span class="error" style="color: red">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                        <div class="mb-1 col-md-4" wire:ignore>
-                                            <label class="form-label" for="username">{{ __('tran.time') }}</label>
-                                            <x-time class="form-control flatpickr-time text-start" wire:model='time' id="time" required />
+                                            <div class="mb-1 col-md-4">
+                                                <label class="form-label" for="modalEditUserFirstName">{{ __('tran.course_gender') }}</label>
+                                                <select class="form-select" wire:model='course_gender' required>
+                                                    <option value=""> نوع الدورة</option>
+                                                    <option value="0">الكل</option>
+                                                    <option value="1">طلاب</option>
+                                                    <option value="2">طالبات</option>
+                                                </select>
+                                                @error('course_gender')
+                                                <span class="error" style="color: red">{{ $message }}</span>
+                                                @enderror
+                                            </div>
 
-                                            @error('time')
-                                            <span class="error" style="color: red">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                        <div class="mb-1 col-md-4">
-                                            <label class="form-label" for="validity">{{ __('tran.validity') }}</label>
-                                            <input type="text" class="form-control" wire:model='validity' />
-                                            @error('validity')
-                                            <span class="error" style="color: red">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                        <div class="mb-1 col-md-4">
-                                            <label class="form-label" for="username">{{ __('tran.duration_course') }}</label>
-                                            <input type="text" class="form-control" wire:model='duration_course' />
-                                            @error('duration_course')
-                                            <span class="error" style="color: red">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                        <div class="mb-1 col-md-4">
-                                            <label class="form-label" for="username">{{ __('tran.limit_stud') }}</label>
-                                            <input type="number" step="1" class="form-control" wire:model='limit_stud' />
-                                            @error('limit_stud')
-                                            <span class="error" style="color: red">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                        <div class="mb-1 col-md-4">
-                                            <label class="form-label" for="username">{{ __('tran.free_tatorul') }}
-                                                :</label>
-                                            <select class="form-select" wire:model.lazy='free_tatorul' required>
-                                                <option value=""> اختار قسم الشرح المجانى</option>
-                                                @foreach ($categoryfreecourse as $item)
-                                                <option value="{{ $item->id }}"> {{ $item->name }}
-                                                </option>
-                                                @endforeach
-                                            </select>
-                                            @error('free_tatorul')
-                                            <span class="error" style="color: red">{{ $message }}</span>
-                                            @enderror
-                                        </div>
+                                            <div class="mb-1 col-md-4">
+                                                <label class="form-label" for="username">{{ __('tran.price') }}</label>
+                                                <div class="input-group input-group-merge">
+                                                    <select class=" form-select" wire:model='pricewith'>
+                                                        <option value="1" selected>PDF شامل كتاب الدورة</option>
+                                                        <option value="2">بدون كتاب الدورة</option>
+                                                    </select>
+                                                    <input type="number" step="0.01" class="form-control" wire:model='price' />
+                                                </div>
 
-                                        <div class="mb-1 col-md-12">
-                                            <label class="form-label" for="username">{{ __('tran.trainers') }}</label>
+                                                @error('pricewith')
+                                                <span class="error" style="color: red">{{ $message }}</span>
+                                                @enderror
+                                                @error('price')
+                                                <span class="error" style="color: red">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-1 col-md-4">
+                                                <label class="form-label" for="username">{{ __('tran.startdate') }}</label>
+                                                <x-daterange wire:model='startdate' id="startdate" required />
+                                                {{-- <div class="input-group input-group-merge  col-md-4">
+                                        <span class="input-group-text"><i class="fas fa-calendar"></i></span> </div> --}}
+                                                @error('startdate')
+                                                <span class="error" style="color: red">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-1 col-md-4">
+                                                <label class="form-label" for="username">{{ __('tran.enddate') }}</label>
+                                                <x-daterange wire:model='enddate' id="enddate" required />
+                                                {{-- <div class="input-group input-group-merge">
+                                        <span class="input-group-text"><i class="fas fa-calendar"></i></span> </div> --}}
+                                                @error('enddate')
+                                                <span class="error" style="color: red">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-1 col-md-4" wire:ignore>
+                                                <label class="form-label" for="username">{{ __('tran.time') }}</label>
+                                                <x-time class="form-control flatpickr-time text-start" wire:model='time' id="time" required />
 
-
-                                            <div wire:ignore>
-                                                <select class="select2 form-select" id="select2-multiple" multiple="multiple" required>
-
-                                                    @foreach ($triners as $item)
-
-
-                                                    <option @if (in_array($item->id, $triner)) selected @endif
-                                                        value="{{ $item->id ?? '' }}">
-                                                        {{ ($item->first_name ?? '') . ' ' . ($item->middle_name ?? '') }}
+                                                @error('time')
+                                                <span class="error" style="color: red">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-1 col-md-4">
+                                                <label class="form-label" for="validity">{{ __('tran.validity') }}</label>
+                                                <input type="text" class="form-control" wire:model='validity' />
+                                                @error('validity')
+                                                <span class="error" style="color: red">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-1 col-md-4">
+                                                <label class="form-label" for="username">{{ __('tran.duration_course') }}</label>
+                                                <input type="text" class="form-control" wire:model='duration_course' />
+                                                @error('duration_course')
+                                                <span class="error" style="color: red">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-1 col-md-4">
+                                                <label class="form-label" for="username">{{ __('tran.limit_stud') }}</label>
+                                                <input type="number" step="1" class="form-control" wire:model='limit_stud' />
+                                                @error('limit_stud')
+                                                <span class="error" style="color: red">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-1 col-md-4">
+                                                <label class="form-label" for="username">{{ __('tran.free_tatorul') }}
+                                                    :</label>
+                                                <select class="form-select" wire:model.lazy='free_tatorul' required>
+                                                    <option value=""> اختار قسم الشرح المجانى</option>
+                                                    @foreach ($categoryfreecourse as $item)
+                                                    <option value="{{ $item->id }}"> {{ $item->name }}
                                                     </option>
                                                     @endforeach
                                                 </select>
+                                                @error('free_tatorul')
+                                                <span class="error" style="color: red">{{ $message }}</span>
+                                                @enderror
                                             </div>
-                                            @error('triner')
-                                            <span class="error" style="color: red">{{ $message }}</span>
-                                            @enderror
-                                        </div>
 
-                                        <div class="mb-1 col-md-12">
-                                            <label class="form-label" for="username">{{ __('tran.features') . ' ' . __('tran.course') }}</label>
-                                            <x-summernote wire:model='features' name="features" id="features" />
-                                            @error('features')
-                                            <span class="error" style="color: red">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                        <div class="mb-1 col-md-12">
-                                            <label class="form-label" for="description">{{ __('tran.description') }}</label>
-                                            <x-summernote wire:model='description' name="description" id="description" />
-                                            @error('description')
-                                            <span class="error" style="color: red">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                        <div class="mb-1 col-md-12">
-                                            <label class="form-label" for="conditions">{{ __('tran.conditions') }}</label>
-                                            <x-summernote wire:model='conditions' name="conditions" id="conditions" />
-                                            @error('conditions')
-                                            <span class="error" style="color: red">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                        <div class="mb-1 col-md-12">
-                                            <label class="form-label" for="">{{ __('tran.target') }}</label>
-                                            <x-summernote wire:model='target' name="target" id="target" />
-                                            @error('target')
-                                            <span class="error" style="color: red">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                        <div class="mb-1 col-md-12">
-                                            <label class="form-label" for="">{{ __('tran.howtostart') }}</label>
-                                            <x-summernote wire:model='howtostart' name="howtostart" id="howtostart" value='{{ $howtostart }}' />
-                                            @error('howtostart')
-                                            <span class="error" style="color: red">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                        <div class="mb-1 col-md-12">
-                                            <label class="form-label" for="">{{ __('tran.answer_the_question') }}</label>
-                                            <x-summernote wire:model='answer_the_question' name="answer_the_question" id="answer_the_question" value='{{ $answer_the_question }}' />
-                                            @error('answer_the_question')
-                                            <span class="error" style="color: red">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                        <div class="mb-1 col-md-12">
-                                            <label class="form-label" for="">{{ __('tran.sections_guide') }}</label>
-                                            <x-summernote wire:model='sections_guide' name="sections_guide" id="sections_guide" value='{{ $sections_guide }}' />
-                                            @error('sections_guide')
-                                            <span class="error" style="color: red">{{ $message }}</span>
-                                            @enderror
-                                        </div>
+                                            <div class="mb-1 col-md-12">
+                                                <label class="form-label" for="username">{{ __('tran.trainers') }}</label>
 
+
+                                                <div wire:ignore>
+                                                    <select class="select2 form-select" id="select2-multiple" multiple="multiple" required>
+
+                                                        @foreach ($triners as $item)
+
+
+                                                        <option @if (in_array($item->id, $triner)) selected @endif
+                                                            value="{{ $item->id ?? '' }}">
+                                                            {{ ($item->first_name ?? '') . ' ' . ($item->middle_name ?? '') }}
+                                                        </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                @error('triner')
+                                                <span class="error" style="color: red">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+
+                                            <div class="mb-1 col-md-12" wire:ignore>
+                                                <label class="form-label" for="username">{{ __('tran.features') . ' ' . __('tran.course') }}</label>
+                                                <x-summernote wire:model='features' name="features" id="features" />
+                                                @error('features')
+                                                <span class="error" style="color: red">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-1 col-md-12" wire:ignore>
+                                                <label class="form-label" for="description">{{ __('tran.description') }}</label>
+                                                <x-summernote wire:model='description' name="description" id="description" />
+                                                @error('description')
+                                                <span class="error" style="color: red">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-1 col-md-12" wire:ignore>
+                                                <label class="form-label" for="conditions">{{ __('tran.conditions') }}</label>
+                                                <x-summernote wire:model='conditions' name="conditions" id="conditions" />
+                                                @error('conditions')
+                                                <span class="error" style="color: red">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-1 col-md-12" wire:ignore>
+                                                <label class="form-label" for="">{{ __('tran.target') }}</label>
+                                                <x-summernote wire:model='target' name="target" id="target" />
+                                                @error('target')
+                                                <span class="error" style="color: red">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-1 col-md-12" wire:ignore>
+                                                <label class="form-label" for="">{{ __('tran.howtostart') }}</label>
+                                                <x-summernote wire:model='howtostart' name="howtostart" id="howtostart" value='{{ $howtostart }}' />
+                                                @error('howtostart')
+                                                <span class="error" style="color: red">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-1 col-md-12" wire:ignore>
+                                                <label class="form-label" for="">{{ __('tran.answer_the_question') }}</label>
+                                                <x-summernote wire:model='answer_the_question' name="answer_the_question" id="answer_the_question" value='{{ $answer_the_question }}' />
+                                                @error('answer_the_question')
+                                                <span class="error" style="color: red">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-1 col-md-12" wire:ignore>
+                                                <label class="form-label" for="">{{ __('tran.sections_guide') }}</label>
+                                                <x-summernote wire:model='sections_guide' name="sections_guide" id="sections_guide" value='{{ $sections_guide }}' />
+                                                @error('sections_guide')
+                                                <span class="error" style="color: red">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="divider divider-danger">
-                        <div class="divider-text">{{ __('tran.attached') }}</div>
-                    </div>
-                    <div class="accordion-item" wire:ignore.self>
-                        <h2 class="accordion-header  d-flex align-items-center justify-content-between" id="headingMarginOne2">
-                            <div class="d-flex align-items-center">
-                                <button wire:ignore.self class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordionMarginOne2" aria-expanded="false" aria-controls="accordionMarginOne2">
-                                    <span class="text-warning">
-                                        {{ __('tran.attached') }}
-                                    </span>
-
-                                </button>
-                            </div>
-                        </h2>
-                        <div id="accordionMarginOne2" class="accordion-collapse collapse" aria-labelledby="headingMarginOne2" data-bs-parent="#accordionMargin" wire:ignore.self>
-                            <div class="card">
-
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="mb-2 col-md-6">
-                                            <x-imageupload wire:model='image_course' :height='200' :width='200' :imagenew="$image_course" :imageold="$image_course_old" :tlabel="__('tran.imagecourse')" />
-                                            @error('image_course')
-                                            <span class="error" style="color: red">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                        <div class="mb-2 col-md-6">
-                                            <x-imageupload wire:model='calc_rate' :height='200' :width='200' :imagenew="$calc_rate" :imageold="$calc_rate_old" :tlabel="__('tran.calc_rate')" />
-                                            @error('calc_rate')
-                                            <span class="error" style="color: red">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                        <div class="mb-2 col-md-3  border border-black pb-2">
-                                            <x-fileupload wire:model='schedule' id='schedule' :tlabel="__('tran.courseschedule')" :namefile="$schedule != null ? $schedule : null" />
-                                            @error('schedule')
-                                            <span class="error" style="color: red">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                        <div class="mb-2 col-md-3  border border-black pb-2">
-                                            <x-fileupload wire:model='file_work' id='file_work' :tlabel="__('tran.file_work')" :namefile="$file_work != null ? $file_work : null" />
-                                            @error('file_work')
-                                            <span class="error" style="color: red">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                        <div class="mb-2 col-md-3 border border-black pb-2">
-                                            <x-fileupload wire:model='file_explanatory' id='file_explanatory' :tlabel="__('tran.file_explanatory')" :namefile="$file_explanatory != null ? $file_explanatory : null" />
-                                            @error('file_explanatory')
-                                            <span class="error" style="color: red">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                        <div class="mb-2 col-md-3 border border-black pb-2">
-                                            <x-fileupload wire:model='file_aggregates' id='file_aggregates' :tlabel="__('tran.file_aggregates')" :namefile="$file_aggregates != null ? $file_aggregates : null" />
-                                            @error('file_aggregates')
-                                            <span class="error" style="color: red">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                        <div class="mb-2 col-md-3 border border-black pb-2">
-                                            <x-fileupload wire:model='file_supplementary' id='file_supplementary' :tlabel="__('tran.file_supplementary')" :namefile="$file_supplementary != null ? $file_supplementary : null" />
-                                            @error('file_supplementary')
-                                            <span class="error" style="color: red">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                        <div class="mb-2 col-md-3 border border-black pb-2">
-                                            <x-fileupload wire:model='file_free' id='file_free' :tlabel="__('tran.file_free')" :namefile="$file_free != null ? $file_free : null" />
-                                            @error('file_free')
-                                            <span class="error" style="color: red">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                        <div class="mb-2 col-md-3 border border-black pb-2">
-                                            <x-fileupload wire:model='file_test' id='file_test' :tlabel="__('tran.file_test')" :namefile="$file_test != null ? $file_test : null" />
-                                            @error('file_test')
-                                            <span class="error" style="color: red">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="divider divider-danger">
+                            <div class="divider-text">{{ __('tran.attached') }}</div>
                         </div>
-                    </div>
+                        <div class="accordion-item" wire:ignore.self>
+                            <h2 class="accordion-header  d-flex align-items-center justify-content-between" id="headingMarginOne2">
+                                <div class="d-flex align-items-center" wire:ignore>
+                                    <button wire:ignore.self class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordionMarginOne2" aria-expanded="false" aria-controls="accordionMarginOne2">
+                                        <span class="text-warning">
+                                            {{ __('tran.attached') }}
+                                        </span>
 
-                    <div class="divider divider-danger">
-                        <div class="divider-text">{{ __('tran.setcourse') }}</div>
-                    </div>
-                    <div class="accordion-item" wire:ignore.self>
-                        <h2 class="accordion-header  d-flex align-items-center justify-content-between" id="headingMarginOne3">
-                            <div class="d-flex align-items-center">
-                                <button wire:ignore.self class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordionMarginOne3" aria-expanded="false" aria-controls="accordionMarginOne3">
-                                    <span class="text-warning">{{ __('tran.setcourse') }}</span>
-                                </button>
-                            </div>
-                        </h2>
-                        <div id="accordionMarginOne3" class="accordion-collapse collapse" aria-labelledby="headingMarginOne3" data-bs-parent="#accordionMargin" wire:ignore.self>
-                            <div class="card">
+                                    </button>
+                                </div>
+                            </h2>
+                            <div id="accordionMarginOne2" class="accordion-collapse collapse" aria-labelledby="headingMarginOne2" data-bs-parent="#accordionMargin" wire:ignore.self>
+                                <div class="card">
 
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="mb-1 col-md-3">
-                                            <x-check wire:model='langcourse' id="langcourse" left="En" right="Ar" :tlabel="__('tran.langcourse')" />
-                                        </div>
-                                        <div class="mb-1 col-md-3">
-                                            <x-check wire:model='inputnum' id="inputnum" left="En" right="Ar" :tlabel="__('tran.inputnum')" />
-                                        </div>
-                                        <div class="mb-1 col-md-3">
-                                            <x-check wire:model='status' id="status" :tlabel="__('tran.statu')" />
-                                        </div>
-
-                                        <div class="mb-1 col-md-6">
-                                            <label class="form-label" for="telegram">{{ __('tran.telegram') }}</label>
-                                            <div class="input-group input-group-merge">
-                                                <span class="input-group-text"><i class="fab fa-telegram-plane"></i></span>
-                                                <input type="text" class="form-control" wire:model='telegram' />
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="mb-2 col-md-6">
+                                                <x-imageupload wire:model='image_course' :height='200' :width='200' :imagenew="$image_course" :imageold="$image_course_old" :tlabel="__('tran.imagecourse')" />
+                                                @error('image_course')
+                                                <span class="error" style="color: red">{{ $message }}</span>
+                                                @enderror
                                             </div>
-                                            @error('telegram')
-                                            <span class="error" style="color: red">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                        <div class="mb-1 col-md-6">
-                                            <label class="form-label" for="telegramgrup">{{ __('tran.telegramgrup') }}</label>
-                                            <div class="input-group input-group-merge">
-                                                <span class="input-group-text"><i class="fab fa-telegram-plane"></i></span>
-                                                <input type="text" class="form-control" wire:model='telegramgrup' />
+                                            <div class="mb-2 col-md-6">
+                                                <x-imageupload wire:model='calc_rate' :height='200' :width='200' :imagenew="$calc_rate" :imageold="$calc_rate_old" :tlabel="__('tran.calc_rate')" />
+                                                @error('calc_rate')
+                                                <span class="error" style="color: red">{{ $message }}</span>
+                                                @enderror
                                             </div>
-                                            @error('telegramgrup')
-                                            <span class="error" style="color: red">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                        <div class="mb-1 col-md-6">
-                                            <label class="form-label" for="nextcourse">{{ __('tran.nextcourse') }}</label>
-                                            <select class="form-select" wire:model='nextcourse'>
-                                                <option value="">اختار الدورة التالية</option>
-                                                @foreach ($nextcoursesbycat as $item)
-                                                <option value="{{ $item->id }}">
-                                                    {{ $item->name }}
-                                                </option>
-                                                @endforeach
-                                            </select>
-                                            @error('nextcourse')
-                                            <span class="text-danger">{{ $message }}</span>
-                                            @enderror
+                                            <div class="mb-2 col-md-3  border border-black pb-2" wire:ignore>
+                                                <x-fileupload wire:model='schedule' id='schedule' :tlabel="__('tran.courseschedule')" :namefile="$schedule != null ? $schedule : null" />
+                                                @error('schedule')
+                                                <span class="error" style="color: red">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-2 col-md-3  border border-black pb-2" wire:ignore>
+                                                <x-fileupload wire:model='file_work' id='file_work' :tlabel="__('tran.file_work')" :namefile="$file_work != null ? $file_work : null" />
+                                                @error('file_work')
+                                                <span class="error" style="color: red">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-2 col-md-3 border border-black pb-2" wire:ignore>
+                                                <x-fileupload wire:model='file_explanatory' id='file_explanatory' :tlabel="__('tran.file_explanatory')" :namefile="$file_explanatory != null ? $file_explanatory : null" />
+                                                @error('file_explanatory')
+                                                <span class="error" style="color: red">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-2 col-md-3 border border-black pb-2">
+                                                <x-fileupload wire:model='file_aggregates' id='file_aggregates' :tlabel="__('tran.file_aggregates')" :namefile="$file_aggregates != null ? $file_aggregates : null" />
+                                                @error('file_aggregates')
+                                                <span class="error" style="color: red">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-2 col-md-3 border border-black pb-2">
+                                                <x-fileupload wire:model='file_supplementary' id='file_supplementary' :tlabel="__('tran.file_supplementary')" :namefile="$file_supplementary != null ? $file_supplementary : null" />
+                                                @error('file_supplementary')
+                                                <span class="error" style="color: red">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-2 col-md-3 border border-black pb-2">
+                                                <x-fileupload wire:model='file_free' id='file_free' :tlabel="__('tran.file_free')" :namefile="$file_free != null ? $file_free : null" />
+                                                @error('file_free')
+                                                <span class="error" style="color: red">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-2 col-md-3 border border-black pb-2">
+                                                <x-fileupload wire:model='file_test' id='file_test' :tlabel="__('tran.file_test')" :namefile="$file_test != null ? $file_test : null" />
+                                                @error('file_test')
+                                                <span class="error" style="color: red">{{ $message }}</span>
+                                                @enderror
+                                            </div>
 
-                                            @error('nextcourse')
-                                            <span class="error" style="color: red">{{ $message }}</span>
-                                            @enderror
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                    </div>
+                        <div class="divider divider-danger">
+                            <div class="divider-text">{{ __('tran.setcourse') }}</div>
+                        </div>
+                        <div class="accordion-item" wire:ignore.self>
+                            <h2 class="accordion-header  d-flex align-items-center justify-content-between" id="headingMarginOne3">
+                                <div class="d-flex align-items-center">
+                                    <button wire:ignore.self class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordionMarginOne3" aria-expanded="false" aria-controls="accordionMarginOne3">
+                                        <span class="text-warning">{{ __('tran.setcourse') }}</span>
+                                    </button>
+                                </div>
+                            </h2>
+                            <div id="accordionMarginOne3" class="accordion-collapse collapse" aria-labelledby="headingMarginOne3" data-bs-parent="#accordionMargin" wire:ignore.self>
+                                <div class="card">
 
-                    <div class="divider divider-danger">
-                        <div class="divider-text">{{ __('tran.lessons') }}</div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="mb-1 col-md-3">
+                                                <x-check wire:model='langcourse' id="langcourse" left="En" right="Ar" :tlabel="__('tran.langcourse')" />
+                                            </div>
+                                            <div class="mb-1 col-md-3">
+                                                <x-check wire:model='inputnum' id="inputnum" left="En" right="Ar" :tlabel="__('tran.inputnum')" />
+                                            </div>
+                                            <div class="mb-1 col-md-3">
+                                                <x-check wire:model='status' id="status" :tlabel="__('tran.statu')" />
+                                            </div>
+
+                                            <div class="mb-1 col-md-6">
+                                                <label class="form-label" for="telegram">{{ __('tran.telegram') }}</label>
+                                                <div class="input-group input-group-merge">
+                                                    <span class="input-group-text"><i class="fab fa-telegram-plane"></i></span>
+                                                    <input type="text" class="form-control" wire:model='telegram' />
+                                                </div>
+                                                @error('telegram')
+                                                <span class="error" style="color: red">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-1 col-md-6">
+                                                <label class="form-label" for="telegramgrup">{{ __('tran.telegramgrup') }}</label>
+                                                <div class="input-group input-group-merge">
+                                                    <span class="input-group-text"><i class="fab fa-telegram-plane"></i></span>
+                                                    <input type="text" class="form-control" wire:model='telegramgrup' />
+                                                </div>
+                                                @error('telegramgrup')
+                                                <span class="error" style="color: red">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-1 col-md-6">
+                                                <label class="form-label" for="nextcourse">{{ __('tran.nextcourse') }}</label>
+                                                <select class="form-select" wire:model='nextcourse'>
+                                                    <option value="">اختار الدورة التالية</option>
+                                                    @foreach ($nextcoursesbycat as $item)
+                                                    <option value="{{ $item->id }}">
+                                                        {{ $item->name }}
+                                                    </option>
+                                                    @endforeach
+                                                </select>
+                                                @error('nextcourse')
+                                                <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+
+                                                @error('nextcourse')
+                                                <span class="error" style="color: red">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="divider divider-danger">
+                            <div class="divider-text">{{ __('tran.lessons') }}</div>
+                        </div>
                     </div>
                     <div class="accordion-item" wire:ignore.self>
-                        <h2 class="accordion-header  d-flex align-items-center justify-content-between" id="headingMarginOne4">
+                        <h2 class="accordion-header  d-flex align-items-center justify-content-between" id="headingMarginOne4" >
                             <div class="d-flex align-items-center">
-                                <button wire:ignore.self class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordionMarginOne4" aria-expanded="false" aria-controls="accordionMarginOne4">
+                                <button  class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordionMarginOne4" aria-expanded="false" aria-controls="accordionMarginOne4">
                                     <span class="text-warning">{{ __('tran.lessons') }}</span>
                                 </button>
                             </div>
-                            <div   wire:click.prevent="addlesson()" class="button-group p-1">
+                            {{-- <div wire:click.prevent="addlesson()" class="button-group p-1">
                                 <button class="btn btn-success btn-sm">اضافة دروس</button>
-                            </div>
+                            </div> --}}
+                            <div class="d-flex align-items-center">
                         </h2>
-                        <div id="accordionMarginOne4" class="accordion-collapse collapse" aria-labelledby="headingMarginOne4" data-bs-parent="#accordionMargin" wire:ignore.self>
+                        <div id="accordionMarginOne4" class="accordion-collapse collapse" aria-labelledby="headingMarginOne4" data-bs-parent="#accordionMargin" >
                             <div class="card">
 
                                 <div class="card-body">
+
                                     @if (count($lessons) > 0)
                                     @foreach ($lessons as $key => $value)
                                     <div class="mb-1 row">
@@ -406,13 +407,13 @@
                                             <select class="form-select" id="lessons.{{ $key }}.is_lesson" wire:model.lazy='lessons.{{ $key }}.is_lesson'>
 
                                                 @foreach (\App\Enum\LessonStatu::cases() as $q)
-                                                @if ($q->name != 'QUIZ')
+                                                {{-- @if ($q->name != 'QUIZ') --}}
                                                 <option value="{{ $q->value }}">
 
 
                                                     {{ __('tran.typelesson-' . $q->name)   }}
                                                 </option>
-                                                @endif
+                                                {{-- @endif --}}
                                                 @endforeach
                                             </select>
 
@@ -500,10 +501,47 @@
         </form>
 
     </div>
-</div>
+
 </div>
 @push('csslive')
 {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" /> --}}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Accordion ID for storage
+        let accordionID = 'accordionMarginOne4';
+
+        // Restore accordion state from localStorage
+        let accordionState = localStorage.getItem(accordionID);
+        if (accordionState === 'open') {
+            let collapseElement = document.getElementById(accordionID);
+            let bsCollapse = new bootstrap.Collapse(collapseElement, {
+                toggle: false
+            });
+            bsCollapse.show(); // Keep it open
+        }
+
+        // Listen for accordion toggle
+        let accordionToggle = document.querySelector(`[data-bs-target="#${accordionID}"]`);
+        accordionToggle.addEventListener('click', function() {
+            let collapseElement = document.getElementById(accordionID);
+            let isExpanded = collapseElement.classList.contains('show');
+            localStorage.setItem(accordionID, isExpanded ? 'closed' : 'open');
+        });
+
+        // Hook into Livewire's DOM updates
+        Livewire.hook('message.processed', (message, component) => {
+            let accordionState = localStorage.getItem(accordionID);
+            if (accordionState === 'open') {
+                let collapseElement = document.getElementById(accordionID);
+                let bsCollapse = new bootstrap.Collapse(collapseElement, {
+                    toggle: false
+                });
+                bsCollapse.show(); // Re-open it if it was open before the update
+            }
+        });
+    });
+
+</script>
 
 <link rel="stylesheet" type="text/css" href="{{ asset('asset/vendors/css/forms/select/select2.min.css') }}">
 @endpush

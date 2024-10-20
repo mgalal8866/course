@@ -41,7 +41,7 @@ class EditCourse extends Component
         $this->stages = Stages::orderBy('parent_id', 'DESC')->get();
 
         $this->id = $id;
-        $course = Courses::with(['lessons', 'coursetrainers'])->find($this->id);
+        $course = Courses::with(['lessons', 'coursetrainers','coursestages'])->find($this->id);
 
         $this->short_description     = $course->short_description ?? '';
         $this->conditions            = $course->conditions ?? '';
@@ -84,12 +84,11 @@ class EditCourse extends Component
         $this->sections_guide  = $course->sections_guide;
         // $this->triner  = ["8c414fda-1e05-4543-b936-56ee3da96720"] ;
 
-;        foreach ($course->coursestages as $i => $item) {
+      foreach ($course->coursestages as $i => $item) {
             if ($i == 0) {
                 $this->fill(['lessons' => collect([['lessons_id' => $item->lessons->id, 'stage_id' => $item->stage->id, 'img' => null, 'name' => $item->lessons->name, 'link' => $item->lessons->link_video, 'is_lesson' => $item->lessons->is_lesson, 'publish_at' => $item->lessons->publish_at]])]);
             } else {
-
-                $this->lessons->push(['lessons_id' => $item->lessons->id, 'stage_id' => $item->stage->id, 'img' => null, 'name' => $item->lessons->name, 'link' => $item->lessons->link_video, 'is_lesson' => $item->lessons->is_lesson, 'publish_at' =>  $item->lessons->publish_at]);
+               $this->lessons->push(['lessons_id' => $item->lessons->id, 'stage_id' => $item->stage->id, 'img' => null, 'name' => $item->lessons->name, 'link' => $item->lessons->link_video, 'is_lesson' => $item->lessons->is_lesson, 'publish_at' =>  $item->lessons->publish_at]);
             }
         }
     }
@@ -154,10 +153,14 @@ class EditCourse extends Component
     //############## End Questions ################
     public function addlesson()
     {
+
         if (count($this->lessons)  != 0) {
-        $this->lessons->push(['lessons_id' => null, 'stage_id' => null, 'img' => null, 'name' => '', 'link' => '', 'is_lesson' => 1, 'publish_at' => null]);
+            $this->lessons->push([ 'lessons_id' => null,'stage_id' => null, 'img' => null, 'name' => '', 'link' => '', 'is_lesson' => 1, 'publish_at' => null]);
+
+        // $this->lessons->push(['lessons_id' => null, 'stage_id' => null, 'img' => null, 'name' => '', 'link' => '', 'is_lesson' => 1, 'publish_at' => '']);
         }else{
-            $this->fill(['lessons' => collect([['lessons_id' => null, 'stage_id' => null, 'img' =>null, 'name' =>'', 'link' => '', 'is_lesson' => 1, 'publish_at' => '']])]);
+
+             $this->fill(['lessons' => collect([['lessons_id' => null, 'stage_id' => null, 'img' =>null, 'name' =>'', 'link' => '', 'is_lesson' => 1, 'publish_at' => '']])]);
         }
     }
     public function removelesson($key)
@@ -338,7 +341,7 @@ class EditCourse extends Component
 
 
             if ($this->file_work  !=   $CFC->file_work) {
-              
+
                 $file =  uploadfile($this->file_work, "files/courses/"  . $CFC->id . "/doc");
                 $CFC->file_work = $file;
             }
