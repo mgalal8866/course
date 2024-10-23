@@ -23,14 +23,21 @@ public $maincat;
     }
     public function delete($id)
     {
+        DB::beginTransaction();
         try{
+
             $CC = ModelsStages::find($id);
             $CC->delete();
+            DB::commit();
             $this->dispatch('swal', type:'success',message: 'تم الحذف');
 
         }catch(Exception $e){
+            DB::rollBack();
+            if ($e->getCode() == 23000) {
+                $this->dispatch('swal', type:'danger',message: 'Cannot delete this stage because it is associated with other records.');
 
-            $this->dispatch('swal', type:'danger',message: $e->getMessage());
+            }
+            $this->dispatch('swal', type:'danger',message: 'Something went wrong. Please try again.');
         }
 
 
