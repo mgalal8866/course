@@ -25,9 +25,10 @@ public $maincat;
     {
         DB::beginTransaction();
         try{
+            ModelsStages::findOrFail($id)->delete();
 
-            $CC = ModelsStages::find($id);
-            $CC->delete();
+            // $CC = ModelsStages::find($id);
+            // $CC->delete();
             DB::commit();
             $this->dispatch('swal', type:'success',message: 'تم الحذف');
 
