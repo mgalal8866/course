@@ -35,9 +35,9 @@ public $maincat;
 
         }catch(Exception $e){
             DB::rollBack();
-            if ($e->getCode() == 23000) {
+            if ($e->getCode() == '23000' ) {
                 $this->dispatch('swal', type:'danger',message: 'Cannot delete this stage because it is associated with other records.');
-
+              return ;
             }
             $this->dispatch('swal', type:'danger',message: $e->getCode(). ' Something went wrong. Please try again.');
         }
