@@ -2,9 +2,10 @@
 
 namespace App\Livewire\Dashboard\Stage;
 
-use App\Models\Stages as ModelsStages;
 use Exception;
 use Livewire\Component;
+use Illuminate\Support\Facades\DB;
+use App\Models\Stages as ModelsStages;
 
 class Stages extends Component
 {
