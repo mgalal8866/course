@@ -3,6 +3,7 @@
 namespace App\Livewire\Dashboard\Stage;
 
 use App\Models\Stages as ModelsStages;
+use Exception;
 use Livewire\Component;
 
 class Stages extends Component
@@ -22,8 +23,16 @@ public $maincat;
     }
     public function delete($id)
     {
-        $CC = ModelsStages::find($id);
-        $CC->delete();
+        try{
+            $CC = ModelsStages::find($id);
+            $CC->delete();
+            $this->dispatch('swal', type:'success',message: 'تم الحذف');
+
+        }catch(Exception $e){
+
+            $this->dispatch('swal', type:'danger',message: $e->getMessage());
+        }
+
 
     }
     public function render()
