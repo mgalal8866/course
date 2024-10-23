@@ -39,7 +39,7 @@ public $maincat;
                 $this->dispatch('swal', type:'danger',message: 'Cannot delete this stage because it is associated with other records.');
 
             }
-            $this->dispatch('swal', type:'danger',message: 'Something went wrong. Please try again.');
+            $this->dispatch('swal', type:'danger',message: $e->getCode(). ' Something went wrong. Please try again.');
         }
 
 
