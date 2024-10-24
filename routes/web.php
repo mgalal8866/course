@@ -1,30 +1,20 @@
 <?php
-
-
-use Goutte\Client;
-use App\Models\User;
+ 
 use App\Models\Admin;
 use Livewire\Livewire;
-use App\Models\Courses;
 use App\Models\Setting;
-use App\Models\Category;
 use Illuminate\Http\Request;
-use App\Models\CategoryFCourse;
-use Vimeo\Laravel\VimeoManager;
 use App\Livewire\Dashboard\Test;
 use App\Livewire\ScripingCourse;
 use App\Models\QuizResultHeader;
 use Vimeo\Laravel\Facades\Vimeo;
 use App\Models\QuizResultDetails;
-use App\Models\Stages as mstages;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use App\Livewire\Dashboard\Dashboard;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
-use Intervention\Image\Facades\Image;
-use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Artisan;
 
 use Illuminate\Support\Facades\Session;
@@ -33,7 +23,6 @@ use App\Livewire\Dashboard\Stage\Stages;
 use App\Http\Controllers\ImageController;
 use App\Livewire\Dashboard\Blog\EditBlog;
 use App\Livewire\Dashboard\Blog\ViewBlog;
-use Symfony\Component\DomCrawler\Crawler;
 use App\Livewire\Dashboard\Setting\Slider;
 use Stevebauman\Location\Facades\Location;
 use App\Livewire\Dashboard\Books\ViewBooks;
@@ -53,7 +42,6 @@ use App\Livewire\Dashboard\Order\DetailsOrder;
 use App\Livewire\Dashboard\Courses\ViewCourses;
 use App\Livewire\Dashboard\ContactUs\ViewContact;
 use App\Livewire\Dashboard\FreeCourse\FreeCourse;
-use App\Livewire\Dashboard\Quizzes\ViewQuestions;
 use App\Livewire\Dashboard\Blog\Category\CategoryBlog;
 use App\Livewire\Dashboard\Payments\ViewPaymentsMethod;
 use App\Livewire\Dashboard\Books\Category\CategoryBooks;

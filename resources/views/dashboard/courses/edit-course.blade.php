@@ -390,10 +390,14 @@
                                     <span class="text-warning">{{ __('tran.lessons') }}</span>
                                 </button>
                             </div>
+                            <div class="button-group p-1" wire:ignore.self>
+                                {{-- <a onclick="localStorage.setItem('course_id', 1);" href="{{ route('newcourse2',['id'=>1111]) }}" class="btn btn-success btn-sm">اضافة دروس</a> --}}
+                                <a  target="_blank" href="{{ route('newcourse2',['id'=>$id]) }}" class="btn btn-success btn-sm">اضافة دروس</a>
+                            </div>
                             {{-- <div wire:click.prevent="addlesson()" class="button-group p-1">
                                 <button class="btn btn-success btn-sm">اضافة دروس</button>
                             </div> --}}
-                            <div class="d-flex align-items-center">
+                            {{-- <div class="d-flex align-items-center"> --}}
                         </h2>
                         <div id="accordionMarginOne4" class="accordion-collapse collapse" aria-labelledby="headingMarginOne4" data-bs-parent="#accordionMargin" >
                             <div class="card">

@@ -36,12 +36,13 @@ class NewCourseController extends Controller
     }
     public function index(Request $request)
     {
+
         $currentPage = 3;
         $stage = Stages::parent()->get();
         $category = Category::get();
         $triners = User::whereType('1')->get();
         $categoryfreecourse = CategoryFCourse::whereHas('freecourse')->get();
-        $course_id = $request->session()->get('course_id');
+        $course_id = $request->id??$request->session()->get('course_id');
 
 
 
@@ -55,7 +56,7 @@ class NewCourseController extends Controller
         // if ($validator->fails()) {
         //     return response()->json(['errors' => $validator->errors()], 422);
         // }
-
+         
         $course_id = $request->inputcourse_id;
 
         foreach ($request['categories'] as $category ) {

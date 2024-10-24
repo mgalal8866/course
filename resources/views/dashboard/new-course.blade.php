@@ -141,9 +141,9 @@
 
          document.addEventListener('DOMContentLoaded', () => {
              const baseurl = '{{ url('/') }}'; // Update with your base URL
-             if (localStorage.getItem("course_id") === null) {
+            //  if (localStorage.getItem("course_id") === null) {
                  localStorage.setItem('course_id', '{{ $course_id ?? 0 }}');
-             }
+            //  }
                  let course_id = localStorage.getItem('course_id');
 
              const mainContainer = document.getElementById('mainContainer');
