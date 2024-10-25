@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enum\Quiz;
 use App\Models\User;
 use App\Models\Quizes;
 use App\Models\Stages;
@@ -31,6 +32,14 @@ class QizeController extends Controller
         $question = $question == null ? [] : $question;
 
         return view('dashboard.quizzes.edit-header-ajax', compact('question','quiz'));
+    }
+    public function get_edit_quiz_Modal($quiz)
+    {
+
+        $quiz =  Quizes::find($quiz);
+        $quiz = $quiz == null ? [] : $quiz;
+
+        return view('dashboard.quizzes.edit-quiz-ajax', compact('quiz'));
     }
     public function deletequestion($id)
     {
@@ -72,7 +81,7 @@ class QizeController extends Controller
             }
         } else {
 
-        
+
 
             $question = Quiz_questions::find($request->input('id'));
             $question->question = $qu??$request->input('question');
@@ -94,6 +103,33 @@ class QizeController extends Controller
                 $answer->correct = ($index == $correctIndex) ? 1 : 0;
                 $answer->save();
             }
+        }
+        return response()->json(['success' => true, 'message' => 'Data saved successfully']);
+    }
+    public function save_edit_quiz_Modal(Request $request)
+    {
+ 
+        if ($request->input('quiz_id')  != '') {
+
+            $data['quiz_id'] = $request->input(  'quiz_id');
+            $quiz =  Quizes::find(  $data['quiz_id'] );
+
+            if ($request->input('pass_marks') != '') {
+                $quiz->pass_marks =  $request->input('pass_marks');
+            }
+            if ($request->input('time') != '') {
+                $quiz->time =  $request->input('time');
+            }
+            if ($request->input('total_marks') != '') {
+                $quiz->total_marks =  $request->input('total_marks');
+            }
+            if ($request->input('name') != '') {
+                $quiz->name =  $request->input('name');
+            }
+
+            $quiz->save();
+
+
         }
         return response()->json(['success' => true, 'message' => 'Data saved successfully']);
     }

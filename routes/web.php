@@ -1,5 +1,5 @@
 <?php
- 
+
 use App\Models\Admin;
 use Livewire\Livewire;
 use App\Models\Setting;
@@ -292,6 +292,8 @@ Route::group(
         Route::get('/question/{id?}', [QizeController::class,'getquestion'])->name('viewquestion');
         Route::get('/question/delete/{id?}', [QizeController::class,'deletequestion'])->name('deletequestion');
         Route::get('/question/model/{id?}/{quiz?}', [QizeController::class,'getModal'])->name('get-modal');
+        Route::get('/quiz/model/{quiz?}', [QizeController::class,'get_edit_quiz_Modal'])->name('get_edit_quiz_Modal');
+        Route::post('/save_edit_quiz_Modal', [QizeController::class,'save_edit_quiz_Modal'])->name('save_edit_quiz_Modal');
         Route::post('/save-modal-data', [QizeController::class, 'saveModalData'])->name('save-modal-data');
 
         Route::get('/vimeo', Filemanger::class);

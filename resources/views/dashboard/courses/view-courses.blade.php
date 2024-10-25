@@ -51,10 +51,10 @@
 
                                     <td>
                                         <a class="btn btn-outline-warning btn-sm" href="{{ route('editcourse',['id'=>$item->id]) }}">تعديل</a>
-                                        <a class="btn btn-outline-info btn-sm" wire:click="dup('{{$item->id}}')">نسخ</a>
-                                        {{-- <a   wire:click="$dispatch('edit',{id:'{{$item->id}}'})"><i  class="fas fa-edit fa-lg"  style="color: #c2881e;"></i></i></a>
-                                        <a wire:click="delete('{{$item->id}}')"><i  class="fas fa-trash-alt fa-lg "  style="color: #ff0000;"></i></i></a>
-                                        <a  wire:click="activetoggle('{{$item->id}}')"> <i   class="fas {{$item->active ==1 ?'fas fa-eye':'fa-eye-slash'}} fa-lg "   style="{{$item->active ==1 ?'color: #1caa0f;':''}}"></i></a> --}}
+                                        <a class="btn btn-outline-info btn-sm"    wire:click="dup('{{$item->id}}')"    >نسخ</a>
+                                        <a class="btn btn-outline-danger btn-sm"  wire:click="delete('{{$item->id}}')" >حذف</a>
+                                        {{-- <a   wire:click="$dispatch('edit',{id:'{{$item->id}}'})"><i  class="fas fa-edit fa-lg"  style="color: #c2881e;"></i></i></a> --}}
+                                             {{-- <a  wire:click="activetoggle('{{$item->id}}')"> <i   class="fas {{$item->active ==1 ?'fas fa-eye':'fa-eye-slash'}} fa-lg "   style="{{$item->active ==1 ?'color: #1caa0f;':''}}"></i></a> --}}
                                     </td>
 
                                 </tr>

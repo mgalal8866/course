@@ -39,6 +39,19 @@ class ViewCourses extends Component
             DB::rollback();
         }
     }
+    public function delete($id)
+    {
+        DB::beginTransaction();
+        try {
+            $Courses = Courses::find($id);
+            $Courses->delete();
+            DB::commit();
+            $this->dispatch('swal', message:'تم حذف الدورة بنجاح');
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+            DB::rollback();
+        }
+    }
 
     public function render()
     {

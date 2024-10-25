@@ -40,6 +40,7 @@ class Newquiz extends Component
 
         ]])]);
     }
+    
     public function addquestions()
     {
         $this->questions->push(['question' => '', 'description' => '', 'degree' => '', 'answers' => collect([['answer' => '', 'correct' => '']])]);
