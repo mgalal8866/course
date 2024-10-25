@@ -111,9 +111,11 @@ class NewScourse extends Component
                     Quiz_question_answers::create([
                         'question_id' => $question->id,
                         'answer'     => $ii['answer'],
+                        'sort'     => $ii['sort'],
                         'correct'    => ($index2 == $i['correct']) ? 1 : 0,
                     ]);
                 }
+                // dd($this->questions );
             }
             DB::commit();
             $this->dispatch('setquizid',  quizid:  $quiz->id,name:$this->nameinput);

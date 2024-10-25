@@ -36,7 +36,7 @@ class Newquiz extends Component
         $this->fill(['questions' => collect([[
             'question' => '',
             'degree' => '',
-            'answers' => collect([['answer' => '', 'correct' => '']])
+            'answers' => collect([['answer' => '', 'correct' => '','sort'=>'']])
 
         ]])]);
     }
@@ -51,7 +51,7 @@ class Newquiz extends Component
     }
     public function addanswerquestions($key)
     {
-        $this->questions[$key]['answers']->push(['answer' => '', 'correct' => '']);
+        $this->questions[$key]['answers']->push(['answer' => '', 'correct' => '','sort'=>'']);
     }
     public function  removeanswerquestions($key, $key1)
     {

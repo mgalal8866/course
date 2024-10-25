@@ -62,7 +62,7 @@
                         <h6 class="card-subtitle mt-1">درجة السؤال : <span class="badge bg-info"> {{ $item->mark }}</span>
                         </h6>
                         <ul class="list-group mt-2">
-                            @foreach ($item->answer as $answer)
+                            @foreach ($item->answer->sortBy('sort') as $answer)
                                 <li
                                     class="list-group-item @if ($answer->correct == 1) list-group-item-success @endif">
                                     <div class="d-flex align-items-start">

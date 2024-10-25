@@ -58,7 +58,7 @@
                                             value="{{ $key1 }}" id="inlineRadio1"
                                             wire:model="questions.0.correct" />
                                         <label class="form-check-label" for="inlineRadio1">الاجابه
-                                            الصحيحة</label>
+                                            الصحيحة  {{  $key1  }}</label>
                                     </div>
                                     @error('questions.0.correct')
                                         <span class="text-danger">{{ $message }}</span>

@@ -21,7 +21,7 @@ class Model extends Component
     {
         $answers = collect();
         for ($i = 0; $i < $this->answer_count; $i++) {
-            $answers->push(['answer' => '']);
+            $answers->push(['answer' => '','sort'=>$i+1]);
         }
         $this->fill(['questions' => collect([[
             'question' => '',
@@ -45,7 +45,7 @@ class Model extends Component
     {
         $answers = collect();
         for ($i = 0; $i < $this->answer_count; $i++) {
-            $answers->push(['answer' => '']);
+            $answers->push(['answer' => '','sort'=>$i+1]);
         }
         $this->questions->push([
             'question' => '', 'description' => '', 'degree' => '',  'stages' => '',
@@ -54,7 +54,7 @@ class Model extends Component
     }
     public function addanswerquestions($key)
     {
-        $this->questions[0]['answers']->push(['answer' => '']);
+        $this->questions[0]['answers']->push(['answer' => '','sort'=>'']);
     }
     public function save()
     {

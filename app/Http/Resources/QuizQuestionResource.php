@@ -15,7 +15,7 @@ class QuizQuestionResource extends JsonResource
             'question_id'     => $this->id,
             'question_body'   => $this->question??'',
             'question_description'   => $this->description??'',
-            'answers'         => QuizAnswerResource::collection($this->answer),
+            'answers'         => QuizAnswerResource::collection($this->answer->sortBy('sort') ),
         ];
     }
 }
