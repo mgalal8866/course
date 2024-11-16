@@ -13,7 +13,7 @@
                     </div>
                     <form id="editUserForm" class="row gy-1 pt-75"  wire:submit.prevent="save">
                         <div class="col-12 col-md-12">
-                            <label class="form-label" for="modalEditUserFirstName">{{__('tran.category')}}</label>
+                            <label class="form-label" for="modalEditUserFirstName">{{ __('tran.link') }}</label>
                             <input type="text"  class="form-control"  wire:model="link" data-msg="Please enter your first link" />
                           @error('link') <span class="error" style="color: red" >{{ $message }}</span> @enderror
                         </div>

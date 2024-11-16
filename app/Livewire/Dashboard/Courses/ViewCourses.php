@@ -32,11 +32,11 @@ class ViewCourses extends Component
                 $newCourses->stages()->attach($stages->id, ['course_id' =>  $newCourses->id, 'lesson_id' => $newlesson->id,  'publish_at' => Carbon::now(), 'created_at' => Carbon::now()]);
             }
             copyAndRenameFolder(public_path('files' . DIRECTORY_SEPARATOR . 'courses' . DIRECTORY_SEPARATOR .   $Courses->id), public_path('files' . DIRECTORY_SEPARATOR . 'courses' . DIRECTORY_SEPARATOR .   $newCourses->id));
-            DB::commit();
-            $this->dispatch('swal', message: 'تم نسخ الدورة بنجاح');
+             DB::commit();
+             $this->dispatch('swal', message: 'تم نسخ الدورة بنجاح');
         } catch (\Exception $e) {
-            dd($e->getMessage());
-            DB::rollback();
+             dd($e->getMessage());
+             DB::rollback();
         }
     }
     public function delete($id)

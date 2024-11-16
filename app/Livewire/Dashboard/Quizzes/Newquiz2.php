@@ -75,10 +75,15 @@ class Newquiz2 extends Component
 
     public function save()
     {
+
+
         // $this->validate($this->rules);
 
-
+        // if ($this->questions) {
+        //     $this->dispatch('swal', ['message' => 'يجب اضافة اسئلة']);
+        // }
         DB::beginTransaction();
+
         try {
             $quiz = Quizes::create([
                 'name'          => $this->testname,
@@ -117,6 +122,7 @@ class Newquiz2 extends Component
                     'description' => $des ?? $i['description'],
                     'question' =>  $qu ?? $i['question'],
                     'mark'   => $i['degree'],
+                    'sort'   => $i['sort'],
                 ]);
                 foreach ($i['answers'] as $index2 => $ii) {
                     if ($ii['answer'] != '') {
@@ -126,6 +132,7 @@ class Newquiz2 extends Component
                     Quiz_question_answers::create([
                         'question_id' => $question->id,
                         'answer'     =>  $ans ?? $ii['answer'],
+                        'sort'   => $ii['sort'],
                         'correct'    => ($index2 == $i['correct']) ? 1 : 0,
                     ]);
                 }

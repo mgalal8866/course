@@ -6,7 +6,7 @@
             </div>
             <div class="modal-body pb-5 px-sm-5 pt-50">
                 <div class="text-center mb-2">
-                    <h1 class="mb-1">تعديل السؤال </h1>
+                    <h1 class="mb-1">{{ (!empty($question))? 'تعديل' : 'اضافة' }} السؤال </h1>
                 </div>
                 <form id="editUserForm" class="row gy-1 pt-75">
                     <div class="form-group">
@@ -24,16 +24,16 @@
                     </div>
                     <input type="hidden" name="quiz_id" value="{{ $quiz }}">
                     @if (!empty($question))
-                        @foreach ($question->answer as $index => $item)
+                        @foreach ($question->answer->sortBy('sort')  as $index => $item)
                             <div class="form-group">
-                                <label for="answer">الاجابة {{ $index + 1 }}</label>
+                                <label for="answer">index {{ $index  }}</label>
+                                <label for="answer">الاجابة {{ $item->sort??'' }}</label>
 
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
                                             <div class="form-check form-check-success">
-                                                <input class="form-check-input" type="radio" name="correct"
-                                                    value="{{ $index }}"
+                                                <input class="form-check-input" type="radio" name="correct"  value="{{ $item->id  }}"
                                                     @if ($item->correct == 1) checked @endif />
                                                 <label class="form-check-label">الاجابه الصحيحة</label>
                                             </div>
@@ -73,7 +73,7 @@
                                     <div class="input-group-text">
                                         <div class="form-check form-check-success">
                                             <input class="form-check-input" type="radio" name="correct"
-                                                value="1" />
+                                                value="2" />
                                             <label class="form-check-label">الاجابه الصحيحة</label>
                                         </div>
 
@@ -91,7 +91,7 @@
                                     <div class="input-group-text">
                                         <div class="form-check form-check-success">
                                             <input class="form-check-input" type="radio" name="correct"
-                                                value="1" />
+                                                value="3" />
                                             <label class="form-check-label">الاجابه الصحيحة</label>
                                         </div>
 
@@ -109,7 +109,7 @@
                                     <div class="input-group-text">
                                         <div class="form-check form-check-success">
                                             <input class="form-check-input" type="radio" name="correct"
-                                                value="1" />
+                                                value="4" />
                                             <label class="form-check-label">الاجابه الصحيحة</label>
                                         </div>
 
@@ -158,7 +158,7 @@
                 success: function(response) {
 
                     $('#editUser').modal('hide');
-                    location.reload();
+                  location.reload();
                 },
                 error: function(xhr) {
                     // Handle error

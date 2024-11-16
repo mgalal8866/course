@@ -19,50 +19,77 @@ class Model extends Component
 
     public function mount()
     {
+
+        $this->reset();
         $answers = collect();
         for ($i = 0; $i < $this->answer_count; $i++) {
-            $answers->push(['answer' => '','sort'=>$i+1]);
+            $answers->push(['answer' => '', 'sort' => $i + 1]);
         }
-        $this->fill(['questions' => collect([[
-            'question' => '',
-            'description' => '',
-            'stages' => '',
-            'stage_child' => '',
-            'degree' => '', 'correct' => '',
-            'answers' =>  $answers
 
-        ]])]);
+        // Initialize the sort number
+
+        $this->fill([
+            'questions' => collect([
+                [
+                    'question' => '',
+                    'description' => '',
+                    'stages' => '',
+                    'stage_child' => '',
+                    'degree' => '',
+                    'correct' => '',
+                    'answers' => $answers,
+
+                ]
+            ])
+        ]);
     }
     public function updatedQuestions($value, $nested)
     {
-          $nestedData = explode(".", $nested);
+        $nestedData = explode(".", $nested);
     }
-    public function  removeanswerquestions($key, $key1)
+    public function removeanswerquestions($key, $key1)
     {
         $this->questions[0]['answers']->pull($key1);
     }
     public function addquestions()
     {
+      
         $answers = collect();
         for ($i = 0; $i < $this->answer_count; $i++) {
-            $answers->push(['answer' => '','sort'=>$i+1]);
+            $answers->push(['answer' => '', 'sort' => $i + 1]);
         }
+        $sortNumber = $this->questions->count() + 1;
         $this->questions->push([
-            'question' => '', 'description' => '', 'degree' => '',  'stages' => '',
-            'stage_child' => '', 'correct' => '', 'answers' =>  $answers
+            'question' => '',
+            'description' => '',
+            'degree' => '',
+            'stages' => '',
+            'stage_child' => '',
+            'correct' => '',
+            'answers' => $answers,
+            'sort' => $sortNumber
         ]);
     }
     public function addanswerquestions($key)
     {
-        $this->questions[0]['answers']->push(['answer' => '','sort'=>'']);
+        $this->questions[0]['answers']->push(['answer' => '', 'sort' => '']);
     }
     public function save()
     {
-
-        $q =  session()->get('questions');
+         
+        $q = session()->get('questions');
         if ($q != null) {
-            $q->push($this->questions[0]);
+            $sortNumber = $q->count() + 1;
+            $newQuestion = $this->questions[0]; // Get the question you want to add
+            $newQuestion['sort'] = $sortNumber; // Add the sort number
+
+            $q->push($newQuestion);
         } else {
+
+            $this->questions->transform(function ($item, $index) {
+                $item['sort'] = $index + 1; // Set the sort number
+                return $item;
+            });
             session()->put('questions', $this->questions);
         }
         $this->dispatch('fetchdata');
@@ -71,6 +98,6 @@ class Model extends Component
     public function render()
     {
 
-        return view('dashboard.quizzes.model' );
+        return view('dashboard.quizzes.model');
     }
 }

@@ -1,6 +1,6 @@
 <div>
 
-    <div wire:ignore class="modal fade" id="editUser" tabindex="-1" aria-hidden="true">
+    <div wire:ignore.self class="modal fade" id="editUser" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog  modal-dialog-centered modal-edit-user">
             <div class="modal-content">
                 <div class="modal-header bg-transparent">
@@ -37,6 +37,7 @@
                                 <span class="error" style="color: red">{{ $message }}</span>
                             @enderror
                         </div>
+                        
                         @if ($type == 1)
                             <div class="col-12 col-md-12">
                                 <x-fileupload wire:model='link' id='file_test' :tlabel="__('tran.link')"
@@ -65,6 +66,7 @@
                             <label class="form-label" for="modalEditUserFirstName">{{ __('tran.category') }}</label>
                             <select class="form-select" wire:model='category_id' required>
                                 <option value=""> اختيارالقسم</option>
+                                   
                                 @foreach ($categorys as $category)
                                     <option value="{{ $category->id }}">{{ $category->name }}</option>
                                 @endforeach
@@ -76,7 +78,7 @@
 
                         <div class="col-12 col-md-12">
                             <label class="form-label" for="modalEditUserFirstName">{{ __('tran.qty_max') }}</label>
-                            <input type="text" class="form-control" wire:model="qty_max" />
+                            <input type="number" class="form-control" wire:model="qty_max" />
                             @error('qty_max')
                                 <span class="error" style="color: red">{{ $message }}</span>
                             @enderror

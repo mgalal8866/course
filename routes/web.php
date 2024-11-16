@@ -4,6 +4,7 @@ use App\Models\Admin;
 use Livewire\Livewire;
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use App\Livewire\Testckeditor;
 use App\Livewire\Dashboard\Test;
 use App\Livewire\ScripingCourse;
 use App\Models\QuizResultHeader;
@@ -15,8 +16,8 @@ use Illuminate\Support\Facades\Http;
 use App\Livewire\Dashboard\Dashboard;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Artisan;
 
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\QizeController;
 use App\Livewire\Dashboard\Stage\Stages;
@@ -36,8 +37,8 @@ use App\Livewire\Dashboard\Grades\ViewGrades;
 use App\Livewire\Dashboard\Quizzes\ViewQuizz;
 use App\Livewire\Dashboard\Trainees\Trainees;
 use App\Livewire\Dashboard\Trainers\Trainers;
-use App\Livewire\Dashboard\Courses\EditCourse;
 
+use App\Livewire\Dashboard\Courses\EditCourse;
 use App\Livewire\Dashboard\Order\DetailsOrder;
 use App\Livewire\Dashboard\Courses\ViewCourses;
 use App\Livewire\Dashboard\ContactUs\ViewContact;
@@ -57,6 +58,7 @@ use App\Livewire\Dashboard\FreeCourse\Category\CategoryFreeCourse;
 
 
 Route::post('/upload-image', [ImageController::class, 'uploadImage']);
+Route::get('testck', Testckeditor::class);
 
 Route::get('/', function (Request $request) {
     return  view('soon');

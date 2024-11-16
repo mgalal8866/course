@@ -12,5 +12,9 @@
         "laravel-vite-plugin": "^0.8.0",
         "sass": "^1.56.1",
         "vite": "^4.0.0"
+    },
+    "dependencies": {
+        "@ckeditor/ckeditor5-build-classic": "^43.2.0",
+        "@wiris/mathtype-ckeditor5": "^8.11.1"
     }
 }

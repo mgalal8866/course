@@ -23,7 +23,7 @@
                             @forelse ($grades  as $item)
                                 <tr>
                                     <td>
-                                        <span class="fw-bold">{{ $item->name ?? 'N/A' }}</span>
+                                        <img src="{{ $item->imageurl ?? 'N/A' }}" class="me-75" height="50" width="50" alt="Noimage" />
                                     </td>
                                     <td>
                                         <span class="fw-bold">{{ $item->link ?? 'N/A' }}</span>

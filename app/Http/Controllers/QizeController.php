@@ -22,6 +22,7 @@ class QizeController extends Controller
 
     public function getquestion(Request $request)
     {
+        
         $quiz = Quizes::where('id', $request->id)->with(['question', 'question.answer'])->first();
         return view('dashboard.quizzes.view-questions', compact(['quiz']));
     }
@@ -54,14 +55,18 @@ class QizeController extends Controller
         }
         if ( $request->input('description') != '') {
             $de =   replaceimageeditor($request->input('description'));
-
+            
+            
         }
+        $countquiz =  Quiz_questions::where( 'quiz_id',$request->input('quiz_id'))->count();
         if ($request->input('id') == 0) {
 
             $data['question'] =  $qu ??$request->input('question');
             $data['description'] = $de ??$request->input('description');
             $data['mark'] = $request->input('degree');
             $data['quiz_id'] = $request->input('quiz_id');
+            $data['sort'] =   $countquiz+1;
+            
             $q =  Quiz_questions::create($data);
 
           $answers = $request->input('answer');
@@ -73,9 +78,11 @@ class QizeController extends Controller
                 if ($answerText != '') {
                     $ans =   replaceimageeditor($answerText);
                 }
+              
                 $answer['answer'] = $ans??$answerText;
-                $answer['correct'] = ($index == $correctIndex) ? 1 : 0;
+                $answer['correct'] = (($index+1) == $correctIndex ) ? 1 : 0;
                 $answer['question_id'] =  $q->id;
+                $answer['sort'] =  $index+1;
                 Quiz_question_answers::create($answer);
 
             }
@@ -97,10 +104,11 @@ class QizeController extends Controller
                 if ($answerText != '') {
                     $ans =   replaceimageeditor($answerText);
                 }
+                  
                 $answer = Quiz_question_answers::find($answerIds[$index]);
 
                 $answer->answer = $ans??$answerText;
-                $answer->correct = ($index == $correctIndex) ? 1 : 0;
+                $answer->correct = ($answerIds[$index] == $correctIndex) ? 1 : 0;
                 $answer->save();
             }
         }

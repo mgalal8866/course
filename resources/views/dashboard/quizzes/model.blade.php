@@ -58,7 +58,7 @@
                                             value="{{ $key1 }}" id="inlineRadio1"
                                             wire:model="questions.0.correct" />
                                         <label class="form-check-label" for="inlineRadio1">الاجابه
-                                            الصحيحة  {{  $key1  }}</label>
+                                            الصحيحة  {{  $key1+1  }}</label>
                                     </div>
                                     @error('questions.0.correct')
                                         <span class="text-danger">{{ $message }}</span>
@@ -107,8 +107,29 @@
                 buttonsStyling: false
             });
         })
+        function clearModalInputs() {
+            $('#editUserForm')[0].reset(); // Reset the form inputs
+            // If you're using Summernote, reset it as well
+            $('#description').summernote('reset');
+            $('#questions').summernote('reset');
+            // Reset any other Summernote instances for answers if necessary
+             const answerIDs = [];
+             
+
+    @foreach ($questions[0]['answers'] as $key1 => $value1)
+
+        answerIDs.push('answer_{{ $key1 }}');
+    @endforeach
+
+    // Reset Summernote instances for answers
+    answerIDs.forEach(id => {
+        console.log("Resetting Summernote for: " + id); // Log the ID
+        $('#' + id).summernote('reset');
+    });
+        }
         window.addEventListener('openmodel', event => {
             // console.log('www');
+            clearModalInputs();
             $('#editUser').modal("show");
 
         });

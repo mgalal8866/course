@@ -50,7 +50,7 @@
             </div>
         </div>
     </div>
-    @foreach ($quiz->question as $item)
+    @foreach ($quiz->question->sortBy('sort')  as $item)
     <div class="card mb-3">
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center">
