@@ -60,6 +60,7 @@ class Newquiz extends Component
     }
     public function save()
     {
+        dd(' ddsss');
         // $rules = collect($this->rules)->collect()->toArray();
         // dd($this->validate($rules));
         $this->validate($this->rules);

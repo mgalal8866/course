@@ -72,13 +72,10 @@ class QizeController extends Controller
           $answers = $request->input('answer');
             $answerIds = $request->input('answer_id');
             $correctIndex = $request->input('correct');
-
-
             foreach ($answers as $index => $answerText) {
                 if ($answerText != '') {
                     $ans =   replaceimageeditor($answerText);
                 }
-              
                 $answer['answer'] = $ans??$answerText;
                 $answer['correct'] = (($index+1) == $correctIndex ) ? 1 : 0;
                 $answer['question_id'] =  $q->id;

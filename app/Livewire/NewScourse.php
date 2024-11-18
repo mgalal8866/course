@@ -75,6 +75,7 @@ class NewScourse extends Component
 
     public function save()
     {
+        
         DB::beginTransaction();
         try {
             $quiz = Quizes::create([
@@ -101,11 +102,14 @@ class NewScourse extends Component
             }
 
             foreach ($this->questions as $i) {
+                $countquiz =  Quiz_questions::where( 'quiz_id',$quiz->id)->count();
                 $question =   Quiz_questions::create([
                     'quiz_id'  => $quiz->id,
                     'description' => $i['description'],
                     'question' => $i['question'],
                     'mark'   => $i['degree'],
+                    'sort'   =>   $countquiz+1 ,
+
                 ]);
                 foreach ($i['answers'] as $index2 => $ii) {
                     Quiz_question_answers::create([
