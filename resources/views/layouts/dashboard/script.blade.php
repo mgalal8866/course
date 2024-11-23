@@ -5,8 +5,10 @@
 <script src="{{ asset('asset/js/core/app-menu.js') }}"></script>
 <script src="{{ asset('asset/js/core/app.js') }}"></script>
 <script src="{{ asset('app-assets/js/pickers/flatpickr/flatpickr.min.js') }}"></script>
+{{-- <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.js"></script> --}}
 
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-lite.min.js"></script>
+        <script src="https://www.wiris.net/demo/plugins/app/WIRISplugins.js?viewer=image"></script>
 
 
 @stack('alpine-plugins')

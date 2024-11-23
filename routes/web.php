@@ -58,8 +58,11 @@ use App\Livewire\Dashboard\FreeCourse\Category\CategoryFreeCourse;
 
 
 Route::post('/upload-image', [ImageController::class, 'uploadImage']);
-Route::get('testck', Testckeditor::class);
 
+
+// Route::get('/testck', function (Request $request) {
+//     return  view('testckeditorblade');
+// });
 Route::get('/', function (Request $request) {
     return  view('soon');
 });
@@ -173,6 +176,7 @@ Route::group(
         'middleware' => ['auth:admin','localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
     ],
     function () {
+        Route::get('testck', Testckeditor::class);
         // Livewire::setUpdateRoute(function ($handle) {
         //         return Route::post('/livewire/update', $handle);
         //     });

@@ -27,9 +27,10 @@
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
+                        
                         <div class="col-12">
                             <label class="form-label" for="">وصف السؤال</label>
-                            <x-summernote wire:model='questions.0.description' id="description" />
+                            <x-ck  wire:ignore  wire:model='questions.0.description' id="description" />
                             @error('questions.0.description')
                                 <span class="error" style="color: red">{{ $message }}</span>
                             @enderror
@@ -37,7 +38,7 @@
                         <div class="col-12">
 
                             <label class="form-label" for=""><i class="fas fa-question"></i>السؤال</label>
-                            <x-summernote wire:model='questions.0.question' id="questions" />
+                            <x-ck wire:model='questions.0.question' id="questions" />
                             @error('questions.0.question')
                                 <span class="error" style="color: red">{{ $message }}</span>
                             @enderror
@@ -69,7 +70,7 @@
                                 <div class="card-body">
                                     <div class="col-12">
                                         <label class="form-label" for=""></label>
-                                        <x-summernote wire:model='questions.0.answers.{{ $key1 }}.answer'
+                                        <x-ck wire:model='questions.0.answers.{{ $key1 }}.answer'
                                             id="answer_{{ $key1 }}" />
                                         @error('questions.0.answers.' . $key1 . '.answer')
                                             <span class="error" style="color: red">{{ $message }}</span>
@@ -110,9 +111,9 @@
         function clearModalInputs() {
             $('#editUserForm')[0].reset(); // Reset the form inputs
             // If you're using Summernote, reset it as well
-            $('#description').summernote('reset');
-            $('#questions').summernote('reset');
-            // Reset any other Summernote instances for answers if necessary
+           // $('#description').summernote('reset');
+            //$('#questions').summernote('reset');
+            // Reset any other ck instances for answers if necessary
              const answerIDs = [];
              
 
@@ -121,10 +122,10 @@
         answerIDs.push('answer_{{ $key1 }}');
     @endforeach
 
-    // Reset Summernote instances for answers
+    // Reset ck instances for answers
     answerIDs.forEach(id => {
-        console.log("Resetting Summernote for: " + id); // Log the ID
-        $('#' + id).summernote('reset');
+        console.log("Resetting ck for: " + id); // Log the ID
+       // $('#' + id).summernote('reset');
     });
         }
         window.addEventListener('openmodel', event => {

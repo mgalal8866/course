@@ -6,12 +6,12 @@ use Livewire\Component;
 
 class Testckeditor extends Component
 {
-    public $ck ,$summernote,$ammath ;
+    public $ck ,$ck1 ;
 
 
     public function save()
     {
-        dd($this->ck ,$this->summernote,$this->ammath);
+        dd($this->ck , $this->ck1);
     }
     public function render()
     {
