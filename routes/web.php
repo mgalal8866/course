@@ -1,60 +1,62 @@
 <?php
 
-use App\Models\Admin;
-use Livewire\Livewire;
-use App\Models\Setting;
-use Illuminate\Http\Request;
-use App\Livewire\Testckeditor;
-use App\Livewire\Dashboard\Test;
-use App\Livewire\ScripingCourse;
-use App\Models\QuizResultHeader;
-use Vimeo\Laravel\Facades\Vimeo;
-use App\Models\QuizResultDetails;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Http;
-use App\Livewire\Dashboard\Dashboard;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Route;
-
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Session;
-use App\Http\Controllers\QizeController;
-use App\Livewire\Dashboard\Stage\Stages;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\NewCourseController;
+use App\Http\Controllers\QizeController;
+use App\Http\Controllers\QRCodeController;
+use App\Livewire\Dashboard\Blog\Category\CategoryBlog;
 use App\Livewire\Dashboard\Blog\EditBlog;
 use App\Livewire\Dashboard\Blog\ViewBlog;
-use App\Livewire\Dashboard\Setting\Slider;
-use Stevebauman\Location\Facades\Location;
-use App\Livewire\Dashboard\Books\ViewBooks;
-use App\Livewire\Dashboard\Quizzes\Newquiz;
-use App\Livewire\Dashboard\Order\ViewOrders;
-use App\Livewire\Dashboard\Quizzes\Newquiz2;
-use App\Livewire\Dashboard\Vimeo\Filemanger;
-use App\Http\Controllers\NewCourseController;
-use App\Livewire\Dashboard\Courses\NewCourse;
-use App\Livewire\Dashboard\Grades\ViewGrades;
-use App\Livewire\Dashboard\Quizzes\ViewQuizz;
-use App\Livewire\Dashboard\Trainees\Trainees;
-use App\Livewire\Dashboard\Trainers\Trainers;
-
-use App\Livewire\Dashboard\Courses\EditCourse;
-use App\Livewire\Dashboard\Order\DetailsOrder;
-use App\Livewire\Dashboard\Courses\ViewCourses;
-use App\Livewire\Dashboard\ContactUs\ViewContact;
-use App\Livewire\Dashboard\FreeCourse\FreeCourse;
-use App\Livewire\Dashboard\Blog\Category\CategoryBlog;
-use App\Livewire\Dashboard\Payments\ViewPaymentsMethod;
 use App\Livewire\Dashboard\Books\Category\CategoryBooks;
-use App\Livewire\Dashboard\Notification\ViewNotification;
-use App\Livewire\Dashboard\Grades\Category\CategoryGrades;
-use App\Livewire\Dashboard\Trainers\Specialist\Specialist;
+use App\Livewire\Dashboard\Books\ViewBooks;
+use App\Livewire\Dashboard\ContactUs\ViewContact;
 use App\Livewire\Dashboard\Courses\Category\CategoryCourse;
-use App\Livewire\Dashboard\StudySchedule\ViewStudySchedule;
-use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
-use App\Livewire\Dashboard\Setting\Setting as SettingSetting;
-use App\Livewire\Dashboard\Quizzes\QuizCategory\ViewQuizCategory;
+use App\Livewire\Dashboard\Courses\EditCourse;
+use App\Livewire\Dashboard\Courses\NewCourse;
+use App\Livewire\Dashboard\Courses\ViewCourses;
+use App\Livewire\Dashboard\Dashboard;
 use App\Livewire\Dashboard\FreeCourse\Category\CategoryFreeCourse;
+
+use App\Livewire\Dashboard\FreeCourse\FreeCourse;
+use App\Livewire\Dashboard\Grades\Category\CategoryGrades;
+use App\Livewire\Dashboard\Grades\ViewGrades;
+use App\Livewire\Dashboard\Notification\ViewNotification;
+use App\Livewire\Dashboard\Order\DetailsOrder;
+use App\Livewire\Dashboard\Order\ViewOrders;
+use App\Livewire\Dashboard\Payments\ViewPaymentsMethod;
+use App\Livewire\Dashboard\Quizzes\Newquiz2;
+use App\Livewire\Dashboard\Quizzes\Newquiz;
+use App\Livewire\Dashboard\Quizzes\QuizCategory\ViewQuizCategory;
+use App\Livewire\Dashboard\Quizzes\ViewQuizz;
+use App\Livewire\Dashboard\Setting\Setting as SettingSetting;
+use App\Livewire\Dashboard\Setting\Slider;
+use App\Livewire\Dashboard\Stage\Stages;
+use App\Livewire\Dashboard\StudySchedule\ViewStudySchedule;
+use App\Livewire\Dashboard\Test;
+use App\Livewire\Dashboard\Trainees\Trainees;
+use App\Livewire\Dashboard\Trainers\Specialist\Specialist;
+use App\Livewire\Dashboard\Trainers\Trainers;
+use App\Livewire\Dashboard\Vimeo\Filemanger;
+
+use App\Livewire\ScripingCourse;
+use App\Livewire\Testckeditor;
+use App\Models\Admin;
+use App\Models\QuizResultDetails;
+use App\Models\QuizResultHeader;
+use App\Models\Setting;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
+use Livewire\Livewire;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+use Stevebauman\Location\Facades\Location;
+use Vimeo\Laravel\Facades\Vimeo;
+
 
 
 Route::post('/upload-image', [ImageController::class, 'uploadImage']);
@@ -169,13 +171,19 @@ Route::get('/test', function (Request $request) {
 
 
 });
+Route::get('/generate-qrcode', [QRCodeController::class, 'generateQRCode']);
 
+Route::get('qr/{code}',[ QRCodeController::class,'qr_redirect']);
 Route::group(
     [
         'prefix' => LaravelLocalization::setLocale() . '/dashboard',
         'middleware' => ['auth:admin','localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
     ],
     function () {
+        Route::get('qr_mangement',[ QRCodeController::class,'qr_mangement']);
+        Route::post('/qr-codes', [QrCodeController::class, 'store'])->name('qr-codes.store');
+
+        Route::put('qr-codes/{qr}',[ QRCodeController::class,'update_qr']);
         Route::get('testck', Testckeditor::class);
         // Livewire::setUpdateRoute(function ($handle) {
         //         return Route::post('/livewire/update', $handle);

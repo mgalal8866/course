@@ -15,6 +15,13 @@
 
     document.addEventListener('DOMContentLoaded', function() {
 
+        const input = document.querySelector('.wrs_focusElement');
+        const button = document.querySelector('.cke_button__ckeditor_wiris_formulaeditor_icon');
+
+        button.addEventListener('click', () => {
+            input.focus();
+        })
+
         CKEDITOR.plugins.addExternal('ckeditor_wiris', 'https://www.wiris.net/demo/plugins/ckeditor/',
             'plugin.js');
         CKEDITOR.editorConfig = function(config) {
@@ -34,20 +41,21 @@
         editor.on('change', function() {
             @this.set('{{ $attributes->wire('model')->value() }}', editor.getData());
         });
-        editor.on('instanceReady', function () {
-        // Listen for MathType button clicks
-        editor.on('afterCommandExec', function (event) {
-            if (event.data.name === 'ckeditor_wiris_formulaEditor') {
-                // Delay to ensure MathType editor is fully rendered
-                setTimeout(function () {
-                    const mathEditorInput = document.querySelector('.wrs_modal_dialog textarea, .wiris_formula_editor');
-                    if (mathEditorInput) {
-                        mathEditorInput.focus(); // Set focus inside MathType editor
-                    }
-                }, 500); // Adjust delay as needed
-            }
+        editor.on('instanceReady', function() {
+            // Listen for MathType button clicks
+            editor.on('afterCommandExec', function(event) {
+                if (event.data.name === 'ckeditor_wiris_formulaEditor') {
+                    // Delay to ensure MathType editor is fully rendered
+                    setTimeout(function() {
+                        const mathEditorInput = document.querySelector(
+                            '.wrs_modal_dialog textarea, .wiris_formula_editor');
+                        if (mathEditorInput) {
+                            mathEditorInput.focus(); // Set focus inside MathType editor
+                        }
+                    }, 500); // Adjust delay as needed
+                }
+            });
         });
-    });
 
 
         editor.setData(@json($value));
