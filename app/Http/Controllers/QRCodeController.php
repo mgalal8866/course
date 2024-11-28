@@ -38,7 +38,7 @@ class QRCodeController extends Controller
                 hexdec(substr($request->color, 3, 2)),
                 hexdec(substr($request->color, 5, 2))
             )
-            ->format('png') // Specify format as PNG
+            // ->format('png') // Specify format as PNG
             ->generate(env('APP_URL') . '/' . $code); // Ensure URL is correct
             $qrCode = ModelsQrcode::create([
                 'code' => $code,
