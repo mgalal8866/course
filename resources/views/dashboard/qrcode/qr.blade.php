@@ -42,9 +42,10 @@
                                             data-id="{{ $item->id }}" data-redirect="{{ $item->redirect_to }}"
                                             href="javascript:void(0);">تعديل </a>
 
+                                        <button class="btn btn-info waves-effect waves-float waves-light btn-sm pdfButton"
+                                            data-qr-code-url="http://127.0.0.1:8000/qr/We3GZFk0">Pdf</button>
 
-                                        <a class="btn btn-info waves-effect waves-float waves-light btn-sm"
-                                            href="{{ route('detailsorder', ['id' => $item->id]) }}">Pdf</a>
+
                                     </td>
                                 </tr>
                             @empty
@@ -103,7 +104,7 @@
                             <label for="backcolor" class="form-label">اختر اللون الخلفية</label>
                             <input type="color" class="form-control form-control-color" id="backcolor" name="backcolor"
                                 value="#ffffff" required>
-                               
+
                         </div>
                         <div class="mb-3">
                             <label for="color" class="form-label">اختر اللون</label>
@@ -120,10 +121,69 @@
             </div>
         </div>
     </div>
+    <!-- Modal for PDF quantity input -->
+    <div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="pdfModalLabel">Enter Quantity for PDF</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="pdfQuantity" class="form-label">Quantity</label>
+                        <input type="number" class="form-control" id="pdfQuantity" min="1" value="1">
+                    </div>
+                    <button type="button" class="btn btn-primary" id="generatePdf">Generate PDF</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     @push('jslive')
         <script>
+            // Show modal when Pdf button is clicked
+            document.querySelectorAll('.pdfButton').forEach(button => {
+                button.addEventListener('click', function() {
+                    // You can dynamically set the QR code URL or any other information from the button
+                    const qrCodeUrl = this.dataset.qrCodeUrl;
+
+                    // Show modal
+                    $('#pdfModal').modal('show');
+                    document.getElementById('generatePdf').dataset.qrCodeUrl =
+                        qrCodeUrl; // Store the QR code URL for later use
+                });
+            });
+
+            // Handle PDF generation and quantity input
+            document.getElementById('generatePdf').addEventListener('click', function() {
+                const quantity = document.getElementById('pdfQuantity').value;
+                const qrCodeUrl = this.dataset.qrCodeUrl;
+
+                // Send the quantity and QR code URL to the backend for PDF generation
+                fetch('/dashboard/generate-pdf', {
+                        method: 'POST',
+                        body: JSON.stringify({
+                            qrCodeUrl: qrCodeUrl,
+                            quantity: quantity
+                        }),
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Handle success (e.g., show a success message or download the PDF)
+                        console.log('PDF generated successfully', data);
+                        $('#pdfModal').modal('hide');
+                    })
+                    .catch(error => {
+                        // Handle error
+                        console.error('Error generating PDF', error);
+                    });
+            });
+
             document.addEventListener('DOMContentLoaded', () => {
                 const addQRCodeButton = document.getElementById('addQRCodeButton');
                 const addQrcodeModal = new bootstrap.Modal(document.getElementById('addQrcodeModal'));

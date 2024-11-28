@@ -56,6 +56,7 @@ use Livewire\Livewire;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Stevebauman\Location\Facades\Location;
 use Vimeo\Laravel\Facades\Vimeo;
+use Barryvdh\DomPDF\Facade as PDF;
 
 
 
@@ -180,6 +181,7 @@ Route::group(
         'middleware' => ['auth:admin','localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
     ],
     function () {
+        Route::post('/generate-pdf',[QrCodeController::class, 'generate_pdf'])->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class]);
         Route::get('qr_mangement',[ QRCodeController::class,'qr_mangement']);
         Route::post('/qr-codes', [QrCodeController::class, 'store'])->name('qr-codes.store');
 

@@ -175,6 +175,7 @@ return [
         Vimeo\Laravel\VimeoServiceProvider::class,
         Yoeunes\Toastr\ToastrServiceProvider::class,
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
 
     ])->toArray(),
 
@@ -196,6 +197,7 @@ return [
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
         'Vimeo' => Vimeo\Laravel\Facades\Vimeo::class,
         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
+'PDF' => Barryvdh\DomPDF\Facade::class,
 
     ])->toArray(),
 

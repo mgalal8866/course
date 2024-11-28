@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('qrcodes', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->nullable();
             $table->longText('qr')->index();
             $table->string('code')->index();
             $table->string('color')->nullable();
+            $table->string('backcolor')->nullable();
             $table->string('redirect_to');
             $table->timestamps();
         });
