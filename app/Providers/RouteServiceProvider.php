@@ -23,7 +23,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     public const HOME = '/home';
     protected $apiNamespace = 'App\Http\Controllers\Api';
-
+  
     /**
      * Define your route model bindings, pattern filters, and other route configuration.
      */
@@ -31,10 +31,10 @@ class RouteServiceProvider extends ServiceProvider
     {
         Livewire::setUpdateRoute(function ($handle) {
             return Route::post('/livewire/update', $handle)
-            ->prefix( LaravelLocalization::setLocale() . '/dashboard')
-                ->middleware(['web','localeSessionRedirect', 'localizationRedirect', 'localeViewPath']);
+                ->prefix(LaravelLocalization::setLocale() . '/dashboard')
+                ->middleware(['web', 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath']);
         });
-     
+
 
 
 

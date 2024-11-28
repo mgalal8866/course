@@ -197,7 +197,7 @@ return [
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
         'Vimeo' => Vimeo\Laravel\Facades\Vimeo::class,
         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
-'PDF' => Barryvdh\DomPDF\Facade::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
 
     ])->toArray(),
 
