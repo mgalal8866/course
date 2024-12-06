@@ -134,7 +134,7 @@
 
                  </ul>
              </li> --}}
-           {{--  <li class=" nav-item">
+           <li class=" nav-item">
                  <a class="d-flex align-items-center" href="#">
                      <i class="fas fa-copy"></i>
                      <span class="menu-title text-truncate">{{ __('tran.exams') }}</span>
@@ -160,7 +160,7 @@
                          </a>
                      </li> 
                  </ul>
-             </li>--}}
+             </li>
              <li class=" nav-item">
                  <a class="d-flex align-items-center" href="#">
                      <i class="fas fa-copy"></i>
