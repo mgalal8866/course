@@ -29,10 +29,12 @@ CKEDITOR.editorConfig = function (config) {
 			name: 'colors',
 			items: ['TextColor', 'BGColor']
 		},
-		{
-			name: 'wirisplugins',
-			items: ['ckeditor_wiris_formulaEditor', 'ckeditor_wiris_formulaEditorChemistry']
-		}];
+		// {
+		// 	name: 'wirisplugins',
+		// 	items: ['ckeditor_wiris_formulaEditor', 'ckeditor_wiris_formulaEditorChemistry']
+		// }
+	]
+		;
 
 	config.versionCheck = false;
 	// Define changes to default configuration here. For example:

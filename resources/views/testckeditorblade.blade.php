@@ -1,6 +1,8 @@
 @extends('layouts.dashboard.app')
 @section('content')
     @push('jslive')
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js"></script>
+
         <!-- تضمين مكتبة MathJax -->
        
         <script>

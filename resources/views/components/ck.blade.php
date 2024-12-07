@@ -1,17 +1,27 @@
-
 @props([
     'id' => '',
     'value' => '',
 ])
 
 <!-- تضمين مكتبة MathJax -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js"></script>
-
 <script>
+    // وظيفة لحفظ المعادلة
     function saveEquation(id) {
-        const equation = document.getElementById('equationInput_' + id).value;
+
+        const textarea = document.getElementById('equationInput_' + id);
+        let equation = textarea.value;
+
+        // التحقق إذا كان التبديل مفعلًا لتحويل الأرقام
+        const isArabicNumbers = document.getElementById('arabicNumbers_' + id).checked;
+        if (isArabicNumbers) {
+            // تحويل الأرقام إلى الأرقام العربية
+            equation = convertToArabicNumbers(equation);
+        }
+
         const editor = CKEDITOR.instances[id];
         editor.insertHtml(equation); // إدخال المعادلة إلى المحرر باستخدام CKEditor
+
+
         // إغلاق الـ Modal
         const modal = bootstrap.Modal.getInstance(document.getElementById('equationModal_' + id));
         modal.hide();
@@ -29,7 +39,7 @@
         updatePreview(id); // تحديث العرض الخاص بكل محرر
     }
 
-    // وظيفة لتحديث العرض باستخدام MathJax
+    // وظيفة لتحديث المعاينة ومعالجة النصوص
     function updatePreview(id) {
         const textarea = document.getElementById('equationInput_' + id);
         const preview = document.getElementById('mathPreview_' + id);
@@ -37,14 +47,18 @@
 
         // التحقق إذا كان التبديل مفعلًا لتحويل الأرقام
         const isArabicNumbers = document.getElementById('arabicNumbers_' + id).checked;
-      if (isArabicNumbers) {
-        text = convertToArabicNumbers(text);
-        // تحديث النص في CKEditor بعد تحويل الأرقام إلى العربية
-        const editor = CKEDITOR.instances[id];
-        editor.setData(text);  // تحديث المحتوى في CKEditor
-    }
 
-        preview.innerHTML = `\\[${text}\\]`; // تحديث النص مع صيغة MathJax
+        if (isArabicNumbers) {
+            // تحويل الأرقام إلى الأرقام العربية فقط
+            text = convertToArabicNumbers(text);
+
+            // تحديث النص في CKEditor بعد تحويل الأرقام إلى العربية
+           // const editor = CKEDITOR.instances[id];
+            //editor.setData(text); // تحديث المحتوى في CKEditor
+        }
+
+        // تحديث المعاينة في MathJax مع تحويل النص
+        preview.innerHTML = `\\[${text}\\]`; // عرض المعادلة مع صيغة MathJax
         MathJax.typesetPromise([preview]); // إعادة تفسير النصوص باستخدام MathJax
     }
 
@@ -54,14 +68,17 @@
         return input.replace(/\d/g, (digit) => arabicNumbers[digit]);
     }
 
-    // إضافة حدث التحديث عند إدخال نص في textarea
-   document.addEventListener('DOMContentLoaded', () => {
-    const textarea = document.getElementById('equationInput_' + '{{ $id }}');
-    textarea.addEventListener('input', () => updatePreview('{{ $id }}')); // استدعاء تحديث العرض عند الكتابة
+    // إضافة حدث عند تغيير حالة التبديل
+    document.addEventListener('DOMContentLoaded', () => {
+        const textarea = document.getElementById('equationInput_' + '{{ $id }}');
 
-    const toggleSwitch = document.getElementById('arabicNumbers_' + '{{ $id }}');
-    toggleSwitch.addEventListener('change', () => updatePreview('{{ $id }}'));  // تحديث العرض عند تغيير حالة التبديل
-});
+        // عند الكتابة داخل textarea
+        textarea.addEventListener('input', () => updatePreview('{{ $id }}'));
+
+        // عند تغيير حالة التبديل للتحويل إلى أرقام عربية
+        const toggleSwitch = document.getElementById('arabicNumbers_' + '{{ $id }}');
+        toggleSwitch.addEventListener('change', () => updatePreview('{{ $id }}'));
+    });
 </script>
 
 <div wire:ignore>
@@ -69,7 +86,8 @@
         placeholder="Enter the Description" rows="5" name="body">{{ $value }}</textarea>
 
 </div>
-<button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#equationModal_{{ $id }}">
+<button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+    data-bs-target="#equationModal_{{ $id }}">
     اضافة معادلة
 </button>
 
@@ -125,8 +143,8 @@
                     <!-- معاينة MathJax -->
                     <div class="mb-3">
                         <h5>Preview:</h5>
-                        <div  wire:ignore style="direction: ltr;">
-                            <span wire:ignore  id="mathPreview_{{ $id }}" class="content-span"
+                        <div wire:ignore style="direction: ltr;">
+                            <span wire:ignore id="mathPreview_{{ $id }}" class="content-span"
                                 style="display: inline; font-family: Cairo, sans-serif, &quot;Noto Sans Arabic&quot;; width: 100%;"></span>
                         </div>
                     </div>
@@ -154,15 +172,14 @@
             config.image2_alignClasses = ['image-align-left', 'image-align-center', 'image-align-right'];
             config.image2_disableResizer = false;
         };
-        //const editor = CKEDITOR.replace(document.querySelector('#{{ $id }}'), {
-          //  extraPlugins: 'ckeditor_wiris'
-       // });
-
+        const editor = CKEDITOR.replace(document.querySelector('#{{ $id }}'), {
+            //  extraPlugins: 'ckeditor_wiris'
+        });
         // Bind CKEditor changes to Livewire property
         editor.on('change', function() {
             @this.set('{{ $attributes->wire('model')->value() }}', editor.getData());
         });
-    editor.setData(@json($value));
+        editor.setData(@json($value));
     });
 
     // Ensure CKEditor is initialized with any existing value
