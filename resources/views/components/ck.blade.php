@@ -146,8 +146,7 @@
     var currentLocale = '{{ LaravelLocalization::getCurrentLocale() }}';
 
     document.addEventListener('DOMContentLoaded', function() {
-        CKEDITOR.plugins.addExternal('ckeditor_wiris', 'https://www.wiris.net/demo/plugins/ckeditor/',
-            'plugin.js');
+        //CKEDITOR.plugins.addExternal('ckeditor_wiris', 'https://www.wiris.net/demo/plugins/ckeditor/','plugin.js');
         CKEDITOR.editorConfig = function(config) {
             config.allowedContent = true;
             config.versionCheck = false;
@@ -155,9 +154,9 @@
             config.image2_alignClasses = ['image-align-left', 'image-align-center', 'image-align-right'];
             config.image2_disableResizer = false;
         };
-        const editor = CKEDITOR.replace(document.querySelector('#{{ $id }}'), {
-            extraPlugins: 'ckeditor_wiris'
-        });
+        //const editor = CKEDITOR.replace(document.querySelector('#{{ $id }}'), {
+          //  extraPlugins: 'ckeditor_wiris'
+       // });
 
         // Bind CKEditor changes to Livewire property
         editor.on('change', function() {
