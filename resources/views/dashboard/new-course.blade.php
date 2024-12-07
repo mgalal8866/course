@@ -366,7 +366,8 @@
                          input0.innerHTML =
                              '<option value="1" selected>شرح</option>' +
                              '<option value="2">بث مباشر</option>' +
-                             '<option value="0">تدريب</option>';
+                             '<option value="0">تدريب</option>'+
+                             '<option value="3">اختبار محاكى</option>';
                          input0.required = true
                          inputCol0.appendChild(input0);
 
@@ -421,7 +422,7 @@
                          });
 
                          input0.addEventListener('change', () => {
-                             if (input0.value === '0') {
+                             if (input0.value === '0'  || input0.value === '3') {
                                  const modalBtn = document.createElement('button');
                                  modalBtn.textContent = 'أضافة تدريب';
                                  modalBtn.classList.add('btn', 'btn-info', 'mb-1');

@@ -63,8 +63,8 @@ class NewCourseController extends Controller
             foreach ($category['subcategories'] as $subcategories) {
                 foreach ($subcategories['inputs'] as $inputs) {
 
-                    if ($inputs['type'] == 0) {
-                        Quizes::updated(['id' => $inputs['link']], ['course_id' => $course_id]);
+                    if ($inputs['type'] == 0 ||$inputs['type'] == 3) {
+                        Quizes::updated(['id' => $inputs['link']], ['course_id' => $course_id ,'mo7aky'=>($inputs['type'] == 3)?true:false]);
                     }
                     $lesson = Lessons::create(['name' => $inputs['name'], 'link_video' => $inputs['link'], 'is_lesson' => $inputs['type'], 'publish_at' => $inputs['date']]);
                     CourseStages::create(['course_id' => $course_id, 'lesson_id' => $lesson->id,'stage_id'=>$subcategories['subcategory_id'], 'publish_at' => $inputs['date']]);

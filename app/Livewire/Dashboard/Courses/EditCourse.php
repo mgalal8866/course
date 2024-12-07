@@ -372,8 +372,8 @@ class EditCourse extends Component
             }
             CourseStages::where('course_id', $CFC->id)->delete();
             foreach ($this->lessons as $i) {
-                if ($i['is_lesson'] == 0) {
-                    Quizes::updated(['id' => $i['link']], ['course_id' => $CFC->id]);
+                if ($i['is_lesson'] == 0 || $i['is_lesson'] == 3) {
+                    Quizes::updated(['id' => $i['link']], ['course_id' => $CFC->id,'mo7aky'=>($i['is_lesson'] == 3)?true:false]);
                 }
 
 

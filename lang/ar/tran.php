@@ -162,6 +162,7 @@ return [
     'level-test-categorys' => 'اقسام ختبار قياس المستوى',
     'quizz-categorys' => 'اقسام المسابقات',
     'typelesson-QUIZ' => 'تدريب',
+    'typelesson-Mo7aky' => 'محاكى',
     'typelesson-STREAM' => 'بث مباشر',
     'typelesson-TUTORIAL' => 'شرح',
     'typequiz-LEVEL' => 'قسم اختبار تحديد مستوى',

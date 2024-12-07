@@ -1,42 +1,142 @@
 @extends('layouts.dashboard.app')
 @section('content')
     @push('jslive')
-        {{-- <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
-        <script src="https://cdn.ckeditor.com/4.25.0/standard/ckeditor.js"></script> --}}
-        {{-- <script src="https://cdn.ckeditor.com/4.25.0-lts/standard/ckeditor.js"></script> --}}
-        <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
-
-
-
+        <!-- تضمين مكتبة MathJax -->
+       
         <script>
-            CKEDITOR.plugins.addExternal('ckeditor_wiris', 'https://www.wiris.net/demo/plugins/ckeditor/', 'plugin.js');
-
-            CKEDITOR.editorConfig = function(config) {
+            // وظيفة لإضافة الرموز إلى الـ textarea
+            function addSymbol(symbol) {
+                const textarea = document.getElementById('equationInput');
                 
+                const cursorPos = textarea.selectionStart;
+                const textBefore = textarea.value.substring(0, cursorPos);
+                const textAfter = textarea.value.substring(cursorPos);
+                textarea.value = textBefore + symbol + textAfter;
+                textarea.focus();
+                textarea.selectionEnd = cursorPos + symbol.length; // وضع المؤشر بعد الرمز
+                updatePreview(); // تحديث العرض
+            }
 
-                config.toolbar = [{
-                    name: 'wirisplugins',
-                    items: ['ckeditor_wiris_formulaEditor', 'ckeditor_wiris_formulaEditorChemistry']
-                }];
-                config.allowedContent = true;
-                config.versionCheck = false;
-            };
+            // وظيفة لتحديث العرض باستخدام MathJax
+            function updatePreview() {
+                const textarea = document.getElementById('equationInput');
+                const preview = document.getElementById('mathPreview');
+                let text = textarea.value;
 
-            CKEDITOR.replace('ckeditor', {
-                extraPlugins: 'ckeditor_wiris'
+                // التحقق إذا كان التبديل مفعلًا لتحويل الأرقام
+                const isArabicNumbers = document.getElementById('arabicNumbers').checked;
+                if (isArabicNumbers) {
+                   
+                    text = convertToArabicNumbers(text);
+                      //textarea.style.direction = 'rtl';
+                    //textarea.style.textAlign = 'right';
+                    //textarea.placeholder = 'أدخل معادلتك هنا...';
+                   
+                }else{
+                    // textarea.style.direction = 'ltr';
+                   // textarea.style.textAlign = 'left';
+                   // textarea.placeholder = 'أدخل معادلتك هنا...';
+               
+                }
+                preview.innerHTML = `\\[${text}\\]`; // تحديث النص مع صيغة MathJax
+                MathJax.typesetPromise([preview]); // إعادة تفسير النصوص باستخدام MathJax
+            }
+
+           
+            // تحويل الأرقام الإنجليزية إلى الأرقام العربية
+            function convertToArabicNumbers(input) {
+                const arabicNumbers = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
+                return input.replace(/\d/g, (digit) => arabicNumbers[digit]);
+            }
+
+            // إضافة حدث التحديث عند إدخال نص في textarea
+            document.addEventListener('DOMContentLoaded', () => {
+                const textarea = document.getElementById('equationInput');
+                textarea.addEventListener('input', updatePreview); // استدعاء تحديث العرض عند الكتابة
+
+                // إضافة حدث عند تغيير حالة التبديل
+                const toggleSwitch = document.getElementById('arabicNumbers');
+                toggleSwitch.addEventListener('change', updatePreview);
             });
         </script>
     @endpush
 
-    <div>
-        <form enctype="multipart/form-data">
+    <div role="dialog" aria-modal="true" class="fade modal show" tabindex="-1" style="display: block;">
+        <div dir="rtl" class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title h4">Enter Equation</div>
+                    <button type="button" class="btn-close" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-left">
+                        <!-- أزرار الرموز الرياضية -->
+                        <div class="mb-2 position-relative">
+                            <button type="button" class="me-1 mb-1 btn btn-outline-secondary"
+                                onclick="addSymbol('\\sqrt{}')" data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="Square Root (√)">
+                                √
+                            </button>
+                            <button type="button" class="me-1 mb-1 btn btn-outline-secondary"
+                                onclick="addSymbol('\\frac{}{}')" data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="Fraction (⅟)">
+                                ⅟
+                            </button>
+                            <button type="button" class="me-1 mb-1 btn btn-outline-secondary" onclick="addSymbol('^2')"
+                                data-bs-toggle="tooltip" data-bs-placement="top" title="Power of 2 (x²)">
+                                x²
+                            </button>
+                            <button type="button" class="me-1 mb-1 btn btn-outline-secondary" onclick="addSymbol('_{}')"
+                                data-bs-toggle="tooltip" data-bs-placement="top" title="Subscript (x₂)">
+                                x₂
+                            </button>
+                            <button type="button" class="me-1 mb-1 btn btn-outline-secondary"
+                                onclick="addSymbol('\\int_{}^{}')" data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="Integral (∫)">
+                                ∫
+                            </button>
+                            <button type="button" class="me-1 mb-1 btn btn-outline-secondary"
+                                onclick="addSymbol('\\sum_{}^{}')" data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="Summation (Σ)">
+                                Σ
+                            </button>
+                            <button type="button" class="me-1 mb-1 btn btn-outline-secondary" onclick="addSymbol('^{}')"
+                                data-bs-toggle="tooltip" data-bs-placement="top" title="Superscript">
+                                أسس لحرف
+                            </button>
+                            <button type="button" class="me-1 mb-1 btn btn-outline-secondary"
+                                onclick="addSymbol('\\space')" data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="Space">
+                                مسافة
+                            </button>
+                        </div>
 
-            <div class="mb-1 col-md-12">
-                <label class="form-label" for="ckeditor">Ck Editor</label>
+                        <!-- حقل النص -->
+                        <textarea id="equationInput" rows="4" class="mb-3 form-control" style="direction: ltr; text-align: left;"
+                            placeholder="أدخل المعادلة هنا..."></textarea>
 
-                <textarea class="form-control" id="ckeditor" placeholder="Enter the Description" rows="5" name="body"> </textarea>
+                        <!-- زر التبديل -->
+                        <div class="mb-3 form-check form-switch">
+                            <input type="checkbox" id="arabicNumbers" class="form-check-input">
+                            <label for="arabicNumbers" class="form-check-label">ارقام عربى</label>
+                        </div>
 
+                        <!-- معاينة MathJax -->
+                        <div class="mb-3">
+                            <h5>Preview:</h5>
+                            <div style="direction: ltr;">
+                            <span  id="mathPreview" class="content-span" style="display: inline; font-family: Cairo, sans-serif, &quot;Noto Sans Arabic&quot;; width: 100%;">$$</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- أزرار التذييل -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary">Close</button>
+                    <button type="button" class="btn btn-primary">Submit</button>
+                </div>
             </div>
-        </form>
+        </div>
     </div>
 @endsection

@@ -63,9 +63,9 @@ use Barryvdh\DomPDF\Facade as PDF;
 Route::post('/upload-image', [ImageController::class, 'uploadImage']);
 
 
-// Route::get('/testck', function (Request $request) {
-//     return  view('testckeditorblade');
-// });
+Route::get('/testck', function (Request $request) {
+    return  view('testckeditorblade');
+});
 Route::get('/', function (Request $request) {
     return  view('soon');
 });

@@ -19,7 +19,7 @@ use App\Models\Quiz_question_answers;
 class Newquiz2 extends Component
 {
     use WithFileUploads, ImageProcessing;
-    protected $listeners = ['edit' => 'edit', 'fetchdata' => 'fetchdata'];
+    protected $listeners = ['edit' => 'edit', 'mathadd' => 'mathadd','fetchdata' => 'fetchdata'];
     public $course_id, $courses, $stage_child_id, $stages_id, $stage_child = [], $stages = [], $redirect_mark, $redirect_to_up, $redirect_to_down, $typecategory, $image,
         $questions = [],
         $category = [], $testname, $testcategory, $testtime, $degree_success, $total_scores;
@@ -40,6 +40,10 @@ class Newquiz2 extends Component
     public function edit($id = null)
     {
         $this->dispatch('openmodel');
+    }
+    public function mathadd($id = null)
+    {
+        $this->dispatch('openmodelmathadd');
     }
     public function updatedTypecategory($value)
     {

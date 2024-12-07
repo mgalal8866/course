@@ -4,6 +4,10 @@
             <h3>اضافه اختبار</h3>
             <a class="btn btn-primary" wire:click="$dispatch('edit')">اضافة سؤال</a>
         </div>
+         @push('jslive')
+        <!-- تضمين مكتبة MathJax -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js"></script>
+        @endpush
         @livewire('dashboard.quizzes.model')
 
         <div class="card-body">
