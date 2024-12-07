@@ -134,7 +134,7 @@
 
                  </ul>
              </li> --}}
-             <li class=" nav-item">
+           <li class=" nav-item">
                  <a class="d-flex align-items-center" href="#">
                      <i class="fas fa-copy"></i>
                      <span class="menu-title text-truncate">{{ __('tran.exams') }}</span>
@@ -158,7 +158,7 @@
                              <i data-feather="circle"></i>
                              <span class="menu-item text-truncate">{{ __('tran.viewquiz') }}</span>
                          </a>
-                     </li>
+                     </li> 
                  </ul>
              </li>
              <li class=" nav-item">
