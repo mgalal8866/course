@@ -31,7 +31,7 @@
                                         <span class="fw-bold">{!! $item->qr !!}</span>
                                     </td>
                                     <td>
-                                        <span class="fw-bold">{{$item->group->name??'لاتوجد مجموعة'}}</span>
+                                        <span class="fw-bold">{{ $item->group->name ?? 'لاتوجد مجموعة' }}</span>
                                     </td>
                                     <td>
                                         <span class="fw-bold">{{ env('APP_URL') . '/qr/' . $item->code }}</span>
@@ -47,7 +47,7 @@
                                             href="javascript:void(0);">تعديل </a>
 
                                         <button class="btn btn-info waves-effect waves-float waves-light btn-sm pdfButton"
-                                            data-qr-code-url="http://127.0.0.1:8000/qr/We3GZFk0">Pdf</button>
+                                            data-qr-code-url="http://127.0.0.1:8000/qr/We3GZFk0" data-qr="{{ $item->qr}}">Pdf</button>
 
 
                                     </td>
@@ -98,20 +98,21 @@
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="name" class="form-label">الاسم</label>
-                            <input type="text" class="form-control" id="name" name="name" >
+                            <input type="text" class="form-control" id="name" name="name">
                         </div>
-                         <div class="mb-3">
+                        <div class="mb-3">
                             <label for="group" class="form-label">اختيار مجموعة التحويل</label>
-                            <select type="text" class="form-select" id="group" name="group" >
-                                  <option value="">Select Group</option>
-                            @foreach ( $groups as $group )
-                                  <option value="{{  $group->id }}">{{ $group->name }}</option>
-                            @endforeach                          
+                            <select type="text" class="form-select" id="group" name="group">
+                                <option value="">Select Group</option>
+                                @foreach ($groups as $group)
+                                    <option value="{{ $group->id }}">{{ $group->name }}</option>
+                                @endforeach
                             </select>
                         </div>
-                         <div class="mb-3">
+                        <div class="mb-3">
                             <label for="group" class="form-label">عدد</label>
-                          <input type="number" step="1" min="1" class="form-control" id="repeter" name="repeter" >                         
+                            <input type="number" step="1" min="1" class="form-control" id="repeter"
+                                name="repeter">
                             </select>
                         </div>
                         <div class="mb-3">
@@ -120,8 +121,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="backcolor" class="form-label">اختر اللون الخلفية</label>
-                            <input type="color" class="form-control form-control-color" id="backcolor" name="backcolor"
-                                value="#ffffff" required>
+                            <input type="color" class="form-control form-control-color" id="backcolor"
+                                name="backcolor" value="#ffffff" required>
 
                         </div>
                         <div class="mb-3">
@@ -178,29 +179,41 @@
             document.getElementById('generatePdf').addEventListener('click', function() {
                 const quantity = document.getElementById('pdfQuantity').value;
                 const qrCodeUrl = this.dataset.qrCodeUrl;
+                const qr = this.dataset.qr;
 
-                // Send the quantity and QR code URL to the backend for PDF generation
                 fetch('/dashboard/generate-pdf', {
                         method: 'POST',
                         body: JSON.stringify({
                             qrCodeUrl: qrCodeUrl,
-                            quantity: quantity
+                            quantity: quantity,
+                            qr: qr
                         }),
                         headers: {
                             'Content-Type': 'application/json'
                         }
                     })
-                    .then(response => response.json())
-                    .then(data => {
-                        // Handle success (e.g., show a success message or download the PDF)
-                        console.log('PDF generated successfully', data);
-                        $('#pdfModal').modal('hide');
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Failed to generate PDF');
+                        }
+                        return response.blob(); // Parse the response as a Blob (binary data)
+                    })
+                    .then(blob => {
+                        // Create a download link for the PDF
+                        const url = window.URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = 'qr_code.pdf'; // Set the filename
+                        document.body.appendChild(a);
+                        a.click(); // Programmatically click the link to trigger the download
+                        a.remove(); // Remove the link element
+                        $('#pdfModal').modal('hide'); // Hide the modal if needed
                     })
                     .catch(error => {
-                        // Handle error
                         console.error('Error generating PDF', error);
                     });
             });
+
 
             document.addEventListener('DOMContentLoaded', () => {
                 const addQRCodeButton = document.getElementById('addQRCodeButton');

@@ -27,7 +27,7 @@ class QRCodeController extends Controller
 
             for ($i = 0; $i < $request->repeter; $i++) {
                 $code = Str::random(8);
-                 
+
                 $qr = QrCode::size(100)
                     ->backgroundColor(
                         hexdec(substr($request->backcolor, 1, 2)),
@@ -40,7 +40,7 @@ class QRCodeController extends Controller
                         hexdec(substr($request->color, 5, 2))
                     )
                     //->format('png') // Specify format as PNG
-                    ->generate(env('APP_URL') . '/qr/' . $code  ); // Ensure URL is correct
+                    ->generate(env('APP_URL') . '/qr/' . $code); // Ensure URL is correct
 
                 $qrCode = ModelsQrcode::create([
                     'qr' =>  $qr,
@@ -77,7 +77,7 @@ class QRCodeController extends Controller
                 'code' => $code,
                 'name' => $request->name ?? 'Nartaqi-' . $code,
                 'group_id' => $request->group ?? null,
-                'redirect_to' => $request->redirect_to??env('APP_URL'),
+                'redirect_to' => $request->redirect_to ?? env('APP_URL'),
                 'color' => $request->color,
                 'backcolor' => $request->backcolor,
 
@@ -90,7 +90,7 @@ class QRCodeController extends Controller
         // $qrCode->update(['qr_image' => 'qrcodes/' . $fileName]);
 
         // تحديث الـ QR Code بملف الصورة المحفوظ
-        $qrCode->update(['qr' =>  $qr]);
+        // $qrCode->update(['qr' =>  $qr]);
 
         // إرجاع استجابة بنجاح العملية
         //  return redirect()->route('qr-codes.index')
@@ -113,18 +113,21 @@ class QRCodeController extends Controller
         $validated = $request->validate([
             'qrCodeUrl' => 'required|string',
             'quantity' => 'required|integer|min:1',
+            'qr' => 'required',
         ]);
 
         $qrCodeUrl = $validated['qrCodeUrl'];
         $quantity = $validated['quantity'];
+        $qr = $validated['qr'];
         // Generate the PDF with the validated data
         $pdf = Pdf::loadView('pdf.qr_code', [
             'qrCodeUrl' => $qrCodeUrl,
             'quantity' => $quantity,
+            'qr' => $qr,
         ]);
 
         // Return the PDF as a downloadable file
-        return $pdf->download('qr_code.pdf');
+        return $pdf->download('qr_codes.pdf');
     }
     public function qr_mangement()
     {
