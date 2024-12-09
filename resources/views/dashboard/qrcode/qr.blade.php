@@ -16,6 +16,7 @@
                         <thead>
                             <tr>
                                 <th>{{ __('tran.Qr') }}</th>
+                                <th>{{ __('tran.group') }}</th>
                                 <th>{{ __('tran.link') }}</th>
 
                                 <th>{{ __('tran.redirect_to') }}</th>
@@ -28,6 +29,9 @@
                                 <tr>
                                     <td>
                                         <span class="fw-bold">{!! $item->qr !!}</span>
+                                    </td>
+                                    <td>
+                                        <span class="fw-bold">{{$item->group->name??'لاتوجد مجموعة'}}</span>
                                     </td>
                                     <td>
                                         <span class="fw-bold">{{ env('APP_URL') . '/qr/' . $item->code }}</span>
@@ -94,11 +98,25 @@
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="name" class="form-label">الاسم</label>
-                            <input type="text" class="form-control" id="name" name="name" required>
+                            <input type="text" class="form-control" id="name" name="name" >
+                        </div>
+                         <div class="mb-3">
+                            <label for="group" class="form-label">اختيار مجموعة التحويل</label>
+                            <select type="text" class="form-select" id="group" name="group" >
+                                  <option value="">Select Group</option>
+                            @foreach ( $groups as $group )
+                                  <option value="{{  $group->id }}">{{ $group->name }}</option>
+                            @endforeach                          
+                            </select>
+                        </div>
+                         <div class="mb-3">
+                            <label for="group" class="form-label">عدد</label>
+                          <input type="number" step="1" min="1" class="form-control" id="repeter" name="repeter" >                         
+                            </select>
                         </div>
                         <div class="mb-3">
                             <label for="redirect_to" class="form-label">رابط التحويل</label>
-                            <input type="url" class="form-control" id="redirect_to" name="redirect_to" required>
+                            <input type="url" class="form-control" id="redirect_to" name="redirect_to">
                         </div>
                         <div class="mb-3">
                             <label for="backcolor" class="form-label">اختر اللون الخلفية</label>

@@ -10,4 +10,8 @@ class Qrcode extends Model
     use HasFactory;
     protected $guarded = [];
     
+    public function group()
+    {
+        return $this->belongsTo(QrGroup::class, 'group_id');
+    }
 }
