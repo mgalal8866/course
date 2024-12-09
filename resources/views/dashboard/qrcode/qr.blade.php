@@ -118,7 +118,7 @@
 
                         <div class="mb-3">
                             <label for="group" class="form-label">عدد</label>
-                            <input type="number" step="1" min="1" class="form-control" id="repeter"
+                            <input type="number" step="1" min="1"  value="0" class="form-control" id="repeter"
                                 name="repeter">
                             </select>
                         </div>
