@@ -19,7 +19,7 @@
         }
 
         const editor = CKEDITOR.instances[id];
-        editor.insertHtml(equation); // إدخال المعادلة إلى المحرر باستخدام CKEditor
+        editor.insertHtml(' $$'+ equation + '$$ '); // إدخال المعادلة إلى المحرر باستخدام CKEditor
 
 
         // إغلاق الـ Modal

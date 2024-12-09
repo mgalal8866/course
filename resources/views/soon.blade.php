@@ -28,7 +28,7 @@
         <!--starts logo div -->
 
         <div class="logo">
-            <div class="container"> <a href="#."><img class="logo" style="height:40%;" src="{{ asset('landing/logo.svg') }} "
+            <div class="container"> <a href="#."><img class="logo" style="height:40%;" src="{{ asset('files/nartaqe.png') }}"
                         alt="ALYUSR logo" /></a> </div>
             <div class="clear"></div>
         </div>
@@ -60,7 +60,7 @@
                     </li>
                 </ul>
                 <div class="lightnotify mid">
-                    <h1>...منصة اليسر للدورات التدريبية  - انتظرونا قريبا </h1>
+                    <h1>...منصة نرتقى للدورات التدريبية  - انتظرونا قريبا </h1>
 
                 </div>
                 <div class="clear"></div>
@@ -83,7 +83,7 @@
 
         <div class="lightfooter">
             <div class="container">
-                <p>Copyrights © 2024 ALYUSR - All Rights Reserved.</p>
+                <p>Copyrights © 2024 Nartaqi - All Rights Reserved.</p>
             </div>
             <div class="clear"></div>
         </div>

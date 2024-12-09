@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('code')->index();
             $table->string('color')->nullable();
             $table->string('backcolor')->nullable();
+            $table->foreignId('qrgroup_id')->nullable();
             $table->string('redirect_to');
             $table->timestamps();
         });

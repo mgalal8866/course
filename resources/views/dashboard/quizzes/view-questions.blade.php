@@ -89,6 +89,11 @@
 
 
 @push('jslive')
+
+ <script type="text/javascript" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+ 
 <script>
     $('body').on('click', '.btnmodal', function(event) {
         var id = $(this).data('id');

@@ -47,11 +47,14 @@ function path($course_id, $folder)
 //     return $setting ? $setting->value : $default;
 // }
 if (!function_exists('replaceimageeditor')) {
-    function replaceimageeditor($html){
+    function replaceimageeditor($html)
+    {
         $dom = new \DOMDocument('1.0', 'UTF-8');
         libxml_use_internal_errors(true);
-        $dom->loadHTML('<?xml encoding="UTF-8">' .$html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+
+        $dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
         libxml_clear_errors();
+
         $imageFiles = $dom->getElementsByTagName('img');
         foreach ($imageFiles as $image) {
             $data = $image->getAttribute('src');
@@ -69,8 +72,11 @@ if (!function_exists('replaceimageeditor')) {
                 $image->setAttribute('src', asset('files/blog/editor/' . $imageName));
             }
         }
-        return $dom->saveHTML();
-}
+
+        // Save and encode the HTML back to UTF-8
+        $htmlOutput = $dom->saveHTML();
+        return mb_convert_encoding($htmlOutput, 'UTF-8', 'HTML-ENTITIES');
+    }
 }
 if (!function_exists('copyAndRenameFolder')) {
     function copyAndRenameFolder($source, $destination)
