@@ -173,6 +173,7 @@ Route::get('/test', function (Request $request) {
 
 });
 Route::get('/generate-qrcode', [QRCodeController::class, 'generateQRCode']);
+Route::post('/add-group', [QRCodeController::class, 'addGroup']);
 
 Route::get('qr/{code}',[ QRCodeController::class,'qr_redirect']);
 Route::group(

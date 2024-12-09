@@ -291,7 +291,8 @@
              </li>
              <li class=" nav-item">
                  <a class="d-flex align-items-center" href="#">
-                     <i class="fab fa-blogger"></i>
+                     <i class="fas fa-qrcode"></i>
+
                      <span class="menu-title text-truncate">{{ __('tran.qr') }}</span>
                  </a>
                  <ul class="menu-content">

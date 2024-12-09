@@ -108,6 +108,20 @@ class QRCodeController extends Controller
         // Use Laravel's redirect helper
         return redirect()->away($qrCode->redirect_to);
     }
+    public function addGroup(Request $request)
+    {
+        $validated = $request->validate([
+            'group_name' => 'required|string|max:255',
+        ]);
+
+        $group = new QrGroup();
+        $group->name = $validated['group_name'];
+        $group->save();
+
+        // Return the updated list of groups or the new group as needed
+        return response()->json($group);
+    }
+
     public function generate_pdf(Request $request)
     {
         $validated = $request->validate([

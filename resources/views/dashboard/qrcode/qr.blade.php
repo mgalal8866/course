@@ -47,7 +47,8 @@
                                             href="javascript:void(0);">تعديل </a>
 
                                         <button class="btn btn-info waves-effect waves-float waves-light btn-sm pdfButton"
-                                            data-qr-code-url="http://127.0.0.1:8000/qr/We3GZFk0" data-qr="{{ $item->qr}}">Pdf</button>
+                                            data-qr-code-url="http://127.0.0.1:8000/qr/We3GZFk0"
+                                            data-qr="{{ $item->qr }}">Pdf</button>
 
 
                                     </td>
@@ -108,7 +109,13 @@
                                     <option value="{{ $group->id }}">{{ $group->name }}</option>
                                 @endforeach
                             </select>
+                            <div class="d-flex align-items-center">
+                                <input type="text" class="form-control " id="newGroup"
+                                    placeholder="اضافة مجموعه جديده اذا لم يكن موجود سابقا" />
+                                <button class="btn  btn-primary ml-2" id="addGroupBtn">+</button>
+                            </div>
                         </div>
+
                         <div class="mb-3">
                             <label for="group" class="form-label">عدد</label>
                             <input type="number" step="1" min="1" class="form-control" id="repeter"
@@ -214,7 +221,6 @@
                     });
             });
 
-
             document.addEventListener('DOMContentLoaded', () => {
                 const addQRCodeButton = document.getElementById('addQRCodeButton');
                 const addQrcodeModal = new bootstrap.Modal(document.getElementById('addQrcodeModal'));
@@ -280,7 +286,6 @@
                     console.error('Form not found!');
                 }
             });
-
 
             document.addEventListener('DOMContentLoaded', () => {
                 const editButtons = document.querySelectorAll('.edit-btn');
@@ -358,6 +363,57 @@
                             });
                         });
                 });
+            });
+
+            document.getElementById('addGroupBtn').addEventListener('click', function(event) {
+                event.preventDefault(); // Prevent the default action of the button (which might trigger form submit)
+
+                var newGroup = document.getElementById('newGroup').value;
+                if (newGroup.trim() !== "") {
+                    fetch('/add-group', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                    'content')
+                            },
+                            body: JSON.stringify({
+                                group_name: newGroup
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            var select = document.getElementById('group');
+                            var newOption = document.createElement('option');
+                            newOption.value = data.id; // Assuming the returned data contains the new group's ID
+                            newOption.textContent = data.name;
+
+                            // Add the new option to the select dropdown
+                            select.appendChild(newOption);
+
+                            // Set the new option as the selected option
+                            select.value = data.id;
+
+                            // Clear the input field
+                            document.getElementById('newGroup').value = "";
+
+                            Swal.fire({
+                                title: 'Success!',
+                                text: 'New Group has been added.',
+                                icon: 'success',
+                                customClass: {
+                                    confirmButton: 'btn btn-success'
+                                },
+                                buttonsStyling: false
+                            }).then(() => {
+
+                            });
+
+                        })
+                        .catch(error => console.error('Error:', error));
+                } else {
+                    alert("Please enter a valid group name.");
+                }
             });
         </script>
     @endpush
