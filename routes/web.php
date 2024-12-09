@@ -182,7 +182,7 @@ Route::group(
     ],
     function () {
         Route::post('/generate-pdf',[QrCodeController::class, 'generate_pdf'])->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class]);
-        Route::get('qr_mangement',[ QRCodeController::class,'qr_mangement']);
+        Route::get('qr_mangement',[ QRCodeController::class,'qr_mangement'])->name('qr_mangement');
         Route::post('/qr-codes', [QrCodeController::class, 'store'])->name('qr-codes.store');
 
         Route::put('qr-codes/{qr}',[ QRCodeController::class,'update_qr']);

@@ -197,6 +197,11 @@ return [
     'send' => 'ارسال',
     'redirect_to_up' => 'ترشيح دوره اكبر من الدرجه',
     'redirect_mark' => 'درجه الترشيح',
+    'qr_mangement' => 'اداره رمز QR',
+    'qr' => 'QR',
+    'QrCode' => 'QrCode',
+    'redirect_to' => 'تحويل الى',
+    'group' => 'مجموعة',
     'answer_the_question' => 'أليه الرد على الاستفسار'
 
 ];

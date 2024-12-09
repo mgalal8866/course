@@ -291,6 +291,23 @@
              </li>
              <li class=" nav-item">
                  <a class="d-flex align-items-center" href="#">
+                     <i class="fab fa-blogger"></i>
+                     <span class="menu-title text-truncate">{{ __('tran.qr') }}</span>
+                 </a>
+                 <ul class="menu-content">
+                     <li>
+                         <a class="d-flex align-items-center" href="{{ route('qr_mangement') }}">
+                             <i data-feather="circle"></i>
+                             <span
+                                 class="menu-item text-truncate">{{    __('tran.qr_mangement') }}</span>
+                         </a>
+                     </li>
+                    
+
+                 </ul>
+             </li>
+             <li class=" nav-item">
+                 <a class="d-flex align-items-center" href="#">
                      <i class="far fa-credit-card"></i>
                      <span class="menu-title text-truncate">{{ __('tran.payment_method') }}</span>
                  </a>

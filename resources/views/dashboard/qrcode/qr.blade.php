@@ -15,7 +15,7 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>{{ __('tran.Qr') }}</th>
+                                <th>{{ __('tran.qr') }}</th>
                                 <th>{{ __('tran.group') }}</th>
                                 <th>{{ __('tran.link') }}</th>
 
