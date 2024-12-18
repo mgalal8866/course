@@ -10,10 +10,10 @@
                         @foreach (\App\Enum\Quiz::cases() as $q)
                             <li class="nav-item" wire:ignore.self>
                                 <a class="nav-link @if ($q->value == $selecttab) active @endif"
-                                    id="{{ $q->value }}-tab"
-                                    wire:click.prevent='changeselecttab({{ $q->value }})' data-bs-toggle="tab"
-                                    aria-controls="tt{{ $q->value }}" role="tab"
-                                    aria-selected="true">{{ __('tran.typequiz-' . $q->name) }}</a>
+                                   id="{{ $q->value }}-tab"
+                                   wire:click.prevent='changeselecttab({{ $q->value }})' data-bs-toggle="tab"
+                                   aria-controls="tt{{ $q->value }}" role="tab"
+                                   aria-selected="true">{{ __('tran.typequiz-' . $q->name) }}</a>
                             </li>
                         @endforeach
                     </ul>
@@ -23,33 +23,33 @@
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead>
-                                        <tr>
-                                            <th>{{ __('tran.testname') }}</th>
-                                            @if ($q->value == 3)
-                                                <th>{{ __('tran.category') }}</th>
-                                            @else
-                                                <th>{{ __('tran.category') }}</th>
-                                            @endif
-                                            <th>{{ __('tran.statu') }}</th>
-                                            <th>{{ __('tran.action') }}</th>
-                                        </tr>
+                                    <tr>
+                                        <th>{{ __('tran.testname') }}</th>
+                                        @if ($q->value == 3)
+                                            <th>{{ __('tran.category') }}</th>
+                                        @else
+                                            <th>{{ __('tran.category') }}</th>
+                                        @endif
+                                        <th>{{ __('tran.statu') }}</th>
+                                        <th>{{ __('tran.action') }}</th>
+                                    </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($quiz  as $item)
-                                            <tr>
-                                                <td>
-                                                    <span class="fw-bold">{{ $item->name ?? 'N/A' }}</span>
-                                                </td>
-                                                <td>
-                                                    @if ($selecttab == 3)
-                                                        <span
-                                                            class="fw-bold">{{ $item->course->name ?? 'N/A' }}</span>
-                                                    @else
-                                                        <span
-                                                            class="fw-bold">{{ $item->category->name ?? 'N/A' }}</span>
-                                                    @endif
-                                                </td>
-                                                <td>
+                                    @forelse ($quiz  as $item)
+                                        <tr>
+                                            <td>
+                                                <span class="fw-bold">{{ $item->name ?? 'N/A' }}</span>
+                                            </td>
+                                            <td>
+                                                @if ($selecttab == 3)
+                                                    <span
+                                                        class="fw-bold">{{ $item->course->name ?? 'N/A' }}</span>
+                                                @else
+                                                    <span
+                                                        class="fw-bold">{{ $item->category->name ?? 'N/A' }}</span>
+                                                @endif
+                                            </td>
+                                            <td>
                                                     <span
                                                         class="badge  bg-@switch($item->active)
                                                     @case(0)danger
@@ -61,54 +61,55 @@
                                                         @switch($item->active)
                                                             @case(0)
                                                                 غير مفعل
-                                                            @break
+                                                                @break
 
                                                             @case(1)
                                                                 مفعل
-                                                            @break
+                                                                @break
                                                         @endswitch
                                                     </span>
-                                                </td>
-                                                <td>
-                                                    {{-- <a wire:click="$dispatch('edit',{id:'{{ $item->id }}'})"><i
-                                                        class="fas fa-edit fa-lg" style="color: #c2881e;"></i></i></a> --}}
-                                                    <a wire:click="delete('{{ $item->id }}')"><i
-                                                            class="fas fa-trash-alt fa-lg "
-                                                            style="color: #ff0000;"></i></i></a>
-                                                    <a href="{{ route('viewquestion',['id'=> $item->id]) }}" class="btn btn-sm btn-primary"> عرض  </a>
-                                                </td>
-                                            </tr>
-                                            @empty
-                                                <tr>
-                                                    <td colspan="8" class="alert alert-danger text-center"> No Data Here
-                                                    </td>
-                                                </tr>
-                                            @endforelse
-                                        </tbody>
-                                    </table>
-                                </div>
+                                            </td>
+                                            <td>
+                                                {{-- <a wire:click="$dispatch('edit',{id:'{{ $item->id }}'})"><i
+                                                    class="fas fa-edit fa-lg" style="color: #c2881e;"></i></i></a> --}}
+                                                <a wire:click="delete('{{ $item->id }}')"><i
+                                                        class="fas fa-trash-alt fa-lg "
+                                                        style="color: #ff0000;"></i></i></a>
+                                                <a href="{{ route('viewquestion',['id'=> $item->id]) }}"
+                                                   class="btn btn-sm btn-primary"> عرض </a>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="8" class="alert alert-danger text-center"> No Data Here
+                                            </td>
+                                        </tr>
+                                    @endforelse
+                                    </tbody>
+                                </table>
                             </div>
-
                         </div>
+
                     </div>
                 </div>
             </div>
-
-
         </div>
 
-        @push('jslive')
-            <script>
-                window.addEventListener('swal', event => {
-                    Swal.fire({
-                        title: event.detail.message,
-                        icon: 'info',
-                        customClass: {
-                            confirmButton: 'btn btn-danger'
-                        },
-                        buttonsStyling: false
-                    });
-                })
-            </script>
-        @endpush
+
     </div>
+
+    @push('jslive')
+        <script>
+            window.addEventListener('swal', event => {
+                Swal.fire({
+                    title: event.detail.message,
+                    icon: 'info',
+                    customClass: {
+                        confirmButton: 'btn btn-danger'
+                    },
+                    buttonsStyling: false
+                });
+            })
+        </script>
+    @endpush
+</div>
