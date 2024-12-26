@@ -179,7 +179,7 @@ class DBOrderRepository implements OrderRepositoryinterface
 
                 return    Resp('جارى مراجعه الدفع', 'success', 200, true);
             } elseif ($type  == 2) {
-dd($cart->cart_details->sum('total'));
+                return ($cart->cart_details->sum('total'));
                 $rr = $this->pay($payment_id, $cart->cart_details->sum('total'), $order->id, Auth::guard('student')->user(), $cart->cart_details);
                 // $cart =  Cart::whereUserId(Auth::guard('student')->user()->id)->first();
                 // $cart->cart_details()->delete();
