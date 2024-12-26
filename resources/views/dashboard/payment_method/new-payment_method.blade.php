@@ -53,7 +53,7 @@
                                     <input type="checkbox" class="form-check-input" wire:model='type'
                                         id="type" />
                                     <label class="form-check-label " for="type">
-                                        <span class="switch-icon-left"> Online</span>
+{{--                                        <span class="switch-icon-left"> Online</span>--}}
                                         <span class="switch-icon-right">Offline</span>
                                     </label>
                                 </div>
