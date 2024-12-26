@@ -105,7 +105,13 @@ class DBOrderRepository implements OrderRepositoryinterface
                 }]);
             }, 'coupon'])->first();
 
+            if($blance > 0){
+                $balance =   $cart->cart_details->sum('total') -$blance;
 
+            }else{
+                $balance =   $cart->cart_details->sum('total')  ;
+
+            }
             if ($payment_id == 0) {
 
                 $user =   User::find(Auth::guard('student')->user()->id);
@@ -120,7 +126,7 @@ class DBOrderRepository implements OrderRepositoryinterface
                 'transaction_id' => null,
                 'subtotal'       => $cart->cart_details->sum('subtotal'),
                 'discount'       => $cart->cart_details->sum('discount'),
-                'total'          => $cart->cart_details->sum('total'),
+                'total'          => $balance,
             ]);
 
 
@@ -149,7 +155,7 @@ class DBOrderRepository implements OrderRepositoryinterface
                     'user_id'       => Auth::guard('student')->user()->id,
                     'payment_type'  => $type,
                     'order_id'      => $order->id,
-                    'price'         => $cart->cart_details->sum('total'),
+                    'price'         => $balance,
                     'response'      => $response,
                     'image'         => null,
                     'statu'         => PaymentStatus::Pending,
@@ -162,7 +168,7 @@ class DBOrderRepository implements OrderRepositoryinterface
                         'user_id'       => Auth::guard('student')->user()->id,
                         'payment_type'  => $type,
                         'order_id'      => $order->id,
-                        'price'         => $cart->cart_details->sum('total'),
+                        'price'         => $balance,
                         'response'      => $response,
                         'image'         => null,
                         'statu'         => PaymentStatus::Pending,
@@ -179,8 +185,9 @@ class DBOrderRepository implements OrderRepositoryinterface
 
                 return    Resp('جارى مراجعه الدفع', 'success', 200, true);
             } elseif ($type  == 2) {
-                return ($cart->cart_details->sum('total'));
-                $rr = $this->pay($payment_id, $cart->cart_details->sum('total'), $order->id, Auth::guard('student')->user(), $cart->cart_details);
+
+
+                $rr = $this->pay($payment_id,      $balance, $order->id, Auth::guard('student')->user(), $cart->cart_details);
                 // $cart =  Cart::whereUserId(Auth::guard('student')->user()->id)->first();
                 // $cart->cart_details()->delete();
                 // $cart->delete();
