@@ -41,6 +41,7 @@
                                     </td>
 
                                     <td>
+
                                         {{-- <a class="btn btn-danger waves-effect waves-float waves-light btn-sm">حالة</a> --}}
                                         {{-- <a class="btn btn-info waves-effect waves-float waves-light btn-sm">عرض</a> --}}
                                        @if($item->type->value != 2)  <a class="btn btn-info waves-effect waves-float waves-light btn-sm"
