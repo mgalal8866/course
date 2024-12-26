@@ -24,7 +24,7 @@ class NewPaymentMethod extends Component
             $tra = PaymentMethods::find($id);
             // dd($tra->type->value);
             $this->id = $tra->id;
-            $this->type = $tra->type->value == 1 ? false: true;
+            $this->type = 1;
             $this->name = $tra->name;
             $this->imagold = $tra->image !=null ? $tra->imageurl:null;
             $this->account_number = $tra->account_number;
@@ -46,8 +46,7 @@ class NewPaymentMethod extends Component
     {
         $this->validate();
         $CFC = PaymentMethods::updateOrCreate(['id' => $this->id], [
-            'name'           => $this->name,
-            'type'           => $this->type ==true? 2:1,
+            'type'           => 1,
             'name'           => $this->name,
             'account_number' => $this->account_number,
             'account_name'   => $this->account_name,

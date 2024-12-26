@@ -44,7 +44,7 @@
                                 <span class="error" style="color: red">{{ $message }}</span>
                             @enderror
                         </div>
-<input type="hidden" hidden="hidden" value="1" wire:model='type'>
+<input type="hidden" hidden="hidden"  wire:model='type'>
 {{--                        <div class="col-12 col-md-6">--}}
 {{--                            <div class="d-flex flex-column">--}}
 {{--                                <label class="form-check-label mb-50" for="type">--}}
