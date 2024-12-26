@@ -44,21 +44,21 @@
                                 <span class="error" style="color: red">{{ $message }}</span>
                             @enderror
                         </div>
-
-                        <div class="col-12 col-md-6">
-                            <div class="d-flex flex-column">
-                                <label class="form-check-label mb-50" for="type">
-                                    {{ __('tran.typemethod') }}</label>
-                                <div class="form-check form-switch form-check-success">
-                                    <input type="checkbox" class="form-check-input" wire:model='type'
-                                        id="type" />
-                                    <label class="form-check-label " for="type">
+<input type="hidden" hidden="hidden" value="1" wire:model='type'>
+{{--                        <div class="col-12 col-md-6">--}}
+{{--                            <div class="d-flex flex-column">--}}
+{{--                                <label class="form-check-label mb-50" for="type">--}}
+{{--                                    {{ __('tran.typemethod') }}</label>--}}
+{{--                                <div class="form-check form-switch form-check-success">--}}
+{{--                                    <input type="checkbox" class="form-check-input" wire:model='type'--}}
+{{--                                        id="type" />--}}
+{{--                                    <label class="form-check-label " for="type">--}}
 {{--                                        <span class="switch-icon-left"> Online</span>--}}
-                                        <span class="switch-icon-right">Offline</span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
+{{--                                        <span class="switch-icon-right">Offline</span>--}}
+{{--                                    </label>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
                         @if ($edit)
                             <div class="col-12 col-md-6">
                                 <div class="d-flex flex-column">
