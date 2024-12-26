@@ -36,6 +36,7 @@ class DBOrderRepository implements OrderRepositoryinterface
     }
     public function pay($payment_id, $carttotl, $invoice_number, $customer, $cartItems)
     {
+        dd($carttotl);
        $payment =  PaymentMethods::find($payment_id);
         $cart = [];
         foreach ($cartItems as $item) {
