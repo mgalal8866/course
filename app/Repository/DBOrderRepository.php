@@ -38,15 +38,15 @@ class DBOrderRepository implements OrderRepositoryinterface
     {
 
        $payment =  PaymentMethods::find($payment_id);
-        $cart = [];
-        foreach ($cartItems as $item) {
+//        $cart = [];
+//        foreach ($cartItems as $item) {
 
             $cart[] = [
-                'name'   => $item->is_book == 1 ? $item->book->book_name : $item->course->name ?? '',
-                'price' => $item->total,
-                'quantity' => $item->qty
+                'name'   => 'course',
+                'price' => $carttotl,
+                'quantity' => 1
             ];
-        }
+//        }
 
         $response = Http::withHeaders([
             'Content-Type' => 'application/json',
