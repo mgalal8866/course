@@ -6,6 +6,7 @@ cmds = [
     "mkdir -p /etc/supervisor/conf.d/",
     "cp /assets/worker-*.conf /etc/supervisor/conf.d/",
     "cp /assets/supervisord.conf /etc/supervisord.conf",
+    "cp /assets/.htaccess /app/.htaccess",
     "chmod +x /assets/start.sh",
     "..."
 ]
@@ -98,7 +99,15 @@ pm.max_spare_servers = 10
 pm.start_servers = 5
 clear_env = no
 php_admin_value[memory_limit] = 2G
+'''
 
+".htaccess" = '''
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
 '''
 
 "nginx.template.conf" = '''
@@ -145,16 +154,43 @@ http {
 
         charset utf-8;
 
+        # Apache-style rewrite rules converted to Nginx
+        # Equivalent to: RewriteRule ^(.*)$ public/$1 [L]
+        location / {
+            # First try to serve request as file, then as directory
+            # If neither exists, redirect to public directory
+            try_files $uri $uri/ @apache_style_rewrite;
+        }
+
+        # Handle the Apache-style rewrite fallback
+        location @apache_style_rewrite {
+            # Check if file exists in public directory
+            try_files /public$uri /public$uri/ /public/index.php?$query_string;
+        }
 
         $if(NIXPACKS_PHP_FALLBACK_PATH) (
-            location / {
+            location /app {
                 try_files $uri $uri/ ${NIXPACKS_PHP_FALLBACK_PATH}?$query_string;
             }
         ) else (
-          location / {
+          location /app {
                 try_files $uri $uri/ /index.php?$query_string;
            }
         )
+
+        # Handle requests directly to public directory
+        location /public {
+            alias /app/public;
+            try_files $uri $uri/ /public/index.php?$query_string;
+
+            location ~ \.php$ {
+                fastcgi_pass 127.0.0.1:9000;
+                fastcgi_param SCRIPT_FILENAME /app/public$fastcgi_script_name;
+                include $!{nginx}/conf/fastcgi_params;
+                include $!{nginx}/conf/fastcgi.conf;
+                fastcgi_param PHP_VALUE "upload_max_filesize=30M \n post_max_size=35M";
+            }
+        }
 
         location = /favicon.ico { access_log off; log_not_found off; }
         location = /robots.txt  { access_log off; log_not_found off; }
@@ -175,11 +211,12 @@ http {
         location ~ /\.(?!well-known).* {
             deny all;
         }
-          location /storage {
-                 root /app/public;
-                 autoindex on;
-                 try_files $uri $uri/ =404;
-             }
+
+        location /storage {
+            root /app/public;
+            autoindex on;
+            try_files $uri $uri/ =404;
+        }
     }
 }
 '''
