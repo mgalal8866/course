@@ -60,6 +60,7 @@ use App\Repositoryinterface\CategoryCourseRepositoryinterface;
 use App\Repositoryinterface\CategoryGradesRepositoryinterface;
 use App\Repositoryinterface\CourseEnrolledRepositoryinterface;
 use App\Repositoryinterface\CategoryFreeCourseRepositoryinterface;
+use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -108,6 +109,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        URL::forceScheme('https');
         Relation::morphMap([
             'course'=> Courses::class,
             'freecourse'=>FreeCourse::class
