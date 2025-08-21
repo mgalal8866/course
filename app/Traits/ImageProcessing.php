@@ -13,9 +13,10 @@ trait ImageProcessing
     {
         $path = public_path() . '/files' . '/' . $folder . '/' . $course_id . '/';
         if ($folder2 != null) {
-
+            $path = public_path() . '/files' ;
             $path =  $path . '/' .  $folder2 . '/';
         }
+
         if (!File::exists($path)) {
             mkdir($path, 0777, true);
         }
@@ -64,7 +65,7 @@ trait ImageProcessing
 
         return $imgpath;
     }
-    
+
     public function aspect4height($image, $width, $height)
     {
         $img = Image::make($image);
