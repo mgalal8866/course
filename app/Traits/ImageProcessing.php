@@ -12,16 +12,22 @@ trait ImageProcessing
     public function path($course_id, $folder, $folder2 = null)
     {
         $path = public_path() . '/files' . '/' . $folder . '/' . $course_id . '/';
+
+        if ($folder2 != null && $folder != null) {
+            $path = public_path() . '/files' . '/' . $folder . '/' . $course_id . '/' . $folder2 . '/';
+        }
+
         if ($folder2 != null && $folder == null) {
-            $path = public_path() . '/files' ;
-            $path =  $path . '/' .  $folder2 . '/';
+            $path = public_path() . '/files';
+            $path = $path . '/' . $folder2 . '/';
         }
 
         if (!File::exists($path)) {
             mkdir($path, 0777, true);
         }
-        return  $path;
+        return $path;
     }
+
     public function get_mime($mime)
     {
         if ($mime == 'image/png')
@@ -39,6 +45,7 @@ trait ImageProcessing
 
         return $extension;
     }
+
     public function saveImage($image, $course_id, $folder, $folder2 = null)
     {
         $img = Image::make($image);
@@ -46,10 +53,11 @@ trait ImageProcessing
 
         $str_random = Str::random(4);
         $imgpath = $str_random . time() . $extension;
-        $img->save($this->path($course_id, $folder, $folder2) .  $imgpath);
+        $img->save($this->path($course_id, $folder, $folder2) . $imgpath);
 
         return $imgpath;
     }
+
     public function aspect4resize($image, $width, $height, $course_id, $folder, $folder2 = null)
     {
         $img = Image::make($image);
@@ -60,7 +68,7 @@ trait ImageProcessing
 
 
         $imgpath = $str_random . time() . $extension;
-        $img->save($this->path($course_id, $folder, $folder2)  .  $imgpath);
+        $img->save($this->path($course_id, $folder, $folder2) . $imgpath);
         // $img->save(storage_path('app/imagesfp') . '/' . $imgpath);
 
         return $imgpath;
@@ -91,7 +99,7 @@ trait ImageProcessing
         $dataX = array();
         if ($height != null && $width != null) {
 
-            $dataX['image'] = $this->aspect4resize($Thefile,  $width, $height, $course_id, $folder, $folder2);
+            $dataX['image'] = $this->aspect4resize($Thefile, $width, $height, $course_id, $folder, $folder2);
         } else {
             $dataX['image'] = $this->saveImage($Thefile, $course_id, $folder, $folder2);
         }
@@ -120,7 +128,7 @@ trait ImageProcessing
     {
     }
 
-    public function watermark($p1, $p2,$savepath)
+    public function watermark($p1, $p2, $savepath)
     {
 
         $watermark = Image::make($p2);
