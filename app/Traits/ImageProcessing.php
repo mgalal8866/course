@@ -12,7 +12,7 @@ trait ImageProcessing
     public function path($course_id, $folder, $folder2 = null)
     {
         $path = public_path() . '/files' . '/' . $folder . '/' . $course_id . '/';
-        if ($folder2 != null) {
+        if ($folder2 != null && $folder == null) {
             $path = public_path() . '/files' ;
             $path =  $path . '/' .  $folder2 . '/';
         }
