@@ -65,6 +65,7 @@ if (!function_exists('replaceimageeditor')) {
                 if (!File::exists($path)) {
                     mkdir($path, 0777, true);
                 }
+
                 $data = str_replace(' ', '+', $data);
                 $imageName = Str::random(10) . '.png';
                 File::put($path . '/' . $imageName, base64_decode($data));
@@ -104,16 +105,9 @@ if (!function_exists('getSetting')) {
 if (!function_exists('uploadfile')) {
     function uploadfile($file, $filePath)
     {
-        // $file = $orginalfile;
-        // $filename = time() . '.' . $file->extension();
-        // $timestamp = 1706938020;
-        // $datetime = date("Y-m-d H:i:s", $timestamp);
-        // echo $datetime;
-        // dd($datetime    );
-        // $filePath = $this->path($CFC->id, 'courses');
-        // if (!file_exists($filePath)) {
-        //     mkdir($filePath, 0777, true);
-        // }
+        if (!File::exists($filePath)) {
+            mkdir($filePath, 0777, true);
+        }
         $filename =  $file->getClientOriginalName();;
         $file->storeAs($filePath, $filename, 'files');
         return $filename;
